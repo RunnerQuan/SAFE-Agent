@@ -1,0 +1,500 @@
+import { Agent, Scan, Report, ReportDetail, LogEntry, DashboardStats } from './types'
+import { generateId } from './utils'
+
+// Mock Agents
+export const mockAgents: Agent[] = [
+  {
+    id: 'agent-001',
+    name: 'GPT-4 Assistant',
+    version: '1.0.0',
+    description: '通用对话助手，支持多种任务处理',
+    tags: ['对话', 'GPT-4', '通用'],
+    inputType: 'endpoint',
+    createdAt: '2024-12-01T10:00:00Z',
+    updatedAt: '2024-12-15T14:30:00Z',
+    endpointUrl: 'https://api.openai.com/v1/chat/completions',
+    authType: 'bearer',
+    toolCount: 12,
+    highRiskToolCount: 3,
+    lastScanAt: '2024-12-20T09:00:00Z',
+  },
+  {
+    id: 'agent-002',
+    name: 'Code Review Agent',
+    version: '2.1.0',
+    description: '自动化代码审查智能体，支持多种编程语言',
+    tags: ['代码审查', '安全', 'DevOps'],
+    inputType: 'spec_upload',
+    createdAt: '2024-11-15T08:00:00Z',
+    updatedAt: '2024-12-10T16:00:00Z',
+    specFilename: 'code-review-spec.yaml',
+    toolCount: 8,
+    highRiskToolCount: 2,
+    lastScanAt: '2024-12-18T11:30:00Z',
+  },
+  {
+    id: 'agent-003',
+    name: 'Data Analysis Bot',
+    version: '1.5.0',
+    description: '数据分析智能体，支持SQL查询和数据可视化',
+    tags: ['数据分析', 'SQL', '可视化'],
+    inputType: 'endpoint',
+    createdAt: '2024-10-20T12:00:00Z',
+    updatedAt: '2024-12-05T10:00:00Z',
+    endpointUrl: 'https://internal-api.example.com/data-bot',
+    authType: 'api_key',
+    toolCount: 15,
+    highRiskToolCount: 5,
+    lastScanAt: '2024-12-22T15:00:00Z',
+  },
+  {
+    id: 'agent-004',
+    name: 'Customer Support Agent',
+    version: '3.0.0',
+    description: '客户服务智能体，处理常见问题和工单',
+    tags: ['客服', '自动化', 'CRM'],
+    inputType: 'spec_upload',
+    createdAt: '2024-09-01T09:00:00Z',
+    updatedAt: '2024-11-20T11:00:00Z',
+    specFilename: 'support-agent-v3.json',
+    toolCount: 20,
+    highRiskToolCount: 4,
+  },
+  {
+    id: 'agent-005',
+    name: 'Security Scanner',
+    version: '1.2.0',
+    description: '安全扫描智能体，检测常见安全漏洞',
+    tags: ['安全', '扫描', '漏洞'],
+    inputType: 'endpoint',
+    createdAt: '2024-12-10T14:00:00Z',
+    updatedAt: '2024-12-25T09:00:00Z',
+    endpointUrl: 'https://security.example.com/scanner',
+    authType: 'bearer',
+    toolCount: 25,
+    highRiskToolCount: 8,
+    lastScanAt: '2024-12-28T10:00:00Z',
+  },
+]
+
+// Mock Scans
+export const mockScans: Scan[] = [
+  {
+    id: 'scan-001',
+    agentId: 'agent-001',
+    agentName: 'GPT-4 Assistant',
+    types: ['exposure', 'fuzzing'],
+    status: 'succeeded',
+    createdAt: '2024-12-28T10:00:00Z',
+    startedAt: '2024-12-28T10:00:05Z',
+    finishedAt: '2024-12-28T10:15:30Z',
+    durationMs: 925000,
+    progress: { stage: 'done', percent: 100 },
+    reportId: 'report-001',
+  },
+  {
+    id: 'scan-002',
+    agentId: 'agent-002',
+    agentName: 'Code Review Agent',
+    types: ['exposure'],
+    status: 'running',
+    createdAt: '2024-12-28T14:00:00Z',
+    startedAt: '2024-12-28T14:00:02Z',
+    progress: { stage: 'run', percent: 65, message: '正在分析数据流...' },
+  },
+  {
+    id: 'scan-003',
+    agentId: 'agent-003',
+    agentName: 'Data Analysis Bot',
+    types: ['fuzzing'],
+    status: 'failed',
+    createdAt: '2024-12-27T09:00:00Z',
+    startedAt: '2024-12-27T09:00:03Z',
+    finishedAt: '2024-12-27T09:05:20Z',
+    durationMs: 317000,
+    progress: { stage: 'run', percent: 45, message: '连接超时' },
+  },
+  {
+    id: 'scan-004',
+    agentId: 'agent-001',
+    agentName: 'GPT-4 Assistant',
+    types: ['exposure'],
+    status: 'queued',
+    createdAt: '2024-12-28T16:00:00Z',
+    progress: { stage: 'parse', percent: 0 },
+  },
+  {
+    id: 'scan-005',
+    agentId: 'agent-005',
+    agentName: 'Security Scanner',
+    types: ['exposure', 'fuzzing'],
+    status: 'succeeded',
+    createdAt: '2024-12-26T11:00:00Z',
+    startedAt: '2024-12-26T11:00:04Z',
+    finishedAt: '2024-12-26T11:25:00Z',
+    durationMs: 1496000,
+    progress: { stage: 'done', percent: 100 },
+    reportId: 'report-002',
+  },
+]
+
+// Mock Reports
+export const mockReports: Report[] = [
+  {
+    id: 'report-001',
+    agentId: 'agent-001',
+    agentName: 'GPT-4 Assistant',
+    scanId: 'scan-001',
+    createdAt: '2024-12-28T10:15:30Z',
+    types: ['exposure', 'fuzzing'],
+    risk: 'high',
+    summary: {
+      totalFindings: 12,
+      exposureFindings: 5,
+      fuzzingFindings: 7,
+    },
+  },
+  {
+    id: 'report-002',
+    agentId: 'agent-005',
+    agentName: 'Security Scanner',
+    scanId: 'scan-005',
+    createdAt: '2024-12-26T11:25:00Z',
+    types: ['exposure', 'fuzzing'],
+    risk: 'medium',
+    summary: {
+      totalFindings: 8,
+      exposureFindings: 3,
+      fuzzingFindings: 5,
+    },
+  },
+  {
+    id: 'report-003',
+    agentId: 'agent-002',
+    agentName: 'Code Review Agent',
+    scanId: 'scan-006',
+    createdAt: '2024-12-25T15:00:00Z',
+    types: ['exposure'],
+    risk: 'low',
+    summary: {
+      totalFindings: 2,
+      exposureFindings: 2,
+    },
+  },
+  {
+    id: 'report-004',
+    agentId: 'agent-003',
+    agentName: 'Data Analysis Bot',
+    scanId: 'scan-007',
+    createdAt: '2024-12-24T10:00:00Z',
+    types: ['fuzzing'],
+    risk: 'high',
+    summary: {
+      totalFindings: 15,
+      fuzzingFindings: 15,
+    },
+  },
+]
+
+// Mock Report Detail
+export const mockReportDetails: Record<string, ReportDetail> = {
+  'report-001': {
+    id: 'report-001',
+    agentId: 'agent-001',
+    agentName: 'GPT-4 Assistant',
+    scanId: 'scan-001',
+    createdAt: '2024-12-28T10:15:30Z',
+    types: ['exposure', 'fuzzing'],
+    risk: 'high',
+    summary: {
+      totalFindings: 12,
+      exposureFindings: 5,
+      fuzzingFindings: 7,
+    },
+    overviewText: [
+      '检测发现该智能体存在多个高风险安全问题，需要立即处理。',
+      '数据暴露检测发现5处敏感信息泄露风险，包括用户PII和API凭证。',
+      '模糊测试发现7个潜在漏洞，其中包括2个提示注入风险。',
+    ],
+    exposure: {
+      findings: [
+        {
+          id: 'exp-001',
+          severity: 'high',
+          title: '用户PII数据直接暴露',
+          description: '检测到智能体在响应中直接返回了用户的个人身份信息，包括邮箱和手机号。',
+          evidence: '{"user_email": "john.doe@example.com", "phone": "138****1234"}',
+          dataType: 'PII',
+          source: 'user_database',
+          sinks: ['api_response', 'log_file'],
+          flowPath: ['user_input', 'query_handler', 'database_fetch', 'response_builder', 'api_output'],
+        },
+        {
+          id: 'exp-002',
+          severity: 'high',
+          title: 'API密钥泄露',
+          description: '智能体的配置中包含硬编码的API密钥，可能被恶意用户提取。',
+          evidence: 'api_key = "sk-xxxxxxxxxxxxxx"',
+          dataType: 'Credential',
+          source: 'config_file',
+          sinks: ['error_message'],
+          flowPath: ['config_loader', 'error_handler', 'response'],
+        },
+        {
+          id: 'exp-003',
+          severity: 'medium',
+          title: '内部系统信息泄露',
+          description: '错误消息中包含内部系统路径和版本信息。',
+          evidence: '/opt/app/v2.1.0/handlers/query.py:line 142',
+          dataType: 'Internal',
+          source: 'stack_trace',
+          sinks: ['error_response'],
+          flowPath: ['exception', 'error_handler', 'response'],
+        },
+        {
+          id: 'exp-004',
+          severity: 'medium',
+          title: '数据库连接字符串暴露',
+          description: '日志输出中包含数据库连接信息。',
+          evidence: 'postgresql://user:***@internal-db:5432/app',
+          dataType: 'Credential',
+          source: 'log_output',
+          sinks: ['log_file'],
+        },
+        {
+          id: 'exp-005',
+          severity: 'low',
+          title: '会话ID可预测',
+          description: '生成的会话ID基于时间戳，存在可预测性风险。',
+          dataType: 'Secrets',
+          source: 'session_generator',
+        },
+      ],
+    },
+    fuzzing: {
+      findings: [
+        {
+          id: 'fuzz-001',
+          severity: 'high',
+          title: '提示注入漏洞',
+          description: '智能体容易受到提示注入攻击，攻击者可以绕过系统指令。',
+          attackType: 'prompt_injection',
+          payloadSummary: 'Ignore previous instructions and...',
+          reproductionSteps: '1. 发送包含"忽略之前的指令"的消息\n2. 追加恶意指令\n3. 观察智能体执行未授权操作',
+          trace: ['input_parser', 'prompt_builder', 'llm_call', 'response_generator'],
+        },
+        {
+          id: 'fuzz-002',
+          severity: 'high',
+          title: '越狱攻击成功',
+          description: '使用DAN类型提示成功绕过内容安全限制。',
+          attackType: 'jailbreak',
+          payloadSummary: 'DAN mode activation pattern',
+          reproductionSteps: '1. 使用角色扮演技术\n2. 诱导智能体进入"无限制模式"\n3. 请求被禁止的内容',
+        },
+        {
+          id: 'fuzz-003',
+          severity: 'medium',
+          title: '间接提示注入',
+          description: '通过外部数据源注入恶意指令。',
+          attackType: 'taint_style',
+          payloadSummary: '嵌入在网页内容中的隐藏指令',
+          trace: ['web_fetch', 'content_parser', 'context_builder', 'llm_call'],
+        },
+        {
+          id: 'fuzz-004',
+          severity: 'medium',
+          title: '工具调用滥用',
+          description: '智能体可被诱导执行未授权的工具调用。',
+          attackType: 'tool_abuse',
+          payloadSummary: '诱导执行文件系统操作',
+        },
+        {
+          id: 'fuzz-005',
+          severity: 'medium',
+          title: '上下文污染',
+          description: '对话历史可被污染以影响后续响应。',
+          attackType: 'context_poisoning',
+        },
+        {
+          id: 'fuzz-006',
+          severity: 'low',
+          title: '资源耗尽风险',
+          description: '长输入可能导致处理时间过长。',
+          attackType: 'resource_exhaustion',
+        },
+        {
+          id: 'fuzz-007',
+          severity: 'low',
+          title: '输出格式绕过',
+          description: '可以绕过输出格式限制。',
+          attackType: 'format_bypass',
+        },
+      ],
+      stats: {
+        prompt_injection: 2,
+        jailbreak: 1,
+        taint_style: 1,
+        tool_abuse: 1,
+        context_poisoning: 1,
+        resource_exhaustion: 1,
+      },
+    },
+    recommendations: [
+      '实施严格的输入验证和过滤，防止提示注入攻击',
+      '移除所有硬编码的敏感凭证，使用安全的密钥管理服务',
+      '实施输出过滤，防止PII和内部信息泄露',
+      '添加更强的内容安全过滤器以防止越狱攻击',
+      '实施请求速率限制以防止资源耗尽',
+      '审计所有工具调用权限，实施最小权限原则',
+      '定期进行安全扫描和渗透测试',
+    ],
+    raw: {
+      version: '1.0',
+      scanConfig: { types: ['exposure', 'fuzzing'], intensity: 'standard' },
+      timestamp: '2024-12-28T10:15:30Z',
+    },
+  },
+  'report-002': {
+    id: 'report-002',
+    agentId: 'agent-005',
+    agentName: 'Security Scanner',
+    scanId: 'scan-005',
+    createdAt: '2024-12-26T11:25:00Z',
+    types: ['exposure', 'fuzzing'],
+    risk: 'medium',
+    summary: {
+      totalFindings: 8,
+      exposureFindings: 3,
+      fuzzingFindings: 5,
+    },
+    overviewText: [
+      '安全扫描发现中等风险问题，建议优先处理。',
+      '主要问题集中在配置不当和输入验证不足。',
+    ],
+    exposure: {
+      findings: [
+        {
+          id: 'exp-101',
+          severity: 'medium',
+          title: '日志级别过高',
+          description: '生产环境日志级别设置为DEBUG，可能泄露敏感信息。',
+          dataType: 'Internal',
+        },
+        {
+          id: 'exp-102',
+          severity: 'low',
+          title: '版本信息暴露',
+          description: 'HTTP响应头暴露了服务器版本信息。',
+          dataType: 'Internal',
+        },
+        {
+          id: 'exp-103',
+          severity: 'low',
+          title: 'CORS配置宽松',
+          description: 'CORS策略允许任意来源访问。',
+          dataType: 'Internal',
+        },
+      ],
+    },
+    fuzzing: {
+      findings: [
+        {
+          id: 'fuzz-101',
+          severity: 'medium',
+          title: '参数注入',
+          description: '部分API端点存在参数注入风险。',
+          attackType: 'param_injection',
+        },
+        {
+          id: 'fuzz-102',
+          severity: 'medium',
+          title: '错误处理不当',
+          description: '异常情况下返回过多调试信息。',
+          attackType: 'error_leak',
+        },
+        {
+          id: 'fuzz-103',
+          severity: 'low',
+          title: '输入长度无限制',
+          description: '某些字段未设置最大长度限制。',
+          attackType: 'resource_exhaustion',
+        },
+        {
+          id: 'fuzz-104',
+          severity: 'low',
+          title: '响应时间差异',
+          description: '不同输入的响应时间差异可能泄露信息。',
+          attackType: 'timing_attack',
+        },
+        {
+          id: 'fuzz-105',
+          severity: 'low',
+          title: '编码处理不一致',
+          description: 'Unicode编码处理在不同端点不一致。',
+          attackType: 'encoding_issue',
+        },
+      ],
+    },
+    recommendations: [
+      '将生产环境日志级别调整为WARNING或ERROR',
+      '从响应头移除服务器版本信息',
+      '配置严格的CORS策略',
+      '实施完善的输入验证',
+      '统一错误处理机制',
+    ],
+    raw: {
+      version: '1.0',
+      scanConfig: { types: ['exposure', 'fuzzing'], intensity: 'standard' },
+    },
+  },
+}
+
+// Mock Logs
+export function generateMockLogs(count: number = 5): LogEntry[] {
+  const templates = [
+    { level: 'info' as const, message: '开始解析Agent配置...' },
+    { level: 'info' as const, message: '配置验证通过' },
+    { level: 'info' as const, message: '初始化检测引擎...' },
+    { level: 'info' as const, message: '加载安全规则库...' },
+    { level: 'info' as const, message: '开始数据流分析...' },
+    { level: 'warn' as const, message: '检测到潜在的数据泄露点' },
+    { level: 'info' as const, message: '执行模糊测试用例 #1...' },
+    { level: 'info' as const, message: '执行模糊测试用例 #2...' },
+    { level: 'warn' as const, message: '发现可疑响应模式' },
+    { level: 'info' as const, message: '正在分析攻击向量...' },
+    { level: 'error' as const, message: '检测到高风险漏洞' },
+    { level: 'info' as const, message: '生成检测报告...' },
+    { level: 'info' as const, message: '检测完成' },
+  ]
+
+  const logs: LogEntry[] = []
+  for (let i = 0; i < count; i++) {
+    const template = templates[Math.min(i, templates.length - 1)]
+    logs.push({
+      id: generateId(),
+      timestamp: new Date(Date.now() - (count - i) * 2000).toISOString(),
+      level: template.level,
+      message: template.message,
+    })
+  }
+  return logs
+}
+
+// Dashboard Stats
+export const mockDashboardStats: DashboardStats = {
+  agentCount: mockAgents.length,
+  recentScanCount: mockScans.filter(s =>
+    new Date(s.createdAt) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
+  ).length,
+  failedScanCount: mockScans.filter(s => s.status === 'failed').length,
+  highRiskReportCount: mockReports.filter(r => r.risk === 'high').length,
+}
+
+// In-memory state for mock mutations
+export const mockState = {
+  agents: [...mockAgents],
+  scans: [...mockScans],
+  reports: [...mockReports],
+  reportDetails: { ...mockReportDetails },
+}
