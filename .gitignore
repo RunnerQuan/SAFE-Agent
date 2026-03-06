@@ -6,4 +6,6 @@ out/
 node_modules/
 .claude/
 .history/
+.codex/
+.cursor/
 前端设计文档.md
