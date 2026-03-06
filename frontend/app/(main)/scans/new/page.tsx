@@ -1,16 +1,25 @@
-'use client'
+﻿'use client'
 
-import { useState, useEffect, Suspense } from 'react'
-import { useQuery, useMutation } from '@tanstack/react-query'
+import { Suspense, useEffect, useMemo, useState } from 'react'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { motion } from 'framer-motion'
-import { Loader2, Zap, Shield, Bug, Bot, Sparkles, CheckCircle } from 'lucide-react'
+import {
+  Bot,
+  Bug,
+  CheckCircle2,
+  Loader2,
+  Shield,
+  Sparkles,
+  Target,
+  Zap,
+} from 'lucide-react'
 import { toast } from 'sonner'
 import { PageHeader } from '@/components/common/page-header'
 import { Button } from '@/components/ui/button'
-import { Label } from '@/components/ui/label'
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
+import { Label } from '@/components/ui/label'
 import {
   Select,
   SelectContent,
@@ -19,34 +28,43 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { LoadingSkeleton } from '@/components/common/loading-skeleton'
-import { listAgents, getScan, createScan } from '@/lib/api'
+import { createScan, getScan, listAgents } from '@/lib/api'
+import { cn } from '@/lib/utils'
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1 },
-  },
-}
+type FuzzingIntensity = 'light' | 'standard' | 'strong'
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 },
-}
+type ScanPreset = 'exposure' | 'fuzzing' | null
 
 const dataTypeOptions = [
-  { id: 'pii', label: 'PII (个人身份信息)', description: '姓名、身份证、电话等' },
-  { id: 'credential', label: 'Credential (凭证信息)', description: '密码、令牌等' },
-  { id: 'secrets', label: 'Secrets (密钥)', description: 'API Key、私钥等' },
-  { id: 'internal', label: 'Internal (内部信息)', description: '内部系统信息' },
-]
+  { id: 'pii', label: 'PII 个人身份信息', description: '姓名、手机号、身份证号等敏感个人信息' },
+  { id: 'credential', label: 'Credential 凭证信息', description: '账号密码、Session、访问令牌等' },
+  { id: 'secrets', label: 'Secrets 密钥', description: 'API Key、私钥、数据库连接串等' },
+  { id: 'internal', label: 'Internal 内部信息', description: '系统提示词、内部路径、私有接口等' },
+] as const
 
 const attackTypeOptions = [
-  { id: 'prompt_injection', label: '提示注入', description: '检测提示注入漏洞' },
-  { id: 'jailbreak', label: '越狱攻击', description: '检测越狱攻击风险' },
-  { id: 'taint_style', label: '污点攻击', description: '检测数据污染风险' },
-  { id: 'tool_abuse', label: '工具滥用', description: '检测工具滥用风险' },
-]
+  { id: 'prompt_injection', label: '提示注入', description: '通过恶意输入覆盖系统策略或约束' },
+  { id: 'jailbreak', label: '越狱攻击', description: '绕过安全对齐策略生成越权行为' },
+  { id: 'taint_style', label: '污点传播', description: '验证不可信输入是否影响关键执行路径' },
+  { id: 'tool_abuse', label: '工具滥用', description: '诱导 Agent 非授权调用工具或接口' },
+] as const
+
+const intensityLabels: Record<FuzzingIntensity, string> = {
+  light: '轻量（快速检查）',
+  standard: '标准（推荐）',
+  strong: '强力（深度挖掘）',
+}
+
+function detectPreset(value: string | null): ScanPreset {
+  if (value === 'exposure' || value === 'fuzzing') return value
+  return null
+}
+
+function getPresetTypes(preset: ScanPreset): string[] {
+  if (preset === 'exposure') return ['exposure']
+  if (preset === 'fuzzing') return ['fuzzing']
+  return []
+}
 
 export default function NewScanPage() {
   return (
@@ -59,15 +77,17 @@ export default function NewScanPage() {
 function NewScanContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
+
   const agentIdParam = searchParams.get('agentId')
   const copyFromParam = searchParams.get('copyFrom')
+  const preset = detectPreset(searchParams.get('preset'))
 
   const [formData, setFormData] = useState({
     agentId: agentIdParam || '',
-    types: [] as string[],
-    exposureDataTypes: ['pii', 'credential'],
-    fuzzingIntensity: 'standard' as 'light' | 'standard' | 'strong',
-    fuzzingAttackTypes: ['prompt_injection', 'jailbreak'],
+    types: getPresetTypes(preset),
+    exposureDataTypes: ['pii', 'credential'] as string[],
+    fuzzingIntensity: 'standard' as FuzzingIntensity,
+    fuzzingAttackTypes: ['prompt_injection', 'jailbreak'] as string[],
   })
 
   const { data: agents, isLoading: agentsLoading } = useQuery({
@@ -78,7 +98,7 @@ function NewScanContent() {
   const { data: copyScan } = useQuery({
     queryKey: ['scan', copyFromParam],
     queryFn: () => getScan(copyFromParam!),
-    enabled: !!copyFromParam,
+    enabled: Boolean(copyFromParam),
   })
 
   useEffect(() => {
@@ -89,44 +109,80 @@ function NewScanContent() {
         types: copyScan.types,
         ...(copyScan.params as object),
       }))
+      return
     }
-  }, [copyScan])
+
+    setFormData((prev) => {
+      const presetTypes = getPresetTypes(preset)
+      if (presetTypes.length === 0) return prev
+      return {
+        ...prev,
+        types: presetTypes,
+      }
+    })
+  }, [copyScan, preset])
 
   const createMutation = useMutation({
     mutationFn: createScan,
     onSuccess: (scan) => {
-      toast.success('检测任务已提交')
+      toast.success('检测任务已提交，正在进入执行队列')
       router.push(`/scans/${scan.id}`)
     },
     onError: () => {
-      toast.error('提交失败，请重试')
+      toast.error('提交失败，请稍后重试')
     },
   })
 
-  const handleTypeToggle = (type: string) => {
+  const hasExposure = formData.types.includes('exposure')
+  const hasFuzzing = formData.types.includes('fuzzing')
+
+  const selectedAgentName = useMemo(
+    () => agents?.find((agent) => agent.id === formData.agentId)?.name || '未选择',
+    [agents, formData.agentId]
+  )
+
+  const toggleType = (type: 'exposure' | 'fuzzing') => {
     setFormData((prev) => ({
       ...prev,
       types: prev.types.includes(type)
-        ? prev.types.filter((t) => t !== type)
+        ? prev.types.filter((item) => item !== type)
         : [...prev.types, type],
+    }))
+  }
+
+  const toggleExposureDataType = (dataType: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      exposureDataTypes: prev.exposureDataTypes.includes(dataType)
+        ? prev.exposureDataTypes.filter((item) => item !== dataType)
+        : [...prev.exposureDataTypes, dataType],
+    }))
+  }
+
+  const toggleAttackType = (attackType: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      fuzzingAttackTypes: prev.fuzzingAttackTypes.includes(attackType)
+        ? prev.fuzzingAttackTypes.filter((item) => item !== attackType)
+        : [...prev.fuzzingAttackTypes, attackType],
     }))
   }
 
   const handleSubmit = () => {
     if (!formData.agentId) {
-      toast.error('请选择 Agent')
+      toast.error('请先选择一个 Agent')
       return
     }
     if (formData.types.length === 0) {
-      toast.error('请选择至少一种检测类型')
+      toast.error('请至少选择一种检测类型')
       return
     }
 
     const params: Record<string, unknown> = {}
-    if (formData.types.includes('exposure')) {
+    if (hasExposure) {
       params.exposureDataTypes = formData.exposureDataTypes
     }
-    if (formData.types.includes('fuzzing')) {
+    if (hasFuzzing) {
       params.fuzzingIntensity = formData.fuzzingIntensity
       params.fuzzingAttackTypes = formData.fuzzingAttackTypes
     }
@@ -143,14 +199,10 @@ function NewScanContent() {
   }
 
   return (
-    <motion.div
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-    >
+    <div className="space-y-6">
       <PageHeader
         title="新建检测任务"
-        description="配置并发起安全检测"
+        description="为目标 Agent 选择检测策略并发起安全合规审计。"
         gradient
         breadcrumbs={[
           { title: '检测任务', href: '/scans' },
@@ -158,284 +210,255 @@ function NewScanContent() {
         ]}
       />
 
-      <div className="max-w-3xl space-y-6">
-        {/* Select Agent */}
-        <motion.div variants={itemVariants}>
-          <Card className="glass-card overflow-hidden">
-            <CardHeader className="border-b border-white/5">
-              <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500/20 to-purple-500/20 border border-cyan-500/20">
-                  <Bot className="h-5 w-5 text-cyan-400" />
-                </div>
-                <div>
-                  <CardTitle className="font-display">选择 Agent</CardTitle>
-                  <CardDescription>选择要检测的智能体</CardDescription>
-                </div>
-              </div>
+      <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_320px]">
+        <div className="space-y-6">
+          <Card className="glass-card">
+            <CardHeader className="border-b border-slate-300/10">
+              <CardTitle className="flex items-center gap-2">
+                <Bot className="h-5 w-5 text-sky-300" />
+                目标 Agent
+              </CardTitle>
+              <CardDescription>选择需要执行检测的智能体实例</CardDescription>
             </CardHeader>
             <CardContent className="pt-6">
               <Select
                 value={formData.agentId}
-                onValueChange={(v) => setFormData({ ...formData, agentId: v })}
+                onValueChange={(value) => setFormData((prev) => ({ ...prev, agentId: value }))}
               >
-                <SelectTrigger className="w-full h-12 bg-white/5 border-white/10">
-                  <SelectValue placeholder="选择 Agent..." />
+                <SelectTrigger className="h-11">
+                  <SelectValue placeholder="选择 Agent" />
                 </SelectTrigger>
                 <SelectContent>
                   {agents?.map((agent) => (
                     <SelectItem key={agent.id} value={agent.id}>
-                      <div className="flex items-center gap-2">
-                        <Bot className="h-4 w-4 text-cyan-400" />
-                        {agent.name}
-                        {agent.version && <span className="text-white/40">(v{agent.version})</span>}
-                      </div>
+                      {agent.name}
                     </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
             </CardContent>
           </Card>
-        </motion.div>
 
-        {/* Scan Types */}
-        <motion.div variants={itemVariants}>
-          <Card className="glass-card overflow-hidden">
-            <CardHeader className="border-b border-white/5">
-              <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 border border-purple-500/20">
-                  <Sparkles className="h-5 w-5 text-purple-400" />
-                </div>
-                <div>
-                  <CardTitle className="font-display">检测类型</CardTitle>
-                  <CardDescription>选择要执行的检测类型</CardDescription>
-                </div>
-              </div>
+          <Card className="glass-card">
+            <CardHeader className="border-b border-slate-300/10">
+              <CardTitle className="flex items-center gap-2">
+                <Sparkles className="h-5 w-5 text-emerald-300" />
+                检测能力选择
+              </CardTitle>
+              <CardDescription>支持单选或组合执行两类检测能力</CardDescription>
             </CardHeader>
-            <CardContent className="pt-6">
-              <div className="grid gap-4 md:grid-cols-2">
-                {/* Exposure */}
-                <motion.div
-                  className={`relative rounded-2xl border p-5 cursor-pointer transition-all group ${
-                    formData.types.includes('exposure')
-                      ? 'border-cyan-500/50 bg-gradient-to-br from-cyan-500/10 to-cyan-500/5'
-                      : 'border-white/10 hover:border-white/20 bg-white/5'
-                  }`}
-                  onClick={() => handleTypeToggle('exposure')}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  {formData.types.includes('exposure') && (
-                    <div className="absolute top-3 right-3">
-                      <CheckCircle className="h-5 w-5 text-cyan-400" />
-                    </div>
-                  )}
-                  <div className="flex items-start gap-4">
-                    <div className={`flex h-12 w-12 items-center justify-center rounded-xl transition-colors ${
-                      formData.types.includes('exposure')
-                        ? 'bg-cyan-500/20 border border-cyan-500/30'
-                        : 'bg-white/5 border border-white/10'
-                    }`}>
-                      <Shield className={`h-6 w-6 ${formData.types.includes('exposure') ? 'text-cyan-400' : 'text-white/60'}`} />
-                    </div>
-                    <div className="flex-1">
-                      <div className={`font-display font-semibold ${formData.types.includes('exposure') ? 'text-cyan-400' : 'text-white'}`}>
-                        数据暴露检测
-                      </div>
-                      <div className="text-sm text-white/50 mt-1">
-                        检测敏感数据泄露风险，包括PII、凭证、内部信息等
-                      </div>
-                    </div>
+            <CardContent className="grid gap-4 pt-6 md:grid-cols-2">
+              <button
+                type="button"
+                onClick={() => toggleType('exposure')}
+                className={cn(
+                  'cursor-pointer rounded-2xl border p-4 text-left transition-all',
+                  hasExposure
+                    ? 'border-sky-300/40 bg-sky-500/12'
+                    : 'border-slate-300/12 bg-slate-900/45 hover:border-sky-300/24'
+                )}
+              >
+                <div className="mb-3 flex items-center justify-between">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-sky-300/30 bg-sky-500/12">
+                    <Shield className="h-5 w-5 text-sky-200" />
                   </div>
-                </motion.div>
+                  {hasExposure && <CheckCircle2 className="h-5 w-5 text-sky-200" />}
+                </div>
+                <p className="font-medium text-slate-100">Agent 数据过度暴露检测</p>
+                <p className="mt-1 text-xs text-slate-300/75">识别敏感数据在推理链和工具调用中的泄露风险</p>
+              </button>
 
-                {/* Fuzzing */}
-                <motion.div
-                  className={`relative rounded-2xl border p-5 cursor-pointer transition-all group ${
-                    formData.types.includes('fuzzing')
-                      ? 'border-purple-500/50 bg-gradient-to-br from-purple-500/10 to-purple-500/5'
-                      : 'border-white/10 hover:border-white/20 bg-white/5'
-                  }`}
-                  onClick={() => handleTypeToggle('fuzzing')}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  {formData.types.includes('fuzzing') && (
-                    <div className="absolute top-3 right-3">
-                      <CheckCircle className="h-5 w-5 text-purple-400" />
-                    </div>
-                  )}
-                  <div className="flex items-start gap-4">
-                    <div className={`flex h-12 w-12 items-center justify-center rounded-xl transition-colors ${
-                      formData.types.includes('fuzzing')
-                        ? 'bg-purple-500/20 border border-purple-500/30'
-                        : 'bg-white/5 border border-white/10'
-                    }`}>
-                      <Bug className={`h-6 w-6 ${formData.types.includes('fuzzing') ? 'text-purple-400' : 'text-white/60'}`} />
-                    </div>
-                    <div className="flex-1">
-                      <div className={`font-display font-semibold ${formData.types.includes('fuzzing') ? 'text-purple-400' : 'text-white'}`}>
-                        漏洞挖掘
-                      </div>
-                      <div className="text-sm text-white/50 mt-1">
-                        通过模糊测试发现提示注入、越狱等安全漏洞
-                      </div>
-                    </div>
+              <button
+                type="button"
+                onClick={() => toggleType('fuzzing')}
+                className={cn(
+                  'cursor-pointer rounded-2xl border p-4 text-left transition-all',
+                  hasFuzzing
+                    ? 'border-emerald-300/40 bg-emerald-500/12'
+                    : 'border-slate-300/12 bg-slate-900/45 hover:border-emerald-300/24'
+                )}
+              >
+                <div className="mb-3 flex items-center justify-between">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-emerald-300/30 bg-emerald-500/12">
+                    <Bug className="h-5 w-5 text-emerald-200" />
                   </div>
-                </motion.div>
-              </div>
+                  {hasFuzzing && <CheckCircle2 className="h-5 w-5 text-emerald-200" />}
+                </div>
+                <p className="font-medium text-slate-100">Agent 漏洞挖掘</p>
+                <p className="mt-1 text-xs text-slate-300/75">通过攻击样本挖掘提示注入、越狱与工具滥用风险</p>
+              </button>
             </CardContent>
           </Card>
-        </motion.div>
 
-        {/* Exposure Options */}
-        {formData.types.includes('exposure') && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-          >
-            <Card className="glass-card overflow-hidden border-cyan-500/20">
-              <CardHeader className="border-b border-white/5">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-500/20 border border-cyan-500/30">
-                    <Shield className="h-5 w-5 text-cyan-400" />
-                  </div>
-                  <CardTitle className="font-display">数据暴露检测配置</CardTitle>
-                </div>
-              </CardHeader>
-              <CardContent className="pt-6">
-                <Label className="mb-4 block text-white/80">检测数据类型</Label>
-                <div className="grid gap-3 md:grid-cols-2">
+          {hasExposure && (
+            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
+              <Card className="glass-card border-sky-300/25">
+                <CardHeader className="border-b border-slate-300/10">
+                  <CardTitle className="flex items-center gap-2 text-sky-100">
+                    <Shield className="h-5 w-5" />
+                    数据暴露检测配置
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="grid gap-3 pt-6 md:grid-cols-2">
                   {dataTypeOptions.map((option) => (
-                    <motion.div
+                    <label
                       key={option.id}
-                      className={`flex items-center gap-3 p-3 rounded-xl cursor-pointer transition-all ${
+                      htmlFor={option.id}
+                      className={cn(
+                        'flex cursor-pointer items-start gap-3 rounded-xl border p-3 transition-all',
                         formData.exposureDataTypes.includes(option.id)
-                          ? 'bg-cyan-500/10 border border-cyan-500/30'
-                          : 'bg-white/5 border border-transparent hover:border-white/10'
-                      }`}
-                      onClick={() => {
-                        setFormData((prev) => ({
-                          ...prev,
-                          exposureDataTypes: prev.exposureDataTypes.includes(option.id)
-                            ? prev.exposureDataTypes.filter((t) => t !== option.id)
-                            : [...prev.exposureDataTypes, option.id],
-                        }))
-                      }}
-                      whileHover={{ scale: 1.01 }}
-                      whileTap={{ scale: 0.99 }}
+                          ? 'border-sky-300/35 bg-sky-500/10'
+                          : 'border-slate-300/12 bg-slate-900/35 hover:border-sky-300/24'
+                      )}
                     >
                       <Checkbox
-                        id={`data-${option.id}`}
+                        id={option.id}
                         checked={formData.exposureDataTypes.includes(option.id)}
-                        className="data-[state=checked]:bg-cyan-500 data-[state=checked]:border-cyan-500"
+                        onCheckedChange={() => toggleExposureDataType(option.id)}
+                        className="mt-1"
                       />
                       <div>
-                        <Label htmlFor={`data-${option.id}`} className="font-medium cursor-pointer text-white">
+                        <Label htmlFor={option.id} className="cursor-pointer text-sm text-slate-100">
                           {option.label}
                         </Label>
-                        <p className="text-xs text-white/40">{option.description}</p>
+                        <p className="mt-1 text-xs text-slate-300/75">{option.description}</p>
                       </div>
-                    </motion.div>
+                    </label>
                   ))}
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
-        )}
+                </CardContent>
+              </Card>
+            </motion.div>
+          )}
 
-        {/* Fuzzing Options */}
-        {formData.types.includes('fuzzing') && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-          >
-            <Card className="glass-card overflow-hidden border-purple-500/20">
-              <CardHeader className="border-b border-white/5">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-purple-500/20 border border-purple-500/30">
-                    <Bug className="h-5 w-5 text-purple-400" />
+          {hasFuzzing && (
+            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
+              <Card className="glass-card border-emerald-300/25">
+                <CardHeader className="border-b border-slate-300/10">
+                  <CardTitle className="flex items-center gap-2 text-emerald-100">
+                    <Bug className="h-5 w-5" />
+                    漏洞挖掘配置
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-6 pt-6">
+                  <div className="space-y-2">
+                    <Label className="text-slate-200">挖掘强度</Label>
+                    <Select
+                      value={formData.fuzzingIntensity}
+                      onValueChange={(value) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          fuzzingIntensity: value as FuzzingIntensity,
+                        }))
+                      }
+                    >
+                      <SelectTrigger className="max-w-xs">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="light">{intensityLabels.light}</SelectItem>
+                        <SelectItem value="standard">{intensityLabels.standard}</SelectItem>
+                        <SelectItem value="strong">{intensityLabels.strong}</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
-                  <CardTitle className="font-display">漏洞挖掘配置</CardTitle>
-                </div>
-              </CardHeader>
-              <CardContent className="space-y-6 pt-6">
-                <div>
-                  <Label className="mb-4 block text-white/80">检测强度</Label>
-                  <Select
-                    value={formData.fuzzingIntensity}
-                    onValueChange={(v) =>
-                      setFormData({ ...formData, fuzzingIntensity: v as 'light' | 'standard' | 'strong' })
-                    }
-                  >
-                    <SelectTrigger className="w-full max-w-xs h-11 bg-white/5 border-white/10">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="light">轻量 (快速扫描)</SelectItem>
-                      <SelectItem value="standard">标准 (推荐)</SelectItem>
-                      <SelectItem value="strong">强力 (深度扫描)</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
 
-                <div>
-                  <Label className="mb-4 block text-white/80">攻击类型</Label>
-                  <div className="grid gap-3 md:grid-cols-2">
-                    {attackTypeOptions.map((option) => (
-                      <motion.div
-                        key={option.id}
-                        className={`flex items-center gap-3 p-3 rounded-xl cursor-pointer transition-all ${
-                          formData.fuzzingAttackTypes.includes(option.id)
-                            ? 'bg-purple-500/10 border border-purple-500/30'
-                            : 'bg-white/5 border border-transparent hover:border-white/10'
-                        }`}
-                        onClick={() => {
-                          setFormData((prev) => ({
-                            ...prev,
-                            fuzzingAttackTypes: prev.fuzzingAttackTypes.includes(option.id)
-                              ? prev.fuzzingAttackTypes.filter((t) => t !== option.id)
-                              : [...prev.fuzzingAttackTypes, option.id],
-                          }))
-                        }}
-                        whileHover={{ scale: 1.01 }}
-                        whileTap={{ scale: 0.99 }}
-                      >
-                        <Checkbox
-                          id={`attack-${option.id}`}
-                          checked={formData.fuzzingAttackTypes.includes(option.id)}
-                          className="data-[state=checked]:bg-purple-500 data-[state=checked]:border-purple-500"
-                        />
-                        <div>
-                          <Label htmlFor={`attack-${option.id}`} className="font-medium cursor-pointer text-white">
-                            {option.label}
-                          </Label>
-                          <p className="text-xs text-white/40">{option.description}</p>
-                        </div>
-                      </motion.div>
-                    ))}
+                  <div className="space-y-3">
+                    <Label className="text-slate-200">攻击类型</Label>
+                    <div className="grid gap-3 md:grid-cols-2">
+                      {attackTypeOptions.map((option) => (
+                        <label
+                          key={option.id}
+                          htmlFor={option.id}
+                          className={cn(
+                            'flex cursor-pointer items-start gap-3 rounded-xl border p-3 transition-all',
+                            formData.fuzzingAttackTypes.includes(option.id)
+                              ? 'border-emerald-300/35 bg-emerald-500/10'
+                              : 'border-slate-300/12 bg-slate-900/35 hover:border-emerald-300/24'
+                          )}
+                        >
+                          <Checkbox
+                            id={option.id}
+                            checked={formData.fuzzingAttackTypes.includes(option.id)}
+                            onCheckedChange={() => toggleAttackType(option.id)}
+                            className="mt-1"
+                          />
+                          <div>
+                            <Label htmlFor={option.id} className="cursor-pointer text-sm text-slate-100">
+                              {option.label}
+                            </Label>
+                            <p className="mt-1 text-xs text-slate-300/75">{option.description}</p>
+                          </div>
+                        </label>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
-        )}
+                </CardContent>
+              </Card>
+            </motion.div>
+          )}
 
-        {/* Actions */}
-        <motion.div variants={itemVariants} className="flex justify-end gap-3 pt-2">
-          <Button variant="outline" onClick={() => router.back()} className="h-11 px-5">
-            取消
-          </Button>
-          <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-            <Button onClick={handleSubmit} disabled={createMutation.isPending} className="h-11 px-6">
-              {createMutation.isPending && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
-              <Zap className="h-4 w-4 mr-2" />
+          <div className="flex items-center justify-end gap-3">
+            <Button variant="outline" onClick={() => router.back()}>
+              取消
+            </Button>
+            <Button onClick={handleSubmit} disabled={createMutation.isPending}>
+              {createMutation.isPending ? (
+                <Loader2 className="mr-1.5 h-4 w-4 animate-spin" />
+              ) : (
+                <Zap className="mr-1.5 h-4 w-4" />
+              )}
               提交检测
             </Button>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
+
+        <div className="space-y-4 xl:sticky xl:top-24 xl:self-start">
+          <Card className="glass-card">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-base">
+                <Target className="h-4 w-4 text-sky-300" />
+                任务摘要
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3 text-sm">
+              <div className="rounded-lg border border-slate-300/12 bg-slate-900/45 p-3">
+                <p className="text-xs text-slate-400">目标 Agent</p>
+                <p className="mt-1 text-slate-100">{selectedAgentName}</p>
+              </div>
+              <div className="rounded-lg border border-slate-300/12 bg-slate-900/45 p-3">
+                <p className="text-xs text-slate-400">检测类型</p>
+                <div className="mt-2 flex flex-wrap gap-2">
+                  {hasExposure && (
+                    <span className="rounded-full border border-sky-300/30 bg-sky-500/12 px-2 py-0.5 text-xs text-sky-100">
+                      数据暴露检测
+                    </span>
+                  )}
+                  {hasFuzzing && (
+                    <span className="rounded-full border border-emerald-300/30 bg-emerald-500/12 px-2 py-0.5 text-xs text-emerald-100">
+                      漏洞挖掘
+                    </span>
+                  )}
+                  {!hasExposure && !hasFuzzing && (
+                    <span className="text-xs text-slate-400">尚未选择</span>
+                  )}
+                </div>
+              </div>
+              {hasFuzzing && (
+                <div className="rounded-lg border border-slate-300/12 bg-slate-900/45 p-3">
+                  <p className="text-xs text-slate-400">挖掘强度</p>
+                  <p className="mt-1 text-slate-100">{intensityLabels[formData.fuzzingIntensity]}</p>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+
+          <Card className="glass-card border-sky-300/20">
+            <CardContent className="p-4 text-xs text-slate-300/80">
+              建议先执行“数据暴露检测”获得敏感流向基线，再执行“漏洞挖掘”做攻击面验证。
+            </CardContent>
+          </Card>
+        </div>
       </div>
-    </motion.div>
+    </div>
   )
 }

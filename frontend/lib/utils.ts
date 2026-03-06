@@ -1,4 +1,4 @@
-import { clsx, type ClassValue } from 'clsx'
+﻿import { clsx, type ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
 export function cn(...inputs: ClassValue[]) {
@@ -32,23 +32,23 @@ export function shortId(id: string): string {
 }
 
 export function generateId(): string {
-  return `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
+  return `${Date.now()}-${Math.random().toString(36).slice(2, 11)}`
 }
 
 export function sleep(ms: number): Promise<void> {
-  return new Promise(resolve => setTimeout(resolve, ms))
+  return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
 export const stageLabels: Record<string, string> = {
   parse: '解析配置',
   precheck: '预检查',
   run: '执行检测',
-  aggregate: '汇总结果',
+  aggregate: '聚合结果',
   done: '完成',
 }
 
 export const scanTypeLabels: Record<string, string> = {
-  exposure: '数据暴露检测',
+  exposure: '数据过度暴露检测',
   fuzzing: '漏洞挖掘',
 }
 
