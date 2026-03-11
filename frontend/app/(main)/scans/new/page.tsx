@@ -213,9 +213,9 @@ function NewScanContent() {
       <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_320px]">
         <div className="space-y-6">
           <Card className="glass-card">
-            <CardHeader className="border-b border-slate-300/10">
+            <CardHeader className="border-b border-white/70">
               <CardTitle className="flex items-center gap-2">
-                <Bot className="h-5 w-5 text-sky-300" />
+                <Bot className="h-5 w-5 text-[#f27835]" />
                 目标 Agent
               </CardTitle>
               <CardDescription>选择需要执行检测的智能体实例</CardDescription>
@@ -240,7 +240,7 @@ function NewScanContent() {
           </Card>
 
           <Card className="glass-card">
-            <CardHeader className="border-b border-slate-300/10">
+            <CardHeader className="border-b border-white/70">
               <CardTitle className="flex items-center gap-2">
                 <Sparkles className="h-5 w-5 text-emerald-300" />
                 检测能力选择
@@ -254,17 +254,17 @@ function NewScanContent() {
                 className={cn(
                   'cursor-pointer rounded-2xl border p-4 text-left transition-all',
                   hasExposure
-                    ? 'border-sky-300/40 bg-sky-500/12'
-                    : 'border-slate-300/12 bg-slate-900/45 hover:border-sky-300/24'
+                    ? 'border-sky-300/40 bg-sky-500/10'
+                    : 'border-white/75 bg-white/66 hover:border-[#ff9146]/35'
                 )}
               >
                 <div className="mb-3 flex items-center justify-between">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-sky-300/30 bg-sky-500/12">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-sky-300/30 bg-sky-500/10">
                     <Shield className="h-5 w-5 text-sky-200" />
                   </div>
                   {hasExposure && <CheckCircle2 className="h-5 w-5 text-sky-200" />}
                 </div>
-                <p className="font-medium text-slate-100">Agent 数据过度暴露检测</p>
+                <p className="font-medium text-slate-900">Agent 数据过度暴露检测</p>
                 <p className="mt-1 text-xs text-slate-300/75">识别敏感数据在推理链和工具调用中的泄露风险</p>
               </button>
 
@@ -274,17 +274,17 @@ function NewScanContent() {
                 className={cn(
                   'cursor-pointer rounded-2xl border p-4 text-left transition-all',
                   hasFuzzing
-                    ? 'border-emerald-300/40 bg-emerald-500/12'
-                    : 'border-slate-300/12 bg-slate-900/45 hover:border-emerald-300/24'
+                    ? 'border-emerald-300/40 bg-emerald-500/10'
+                    : 'border-white/75 bg-white/66 hover:border-[#14a689]/35'
                 )}
               >
                 <div className="mb-3 flex items-center justify-between">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-emerald-300/30 bg-emerald-500/12">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-emerald-300/30 bg-emerald-500/10">
                     <Bug className="h-5 w-5 text-emerald-200" />
                   </div>
                   {hasFuzzing && <CheckCircle2 className="h-5 w-5 text-emerald-200" />}
                 </div>
-                <p className="font-medium text-slate-100">Agent 漏洞挖掘</p>
+                <p className="font-medium text-slate-900">Agent 漏洞挖掘</p>
                 <p className="mt-1 text-xs text-slate-300/75">通过攻击样本挖掘提示注入、越狱与工具滥用风险</p>
               </button>
             </CardContent>
@@ -293,7 +293,7 @@ function NewScanContent() {
           {hasExposure && (
             <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
               <Card className="glass-card border-sky-300/25">
-                <CardHeader className="border-b border-slate-300/10">
+                <CardHeader className="border-b border-white/70">
                   <CardTitle className="flex items-center gap-2 text-sky-100">
                     <Shield className="h-5 w-5" />
                     数据暴露检测配置
@@ -308,7 +308,7 @@ function NewScanContent() {
                         'flex cursor-pointer items-start gap-3 rounded-xl border p-3 transition-all',
                         formData.exposureDataTypes.includes(option.id)
                           ? 'border-sky-300/35 bg-sky-500/10'
-                          : 'border-slate-300/12 bg-slate-900/35 hover:border-sky-300/24'
+                          : 'border-white/75 bg-white/62 hover:border-[#ff9146]/35'
                       )}
                     >
                       <Checkbox
@@ -318,7 +318,7 @@ function NewScanContent() {
                         className="mt-1"
                       />
                       <div>
-                        <Label htmlFor={option.id} className="cursor-pointer text-sm text-slate-100">
+                        <Label htmlFor={option.id} className="cursor-pointer text-sm text-slate-900">
                           {option.label}
                         </Label>
                         <p className="mt-1 text-xs text-slate-300/75">{option.description}</p>
@@ -333,7 +333,7 @@ function NewScanContent() {
           {hasFuzzing && (
             <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
               <Card className="glass-card border-emerald-300/25">
-                <CardHeader className="border-b border-slate-300/10">
+                <CardHeader className="border-b border-white/70">
                   <CardTitle className="flex items-center gap-2 text-emerald-100">
                     <Bug className="h-5 w-5" />
                     漏洞挖掘配置
@@ -373,7 +373,7 @@ function NewScanContent() {
                             'flex cursor-pointer items-start gap-3 rounded-xl border p-3 transition-all',
                             formData.fuzzingAttackTypes.includes(option.id)
                               ? 'border-emerald-300/35 bg-emerald-500/10'
-                              : 'border-slate-300/12 bg-slate-900/35 hover:border-emerald-300/24'
+                              : 'border-white/75 bg-white/62 hover:border-[#14a689]/35'
                           )}
                         >
                           <Checkbox
@@ -383,7 +383,7 @@ function NewScanContent() {
                             className="mt-1"
                           />
                           <div>
-                            <Label htmlFor={option.id} className="cursor-pointer text-sm text-slate-100">
+                            <Label htmlFor={option.id} className="cursor-pointer text-sm text-slate-900">
                               {option.label}
                             </Label>
                             <p className="mt-1 text-xs text-slate-300/75">{option.description}</p>
@@ -416,25 +416,25 @@ function NewScanContent() {
           <Card className="glass-card">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-base">
-                <Target className="h-4 w-4 text-sky-300" />
+                <Target className="h-4 w-4 text-[#f27835]" />
                 任务摘要
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3 text-sm">
-              <div className="rounded-lg border border-slate-300/12 bg-slate-900/45 p-3">
+              <div className="rounded-lg border border-white/75 bg-white/66 p-3">
                 <p className="text-xs text-slate-400">目标 Agent</p>
-                <p className="mt-1 text-slate-100">{selectedAgentName}</p>
+                <p className="mt-1 text-slate-900">{selectedAgentName}</p>
               </div>
-              <div className="rounded-lg border border-slate-300/12 bg-slate-900/45 p-3">
+              <div className="rounded-lg border border-white/75 bg-white/66 p-3">
                 <p className="text-xs text-slate-400">检测类型</p>
                 <div className="mt-2 flex flex-wrap gap-2">
                   {hasExposure && (
-                    <span className="rounded-full border border-sky-300/30 bg-sky-500/12 px-2 py-0.5 text-xs text-sky-100">
+                    <span className="rounded-full border border-sky-300/30 bg-sky-500/10 px-2 py-0.5 text-xs text-sky-100">
                       数据暴露检测
                     </span>
                   )}
                   {hasFuzzing && (
-                    <span className="rounded-full border border-emerald-300/30 bg-emerald-500/12 px-2 py-0.5 text-xs text-emerald-100">
+                    <span className="rounded-full border border-emerald-300/30 bg-emerald-500/10 px-2 py-0.5 text-xs text-emerald-100">
                       漏洞挖掘
                     </span>
                   )}
@@ -444,16 +444,16 @@ function NewScanContent() {
                 </div>
               </div>
               {hasFuzzing && (
-                <div className="rounded-lg border border-slate-300/12 bg-slate-900/45 p-3">
+                <div className="rounded-lg border border-white/75 bg-white/66 p-3">
                   <p className="text-xs text-slate-400">挖掘强度</p>
-                  <p className="mt-1 text-slate-100">{intensityLabels[formData.fuzzingIntensity]}</p>
+                  <p className="mt-1 text-slate-900">{intensityLabels[formData.fuzzingIntensity]}</p>
                 </div>
               )}
             </CardContent>
           </Card>
 
           <Card className="glass-card border-sky-300/20">
-            <CardContent className="p-4 text-xs text-slate-300/80">
+            <CardContent className="p-4 text-xs text-slate-600">
               建议先执行“数据暴露检测”获得敏感流向基线，再执行“漏洞挖掘”做攻击面验证。
             </CardContent>
           </Card>
@@ -462,3 +462,4 @@ function NewScanContent() {
     </div>
   )
 }
+

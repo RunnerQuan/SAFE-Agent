@@ -1,20 +1,20 @@
 ﻿import type { Metadata } from 'next'
-import { Fira_Code, Fira_Sans } from 'next/font/google'
+import { Inter, Sora } from 'next/font/google'
 import './globals.css'
 import { QueryProvider } from '@/lib/queryClient'
 import { ThemeProvider } from '@/components/common/theme-provider'
 import { Toaster } from '@/components/ui/sonner'
 
-const firaSans = Fira_Sans({
+const inter = Inter({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
+  weight: ['400', '500', '600', '700'],
   variable: '--font-body',
   display: 'swap',
 })
 
-const firaCode = Fira_Code({
+const sora = Sora({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+  weight: ['500', '600', '700'],
   variable: '--font-display',
   display: 'swap',
 })
@@ -32,10 +32,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="zh-CN" suppressHydrationWarning>
-      <body className={`${firaSans.variable} ${firaCode.variable}`}>
+      <body className={`${inter.variable} ${sora.variable}`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
+          defaultTheme="light"
           enableSystem={false}
           disableTransitionOnChange
         >

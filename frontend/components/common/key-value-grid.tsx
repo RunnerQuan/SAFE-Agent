@@ -28,8 +28,8 @@ export function KeyValueGrid({
     <div className={cn('grid gap-4', gridCols[columns], className)}>
       {items.map((item, index) => (
         <div key={index} className="space-y-1">
-          <dt className="text-sm text-white/40">{item.label}</dt>
-          <dd className="text-sm text-white/80">{item.value}</dd>
+          <dt className="text-sm text-slate-500">{item.label}</dt>
+          <dd className="text-sm text-slate-800">{item.value}</dd>
         </div>
       ))}
     </div>

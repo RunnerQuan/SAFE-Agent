@@ -41,16 +41,16 @@ export function PageHeader({
               transition={{ delay: index * 0.06 }}
               className="flex items-center gap-1"
             >
-              {index > 0 && <ChevronRight className="h-4 w-4 text-slate-500" />}
+              {index > 0 && <ChevronRight className="h-4 w-4 text-slate-400" />}
               {item.href ? (
                 <Link
                   href={item.href}
-                  className="rounded-md px-1 py-0.5 text-slate-400 transition-colors hover:text-sky-300"
+                  className="rounded-md px-1 py-0.5 text-slate-500 transition-colors hover:text-[#f27835]"
                 >
                   {item.title}
                 </Link>
               ) : (
-                <span className="rounded-md px-1 py-0.5 text-slate-200">{item.title}</span>
+                <span className="rounded-md px-1 py-0.5 text-slate-700">{item.title}</span>
               )}
             </motion.div>
           ))}
@@ -61,21 +61,21 @@ export function PageHeader({
         <div>
           <div className="flex items-center gap-3">
             {gradient && (
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-sky-300/25 bg-gradient-to-br from-sky-500/18 to-emerald-500/14">
-                <Sparkles className="h-5 w-5 text-sky-300" />
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/80 bg-gradient-to-br from-[#ff9146]/20 to-[#14a689]/14 shadow-[0_8px_20px_rgba(41,55,79,0.1)]">
+                <Sparkles className="h-5 w-5 text-[#f27835]" />
               </div>
             )}
-            <h1 className={`font-display text-3xl font-semibold ${gradient ? 'gradient-text' : 'text-slate-100'}`}>
+            <h1 className={`font-display text-3xl font-semibold ${gradient ? 'gradient-text' : 'text-slate-900'}`}>
               {title}
             </h1>
           </div>
-          {description && <p className="mt-2 max-w-3xl text-sm text-slate-300/75">{description}</p>}
+          {description && <p className="mt-2 max-w-3xl text-sm text-slate-600">{description}</p>}
         </div>
 
         {actions && <div className="flex items-center gap-2">{actions}</div>}
       </div>
 
-      <div className="mt-6 h-px bg-gradient-to-r from-sky-300/45 via-emerald-300/35 to-transparent" />
+      <div className="mt-6 h-px bg-gradient-to-r from-[#ff9146]/45 via-[#14a689]/35 to-transparent" />
     </motion.div>
   )
 }

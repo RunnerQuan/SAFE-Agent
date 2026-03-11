@@ -7,17 +7,17 @@ const badgeVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-slate-700/45 text-slate-200',
-        outline: 'border border-slate-300/25 text-slate-200',
-        high: 'bg-rose-500/15 text-rose-200 ring-1 ring-rose-400/30',
-        medium: 'bg-amber-500/16 text-amber-100 ring-1 ring-amber-400/32',
-        low: 'bg-emerald-500/16 text-emerald-100 ring-1 ring-emerald-400/32',
-        unknown: 'bg-slate-500/16 text-slate-200 ring-1 ring-slate-300/30',
-        queued: 'bg-slate-500/16 text-slate-100 ring-1 ring-slate-300/24',
-        running: 'bg-sky-500/18 text-sky-100 ring-1 ring-sky-400/30',
-        succeeded: 'bg-emerald-500/16 text-emerald-100 ring-1 ring-emerald-400/32',
-        failed: 'bg-rose-500/15 text-rose-100 ring-1 ring-rose-400/30',
-        canceled: 'bg-amber-500/16 text-amber-100 ring-1 ring-amber-400/32',
+        default: 'bg-slate-500/10 text-slate-700',
+        outline: 'border border-slate-300/55 text-slate-700 bg-white/40',
+        high: 'bg-rose-500/10 text-rose-700 ring-1 ring-rose-400/35',
+        medium: 'bg-amber-500/10 text-amber-700 ring-1 ring-amber-400/35',
+        low: 'bg-emerald-500/10 text-emerald-700 ring-1 ring-emerald-400/35',
+        unknown: 'bg-slate-500/10 text-slate-700 ring-1 ring-slate-400/35',
+        queued: 'bg-slate-500/10 text-slate-700 ring-1 ring-slate-400/35',
+        running: 'bg-sky-500/10 text-sky-700 ring-1 ring-sky-400/35',
+        succeeded: 'bg-emerald-500/10 text-emerald-700 ring-1 ring-emerald-400/35',
+        failed: 'bg-rose-500/10 text-rose-700 ring-1 ring-rose-400/35',
+        canceled: 'bg-amber-500/10 text-amber-700 ring-1 ring-amber-400/35',
       },
     },
     defaultVariants: {
@@ -35,3 +35,4 @@ function Badge({ className, variant, ...props }: BadgeProps) {
 }
 
 export { Badge, badgeVariants }
+

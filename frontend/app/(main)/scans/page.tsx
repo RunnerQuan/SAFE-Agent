@@ -98,24 +98,24 @@ function ScansContent() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.03 }}
               >
-                <Card className="glass-card glass-card-hover overflow-hidden border-slate-300/12">
+                <Card className="glass-card glass-card-hover overflow-hidden border-white/80">
                   {scan.status === 'running' && (
-                    <div className="h-px bg-gradient-to-r from-transparent via-sky-300/80 to-transparent" />
+                    <div className="h-px bg-gradient-to-r from-transparent via-[#ff9146]/85 to-transparent" />
                   )}
 
                   <div className="flex flex-col gap-4 p-4 lg:flex-row lg:items-center lg:justify-between">
                     <div className="flex min-w-0 items-start gap-3">
-                      <div className="mt-0.5 rounded-lg border border-slate-300/18 bg-slate-900/55 p-2">
-                        <Activity className="h-4 w-4 text-sky-300" />
+                      <div className="mt-0.5 rounded-lg border border-white/85 bg-white/72 p-2">
+                        <Activity className="h-4 w-4 text-[#f27835]" />
                       </div>
 
                       <div className="min-w-0">
                         <div className="flex flex-wrap items-center gap-2">
-                          <p className="font-display text-sm text-slate-100">{shortId(scan.id)}</p>
+                          <p className="font-display text-sm text-slate-900">{shortId(scan.id)}</p>
                           <StatusBadge status={scan.status} />
                         </div>
 
-                        <div className="mt-1 flex flex-wrap items-center gap-3 text-xs text-slate-400">
+                        <div className="mt-1 flex flex-wrap items-center gap-3 text-xs text-slate-500">
                           <span className="inline-flex items-center gap-1">
                             <Bot className="h-3.5 w-3.5" />
                             {scan.agentName || 'Unknown Agent'}

@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
@@ -135,7 +135,7 @@ export default function NewAgentPage() {
       <div className="max-w-3xl">
         <motion.div variants={itemVariants}>
           <Tabs value={inputType} onValueChange={(v) => setInputType(v as AgentInputType)}>
-            <TabsList className="mb-6 p-1 bg-white/5 border border-white/10 rounded-xl">
+            <TabsList className="mb-6 p-1 bg-white/62 border border-white/80 rounded-xl">
               <TabsTrigger value="endpoint" className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500/20 data-[state=active]:to-purple-500/20 data-[state=active]:border-cyan-500/30 rounded-lg">
                 <Globe className="h-4 w-4" />
                 Endpoint 接入
@@ -150,57 +150,57 @@ export default function NewAgentPage() {
               <CardHeader className="border-b border-white/5">
                 <div className="flex items-center gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500/20 to-purple-500/20 border border-cyan-500/20">
-                    <Bot className="h-5 w-5 text-cyan-400" />
+                    <Bot className="h-5 w-5 text-[#f27835]" />
                   </div>
                   <div>
                     <CardTitle className="font-display">基本信息</CardTitle>
-                    <p className="text-xs text-white/40 mt-0.5">配置智能体的基本属性</p>
+                    <p className="text-xs text-slate-500 mt-0.5">配置智能体的基本属性</p>
                   </div>
                 </div>
               </CardHeader>
               <CardContent className="space-y-5 pt-6">
                 <div className="grid gap-5 md:grid-cols-2">
                   <div className="space-y-2">
-                    <Label htmlFor="name" className="text-white/80">名称 *</Label>
+                    <Label htmlFor="name" className="text-slate-700">名称 *</Label>
                     <Input
                       id="name"
                       placeholder="输入 Agent 名称"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="h-11 bg-white/5 border-white/10 focus:border-cyan-500/50"
+                      className="h-11 bg-white/62 border-white/80 focus:border-cyan-500/50"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="version" className="text-white/80">版本</Label>
+                    <Label htmlFor="version" className="text-slate-700">版本</Label>
                     <Input
                       id="version"
                       placeholder="例如: 1.0.0"
                       value={formData.version}
                       onChange={(e) => setFormData({ ...formData, version: e.target.value })}
-                      className="h-11 bg-white/5 border-white/10 focus:border-cyan-500/50"
+                      className="h-11 bg-white/62 border-white/80 focus:border-cyan-500/50"
                     />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="description" className="text-white/80">描述</Label>
+                  <Label htmlFor="description" className="text-slate-700">描述</Label>
                   <Textarea
                     id="description"
                     placeholder="描述这个智能体的用途..."
                     value={formData.description}
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                    className="min-h-[100px] bg-white/5 border-white/10 focus:border-cyan-500/50"
+                    className="min-h-[100px] bg-white/62 border-white/80 focus:border-cyan-500/50"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="tags" className="text-white/80">标签</Label>
+                  <Label htmlFor="tags" className="text-slate-700">标签</Label>
                   <Input
                     id="tags"
                     placeholder="用逗号分隔，例如: 对话, GPT, 通用"
                     value={formData.tags}
                     onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
-                    className="h-11 bg-white/5 border-white/10 focus:border-cyan-500/50"
+                    className="h-11 bg-white/62 border-white/80 focus:border-cyan-500/50"
                   />
                 </div>
               </CardContent>
@@ -220,30 +220,30 @@ export default function NewAgentPage() {
                       </div>
                       <div>
                         <CardTitle className="font-display">Endpoint 配置</CardTitle>
-                        <p className="text-xs text-white/40 mt-0.5">配置 API 端点和认证信息</p>
+                        <p className="text-xs text-slate-500 mt-0.5">配置 API 端点和认证信息</p>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent className="space-y-5 pt-6">
                     <div className="space-y-2">
-                      <Label htmlFor="endpointUrl" className="text-white/80">Endpoint URL *</Label>
+                      <Label htmlFor="endpointUrl" className="text-slate-700">Endpoint URL *</Label>
                       <Input
                         id="endpointUrl"
                         placeholder="https://api.example.com/agent"
                         value={formData.endpointUrl}
                         onChange={(e) => setFormData({ ...formData, endpointUrl: e.target.value })}
-                        className="h-11 bg-white/5 border-white/10 focus:border-cyan-500/50"
+                        className="h-11 bg-white/62 border-white/80 focus:border-cyan-500/50"
                       />
                     </div>
 
                     <div className="grid gap-5 md:grid-cols-2">
                       <div className="space-y-2">
-                        <Label htmlFor="authType" className="text-white/80">认证方式</Label>
+                        <Label htmlFor="authType" className="text-slate-700">认证方式</Label>
                         <Select
                           value={formData.authType}
                           onValueChange={(v) => setFormData({ ...formData, authType: v as 'none' | 'api_key' | 'bearer' })}
                         >
-                          <SelectTrigger className="h-11 bg-white/5 border-white/10">
+                          <SelectTrigger className="h-11 bg-white/62 border-white/80">
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
@@ -256,7 +256,7 @@ export default function NewAgentPage() {
 
                       {formData.authType !== 'none' && (
                         <div className="space-y-2">
-                          <Label htmlFor="apiKey" className="text-white/80">
+                          <Label htmlFor="apiKey" className="text-slate-700">
                             {formData.authType === 'api_key' ? 'API Key' : 'Bearer Token'}
                           </Label>
                           <Input
@@ -265,7 +265,7 @@ export default function NewAgentPage() {
                             placeholder="输入密钥..."
                             value={formData.apiKey}
                             onChange={(e) => setFormData({ ...formData, apiKey: e.target.value })}
-                            className="h-11 bg-white/5 border-white/10 focus:border-cyan-500/50"
+                            className="h-11 bg-white/62 border-white/80 focus:border-cyan-500/50"
                           />
                         </div>
                       )}
@@ -319,17 +319,17 @@ export default function NewAgentPage() {
                   <CardHeader className="border-b border-white/5">
                     <div className="flex items-center gap-3">
                       <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 border border-purple-500/20">
-                        <Upload className="h-5 w-5 text-purple-400" />
+                        <Upload className="h-5 w-5 text-[#0d7f69]" />
                       </div>
                       <div>
                         <CardTitle className="font-display">规格文件上传</CardTitle>
-                        <p className="text-xs text-white/40 mt-0.5">上传 Agent 规格定义文件</p>
+                        <p className="text-xs text-slate-500 mt-0.5">上传 Agent 规格定义文件</p>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent className="pt-6">
                     <motion.div
-                      className="border-2 border-dashed border-white/10 rounded-2xl p-10 text-center hover:border-purple-500/40 hover:bg-purple-500/5 transition-all cursor-pointer group"
+                      className="border-2 border-dashed border-white/80 rounded-2xl p-10 text-center hover:border-purple-500/40 hover:bg-purple-500/5 transition-all cursor-pointer group"
                       whileHover={{ scale: 1.01 }}
                       whileTap={{ scale: 0.99 }}
                     >
@@ -351,12 +351,12 @@ export default function NewAgentPage() {
                           className="flex h-16 w-16 items-center justify-center mx-auto rounded-2xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 border border-purple-500/20 mb-4 group-hover:border-purple-500/40"
                           whileHover={{ rotate: 5 }}
                         >
-                          <Upload className="h-8 w-8 text-purple-400" />
+                          <Upload className="h-8 w-8 text-[#0d7f69]" />
                         </motion.div>
-                        <p className="text-base text-white/70 mb-2 font-medium">
+                        <p className="text-base text-slate-600 mb-2 font-medium">
                           点击或拖拽上传 Agent 规格文件
                         </p>
-                        <p className="text-sm text-white/40">
+                        <p className="text-sm text-slate-500">
                           支持 YAML、JSON、ZIP 格式
                         </p>
                       </label>
@@ -367,7 +367,7 @@ export default function NewAgentPage() {
                           className="mt-6 p-4 bg-purple-500/10 border border-purple-500/20 rounded-xl"
                         >
                           <div className="flex items-center justify-center gap-2">
-                            <Sparkles className="h-4 w-4 text-purple-400" />
+                            <Sparkles className="h-4 w-4 text-[#0d7f69]" />
                             <span className="text-sm text-purple-300">
                               已选择: {formData.specFile.name}
                             </span>
@@ -411,3 +411,4 @@ export default function NewAgentPage() {
     </motion.div>
   )
 }
+

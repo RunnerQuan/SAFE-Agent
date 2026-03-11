@@ -30,14 +30,14 @@ type MetricCardProps = {
   value: number
   description: string
   icon: React.ElementType
-  tone: 'sky' | 'emerald' | 'amber' | 'rose'
+  tone: 'orange' | 'teal' | 'amber' | 'rose'
 }
 
 const toneMap: Record<MetricCardProps['tone'], string> = {
-  sky: 'from-sky-500/18 to-sky-500/5 border-sky-300/24 text-sky-200',
-  emerald: 'from-emerald-500/18 to-emerald-500/5 border-emerald-300/24 text-emerald-200',
-  amber: 'from-amber-500/18 to-amber-500/5 border-amber-300/24 text-amber-200',
-  rose: 'from-rose-500/18 to-rose-500/5 border-rose-300/24 text-rose-200',
+  orange: 'from-[#ff9146]/18 to-[#ff9146]/5 border-[#ff9146]/28 text-[#c95f1f]',
+  teal: 'from-[#14a689]/18 to-[#14a689]/5 border-[#14a689]/28 text-[#0d7f69]',
+  amber: 'from-amber-500/18 to-amber-500/5 border-amber-400/28 text-amber-700',
+  rose: 'from-rose-500/18 to-rose-500/5 border-rose-400/28 text-rose-700',
 }
 
 function MetricCard({ title, value, description, icon: Icon, tone }: MetricCardProps) {
@@ -45,13 +45,13 @@ function MetricCard({ title, value, description, icon: Icon, tone }: MetricCardP
     <Card className={`stat-card border ${toneMap[tone]}`}>
       <CardContent className="p-5">
         <div className="mb-4 flex items-start justify-between">
-          <p className="text-sm text-slate-300/80">{title}</p>
-          <div className="rounded-lg border border-white/10 bg-black/20 p-2">
+          <p className="text-sm text-slate-600">{title}</p>
+          <div className="rounded-lg border border-white/80 bg-white/72 p-2">
             <Icon className="h-4 w-4" />
           </div>
         </div>
-        <p className="font-display text-3xl font-semibold text-slate-50">{value}</p>
-        <p className="mt-1 text-xs text-slate-300/65">{description}</p>
+        <p className="font-display text-3xl font-semibold text-slate-900">{value}</p>
+        <p className="mt-1 text-xs text-slate-500">{description}</p>
       </CardContent>
     </Card>
   )
@@ -110,16 +110,16 @@ export default function DashboardPage() {
 
       <section className="grid gap-4 lg:grid-cols-2">
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
-          <Card className="glass-card glass-card-hover overflow-hidden border-sky-300/30">
+          <Card className="glass-card glass-card-hover overflow-hidden border-[#ff9146]/35">
             <CardHeader className="pb-4">
-              <CardTitle className="flex items-center gap-2 text-slate-50">
-                <Shield className="h-5 w-5 text-sky-300" />
+              <CardTitle className="flex items-center gap-2 text-slate-900">
+                <Shield className="h-5 w-5 text-[#f27835]" />
                 Agent 数据过度暴露检测
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4 text-sm text-slate-300/80">
+            <CardContent className="space-y-4 text-sm text-slate-700">
               <p>识别 PII、凭证、密钥、内部信息等敏感数据在工具调用链中的暴露风险。</p>
-              <div className="rounded-xl border border-sky-300/20 bg-sky-500/8 p-3 text-xs text-sky-100">
+              <div className="rounded-xl border border-[#ff9146]/28 bg-[#ff9146]/10 p-3 text-xs text-[#b24f15]">
                 覆盖范围：Prompt 输入、工具参数、上下文拼接、响应回流
               </div>
               <Link href="/scans/new?preset=exposure" className="inline-flex">
@@ -133,16 +133,16 @@ export default function DashboardPage() {
         </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}>
-          <Card className="glass-card glass-card-hover overflow-hidden border-emerald-300/30">
+          <Card className="glass-card glass-card-hover overflow-hidden border-[#14a689]/35">
             <CardHeader className="pb-4">
-              <CardTitle className="flex items-center gap-2 text-slate-50">
-                <Bug className="h-5 w-5 text-emerald-300" />
+              <CardTitle className="flex items-center gap-2 text-slate-900">
+                <Bug className="h-5 w-5 text-[#0d7f69]" />
                 Agent 漏洞挖掘
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4 text-sm text-slate-300/80">
+            <CardContent className="space-y-4 text-sm text-slate-700">
               <p>通过自动化攻击样本发现提示注入、越狱、工具滥用、污点传播等安全漏洞。</p>
-              <div className="rounded-xl border border-emerald-300/20 bg-emerald-500/8 p-3 text-xs text-emerald-100">
+              <div className="rounded-xl border border-[#14a689]/28 bg-[#14a689]/10 p-3 text-xs text-[#0d7f69]">
                 支持强度分级与攻击类型组合，适配研发联调与上线前审计
               </div>
               <Link href="/scans/new?preset=fuzzing" className="inline-flex">
@@ -165,14 +165,14 @@ export default function DashboardPage() {
             value={stats?.agentCount ?? 0}
             description="已纳管的智能体资产"
             icon={Bot}
-            tone="sky"
+            tone="orange"
           />
           <MetricCard
             title="近 7 天任务"
             value={stats?.recentScanCount ?? 0}
             description="最近一周发起的检测"
             icon={Radar}
-            tone="emerald"
+            tone="teal"
           />
           <MetricCard
             title="失败任务"
@@ -194,8 +194,8 @@ export default function DashboardPage() {
       <section className="grid gap-4 xl:grid-cols-2">
         <Card className="glass-card">
           <CardHeader className="flex flex-row items-center justify-between">
-            <CardTitle className="flex items-center gap-2">
-              <Scan className="h-5 w-5 text-sky-300" />
+            <CardTitle className="flex items-center gap-2 text-slate-900">
+              <Scan className="h-5 w-5 text-[#f27835]" />
               最近检测任务
             </CardTitle>
             <Link href="/scans">
@@ -213,14 +213,14 @@ export default function DashboardPage() {
                   <Link
                     key={scan.id}
                     href={`/scans/${scan.id}`}
-                    className="flex cursor-pointer items-center justify-between rounded-xl border border-slate-300/12 bg-slate-900/40 p-3 transition-colors hover:border-sky-300/25 hover:bg-slate-900/70"
+                    className="flex cursor-pointer items-center justify-between rounded-xl border border-white/80 bg-white/64 p-3 transition-colors hover:border-[#ff9146]/40 hover:bg-white/80"
                   >
                     <div>
-                      <div className="flex items-center gap-2 text-sm text-slate-100">
+                      <div className="flex items-center gap-2 text-sm text-slate-900">
                         <span className="font-mono">{shortId(scan.id)}</span>
-                        <span className="text-xs text-slate-400">{scan.agentName || 'Unknown Agent'}</span>
+                        <span className="text-xs text-slate-500">{scan.agentName || 'Unknown Agent'}</span>
                       </div>
-                      <p className="mt-1 text-xs text-slate-400">
+                      <p className="mt-1 text-xs text-slate-500">
                         {scan.types.map((type) => scanTypeLabels[type] || type).join(' / ')} · {formatDate(scan.createdAt)}
                       </p>
                     </div>
@@ -240,8 +240,8 @@ export default function DashboardPage() {
 
         <Card className="glass-card">
           <CardHeader className="flex flex-row items-center justify-between">
-            <CardTitle className="flex items-center gap-2">
-              <Sparkles className="h-5 w-5 text-emerald-300" />
+            <CardTitle className="flex items-center gap-2 text-slate-900">
+              <Sparkles className="h-5 w-5 text-[#0d7f69]" />
               最近审计报告
             </CardTitle>
             <Link href="/reports">
@@ -259,14 +259,14 @@ export default function DashboardPage() {
                   <Link
                     key={report.id}
                     href={`/reports/${report.id}`}
-                    className="flex cursor-pointer items-center justify-between rounded-xl border border-slate-300/12 bg-slate-900/40 p-3 transition-colors hover:border-emerald-300/25 hover:bg-slate-900/70"
+                    className="flex cursor-pointer items-center justify-between rounded-xl border border-white/80 bg-white/64 p-3 transition-colors hover:border-[#14a689]/40 hover:bg-white/80"
                   >
                     <div>
-                      <div className="flex items-center gap-2 text-sm text-slate-100">
+                      <div className="flex items-center gap-2 text-sm text-slate-900">
                         <span className="font-mono">{shortId(report.id)}</span>
-                        <span className="text-xs text-slate-400">{report.agentName || 'Unknown Agent'}</span>
+                        <span className="text-xs text-slate-500">{report.agentName || 'Unknown Agent'}</span>
                       </div>
-                      <p className="mt-1 text-xs text-slate-400">
+                      <p className="mt-1 text-xs text-slate-500">
                         发现 {report.summary.totalFindings} 项 · {formatDate(report.createdAt)}
                       </p>
                     </div>
@@ -283,3 +283,4 @@ export default function DashboardPage() {
     </div>
   )
 }
+

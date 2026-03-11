@@ -31,12 +31,12 @@ export function EmptyState({
         className
       )}
     >
-      <div className="rounded-2xl bg-white/5 p-4 mb-4">
-        <Icon className="h-8 w-8 text-white/40" />
+      <div className="mb-4 rounded-2xl border border-white/70 bg-white/60 p-4 shadow-[0_10px_24px_rgba(41,55,79,0.1)]">
+        <Icon className="h-8 w-8 text-slate-500" />
       </div>
-      <h3 className="text-lg font-medium text-white">{title}</h3>
+      <h3 className="text-lg font-medium text-slate-900">{title}</h3>
       {description && (
-        <p className="mt-2 text-sm text-white/60 max-w-md">{description}</p>
+        <p className="mt-2 max-w-md text-sm text-slate-600">{description}</p>
       )}
       {action && (
         <div className="mt-6">

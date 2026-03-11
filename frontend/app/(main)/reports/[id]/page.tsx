@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
@@ -185,12 +185,12 @@ export default function ReportDetailPage() {
       <div className="flex items-center gap-6 mb-6 p-6 glass-card">
         <RiskBadge risk={report.risk} className="text-lg px-4 py-2" />
         <div className="flex-1">
-          <div className="text-lg font-medium text-white">{report.agentName}</div>
-          <div className="text-sm text-white/60">{formatDate(report.createdAt)}</div>
+                    <div className="text-lg font-medium text-slate-900">{report.agentName}</div>
+          <div className="text-sm text-slate-500">{formatDate(report.createdAt)}</div>
         </div>
         <div className="text-right">
-          <div className="text-3xl font-bold text-white">{report.summary.totalFindings}</div>
-          <div className="text-sm text-white/60">发现总数</div>
+                    <div className="text-3xl font-bold text-slate-900">{report.summary.totalFindings}</div>
+          <div className="text-sm text-slate-500">发现总数</div>
         </div>
       </div>
 
@@ -241,14 +241,14 @@ export default function ReportDetailPage() {
                 {report.overviewText && report.overviewText.length > 0 ? (
                   <ul className="space-y-3">
                     {report.overviewText.map((text, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-white/80">
-                        <ChevronRight className="h-4 w-4 mt-0.5 text-cyan-400 flex-shrink-0" />
+                      <li key={i} className="flex items-start gap-2 text-sm text-slate-700">
+                        <ChevronRight className="h-4 w-4 mt-0.5 text-[#f27835] flex-shrink-0" />
                         {text}
                       </li>
                     ))}
                   </ul>
                 ) : (
-                  <p className="text-white/60">暂无概要信息</p>
+                  <p className="text-slate-500">暂无概要信息</p>
                 )}
               </CardContent>
             </Card>
@@ -388,7 +388,7 @@ export default function ReportDetailPage() {
                   ))}
                 </div>
               ) : (
-                <p className="text-white/60">暂无建议</p>
+                <p className="text-slate-500">暂无建议</p>
               )}
             </CardContent>
           </Card>
@@ -420,24 +420,24 @@ export default function ReportDetailPage() {
           {evidenceDialog.finding && (
             <div className="space-y-4">
               <div>
-                <div className="text-sm text-white/60 mb-1">标题</div>
-                <div className="text-white">{evidenceDialog.finding.title}</div>
+                <div className="text-sm text-slate-500 mb-1">标题</div>
+                        <div className="text-slate-900">{evidenceDialog.finding.title}</div>
               </div>
               {evidenceDialog.finding.evidence && (
                 <div>
-                  <div className="text-sm text-white/60 mb-1">证据</div>
+                  <div className="text-sm text-slate-500 mb-1">证据</div>
                   <CodeBlock code={evidenceDialog.finding.evidence} maxHeight="200px" />
                 </div>
               )}
               {'flowPath' in evidenceDialog.finding && evidenceDialog.finding.flowPath && (
                 <div>
-                  <div className="text-sm text-white/60 mb-2">数据流路径</div>
+                  <div className="text-sm text-slate-500 mb-2">数据流路径</div>
                   <div className="flex items-center gap-2 flex-wrap">
                     {evidenceDialog.finding.flowPath.map((node, i, arr) => (
                       <div key={i} className="flex items-center">
                         <Badge variant="outline">{node}</Badge>
                         {i < arr.length - 1 && (
-                          <ChevronRight className="h-4 w-4 text-white/40 mx-1" />
+                          <ChevronRight className="h-4 w-4 text-slate-500 mx-1" />
                         )}
                       </div>
                     ))}
@@ -446,8 +446,8 @@ export default function ReportDetailPage() {
               )}
               {'reproductionSteps' in evidenceDialog.finding && evidenceDialog.finding.reproductionSteps && (
                 <div>
-                  <div className="text-sm text-white/60 mb-1">复现步骤</div>
-                  <pre className="text-sm text-white/80 whitespace-pre-wrap bg-white/5 p-4 rounded-lg">
+                  <div className="text-sm text-slate-500 mb-1">复现步骤</div>
+                  <pre className="text-sm text-slate-700 whitespace-pre-wrap bg-white/62 p-4 rounded-lg">
                     {evidenceDialog.finding.reproductionSteps}
                   </pre>
                 </div>
@@ -481,38 +481,38 @@ function FindingCard({
   }
 
   return (
-    <div className="border border-white/10 rounded-xl overflow-hidden">
+    <div className="border border-white/80 rounded-xl overflow-hidden">
       <button
         onClick={onToggle}
-        className="w-full flex items-center justify-between p-4 hover:bg-white/5 transition-colors text-left"
+        className="w-full flex items-center justify-between p-4 hover:bg-white/62 transition-colors text-left"
       >
         <div className="flex items-center gap-3">
           <Badge className={severityBadge[finding.severity]}>
             {finding.severity === 'high' ? '高危' : finding.severity === 'medium' ? '中危' : '低危'}
           </Badge>
-          <span className="font-medium text-white">{finding.title}</span>
+                                  <span className="font-medium text-slate-900">{finding.title}</span>
         </div>
         {expanded ? (
-          <ChevronUp className="h-5 w-5 text-white/40" />
+          <ChevronUp className="h-5 w-5 text-slate-500" />
         ) : (
-          <ChevronDown className="h-5 w-5 text-white/40" />
+          <ChevronDown className="h-5 w-5 text-slate-500" />
         )}
       </button>
 
       {expanded && (
         <div className="px-4 pb-4 space-y-3 border-t border-white/5">
-          <p className="text-sm text-white/70 mt-3">{finding.description}</p>
+          <p className="text-sm text-slate-600 mt-3">{finding.description}</p>
 
           {type === 'exposure' && 'dataType' in finding && (
             <div className="flex gap-4 text-sm">
               <div>
-                <span className="text-white/40">数据类型: </span>
+                <span className="text-slate-500">数据类型: </span>
                 <Badge variant="outline">{finding.dataType}</Badge>
               </div>
               {finding.source && (
                 <div>
-                  <span className="text-white/40">来源: </span>
-                  <span className="text-white/80">{finding.source}</span>
+                  <span className="text-slate-500">来源: </span>
+                  <span className="text-slate-700">{finding.source}</span>
                 </div>
               )}
             </div>
@@ -521,13 +521,13 @@ function FindingCard({
           {type === 'fuzzing' && 'attackType' in finding && (
             <div className="flex gap-4 text-sm">
               <div>
-                <span className="text-white/40">攻击类型: </span>
+                <span className="text-slate-500">攻击类型: </span>
                 <Badge variant="outline">{finding.attackType}</Badge>
               </div>
               {finding.payloadSummary && (
                 <div>
-                  <span className="text-white/40">Payload: </span>
-                  <span className="text-white/80">{finding.payloadSummary}</span>
+                  <span className="text-slate-500">Payload: </span>
+                  <span className="text-slate-700">{finding.payloadSummary}</span>
                 </div>
               )}
             </div>
@@ -555,11 +555,11 @@ function RecommendationItem({ index, text }: { index: number; text: string }) {
   }
 
   return (
-    <div className="flex items-start gap-3 p-4 rounded-xl bg-white/5 group">
-      <div className="flex h-6 w-6 items-center justify-center rounded-full bg-cyan-500/20 text-cyan-400 text-sm font-medium flex-shrink-0">
+    <div className="flex items-start gap-3 p-4 rounded-xl bg-white/62 group">
+      <div className="flex h-6 w-6 items-center justify-center rounded-full bg-cyan-500/20 text-[#f27835] text-sm font-medium flex-shrink-0">
         {index}
       </div>
-      <p className="flex-1 text-sm text-white/80">{text}</p>
+      <p className="flex-1 text-sm text-slate-700">{text}</p>
       <Button
         variant="ghost"
         size="sm"
@@ -571,3 +571,4 @@ function RecommendationItem({ index, text }: { index: number; text: string }) {
     </div>
   )
 }
+

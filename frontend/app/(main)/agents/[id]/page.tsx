@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
@@ -137,14 +137,14 @@ export default function AgentDetailPage() {
           <CardHeader className="flex flex-row items-center gap-3 border-b border-white/5">
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500/20 to-purple-500/20 border border-cyan-500/20">
               {agent.inputType === 'endpoint' ? (
-                <Globe className="h-6 w-6 text-cyan-400" />
+                <Globe className="h-6 w-6 text-[#f27835]" />
               ) : (
-                <Upload className="h-6 w-6 text-purple-400" />
+                <Upload className="h-6 w-6 text-[#0d7f69]" />
               )}
             </div>
             <div className="flex-1">
               <CardTitle className="font-display text-xl">基本信息</CardTitle>
-              <p className="text-xs text-white/40 mt-0.5">Agent Configuration</p>
+              <p className="text-xs text-slate-500 mt-0.5">Agent Configuration</p>
             </div>
             {agent.tags && agent.tags.length > 0 && (
               <div className="flex gap-2">
@@ -159,16 +159,16 @@ export default function AgentDetailPage() {
           <CardContent className="pt-6">
             <KeyValueGrid items={infoItems} columns={3} />
 
-            <div className="mt-8 pt-6 border-t border-white/10 grid grid-cols-2 gap-6">
+            <div className="mt-8 pt-6 border-t border-white/80 grid grid-cols-2 gap-6">
               <motion.div
                 className="text-center p-6 rounded-2xl bg-gradient-to-br from-cyan-500/10 to-cyan-500/5 border border-cyan-500/20 group hover:border-cyan-500/40 transition-colors"
                 whileHover={{ y: -2 }}
               >
                 <div className="flex items-center justify-center gap-2 mb-2">
-                  <Shield className="h-5 w-5 text-cyan-400" />
+                  <Shield className="h-5 w-5 text-[#f27835]" />
                 </div>
-                <div className="text-3xl font-bold font-display text-white">{agent.toolCount || 0}</div>
-                <div className="text-sm text-white/50 mt-1">工具总数</div>
+                    <div className="text-3xl font-bold font-display text-slate-900">{agent.toolCount || 0}</div>
+                <div className="text-sm text-slate-500 mt-1">工具总数</div>
               </motion.div>
               <motion.div
                 className={`text-center p-6 rounded-2xl border group transition-colors ${
@@ -184,7 +184,7 @@ export default function AgentDetailPage() {
                 <div className={`text-3xl font-bold font-display ${agent.highRiskToolCount ? 'text-red-400' : 'text-emerald-400'}`}>
                   {agent.highRiskToolCount || 0}
                 </div>
-                <div className="text-sm text-white/50 mt-1">高风险工具</div>
+                <div className="text-sm text-slate-500 mt-1">高风险工具</div>
               </motion.div>
             </div>
           </CardContent>
@@ -199,11 +199,11 @@ export default function AgentDetailPage() {
             <CardHeader className="flex flex-row items-center justify-between border-b border-white/5">
               <div className="flex items-center gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500/20 to-purple-500/20">
-                  <Scan className="h-5 w-5 text-cyan-400" />
+                  <Scan className="h-5 w-5 text-[#f27835]" />
                 </div>
                 <div>
                   <CardTitle className="text-lg font-display">最近任务</CardTitle>
-                  <p className="text-xs text-white/40">Recent Scan Tasks</p>
+                  <p className="text-xs text-slate-500">Recent Scan Tasks</p>
                 </div>
               </div>
               <Link href={`/scans?agentId=${agentId}`}>
@@ -230,17 +230,17 @@ export default function AgentDetailPage() {
                     >
                       <Link
                         href={`/scans/${scan.id}`}
-                        className="flex items-center justify-between p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-transparent hover:border-cyan-500/20 transition-all group"
+                        className="flex items-center justify-between p-4 rounded-xl bg-white/62 hover:bg-white/80 border border-transparent hover:border-cyan-500/20 transition-all group"
                       >
                         <div className="flex items-center gap-3">
-                          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/5 group-hover:bg-cyan-500/10 transition-colors">
-                            <Activity className="h-4 w-4 text-white/60 group-hover:text-cyan-400 transition-colors" />
+                          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/62 group-hover:bg-cyan-500/10 transition-colors">
+                            <Activity className="h-4 w-4 text-slate-500 group-hover:text-[#f27835] transition-colors" />
                           </div>
                           <div>
-                            <div className="text-sm font-medium text-white group-hover:text-cyan-400 transition-colors">
+                        <div className="text-sm font-medium text-slate-900 group-hover:text-[#f27835] transition-colors">
                               {shortId(scan.id)}
                             </div>
-                            <div className="text-xs text-white/40">
+                            <div className="text-xs text-slate-500">
                               {formatDate(scan.createdAt)}
                             </div>
                           </div>
@@ -261,11 +261,11 @@ export default function AgentDetailPage() {
             <CardHeader className="flex flex-row items-center justify-between border-b border-white/5">
               <div className="flex items-center gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20">
-                  <TrendingUp className="h-5 w-5 text-purple-400" />
+                  <TrendingUp className="h-5 w-5 text-[#0d7f69]" />
                 </div>
                 <div>
                   <CardTitle className="text-lg font-display">最近报告</CardTitle>
-                  <p className="text-xs text-white/40">Recent Reports</p>
+                  <p className="text-xs text-slate-500">Recent Reports</p>
                 </div>
               </div>
               <Link href={`/reports?agentId=${agentId}`}>
@@ -289,17 +289,17 @@ export default function AgentDetailPage() {
                     >
                       <Link
                         href={`/reports/${report.id}`}
-                        className="flex items-center justify-between p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-transparent hover:border-purple-500/20 transition-all group"
+                        className="flex items-center justify-between p-4 rounded-xl bg-white/62 hover:bg-white/80 border border-transparent hover:border-purple-500/20 transition-all group"
                       >
                         <div className="flex items-center gap-3">
-                          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/5 group-hover:bg-purple-500/10 transition-colors">
-                            <TrendingUp className="h-4 w-4 text-white/60 group-hover:text-purple-400 transition-colors" />
+                          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/62 group-hover:bg-purple-500/10 transition-colors">
+                            <TrendingUp className="h-4 w-4 text-slate-500 group-hover:text-[#0d7f69] transition-colors" />
                           </div>
                           <div>
-                            <div className="text-sm font-medium text-white group-hover:text-purple-400 transition-colors">
+                        <div className="text-sm font-medium text-slate-900 group-hover:text-[#0d7f69] transition-colors">
                               {shortId(report.id)}
                             </div>
-                            <div className="text-xs text-white/40">
+                            <div className="text-xs text-slate-500">
                               {formatDate(report.createdAt)} · {report.summary.totalFindings} 个发现
                             </div>
                           </div>
@@ -329,3 +329,4 @@ export default function AgentDetailPage() {
     </motion.div>
   )
 }
+

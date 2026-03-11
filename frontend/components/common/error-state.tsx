@@ -24,11 +24,11 @@ export function ErrorState({
         className
       )}
     >
-      <div className="rounded-2xl bg-red-500/10 p-4 mb-4">
+      <div className="mb-4 rounded-2xl border border-rose-200 bg-rose-50 p-4">
         <AlertCircle className="h-8 w-8 text-red-400" />
       </div>
-      <h3 className="text-lg font-medium text-white">{title}</h3>
-      <p className="mt-2 text-sm text-white/60 max-w-md">{message}</p>
+      <h3 className="text-lg font-medium text-slate-900">{title}</h3>
+      <p className="mt-2 max-w-md text-sm text-slate-600">{message}</p>
       {onRetry && (
         <Button variant="outline" onClick={onRetry} className="mt-6">
           <RefreshCw className="h-4 w-4 mr-2" />

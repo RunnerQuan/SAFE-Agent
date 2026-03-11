@@ -31,7 +31,7 @@ export function CodeBlock({
   return (
     <div className={cn('relative group', className)}>
       <pre
-        className="rounded-xl bg-zinc-900/80 border border-white/10 p-4 overflow-auto text-sm text-white/80 font-mono"
+        className="overflow-auto rounded-xl border border-white/80 bg-white/76 p-4 font-mono text-sm text-slate-700"
         style={{ maxHeight }}
       >
         <code>{code}</code>

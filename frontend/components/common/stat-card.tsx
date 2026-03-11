@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { cn } from '@/lib/utils'
 import { LucideIcon } from 'lucide-react'
@@ -24,26 +24,26 @@ export function StatCard({
   variant = 'default',
 }: StatCardProps) {
   const iconColors = {
-    default: 'text-cyan-400 bg-cyan-400/10',
-    danger: 'text-red-400 bg-red-400/10',
-    warning: 'text-amber-400 bg-amber-400/10',
-    success: 'text-emerald-400 bg-emerald-400/10',
+    default: 'text-[#f27835] bg-[#ff9146]/10',
+    danger: 'text-red-600 bg-red-500/10',
+    warning: 'text-amber-700 bg-amber-500/10',
+    success: 'text-emerald-700 bg-emerald-500/10',
   }
 
   return (
     <div className="glass-card p-6">
       <div className="flex items-start justify-between">
         <div>
-          <p className="text-sm text-white/60">{title}</p>
-          <p className="mt-2 text-3xl font-bold text-white">{value}</p>
+          <p className="text-sm text-slate-600">{title}</p>
+          <p className="mt-2 text-3xl font-bold text-slate-900">{value}</p>
           {description && (
-            <p className="mt-1 text-xs text-white/40">{description}</p>
+            <p className="mt-1 text-xs text-slate-500">{description}</p>
           )}
           {trend && (
             <p
               className={cn(
                 'mt-2 text-xs',
-                trend.value >= 0 ? 'text-emerald-400' : 'text-red-400'
+                trend.value >= 0 ? 'text-emerald-600' : 'text-red-600'
               )}
             >
               {trend.value >= 0 ? '+' : ''}
@@ -58,3 +58,4 @@ export function StatCard({
     </div>
   )
 }
+

@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState, useEffect, useRef } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
@@ -107,7 +107,7 @@ export default function ScanDetailPage() {
       case 'warn':
         return <AlertTriangle className="h-4 w-4 text-amber-400" />
       default:
-        return <Info className="h-4 w-4 text-cyan-400" />
+        return <Info className="h-4 w-4 text-[#f27835]" />
     }
   }
 
@@ -171,14 +171,14 @@ export default function ScanDetailPage() {
               {scan.progress && (
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
-                    <span className="text-white/60">
+                    <span className="text-slate-500">
                       {stageLabels[scan.progress.stage] || scan.progress.stage}
                     </span>
-                    <span className="text-white">{scan.progress.percent}%</span>
+                        <span className="text-slate-900">{scan.progress.percent}%</span>
                   </div>
                   <Progress value={scan.progress.percent} />
                   {scan.progress.message && (
-                    <p className="text-sm text-white/40">{scan.progress.message}</p>
+                    <p className="text-sm text-slate-500">{scan.progress.message}</p>
                   )}
                 </div>
               )}
@@ -190,7 +190,7 @@ export default function ScanDetailPage() {
                     <XCircle className="h-5 w-5" />
                     <span className="font-medium">任务执行失败</span>
                   </div>
-                  <p className="mt-2 text-sm text-white/60">
+                  <p className="mt-2 text-sm text-slate-500">
                     {scan.progress?.message || '请检查日志了解详细错误信息'}
                   </p>
                 </div>
@@ -198,7 +198,7 @@ export default function ScanDetailPage() {
 
               {/* Types */}
               <div>
-                <div className="text-sm text-white/40 mb-2">检测类型</div>
+                <div className="text-sm text-slate-500 mb-2">检测类型</div>
                 <div className="flex gap-2">
                   {scan.types.map((type) => (
                     <Badge key={type} variant="outline">
@@ -233,7 +233,7 @@ export default function ScanDetailPage() {
               <ScrollArea className="h-[400px]">
                 <div className="space-y-2 pr-4">
                   {filteredLogs?.length === 0 ? (
-                    <div className="text-center text-white/40 py-8">
+                    <div className="text-center text-slate-500 py-8">
                       暂无日志
                     </div>
                   ) : (
@@ -248,8 +248,8 @@ export default function ScanDetailPage() {
                       >
                         {getLogIcon(log.level)}
                         <div className="flex-1 min-w-0">
-                          <div className="text-white/80 break-words">{log.message}</div>
-                          <div className="text-xs text-white/40 mt-1">
+                          <div className="text-slate-700 break-words">{log.message}</div>
+                          <div className="text-xs text-slate-500 mt-1">
                             {formatDate(log.timestamp)}
                           </div>
                         </div>
@@ -281,7 +281,7 @@ export default function ScanDetailPage() {
                 <CardTitle>检测参数</CardTitle>
               </CardHeader>
               <CardContent>
-                <pre className="text-xs text-white/60 overflow-auto">
+                <pre className="text-xs text-slate-500 overflow-auto">
                   {JSON.stringify(scan.params, null, 2)}
                 </pre>
               </CardContent>
@@ -304,3 +304,4 @@ export default function ScanDetailPage() {
     </motion.div>
   )
 }
+

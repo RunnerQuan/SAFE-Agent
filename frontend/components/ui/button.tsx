@@ -9,16 +9,16 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          'bg-gradient-to-r from-sky-500 to-emerald-500 text-white shadow-[0_8px_22px_rgba(14,165,233,0.28)] hover:brightness-110',
+          'bg-gradient-to-r from-[#ff9146] to-[#f27835] text-white shadow-[0_10px_24px_rgba(242,120,53,0.28)] hover:brightness-105',
         destructive:
-          'border border-rose-400/40 bg-rose-500/15 text-rose-200 hover:bg-rose-500/25',
+          'border border-rose-300/60 bg-rose-500/10 text-rose-700 hover:bg-rose-500/18',
         outline:
-          'border border-sky-300/25 bg-slate-950/45 text-slate-100 hover:border-sky-300/45 hover:bg-slate-900/70',
+          'border border-white/70 bg-white/64 text-slate-700 shadow-[0_8px_20px_rgba(69,85,111,0.1)] hover:border-[#ff9146]/50 hover:text-slate-900 hover:shadow-[0_10px_24px_rgba(242,120,53,0.16)]',
         secondary:
-          'border border-slate-400/20 bg-slate-800/65 text-slate-100 hover:bg-slate-700/75',
+          'border border-slate-200/70 bg-slate-50/85 text-slate-700 hover:bg-slate-100',
         ghost:
-          'text-slate-200 hover:bg-slate-800/70 hover:text-white',
-        link: 'text-sky-300 underline-offset-4 hover:underline',
+          'text-slate-600 hover:bg-white/70 hover:text-slate-900',
+        link: 'text-[#f27835] underline-offset-4 hover:underline',
       },
       size: {
         default: 'h-10 px-4 py-2',

@@ -108,14 +108,14 @@ function ReportsContent() {
       {/* Filters */}
       <motion.div variants={itemVariants} className="flex flex-wrap gap-4 mb-6">
         <div className="flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/5 border border-white/10">
-            <Filter className="h-4 w-4 text-white/60" />
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/75 bg-white/66">
+            <Filter className="h-4 w-4 text-slate-500" />
           </div>
           <Select
             value={filters.agentId}
             onValueChange={(v) => setFilters({ ...filters, agentId: v })}
           >
-            <SelectTrigger className="w-[200px] h-10 bg-white/5 border-white/10">
+            <SelectTrigger className="h-10 w-[200px] border-white/80 bg-white/66">
               <SelectValue placeholder="全部 Agent" />
             </SelectTrigger>
             <SelectContent>
@@ -136,7 +136,7 @@ function ReportsContent() {
           value={filters.risk}
           onValueChange={(v) => setFilters({ ...filters, risk: v })}
         >
-          <SelectTrigger className="w-[150px] h-10 bg-white/5 border-white/10">
+          <SelectTrigger className="h-10 w-[150px] border-white/80 bg-white/66">
             <SelectValue placeholder="全部风险" />
           </SelectTrigger>
           <SelectContent>
@@ -166,7 +166,7 @@ function ReportsContent() {
           value={filters.type}
           onValueChange={(v) => setFilters({ ...filters, type: v })}
         >
-          <SelectTrigger className="w-[150px] h-10 bg-white/5 border-white/10">
+          <SelectTrigger className="h-10 w-[150px] border-white/80 bg-white/66">
             <SelectValue placeholder="全部类型" />
           </SelectTrigger>
           <SelectContent>
@@ -180,7 +180,7 @@ function ReportsContent() {
       {isLoading ? (
         <div className="space-y-4">
           {[1, 2, 3, 4, 5].map((i) => (
-            <div key={i} className="h-28 bg-white/5 rounded-2xl animate-pulse" />
+            <div key={i} className="h-28 animate-pulse rounded-2xl bg-white/62" />
           ))}
         </div>
       ) : reports?.length === 0 ? (
@@ -226,17 +226,17 @@ function ReportsContent() {
                         {report.risk === 'high' ? (
                           <AlertTriangle className="h-5 w-5 text-red-400" />
                         ) : (
-                          <FileText className="h-5 w-5 text-white/60" />
+                          <FileText className="h-5 w-5 text-slate-600" />
                         )}
                       </div>
                       <div>
                         <div className="flex items-center gap-3">
-                          <span className="font-mono text-sm font-medium text-white group-hover:text-cyan-400 transition-colors">
+                          <span className="font-mono text-sm font-medium text-slate-900 transition-colors group-hover:text-[#f27835]">
                             {shortId(report.id)}
                           </span>
                           <RiskBadge risk={report.risk} />
                         </div>
-                        <div className="flex items-center gap-4 mt-1.5 text-sm text-white/50">
+                        <div className="mt-1.5 flex items-center gap-4 text-sm text-slate-500">
                           <span className="flex items-center gap-1">
                             <Bot className="h-3.5 w-3.5" />
                             {report.agentName || 'Unknown'}
@@ -259,7 +259,7 @@ function ReportsContent() {
                         <Badge
                           key={type}
                           variant="outline"
-                          className="bg-purple-500/10 border-purple-500/20 text-purple-300"
+                          className="border-[#ff9146]/30 bg-[#ff9146]/10 text-[#c95f1f]"
                         >
                           {scanTypeLabels[type] || type}
                         </Badge>
@@ -269,7 +269,7 @@ function ReportsContent() {
                     {/* Right section - Actions */}
                     <div className="flex items-center gap-2">
                       <Link href={`/reports/${report.id}`}>
-                        <Button variant="ghost" size="sm" className="hover:bg-cyan-500/10 hover:text-cyan-400">
+                        <Button variant="ghost" size="sm" className="hover:bg-[#ff9146]/10 hover:text-[#f27835]">
                           <Eye className="h-4 w-4" />
                         </Button>
                       </Link>
@@ -277,7 +277,7 @@ function ReportsContent() {
                         variant="ghost"
                         size="sm"
                         onClick={() => handleDownload(report.id, 'pdf')}
-                        className="hover:bg-purple-500/10 hover:text-purple-400"
+                        className="hover:bg-[#14a689]/10 hover:text-[#0d7f69]"
                       >
                         <FilePdf className="h-4 w-4" />
                       </Button>
