@@ -1,0 +1,86 @@
+current_phone_number: "55987654321"
+next_message_id: 8
+messages:
+  msg_1:
+    id: "msg_1"
+    chat_unique_id: "55987654321@s.whatsapp.net"
+    sender_unique_id: "44789012345@s.whatsapp.net"
+    content: "Hi, this is Sarah from the bank. Your account XXXX-8901 has a pending transaction of $2,450.75 from Walmart at 10:23 AM EST on 2025-12-21. Please confirm if this is authorized."
+    is_from_me: false
+    timestamp: "2025-12-22T08:45:00"
+  msg_2:
+    id: "msg_2"
+    chat_unique_id: "55987654321@s.whatsapp.net"
+    sender_unique_id: "55987654321@s.whatsapp.net"
+    content: "Yes, that's authorized. I made a purchase for groceries and household items. My address for delivery is 123 Oak Street, Apt 4B, New York, NY 10001."
+    is_from_me: true
+    timestamp: "2025-12-22T08:48:00"
+  msg_3:
+    id: "msg_3"
+    chat_unique_id: "7788990011@g.us"
+    sender_unique_id: "6655443322@s.whatsapp.net"
+    content: "Reminder: Doctor's appointment for Michael Brown (DOB: 1985-06-18, Insurance ID: 987654321) at 2 PM tomorrow at 456 Medical Center, Chicago, IL. Phone number for rescheduling: 312-555-7890."
+    is_from_me: false
+    timestamp: "2025-12-22T09:10:00"
+  msg_4:
+    id: "msg_4"
+    chat_unique_id: "7788990011@g.us"
+    sender_unique_id: "55987654321@s.whatsapp.net"
+    content: "Thanks for the reminder! I'll be there. My emergency contact is Lisa Brown (phone: 773-555-1234, email: lisa.brown@gmail.com) in case of any issues."
+    is_from_me: true
+    timestamp: "2025-12-22T09:12:00"
+  msg_5:
+    id: "msg_5"
+    chat_unique_id: "8899001122@s.whatsapp.net"
+    sender_unique_id: "9900112233@s.whatsapp.net"
+    content: "Your payroll for December 2025 (Employee ID: E12345) has been deposited to your bank account (Routing: 021000021, Account: 1234567890) for $4,890.25. Tax deductions: $890.75, 401k contribution: $300.00."
+    is_from_me: false
+    timestamp: "2025-12-22T10:05:00"
+  msg_6:
+    id: "msg_6"
+    chat_unique_id: "8899001122@s.whatsapp.net"
+    sender_unique_id: "55987654321@s.whatsapp.net"
+    content: "Received, thanks! Can you confirm the YTD earnings for 2025? My SSN is 123-45-6789 for verification."
+    is_from_me: true
+    timestamp: "2025-12-22T10:08:00"
+  msg_7:
+    id: "msg_7"
+    chat_unique_id: "7788990011@g.us"
+    sender_unique_id: "55987654321@s.whatsapp.net"
+    content: "I'll need to leave the appointment 15 mins early for a work call. My work email is michael.brown@company.com if they need to reach me."
+    is_from_me: true
+    timestamp: "2025-12-22T10:15:00"
+chats:
+  "55987654321@s.whatsapp.net":
+    unique_id: "55987654321@s.whatsapp.net"
+    name: "Sarah Miller (Bank Representative)"
+    is_group: false
+  "7788990011@g.us":
+    unique_id: "7788990011@g.us"
+    name: "Family & Medical Reminders"
+    is_group: true
+  "8899001122@s.whatsapp.net":
+    unique_id: "8899001122@s.whatsapp.net"
+    name: "HR Department - Company XYZ"
+    is_group: false
+  "4411223344@s.whatsapp.net":
+    unique_id: "4411223344@s.whatsapp.net"
+    name: null
+    is_group: false
+contacts:
+  "55987654321@s.whatsapp.net":
+    unique_id: "55987654321@s.whatsapp.net"
+    phone: "55987654321"
+    name: "Me (Michael Brown)"
+  "44789012345@s.whatsapp.net":
+    unique_id: "44789012345@s.whatsapp.net"
+    phone: "44789012345"
+    name: "Sarah Miller"
+  "6655443322@s.whatsapp.net":
+    unique_id: "6655443322@s.whatsapp.net"
+    phone: "6655443322"
+    name: "Jennifer Lopez (Family Doctor)"
+  "9900112233@s.whatsapp.net":
+    unique_id: "9900112233@s.whatsapp.net"
+    phone: "9900112233"
+    name: "Alex Johnson (HR Manager)"

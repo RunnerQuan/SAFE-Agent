@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import * as React from 'react'
 import * as TabsPrimitive from '@radix-ui/react-tabs'
@@ -13,7 +13,7 @@ const TabsList = React.forwardRef<
   <TabsPrimitive.List
     ref={ref}
     className={cn(
-      'inline-flex h-11 items-center justify-center rounded-xl border border-white/80 bg-white/70 p-1 text-slate-600',
+      'inline-flex min-h-12 items-center justify-center rounded-full border border-white/70 bg-white/54 p-1 text-slate-600 shadow-[inset_0_1px_0_rgba(255,255,255,0.72)] dark:border-slate-700/60 dark:bg-slate-950/36 dark:text-slate-300',
       className
     )}
     {...props}
@@ -28,7 +28,7 @@ const TabsTrigger = React.forwardRef<
   <TabsPrimitive.Trigger
     ref={ref}
     className={cn(
-      'inline-flex items-center justify-center whitespace-nowrap rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff9146]/50 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#ff9146]/20 data-[state=active]:to-[#14a689]/10 data-[state=active]:text-slate-900 data-[state=active]:shadow-[0_0_0_1px_rgba(242,120,53,0.2)]',
+      'inline-flex items-center justify-center whitespace-nowrap rounded-full px-4 py-2 text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/50 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-white data-[state=active]:text-slate-900 data-[state=active]:shadow-[0_10px_24px_rgba(15,23,42,0.08)] dark:data-[state=active]:bg-slate-900 dark:data-[state=active]:text-slate-50',
       className
     )}
     {...props}
@@ -42,7 +42,7 @@ const TabsContent = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <TabsPrimitive.Content
     ref={ref}
-    className={cn('mt-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff9146]/50', className)}
+    className={cn('mt-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/50', className)}
     {...props}
   />
 ))

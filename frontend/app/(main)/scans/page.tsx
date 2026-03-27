@@ -1,21 +1,12 @@
-﻿'use client'
+'use client'
 
-import { Suspense, useState } from 'react'
+import { Suspense, useMemo, useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import Link from 'next/link'
-import { useSearchParams } from 'next/navigation'
 import { motion } from 'framer-motion'
-import {
-  Activity,
-  Bot,
-  Clock,
-  Eye,
-  FileText,
-  Plus,
-  RotateCcw,
-  StopCircle,
-} from 'lucide-react'
+import { Clock, Eye, FileText, Plus, RotateCcw, StopCircle } from 'lucide-react'
 import { toast } from 'sonner'
+
 import { ConfirmDialog } from '@/components/dialogs/confirm-dialog'
 import { EmptyState } from '@/components/common/empty-state'
 import { ErrorState } from '@/components/common/error-state'
@@ -29,27 +20,42 @@ import { cancelScan, listScans } from '@/lib/api'
 import { Scan as ScanType } from '@/lib/types'
 import { formatDate, formatDuration, scanTypeLabels, shortId } from '@/lib/utils'
 
-function ScansContent() {
-  const searchParams = useSearchParams()
-  const agentId = searchParams.get('agentId')
-  const queryClient = useQueryClient()
+function getTaskTitle(scan: ScanType) {
+  return typeof scan.params?.taskName === 'string' ? scan.params.taskName : scan.title || scan.agentName || shortId(scan.id)
+}
 
+function getToolCount(scan: ScanType) {
+  return typeof scan.params?.toolCount === 'number' ? scan.params.toolCount : 0
+}
+
+function getSelectedChecks(scan: ScanType) {
+  return Array.isArray(scan.params?.selectedChecks) ? (scan.params.selectedChecks as string[]) : scan.types
+}
+
+function ScansContent() {
+  const queryClient = useQueryClient()
   const [cancelDialog, setCancelDialog] = useState<{ open: boolean; scan: ScanType | null }>({
     open: false,
     scan: null,
   })
 
   const { data: scans, isLoading, error, refetch } = useQuery({
-    queryKey: ['scans', agentId],
-    queryFn: () => listScans(agentId ? { agentId } : undefined),
+    queryKey: ['scans'],
+    queryFn: () => listScans(),
     refetchInterval: (query) => {
       const data = query.state.data
-      if (data?.some((scan) => scan.status === 'queued' || scan.status === 'running')) {
-        return 3000
-      }
-      return false
+      return data?.some((scan) => scan.status === 'queued' || scan.status === 'running') ? 3000 : false
     },
   })
+
+  const summary = useMemo(() => {
+    const list = scans || []
+    return {
+      total: list.length,
+      running: list.filter((item) => item.status === 'running').length,
+      reports: list.filter((item) => item.reportId).length,
+    }
+  }, [scans])
 
   const cancelMutation = useMutation({
     mutationFn: cancelScan,
@@ -70,9 +76,8 @@ function ScansContent() {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="检测任务"
-        description="查看和管理检测执行状态，支持取消、复跑和跳转报告。"
-        gradient
+        title="任务"
+        description="统一查看工具 metadata 批次任务，追踪双检测执行状态与报告产出。"
         actions={
           <Link href="/scans/new">
             <Button>
@@ -82,6 +87,21 @@ function ScansContent() {
           </Link>
         }
       />
+
+      <section className="grid gap-4 md:grid-cols-3">
+        {[
+          { label: '总任务数', value: summary.total },
+          { label: '进行中', value: summary.running },
+          { label: '已生成报告', value: summary.reports },
+        ].map((item) => (
+          <Card key={item.label} className="rounded-[1.8rem]">
+            <div className="p-6">
+              <p className="text-xs uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">{item.label}</p>
+              <p className="mt-3 font-display text-4xl text-slate-950 dark:text-slate-50">{item.value}</p>
+            </div>
+          </Card>
+        ))}
+      </section>
 
       {isLoading ? (
         <LoadingSkeleton type="table" count={5} />
@@ -98,73 +118,56 @@ function ScansContent() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.03 }}
               >
-                <Card className="glass-card glass-card-hover overflow-hidden border-white/80">
-                  {scan.status === 'running' && (
-                    <div className="h-px bg-gradient-to-r from-transparent via-[#ff9146]/85 to-transparent" />
-                  )}
-
-                  <div className="flex flex-col gap-4 p-4 lg:flex-row lg:items-center lg:justify-between">
-                    <div className="flex min-w-0 items-start gap-3">
-                      <div className="mt-0.5 rounded-lg border border-white/85 bg-white/72 p-2">
-                        <Activity className="h-4 w-4 text-[#f27835]" />
+                <Card className="rounded-[1.8rem]">
+                  <div className="flex flex-col gap-4 p-5 lg:flex-row lg:items-center lg:justify-between">
+                    <div className="min-w-0 space-y-3">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <p className="font-display text-xl text-slate-950 dark:text-slate-50">{getTaskTitle(scan)}</p>
+                        <StatusBadge status={scan.status} />
                       </div>
 
-                      <div className="min-w-0">
-                        <div className="flex flex-wrap items-center gap-2">
-                          <p className="font-display text-sm text-slate-900">{shortId(scan.id)}</p>
-                          <StatusBadge status={scan.status} />
-                        </div>
+                      <div className="flex flex-wrap items-center gap-4 text-sm text-slate-500 dark:text-slate-400">
+                        <span>{shortId(scan.id)}</span>
+                        <span>{getToolCount(scan)} 个工具</span>
+                        <span className="inline-flex items-center gap-1">
+                          <Clock className="h-3.5 w-3.5" />
+                          {formatDate(scan.createdAt)}
+                        </span>
+                        {scan.durationMs && <span>耗时 {formatDuration(scan.durationMs)}</span>}
+                      </div>
 
-                        <div className="mt-1 flex flex-wrap items-center gap-3 text-xs text-slate-500">
-                          <span className="inline-flex items-center gap-1">
-                            <Bot className="h-3.5 w-3.5" />
-                            {scan.agentName || 'Unknown Agent'}
-                          </span>
-                          <span className="inline-flex items-center gap-1">
-                            <Clock className="h-3.5 w-3.5" />
-                            {formatDate(scan.createdAt)}
-                          </span>
-                          {scan.durationMs && <span>耗时 {formatDuration(scan.durationMs)}</span>}
-                        </div>
-
-                        <div className="mt-2 flex flex-wrap gap-2">
-                          {scan.types.map((type) => (
-                            <Badge key={type} variant="outline">
-                              {scanTypeLabels[type] || type}
-                            </Badge>
-                          ))}
-                        </div>
+                      <div className="flex flex-wrap gap-2">
+                        {getSelectedChecks(scan).map((type) => (
+                          <Badge key={type} variant="outline">
+                            {scanTypeLabels[type] || type}
+                          </Badge>
+                        ))}
                       </div>
                     </div>
 
                     <div className="flex items-center gap-2">
                       <Link href={`/scans/${scan.id}`}>
-                        <Button variant="ghost" size="icon" className="cursor-pointer">
+                        <Button variant="ghost" size="icon">
                           <Eye className="h-4 w-4" />
                         </Button>
                       </Link>
 
                       {canOpenReport && (
                         <Link href={`/reports/${scan.reportId}`}>
-                          <Button variant="ghost" size="icon" className="cursor-pointer">
+                          <Button variant="ghost" size="icon">
                             <FileText className="h-4 w-4" />
                           </Button>
                         </Link>
                       )}
 
-                      <Link href={`/scans/new?agentId=${scan.agentId}&copyFrom=${scan.id}`}>
-                        <Button variant="ghost" size="icon" className="cursor-pointer">
+                      <Link href={`/scans/new?copyFrom=${scan.id}`}>
+                        <Button variant="ghost" size="icon">
                           <RotateCcw className="h-4 w-4" />
                         </Button>
                       </Link>
 
                       {canCancel && (
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          className="cursor-pointer"
-                          onClick={() => setCancelDialog({ open: true, scan })}
-                        >
+                        <Button variant="ghost" size="icon" onClick={() => setCancelDialog({ open: true, scan })}>
                           <StopCircle className="h-4 w-4" />
                         </Button>
                       )}
@@ -178,9 +181,9 @@ function ScansContent() {
       ) : (
         <Card className="glass-card">
           <EmptyState
-            title="暂无检测任务"
-            description="创建任务后可在此追踪执行进度与报告产出。"
-            action={{ label: '创建任务', href: '/scans/new' }}
+            title="暂无任务"
+            description="输入工具 metadata 后，任务会出现在这里。"
+            action={{ label: '新建任务', href: '/scans/new' }}
           />
         </Card>
       )}
@@ -189,7 +192,7 @@ function ScansContent() {
         open={cancelDialog.open}
         onOpenChange={(open) => setCancelDialog({ open, scan: cancelDialog.scan })}
         title="取消任务"
-        description="确认取消当前检测任务？"
+        description="确认取消当前任务？"
         confirmLabel="确认取消"
         variant="destructive"
         loading={cancelMutation.isPending}

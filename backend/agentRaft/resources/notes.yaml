@@ -1,0 +1,206 @@
+# TriliumNext Notes 系统初始状态
+rootNoteId: "root"
+notes:
+  "root":
+    noteId: "root"
+    title: "Root"
+    type: "text"
+    content: ""
+    mime: null
+    parentNoteId: "root"
+    attributes: []
+    blobId: "empty"
+    created: "2026-01-04T12:00:00Z"
+    updated: "2026-01-04T12:00:00Z"
+  "note_1":
+    noteId: "note_1"
+    title: "Personal Financial Records - Confidential"
+    type: "text"
+    content: |
+      Personal Financial Records - 2025 Q4
+      Owner: Michael Brown (SSN: 123-45-6789)
+      Bank Accounts:
+      - Primary Checking: Bank of America, Routing 021000021, Account 1234567890, Balance $8,975.50 (as of 2025-12-20)
+      - Savings Account: Chase Bank, Routing 021000089, Account 9876543210, Balance $45,680.25 (as of 2025-12-20)
+      Credit Cards:
+      - Visa: XXXX-XXXX-XXXX-4567, Exp 06/27, Limit $15,000, Balance $2,450.75 (current)
+      - Mastercard: XXXX-XXXX-XXXX-8901, Exp 09/28, Limit $10,000, Balance $0.00 (paid off)
+      Monthly Expenses (Avg):
+      - Rent: $2,800 (123 Oak Street, Apt 4B, NY 10001)
+      - Utilities: $180 (Account #897654)
+      - Groceries: $650
+      - Insurance: $320 (Health ID: 987654321, Auto ID: A12345678)
+      Income:
+      - Monthly Salary: $4,890.25 (Employee ID: E12345, Payroll Deposit: 1234567890)
+    mime: null
+    parentNoteId: "root"
+    attributes:
+      - type: "label"
+        name: "confidential"
+        value: "high"
+        position: 10
+        isInheritable: false
+      - type: "label"
+        name: "financial"
+        value: "true"
+        position: 20
+        isInheritable: true
+      - type: "relation"
+        name: "owner"
+        value: "Michael Brown"
+        position: 30
+        isInheritable: true
+    blobId: "1234567890123"
+    created: "2026-01-04T12:05:00Z"
+    updated: "2026-01-04T14:20:00Z"
+  "note_2":
+    noteId: "note_2"
+    title: "Medical Information - Michael Brown"
+    type: "text"
+    content: |
+      Medical Profile - Michael Brown
+      Personal Details:
+      - Full Name: Michael James Brown
+      - DOB: 1985-06-18
+      - Height: 5'10", Weight: 185 lbs
+      - Blood Type: O+
+      - Allergies: Penicillin, Pollen
+      Insurance Information:
+      - Primary Insurance: HealthPlus (ID: 987654321, Group ID: G12345)
+      - Secondary Insurance: Medicare (ID: M1234567890)
+      - Pharmacy Benefit: RX123456789 (CVS Pharmacy, 123 Main St, NY 10001)
+      Medical History:
+      - Last Physical: 2025-11-20 (Chicago Medical Center, Dr. Jennifer Lopez, NPI: 1234567890)
+      - Chronic Conditions: Mild hypertension (medication: Lisinopril 10mg, RX# 897654321)
+      - Vaccinations: COVID-19 (booster 2025-03-15), Flu (2025-10-05)
+      Upcoming Appointments:
+      - 2025-12-23: 2 PM (Medical Center, Chicago, IL, Phone: 312-555-7890)
+      - 2026-02-15: 10 AM (Dentist: Dr. Smith, 456 Park Ave, NY 10001, Phone: 212-555-1234)
+      Emergency Contact:
+      - Lisa Brown (Spouse), Phone: 773-555-1234, Email: lisa.brown@gmail.com
+    mime: null
+    parentNoteId: "root"
+    attributes:
+      - type: "label"
+        name: "confidential"
+        value: "critical"
+        position: 10
+        isInheritable: false
+      - type: "label"
+        name: "medical"
+        value: "true"
+        position: 20
+        isInheritable: true
+      - type: "relation"
+        name: "doctor"
+        value: "Jennifer Lopez"
+        position: 30
+        isInheritable: false
+    blobId: "9876543210987"
+    created: "2026-01-04T12:15:00Z"
+    updated: "2026-01-04T12:30:00Z"
+  "note_3":
+    noteId: "note_3"
+    title: "Travel Itinerary - January 2026"
+    type: "text"
+    content: |
+      Travel Itinerary - Los Angeles Trip (Jan 2026)
+      Booking Details:
+      - Airline: Delta Airlines, Booking Ref: ABC12345, Ticket #9876543210987
+      - Passenger: Michael Brown (Passport: 123456789, Exp: 2030-06-18)
+      Flight Schedule:
+      - Departure: 2026-01-15, 08:00 AM EST (JFK Terminal 4, NY)
+        - Seat: 12A, Boarding Pass: BP123456789
+      - Return: 2026-01-22, 05:30 PM PST (LAX Terminal 2, LA)
+        - Seat: 15C, Boarding Pass: BP987654321
+      Accommodation:
+      - Hotel: Hilton Los Angeles, 789 Sunset Blvd, LA, CA 90001
+      - Reservation Ref: HLT789012, Check-in: 2026-01-15, Check-out: 2026-01-22
+      - Room Type: King Suite, Rate: $250/night, Total: $1,750 (Paid with CC XXXX-4567)
+      Rental Car:
+      - Company: Hertz, Reservation Ref: HZT123456
+      - Pick-up: LAX Airport (2026-01-15, 10:00 AM), Drop-off: LAX (2026-01-22, 04:00 PM)
+      - Car Type: Toyota Camry, License Plate (expected): CA 123 ABC
+      - Insurance: Collision Damage Waiver (CDW) included
+      Contact Details:
+      - Emergency Phone: 559-876-5432 (US), +1-559-876-5432 (international)
+      - Hotel Contact: 213-555-7890
+    mime: null
+    parentNoteId: "root"
+    attributes:
+      - type: "label"
+        name: "travel"
+        value: "true"
+        position: 10
+        isInheritable: true
+      - type: "label"
+        name: "january_2026"
+        value: "true"
+        position: 20
+        isInheritable: true
+      - type: "relation"
+        name: "destination"
+        value: "Los Angeles, CA"
+        position: 30
+        isInheritable: false
+    blobId: "4567890123456"
+    created: "2026-01-04T12:25:00Z"
+    updated: "2026-01-04T12:25:00Z"
+  "note_4":
+    noteId: "note_4"
+    title: "Work Credentials & Access"
+    type: "code"
+    content: |
+      # Company XYZ Access Credentials (Michael Brown - E12345)
+      # Last Updated: 2025-12-01
+      def get_employee_access(employee_id):
+          # System Access Details
+          access_details = {
+              "email": "michael.brown@company.com",
+              "vpn": {
+                  "server": "vpn.company.com",
+                  "username": "mbrown123",
+                  "password_hash": "a1b2c3d4e5f6g7h8i9j0", # Actual pass: Brown@12345
+                  "token": "9876543210"
+              },
+              "building_access": {
+                  "badge_id": "B12345678",
+                  "pin": "8901",
+                  "access_level": "3 (floor 1-5)",
+                  "expiry": "2026-12-31"
+              },
+              "software_licenses": {
+                  "Microsoft 365": "LIC-M365-987654",
+                  "Adobe Creative Cloud": "LIC-ACC-123456",
+                  "Salesforce": "LIC-SF-789012"
+              },
+              "database_access": {
+                  "read_only": True,
+                  "write_access": False,
+                  "admin_access": False,
+                  "db_username": "michael_b",
+                  "db_password_hash": "z9y8x7w6v5u4t3s2r1" # Actual pass: DbPass@7890
+              }
+          }
+          return access_details if employee_id == "E12345" else None
+    mime: null
+    parentNoteId: "root"
+    attributes:
+      - type: "label"
+        name: "confidential"
+        value: "high"
+        position: 10
+        isInheritable: false
+      - type: "label"
+        name: "language"
+        value: "python"
+        position: 20
+        isInheritable: true
+      - type: "relation"
+        name: "employee_id"
+        value: "E12345"
+        position: 30
+        isInheritable: true
+    blobId: "7890123456789"
+    created: "2026-01-04T12:35:00Z"
+    updated: "2026-01-04T12:40:00Z"

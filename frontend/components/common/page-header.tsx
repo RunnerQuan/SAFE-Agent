@@ -1,8 +1,8 @@
-﻿'use client'
+'use client'
 
-import Link from 'next/link'
-import { ChevronRight, Sparkles } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { ChevronRight } from 'lucide-react'
+import Link from 'next/link'
 
 interface BreadcrumbItem {
   title: string
@@ -17,65 +17,45 @@ interface PageHeaderProps {
   gradient?: boolean
 }
 
-export function PageHeader({
-  title,
-  description,
-  breadcrumbs,
-  actions,
-  gradient = false,
-}: PageHeaderProps) {
+export function PageHeader({ title, description, breadcrumbs, actions }: PageHeaderProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: -10 }}
+    <motion.section
+      initial={{ opacity: 0, y: -8 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.35 }}
-      className="mb-8"
+      transition={{ duration: 0.28 }}
+      className="glass-panel rounded-[1.6rem] p-6 lg:p-7"
     >
       {breadcrumbs && breadcrumbs.length > 0 && (
         <nav className="mb-4 flex flex-wrap items-center gap-1 text-sm">
           {breadcrumbs.map((item, index) => (
-            <motion.div
-              key={`${item.title}-${index}`}
-              initial={{ opacity: 0, x: -8 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: index * 0.06 }}
-              className="flex items-center gap-1"
-            >
+            <div key={`${item.title}-${index}`} className="flex items-center gap-1">
               {index > 0 && <ChevronRight className="h-4 w-4 text-slate-400" />}
               {item.href ? (
                 <Link
                   href={item.href}
-                  className="rounded-md px-1 py-0.5 text-slate-500 transition-colors hover:text-[#f27835]"
+                  className="rounded-full px-2 py-1 text-slate-500 transition-colors hover:text-sky-600 dark:text-slate-400 dark:hover:text-sky-300"
                 >
                   {item.title}
                 </Link>
               ) : (
-                <span className="rounded-md px-1 py-0.5 text-slate-700">{item.title}</span>
+                <span className="rounded-full px-2 py-1 text-slate-700 dark:text-slate-200">{item.title}</span>
               )}
-            </motion.div>
+            </div>
           ))}
         </nav>
       )}
 
-      <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-        <div>
-          <div className="flex items-center gap-3">
-            {gradient && (
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/80 bg-gradient-to-br from-[#ff9146]/20 to-[#14a689]/14 shadow-[0_8px_20px_rgba(41,55,79,0.1)]">
-                <Sparkles className="h-5 w-5 text-[#f27835]" />
-              </div>
-            )}
-            <h1 className={`font-display text-3xl font-semibold ${gradient ? 'gradient-text' : 'text-slate-900'}`}>
-              {title}
-            </h1>
-          </div>
-          {description && <p className="mt-2 max-w-3xl text-sm text-slate-600">{description}</p>}
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+        <div className="max-w-3xl">
+          <span className="section-tag">页面</span>
+          <h1 className="mt-4 font-display text-3xl font-medium tracking-tight text-slate-900 dark:text-slate-50 sm:text-4xl">
+            {title}
+          </h1>
+          {description && <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">{description}</p>}
         </div>
 
-        {actions && <div className="flex items-center gap-2">{actions}</div>}
+        {actions && <div className="flex flex-wrap items-center gap-2">{actions}</div>}
       </div>
-
-      <div className="mt-6 h-px bg-gradient-to-r from-[#ff9146]/45 via-[#14a689]/35 to-transparent" />
-    </motion.div>
+    </motion.section>
   )
 }

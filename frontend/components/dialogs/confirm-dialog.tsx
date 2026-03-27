@@ -46,20 +46,12 @@ export function ConfirmDialog({
             )}
             <div>
               <DialogTitle>{title}</DialogTitle>
-              {description && (
-                <DialogDescription className="mt-1">
-                  {description}
-                </DialogDescription>
-              )}
+              {description && <DialogDescription className="mt-1">{description}</DialogDescription>}
             </div>
           </div>
         </DialogHeader>
         <DialogFooter className="mt-4">
-          <Button
-            variant="outline"
-            onClick={() => onOpenChange(false)}
-            disabled={loading}
-          >
+          <Button variant="outline" onClick={() => onOpenChange(false)} disabled={loading}>
             {cancelLabel}
           </Button>
           <Button

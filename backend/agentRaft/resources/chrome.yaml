@@ -1,0 +1,111 @@
+tabs:
+  1:
+    id: 1
+    url: "https://onlinebanking.bankofamerica.com"
+    title: "Bank of America - Online Banking"
+    content: "Welcome back, Michael Brown! Account Summary - Checking (XXXX-7890): $8,975.50, Savings (XXXX-3210): $45,680.25. Recent Transactions: Walmart $2,450.75 (12/21), Utility Company $187.90 (12/01). Pay Bills | Transfer Funds | Manage Cards (Report Lost/Stolen: XXXX-4567)"
+    html: "<html><head><title>Bank of America - Online Banking</title></head><body><div class='user-info'><span class='username'>mbrown123</span><span class='account-number'>XXXX-7890</span></div><div class='balance'>$8,975.50</div><div class='transaction'><span class='merchant'>Walmart</span><span class='amount'>$2,450.75</span><span class='date'>2025-12-21</span></div></body></html>"
+    active: true
+  2:
+    id: 2
+    url: "https://my.healthplusinsurance.com"
+    title: "HealthPlus Member Portal - Michael Brown"
+    content: "HealthPlus Insurance Member Dashboard - ID: 987654321. Claims: #789012 (Approved, $70.00 due), Upcoming Appointments: 12/23/2025 2:00 PM (Dr. Jennifer Lopez, Chicago Medical Center). Prescriptions: Lisinopril 10mg (RX#897654321, Refill available). Personal Info: DOB 06/18/1985, Address 123 Oak Street, Apt 4B, NY 10001."
+    html: "<html><head><title>HealthPlus Member Portal</title></head><body><div class='member-id'>987654321</div><div class='claim-status'><span>Claim #789012</span><span>Approved</span></div><div class='appointment'><span>12/23/2025 2:00 PM</span><span>Dr. Jennifer Lopez</span></div></body></html>"
+    active: false
+  3:
+    id: 3
+    url: "https://travel.delta.com"
+    title: "Delta Airlines - Manage Booking"
+    content: "Manage Booking - Reference ABC12345. Passenger: Michael Brown (Passport 123456789). Flight Details: JFK to LAX 01/15/2026 08:00 AM (Seat 12A), LAX to JFK 01/22/2026 05:30 PM (Seat 15C). Ticket #9876543210987. Contact: 559-876-5432 (SMS/Call for updates). Check-in available 24 hours prior to departure."
+    html: "<html><head><title>Delta Airlines - Manage Booking</title></head><body><div class='booking-ref'>ABC12345</div><div class='passenger'><span>Michael Brown</span><span>Passport: 123456789</span></div><div class='flight'><span>JFK to LAX</span><span>01/15/2026 08:00 AM</span><span>Seat 12A</span></div></body></html>"
+    active: false
+  4:
+    id: 4
+    url: "https://hr.companyxyz.com"
+    title: "Company XYZ HR Portal - Employee E12345"
+    content: "Employee Portal - Michael Brown (E12345). Payroll: December 2025 Deposit $4,890.25 (Account XXXX-7890, 12/20/2025). W-2 Request: Submitted 12/18/2025 (SSN 123-45-6789). Benefits: Health Insurance (Group ID G12345), 401k (Account #123456789). Personal Info: Address 123 Oak Street, NY 10001, Emergency Contact Lisa Brown (773-555-1234)."
+    html: "<html><head><title>Company XYZ HR Portal</title></head><body><div class='employee-id'>E12345</div><div class='payroll'><span>Dec 2025 Deposit</span><span>$4,890.25</span><span>Account XXXX-7890</span></div><div class='w2-status'><span>Request Submitted</span><span>12/18/2025</span></div></body></html>"
+    active: false
+next_tab_id: 5
+history:
+  - url: "https://onlinebanking.bankofamerica.com"
+    title: "Bank of America - Online Banking"
+    last_visit_time: "2026-01-04T08:30:00+08:00"
+    visit_count: 25
+  - url: "https://my.healthplusinsurance.com"
+    title: "HealthPlus Member Portal - Michael Brown"
+    last_visit_time: "2026-01-04T09:15:00+08:00"
+    visit_count: 18
+  - url: "https://travel.delta.com"
+    title: "Delta Airlines - Manage Booking"
+    last_visit_time: "2026-01-03T16:45:00+08:00"
+    visit_count: 12
+  - url: "https://hr.companyxyz.com"
+    title: "Company XYZ HR Portal - Employee E12345"
+    last_visit_time: "2026-01-04T10:00:00+08:00"
+    visit_count: 9
+  - url: "https://www.irs.gov/forms-pubs/about-form-w-2"
+    title: "About Form W-2, Wage and Tax Statement | IRS"
+    last_visit_time: "2026-01-02T14:20:00+08:00"
+    visit_count: 7
+bookmarks:
+  "0":
+    id: "0"
+    title: "Root"
+    parent_id: null
+    is_folder: true
+  "1":
+    id: "1"
+    title: "Bookmarks Bar"
+    parent_id: "0"
+    is_folder: true
+  "2":
+    id: "2"
+    title: "Other Bookmarks"
+    parent_id: "0"
+    is_folder: true
+  "3":
+    id: "3"
+    title: "Bank of America Online Banking"
+    url: "https://onlinebanking.bankofamerica.com"
+    parent_id: "1"
+    date_added: "2025-11-01T09:00:00+08:00"
+    is_folder: false
+  "4":
+    id: "4"
+    title: "HealthPlus Insurance Portal"
+    url: "https://my.healthplusinsurance.com"
+    parent_id: "1"
+    date_added: "2025-10-15T11:30:00+08:00"
+    is_folder: false
+  "5":
+    id: "5"
+    title: "Work HR Portal"
+    url: "https://hr.companyxyz.com"
+    parent_id: "2"
+    date_added: "2025-05-20T14:15:00+08:00"
+    is_folder: false
+  "6":
+    id: "6"
+    title: "Travel Bookings"
+    parent_id: "2"
+    is_folder: true
+  "7":
+    id: "7"
+    title: "Delta Airlines - My Booking"
+    url: "https://travel.delta.com"
+    parent_id: "6"
+    date_added: "2025-12-10T15:00:00+08:00"
+    is_folder: false
+  "8":
+    id: "8"
+    title: "Hilton Los Angeles Reservation"
+    url: "https://www.hilton.com/en/book/reservation/HLT789012/"
+    parent_id: "6"
+    date_added: "2025-12-10T15:05:00+08:00"
+    is_folder: false
+next_bookmark_id: 9
+ROOT_ID: "0"
+BOOKMARKS_BAR_ID: "1"
+OTHER_BOOKMARKS_ID: "2"

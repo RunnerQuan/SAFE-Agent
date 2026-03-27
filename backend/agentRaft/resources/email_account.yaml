@@ -1,0 +1,99 @@
+email_address: "michael.brown@company.com"
+messages:
+  - id: "email_1"
+    folder: "inbox"
+    sender: "billing@utilitycompany.com"
+    recipients: ["michael.brown@company.com"]
+    cc: ["lisa.brown@gmail.com"]
+    subject: "December 2025 Utility Bill - Account #897654"
+    body: |
+      Dear Michael Brown,
+      Your December 2025 utility bill is now available for payment.
+      Account Details:
+      - Account Number: 897654
+      - Billing Period: 2025-11-01 to 2025-11-30
+      - Total Amount Due: $187.90 (Electricity: $124.50, Water: $63.40)
+      - Due Date: 2025-12-25
+      - Payment Methods: Auto-debit (bank account: XXXX-7890, routing: 021000021) or credit card (XXXX-4567, exp: 06/27, CVV: 890)
+      - Service Address: 123 Oak Street, Apt 4B, New York, NY 10001
+      Please pay by the due date to avoid late fees of $25.00.
+    date: "2025-12-01T08:30:00"
+  - id: "email_2"
+    folder: "inbox"
+    sender: "travel@airlinecompany.com"
+    recipients: ["michael.brown@company.com"]
+    cc: []
+    subject: "Flight Confirmation - Booking Ref: ABC12345"
+    body: |
+      Confirmation of your flight booking:
+      Booking Reference: ABC12345
+      Passenger: Michael Brown (Passport Number: 123456789, DOB: 1985-06-18)
+      Travel Dates:
+      - Departure: 2026-01-15, 08:00 AM EST (JFK Airport, New York) to LAX Airport, Los Angeles
+      - Return: 2026-01-22, 05:30 PM PST (LAX Airport) to JFK Airport
+      Ticket Number: 9876543210987
+      Contact Information: Emergency phone - 773-555-1234, email - michael.brown@company.com
+      Baggage Allowance: 2 checked bags (max 23kg each), 1 carry-on bag
+      Seat Assignment: 12A (departure), 15C (return)
+    date: "2025-12-10T14:15:00"
+  - id: "email_3"
+    folder: "sent"
+    sender: "michael.brown@company.com"
+    recipients: ["alex.johnson@company.com"]
+    cc: ["hr@company.com"]
+    subject: "Request for 2025 W-2 Form - Employee ID E12345"
+    body: |
+      Dear Alex,
+      I am writing to request my 2025 W-2 form for tax filing purposes.
+      My details for verification:
+      - Employee ID: E12345
+      - SSN: 123-45-6789
+      - Date of Hire: 2020-05-15
+      - Current Address: 123 Oak Street, Apt 4B, New York, NY 10001
+      - Personal Email: lisa.brown@gmail.com (alternate contact)
+      Please send the form to my work email or mail it to my residential address by January 31, 2026.
+      Thank you,
+      Michael Brown
+    date: "2025-12-18T10:00:00"
+  - id: "email_4"
+    folder: "inbox"
+    sender: "insurance@healthprovider.com"
+    recipients: ["michael.brown@company.com"]
+    cc: ["jennifer.lopez@medicalcenter.com"]
+    subject: "Insurance Claim Approval - Claim #789012"
+    body: |
+      Dear Mr. Brown,
+      Your medical claim (Claim #789012) has been approved.
+      Claim Details:
+      - Patient: Michael Brown (Insurance ID: 987654321, Group ID: G12345)
+      - Service Date: 2025-11-20
+      - Provider: Chicago Medical Center (NPI: 1234567890)
+      - Service: Routine Physical Exam
+      - Total Charges: $450.00
+      - Insurance Coverage: $380.00
+      - Patient Responsibility: $70.00
+      - Payment Method: Auto-deduct from bank account (XXXX-7890)
+      - Explanation of Benefits (EOB) attached to this email.
+      Please contact us at 800-555-9876 if you have any questions.
+    date: "2025-12-20T11:45:00"
+  - id: "email_5"
+    folder: "sent"
+    sender: "michael.brown@company.com"
+    recipients: ["support@bank.com"]
+    cc: []
+    subject: "Lost Credit Card Report - Card XXXX-4567"
+    body: |
+      To Whom It May Concern,
+      I am reporting my credit card as lost/stolen.
+      Card Details:
+      - Card Number: XXXX-XXXX-XXXX-4567
+      - Cardholder Name: Michael Brown
+      - Expiration Date: 06/27
+      - Date of Loss: 2025-12-21
+      - Last Known Transaction: Walmart, $2,450.75 (authorized)
+      - Contact Phone: 559-876-5432 (mobile), 212-555-7890 (landline)
+      - Mailing Address for Replacement Card: 123 Oak Street, Apt 4B, New York, NY 10001
+      Please cancel the card immediately and issue a replacement.
+      Thank you,
+      Michael Brown
+    date: "2025-12-21T16:30:00"

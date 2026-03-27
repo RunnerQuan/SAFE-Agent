@@ -1,42 +1,68 @@
-﻿'use client'
+'use client'
 
-import { useMemo } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 
 export function AnimatedBackground() {
+  const glowRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const glow = glowRef.current
+    if (!glow) return
+
+    let frame = 0
+    let targetX = window.innerWidth * 0.46
+    let targetY = window.innerHeight * 0.22
+    let currentX = targetX
+    let currentY = targetY
+
+    const handleMove = (event: MouseEvent) => {
+      targetX = event.clientX
+      targetY = event.clientY
+    }
+
+    const animate = () => {
+      currentX += (targetX - currentX) * 0.08
+      currentY += (targetY - currentY) * 0.08
+      glow.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`
+      frame = window.requestAnimationFrame(animate)
+    }
+
+    window.addEventListener('mousemove', handleMove, { passive: true })
+    frame = window.requestAnimationFrame(animate)
+
+    return () => {
+      window.removeEventListener('mousemove', handleMove)
+      window.cancelAnimationFrame(frame)
+    }
+  }, [])
+
   return (
     <div className="pointer-events-none fixed inset-0 overflow-hidden">
-      <div className="absolute inset-0 bg-mesh" />
-      <div className="absolute inset-0 grid-bg opacity-20" />
+      <div className="global-ambient-bg" />
+      <div className="app-grid-overlay" />
+      <div className="app-noise-overlay" />
 
       <div
-        className="absolute left-[8%] top-[10%] h-[460px] w-[460px] rounded-full animate-float-slow will-change-transform"
-        style={{
-          background: 'radial-gradient(circle, rgba(255,145,70,0.28) 0%, transparent 68%)',
-          filter: 'blur(62px)',
-        }}
+        ref={glowRef}
+        className="absolute -left-48 -top-48 h-[30rem] w-[30rem] rounded-full bg-sky-300/40 blur-[120px]"
       />
+      <div className="absolute right-[6%] top-[8%] h-[24rem] w-[24rem] rounded-full bg-teal-300/20 blur-[130px] animate-float-medium" />
+      <div className="absolute bottom-[4%] left-[28%] h-[20rem] w-[20rem] rounded-full bg-white/30 blur-[100px] animate-float-slow dark:bg-slate-700/30" />
 
-      <div
-        className="absolute right-[4%] top-[32%] h-[560px] w-[560px] rounded-full animate-float-medium will-change-transform"
-        style={{
-          background: 'radial-gradient(circle, rgba(20,166,137,0.22) 0%, transparent 70%)',
-          filter: 'blur(68px)',
-        }}
-      />
-
-      <div
-        className="absolute bottom-[8%] left-[30%] h-[380px] w-[380px] rounded-full animate-float-fast will-change-transform"
-        style={{
-          background: 'radial-gradient(circle, rgba(255,255,255,0.62) 0%, transparent 68%)',
-          filter: 'blur(54px)',
-        }}
-      />
+      <div className="absolute inset-y-0 left-[8%] hidden xl:block">
+        <div className="beam-line" />
+      </div>
+      <div className="absolute inset-y-0 left-[31%] hidden xl:block">
+        <div className="beam-line teal" />
+      </div>
+      <div className="absolute inset-y-0 right-[29%] hidden xl:block">
+        <div className="beam-line" />
+      </div>
+      <div className="absolute inset-y-0 right-[8%] hidden xl:block">
+        <div className="beam-line teal" />
+      </div>
 
       <ParticleField />
-
-      <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-[#ff9146]/30 to-transparent" />
-      <div className="absolute left-16 top-16 h-28 w-28 rounded-full border border-white/45" />
-      <div className="absolute bottom-16 right-16 h-36 w-36 rounded-full border border-white/40" />
     </div>
   )
 }
@@ -44,12 +70,12 @@ export function AnimatedBackground() {
 function ParticleField() {
   const particles = useMemo(
     () =>
-      Array.from({ length: 10 }, (_, i) => ({
-        id: i,
-        x: 8 + (i * 11) % 84,
-        y: 12 + (i * 17) % 76,
-        size: 2 + (i % 3),
-        delay: i * 0.4,
+      Array.from({ length: 18 }, (_, index) => ({
+        id: index,
+        size: 2 + (index % 4),
+        left: 4 + ((index * 11) % 92),
+        top: 6 + ((index * 17) % 82),
+        delay: index * 0.32,
       })),
     []
   )
@@ -57,14 +83,14 @@ function ParticleField() {
   return (
     <div className="absolute inset-0">
       {particles.map((particle) => (
-        <div
+        <span
           key={particle.id}
-          className="absolute rounded-full bg-[#f27835]/35 animate-particle will-change-transform"
+          className="absolute animate-particle rounded-full bg-white/55 dark:bg-sky-100/30"
           style={{
             width: particle.size,
             height: particle.size,
-            left: `${particle.x}%`,
-            top: `${particle.y}%`,
+            left: `${particle.left}%`,
+            top: `${particle.top}%`,
             animationDelay: `${particle.delay}s`,
           }}
         />
