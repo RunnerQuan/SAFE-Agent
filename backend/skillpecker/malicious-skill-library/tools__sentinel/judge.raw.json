@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "data-over-collection",
+    "issue_types": [
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-over-collection",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill \"Sentinel\" is described as a security audit tool for codebases, but it requires the user to have \"Claude Code CLI installed and authenticated (`claude` command available)\" which implies access to an external API service with authentication tokens/credentials. While code analysis tools might benefit from AI assistance, mandating authentication to a specific third-party service (Anthropic's Claude) represents data over-collection because the core security auditing functionality (file analysis, pattern matching) could theoretically be performed locally without requiring external API access or user authentication to a commercial AI service. The skill forces users to share their code with an external AI provider as a prerequisite, which goes beyond minimal requirements for a local security audit tool.",
+      "impact": "OVERREACH: Data Over-collection - The skill \"Sentinel\" is described as a security audit tool for codebases, but it requires the user to have \"Claude Code CLI installed and authenticated (`claude` command available)\" which implies access to an external API service with authentication tokens/credentials. While code analysis tools might benefit from AI assistance, mandating authentication to a specific third-party service (Anthropic's Claude) represents data over-collection because the core security auditing functionality (file analysis, pattern matching) could theoretically be performed locally without requiring external API access or user authentication to a commercial AI service. The skill forces users to share their code with an external AI provider as a prerequisite, which goes beyond minimal requirements for a local security audit tool.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Data Over-collection"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": true,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

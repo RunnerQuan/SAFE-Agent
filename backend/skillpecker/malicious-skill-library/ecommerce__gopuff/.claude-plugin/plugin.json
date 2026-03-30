@@ -1,0 +1,37 @@
+{
+  "name": "gopuff",
+  "version": "1.0.0",
+  "description": "Automate Gopuff convenience browsing and delivery tracking",
+  "author": "Canifi",
+  "category": "food-delivery",
+  "permissions": [
+    "browser",
+    "notifications",
+    "env-access"
+  ],
+  "triggers": [
+    "gopuff",
+    "go puff",
+    "gopuff delivery"
+  ],
+  "authentication": {
+    "type": "browser-session",
+    "loginUrl": "https://www.gopuff.com/login",
+    "sessionIndicator": ".account-menu"
+  },
+  "requiredEnvVars": [
+    "GOPUFF_EMAIL",
+    "GOPUFF_PASSWORD"
+  ],
+  "capabilities": {
+    "browse": true,
+    "search": true,
+    "tracking": true,
+    "history": true,
+    "favorites": true,
+    "deals": true
+  },
+  "restrictions": {
+    "noOrdering": true
+  }
+}

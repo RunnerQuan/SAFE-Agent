@@ -1,0 +1,36 @@
+{
+  "$schema": "rescue-v1",
+  "mission": {
+    "statement": null,
+    "confidence": null,
+    "source": null
+  },
+  "timeline": {
+    "inception": null,
+    "last_active": null,
+    "dormant_days": null,
+    "key_milestones": []
+  },
+  "drift": {
+    "factors": [],
+    "severity": null,
+    "analysis": null
+  },
+  "health": {
+    "tests": null,
+    "dependencies": null,
+    "documentation": null,
+    "architecture": null
+  },
+  "recommendation": {
+    "action": null,
+    "confidence": null,
+    "rationale": null,
+    "prerequisites": []
+  },
+  "evidence": {
+    "files_analyzed": [],
+    "commits_reviewed": 0,
+    "analysis_date": null
+  }
+}

@@ -1,0 +1,27 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#e1f5fe', 'primaryTextColor': '#01579b', 'primaryBorderColor': '#0288d1', 'lineColor': '#0288d1', 'secondaryColor': '#fff3e0', 'tertiaryColor': '#f3e5f5'}}}%%
+graph TD
+    subgraph cmd["cmd (Entry Points)"]
+        cmd_api["cmd/api"]
+        cmd_worker["cmd/worker"]
+    end
+
+    subgraph internal["internal (Private)"]
+        handler["internal/handler"]
+        service["internal/service"]
+        repository["internal/repository"]
+        domain["internal/domain"]
+    end
+
+    subgraph pkg["pkg (Public)"]
+        pkg_util["pkg/util"]
+        pkg_logger["pkg/logger"]
+    end
+
+    cmd_api --> handler
+    cmd_api --> pkg_logger
+    cmd_worker --> service
+    handler --> service
+    service --> repository
+    service --> domain
+    repository --> domain
+    handler --> pkg_util

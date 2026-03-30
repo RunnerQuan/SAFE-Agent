@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "This LinkedIn monitoring skill requests excessive permissions and data collection beyond its core purpose of monitoring messages. While monitoring LinkedIn messages requires legitimate browser access, the skill:\n\n1. Requests continuous 24/7 access to a logged-in browser session that could access ALL LinkedIn data (not just messages) when left running\n2. Includes \"progressive autonomy\" levels (up to Level 3) that allow the skill to autonomously send messages, book meetings, and \"network\" on behalf of the user without real-time approval\n3. Requests a calendar link for booking meetings, which is unrelated to the primary purpose of monitoring messages\n4. Collects and stores personal communication style data from USER.md to mimic the user's voice\n5. Has extensive automation capabilities including \"auto-reply simple\" and \"full autonomous\" modes that could act without user oversight\n\nThe skill's stated purpose is \"LinkedIn inbox monitoring,\" but it requests permissions for autonomous actions (sending messages, booking meetings) and collects data beyond what's needed for monitoring notifications. The highest autonomy level (Level 3) represents significant permission overreach by allowing the tool to act as the user without approval.",
+      "impact": "OVERREACH: Permission Overreach & Data Over-collection - This LinkedIn monitoring skill requests excessive permissions and data collection beyond its core purpose of monitoring messages. While monitoring LinkedIn messages requires legitimate browser access, the skill:\n\n1. Requests continuous 24/7 access to a logged-in browser session that could access ALL LinkedIn data (not just messages) when left running\n2. Includes \"progressive autonomy\" levels (up to Level 3) that allow the skill to autonomously send messages, book meetings, and \"network\" on behalf of the user without real-time approval\n3. Requests a calendar link for booking meetings, which is unrelated to the primary purpose of monitoring messages\n4. Collects and stores personal communication style data from USER.md to mimic the user's voice\n5. Has extensive automation capabilities including \"auto-reply simple\" and \"full autonomous\" modes that could act without user oversight\n\nThe skill's stated purpose is \"LinkedIn inbox monitoring,\" but it requests permissions for autonomous actions (sending messages, booking meetings) and collects data beyond what's needed for monitoring notifications. The highest autonomy level (Level 3) represents significant permission overreach by allowing the tool to act as the user without approval.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Data Over-collection"
+      ],
+      "source_platform": "Clawhub",
+      "source_file": "scan_results_description_clawhub.csv",
+      "related_file_count": "5",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": true,
+        "browser_session_or_credentials": true,
+        "filesystem_access": true,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": true
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

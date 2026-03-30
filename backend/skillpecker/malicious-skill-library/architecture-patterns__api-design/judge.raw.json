@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "data-over-collection",
+    "issue_types": [
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-over-collection",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill is primarily described as an API design tool focused on resource-oriented API patterns, but it includes instructions (instructions.md) that request 20-30 real examples from the user's actual source documents for extraction design tasks. This data collection is unrelated to the stated purpose of designing APIs and could involve sensitive or private information from user documents, constituting excessive data collection for the skill's core function.",
+      "impact": "OVERREACH: Data Over-collection - The skill is primarily described as an API design tool focused on resource-oriented API patterns, but it includes instructions (instructions.md) that request 20-30 real examples from the user's actual source documents for extraction design tasks. This data collection is unrelated to the stated purpose of designing APIs and could involve sensitive or private information from user documents, constituting excessive data collection for the skill's core function.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Data Over-collection"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "4",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

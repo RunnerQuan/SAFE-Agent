@@ -1,0 +1,12 @@
+{
+  "name": "playwright-scripts",
+  "version": "1.0.0",
+  "description": "Playwright automation scripts for IRIS project",
+  "type": "commonjs",
+  "dependencies": {
+    "playwright": "^1.40.0"
+  },
+  "scripts": {
+    "install-browsers": "npx playwright install chromium"
+  }
+}

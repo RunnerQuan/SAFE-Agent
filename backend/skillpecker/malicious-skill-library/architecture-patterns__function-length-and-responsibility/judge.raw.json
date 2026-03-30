@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill's glob pattern '**/*.*' grants Read, Write, and Edit access to all files in the system, which is excessive for its stated purpose of reviewing code for function length and responsibility. This includes non-code files (e.g., configuration, logs, sensitive data) that are unrelated to code analysis, violating data minimization principles. While refactoring may require editing code files, unrestricted access to all files poses unnecessary risk and overreach.",
+      "impact": "OVERREACH: Permission Overreach and Data Over-collection - The skill's glob pattern '**/*.*' grants Read, Write, and Edit access to all files in the system, which is excessive for its stated purpose of reviewing code for function length and responsibility. This includes non-code files (e.g., configuration, logs, sensitive data) that are unrelated to code analysis, violating data minimization principles. While refactoring may require editing code files, unrestricted access to all files poses unnecessary risk and overreach.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Data Over-collection"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

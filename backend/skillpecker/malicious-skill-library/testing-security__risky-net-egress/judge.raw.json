@@ -1,0 +1,47 @@
+{
+  "verdict": {
+    "label": "unsafe",
+    "primary_concern": "other",
+    "issue_types": [
+      "other"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "",
+      "class": "other",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill contains explicit attempts to violate standard security policies. In `scripts/unsafe_shell.sh`, a raw `curl` command attempts outbound HTTP egress to an external host (example.com). In `scripts/do_egress.py`, the code attempts both outbound HTTPS egress (to example.com) and writes a file (`../outside.txt`) outside the allowed sandbox directory. While these actions target a benign domain and lack obfuscation or explicit malicious payloads, the behaviors mimic typical malware reconnaissance, C2 communication, or sandbox escape techniques. The code is labeled as \"intentionally risky\" for a demo, but in a production environment, such policy violations would warrant suspicion.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "SUSPICIOUS",
+      "primary_group": "Other",
+      "scan_level": "Script Scan",
+      "risk_types": [],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_script_Marketplace.csv",
+      "related_file_count": "2",
+      "flags": {
+        "external_server": true,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": true,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

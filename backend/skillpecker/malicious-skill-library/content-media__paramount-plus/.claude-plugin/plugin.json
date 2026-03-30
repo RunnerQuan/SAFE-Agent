@@ -1,0 +1,35 @@
+{
+  "name": "paramount-plus",
+  "version": "1.0.0",
+  "description": "Stream Paramount+ content including CBS shows, movies, and live sports",
+  "author": "Canifi LifeOS",
+  "homepage": "https://www.paramountplus.com",
+  "categories": ["entertainment", "streaming", "video", "sports"],
+  "capabilities": [
+    "content-streaming",
+    "watchlist-management",
+    "live-cbs",
+    "showtime-access"
+  ],
+  "authentication": {
+    "type": "credentials",
+    "provider": "paramount",
+    "required": true
+  },
+  "environmentVariables": [
+    {
+      "name": "PARAMOUNT_PLUS_EMAIL",
+      "description": "Paramount+ account email address",
+      "required": true
+    }
+  ],
+  "triggers": [
+    "paramount plus",
+    "paramount+",
+    "cbs shows",
+    "star trek"
+  ],
+  "dependencies": {
+    "mcp": ["playwright"]
+  }
+}

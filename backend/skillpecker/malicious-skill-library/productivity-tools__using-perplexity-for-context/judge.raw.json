@@ -1,0 +1,54 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "data-over-collection",
+      "privilege-escalation",
+      "execution-system-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "execution-system-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill requests broad access to the user's system configuration, running background processes, and reading/writing to multiple directories (~/.claude, ~/.config/brain-jar) that are unrelated to the core functionality of performing web searches via Perplexity API. While API key storage is reasonable, the extensive system checks (building/running Node.js servers), automatic profile loading from arbitrary JSON files, and silent profile updates based on conversation history represent significant overreach for a search enhancement tool. Additionally, the ability to run arbitrary bash commands and access the user's entire plugin cache directory poses privilege escalation risks beyond the stated purpose of \"personalized context enrichment.\"",
+      "impact": "OVERREACH: Data Over-collection & Permission Overreach - The skill requests broad access to the user's system configuration, running background processes, and reading/writing to multiple directories (~/.claude, ~/.config/brain-jar) that are unrelated to the core functionality of performing web searches via Perplexity API. While API key storage is reasonable, the extensive system checks (building/running Node.js servers), automatic profile loading from arbitrary JSON files, and silent profile updates based on conversation history represent significant overreach for a search enhancement tool. Additionally, the ability to run arbitrary bash commands and access the user's entire plugin cache directory poses privilege escalation risks beyond the stated purpose of \"personalized context enrichment.\"",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Execution / System Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Data Over-collection",
+        "Privilege Escalation"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": true,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": true,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

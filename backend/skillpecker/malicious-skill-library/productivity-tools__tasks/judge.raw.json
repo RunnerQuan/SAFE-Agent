@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "data-over-collection",
+    "issue_types": [
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-over-collection",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill's stated purpose is to \"Create, load, or summarize tasks via Graphiti MCP,\" but its installation process requires requesting OAuth scopes for **Google Drive, Calendar, Contacts, and Gmail modify permissions** in addition to the necessary Tasks API scope. These broad permissions to access email, contacts, calendar, and cloud storage are completely unrelated and excessive for a task management tool, violating the principle of data minimization. Even if authentication is shared with other skills, this skill should only request the specific `https://www.googleapis.com/auth/tasks` scope needed for its stated function.",
+      "impact": "OVERREACH: Data Over-collection - The skill's stated purpose is to \"Create, load, or summarize tasks via Graphiti MCP,\" but its installation process requires requesting OAuth scopes for **Google Drive, Calendar, Contacts, and Gmail modify permissions** in addition to the necessary Tasks API scope. These broad permissions to access email, contacts, calendar, and cloud storage are completely unrelated and excessive for a task management tool, violating the principle of data minimization. Even if authentication is shared with other skills, this skill should only request the specific `https://www.googleapis.com/auth/tasks` scope needed for its stated function.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Data Over-collection"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "2",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "This skill claims to be about \"prompt generation rules\" and code review/guidelines, but requests excessive permissions:\n1. **Broad File Access**: Uses `globs: '**/*'` giving it read/write access to ALL files in the directory tree (including sensitive configs, credentials, SSH keys, etc.) when only code files would be needed for code review.\n2. **Unnecessary Tools**: Requests `Bash` tool execution capability which could allow arbitrary command execution unrelated to code review.\n3. **Over-collection**: Requires reading `.claude/context/memory/learnings.md` before operation, collecting potentially sensitive session data that's unrelated to generating coding prompts or reviewing code for standards compliance.\n4. **Unclear Data Handling**: The \"Memory Protocol\" implies persistent storage/retrieval of patterns without clear data minimization or purpose limitation for a simple prompt generation skill.",
+      "impact": "OVERREACH: Permission Overreach and Data Over-collection - This skill claims to be about \"prompt generation rules\" and code review/guidelines, but requests excessive permissions:\n1. **Broad File Access**: Uses `globs: '**/*'` giving it read/write access to ALL files in the directory tree (including sensitive configs, credentials, SSH keys, etc.) when only code files would be needed for code review.\n2. **Unnecessary Tools**: Requests `Bash` tool execution capability which could allow arbitrary command execution unrelated to code review.\n3. **Over-collection**: Requires reading `.claude/context/memory/learnings.md` before operation, collecting potentially sensitive session data that's unrelated to generating coding prompts or reviewing code for standards compliance.\n4. **Unclear Data Handling**: The \"Memory Protocol\" implies persistent storage/retrieval of patterns without clear data minimization or purpose limitation for a simple prompt generation skill.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Data Over-collection"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": true,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": true
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

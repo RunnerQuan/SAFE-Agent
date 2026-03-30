@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "unsafe",
+    "primary_concern": "security-risk",
+    "issue_types": [
+      "security-risk",
+      "other"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "security-risk",
+      "class": "other",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill requires installing \"openclaw-core\" for functionality, and the macOS installation instructions involve downloading and executing a base64-encoded command from an untrusted IP address (http://91.92.242.30), which is a common tactic for malware distribution. This poses significant security risks, including potential unauthorized access or data theft, unrelated to the stated purpose of browser automation.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "SUSPICIOUS",
+      "primary_group": "Other",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Security Risk"
+      ],
+      "source_platform": "Clawhub",
+      "source_file": "scan_results_description_clawhub.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": true,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": true,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

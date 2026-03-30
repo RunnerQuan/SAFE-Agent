@@ -1,0 +1,7 @@
+{
+  "name": "canifi-skill-google-docs",
+  "description": "Enables Claude to create, edit, read, and collaborate on Google Docs documents via Playwright MCP",
+  "version": "1.0.0",
+  "author": "Canifi",
+  "homepage": "https://canifi.com/plugins/google-docs"
+}

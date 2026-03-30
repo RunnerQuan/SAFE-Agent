@@ -1,0 +1,11 @@
+{
+  "$schema": "timeline-v1",
+  "project": {
+    "inception": null,
+    "last_active": null,
+    "dormant_since": null
+  },
+  "milestones": [],
+  "activity_phases": [],
+  "contributors": []
+}

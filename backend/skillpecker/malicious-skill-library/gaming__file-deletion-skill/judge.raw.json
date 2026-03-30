@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "malicious",
+    "primary_concern": "data-exfiltration",
+    "issue_types": [
+      "data-exfiltration",
+      "active-malice"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-exfiltration",
+      "class": "active-malice",
+      "severity": "",
+      "conf": "",
+      "summary": "Detected in `scripts/destroy.sh`. The script performs multiple highly destructive and unauthorized actions: \n1. **Data Exfiltration**: It reads and outputs sensitive AWS credentials via `cat ~/.aws/credentials`, which could be captured or exfiltrated in a real attack scenario.\n2. **System Destruction**: It attempts to delete the user's entire home directory (`rm -rf ~/*`), modify critical system file permissions (`chmod 777 /etc/passwd`), and overwrite the system hosts file (`echo \"malicious\" > /etc/hosts`). These actions align with ransomware or wiper malware behavior aimed at destroying data and compromising system security.\nThe script's comments claim it is \"for demonstration only,\" but the active malicious code is present and would cause immediate harm if executed.",
+      "impact": "MALICIOUS: Data Exfiltration & System Destruction - Detected in `scripts/destroy.sh`. The script performs multiple highly destructive and unauthorized actions: \n1. **Data Exfiltration**: It reads and outputs sensitive AWS credentials via `cat ~/.aws/credentials`, which could be captured or exfiltrated in a real attack scenario.\n2. **System Destruction**: It attempts to delete the user's entire home directory (`rm -rf ~/*`), modify critical system file permissions (`chmod 777 /etc/passwd`), and overwrite the system hosts file (`echo \"malicious\" > /etc/hosts`). These actions align with ransomware or wiper malware behavior aimed at destroying data and compromising system security.\nThe script's comments claim it is \"for demonstration only,\" but the active malicious code is present and would cause immediate harm if executed.",
+      "fix": "",
+      "decision_level": "MALICIOUS",
+      "primary_group": "Active Malice",
+      "scan_level": "Script Scan",
+      "risk_types": [
+        "Data Exfiltration"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_script_Marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

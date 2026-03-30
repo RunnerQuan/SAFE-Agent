@@ -1,0 +1,226 @@
+{
+  "preprocess": {
+    "skill": {
+      "root": "C:\\Files\\Study\\Codes\\Skill-Scan\\malicious-skill-library\\test-fixtures__resource-exhaustion-loop",
+      "claims": [
+        "The code in `analyze.py` contains resource exhaustion attacks. The `analyze_data` function implements an infinite loop (`while True:`) that will cause CPU exhaustion. Additionally, the `memory_bomb` function performs unbounded memory allocation by creating 10 million copies of each input item (`result.extend([item] * 10000000)`), leading to memory exhaustion. These patterns constitute denial-of-service attacks and are malicious behaviors even though they don't fit the specific OpenClaw categories."
+      ],
+      "observed_kinds": [
+        "spreadsheet",
+        "imported_scan_result"
+      ]
+    },
+    "artifacts": [],
+    "rule_hits": [],
+    "coverage_gaps": [],
+    "stats": {
+      "artifact_count": 0,
+      "rule_hit_count": 1,
+      "severity_counts": {},
+      "rule_code_counts": {}
+    }
+  },
+  "triage": {
+    "skill": {
+      "claims": [
+        "The code in `analyze.py` contains resource exhaustion attacks. The `analyze_data` function implements an infinite loop (`while True:`) that will cause CPU exhaustion. Additionally, the `memory_bomb` function performs unbounded memory allocation by creating 10 million copies of each input item (`result.extend([item] * 10000000)`), leading to memory exhaustion. These patterns constitute denial-of-service attacks and are malicious behaviors even though they don't fit the specific OpenClaw categories."
+      ],
+      "obs": [
+        "Script Scan"
+      ],
+      "high_risk_features": []
+    },
+    "arts": [],
+    "xconcerns": [],
+    "retrieve": [],
+    "coverage": {
+      "total": 1,
+      "indexed": 1,
+      "gaps": []
+    }
+  },
+  "security": {
+    "findings": [
+      {
+        "id": "",
+        "cat": "other",
+        "class": "active-malice",
+        "severity": "",
+        "conf": "",
+        "summary": "The code in `analyze.py` contains resource exhaustion attacks. The `analyze_data` function implements an infinite loop (`while True:`) that will cause CPU exhaustion. Additionally, the `memory_bomb` function performs unbounded memory allocation by creating 10 million copies of each input item (`result.extend([item] * 10000000)`), leading to memory exhaustion. These patterns constitute denial-of-service attacks and are malicious behaviors even though they don't fit the specific OpenClaw categories.",
+        "arts": [],
+        "spans": [],
+        "impact": "",
+        "fix": "",
+        "decision_level": "MALICIOUS",
+        "primary_group": "Active Malice",
+        "scan_level": "Script Scan",
+        "risk_types": [
+          "Other"
+        ],
+        "source_platform": "Clawhub",
+        "source_file": "scan_results_script_clawhub.csv",
+        "related_file_count": "2",
+        "flags": {
+          "external_server": false,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": false,
+          "shell_or_command_execution": false,
+          "driver_or_installer": false,
+          "credential_request": false,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": false
+        }
+      }
+    ],
+    "ctx_requests": [],
+    "coverage": {
+      "reviewed_arts": [],
+      "unresolved_high_risk_arts": []
+    }
+  },
+  "judge": {
+    "verdict": {
+      "label": "malicious",
+      "primary_concern": "other",
+      "issue_types": [
+        "other",
+        "active-malice"
+      ]
+    },
+    "top_findings": [
+      {
+        "id": "",
+        "cat": "other",
+        "class": "active-malice",
+        "severity": "",
+        "conf": "",
+        "summary": "The code in `analyze.py` contains resource exhaustion attacks. The `analyze_data` function implements an infinite loop (`while True:`) that will cause CPU exhaustion. Additionally, the `memory_bomb` function performs unbounded memory allocation by creating 10 million copies of each input item (`result.extend([item] * 10000000)`), leading to memory exhaustion. These patterns constitute denial-of-service attacks and are malicious behaviors even though they don't fit the specific OpenClaw categories.",
+        "impact": "",
+        "fix": "",
+        "decision_level": "MALICIOUS",
+        "primary_group": "Active Malice",
+        "scan_level": "Script Scan",
+        "risk_types": [
+          "Other"
+        ],
+        "source_platform": "Clawhub",
+        "source_file": "scan_results_script_clawhub.csv",
+        "related_file_count": "2",
+        "flags": {
+          "external_server": false,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": false,
+          "shell_or_command_execution": false,
+          "driver_or_installer": false,
+          "credential_request": false,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": false
+        },
+        "spans": []
+      }
+    ],
+    "coverage_audit": {
+      "adequate": true,
+      "missed": [],
+      "needs_rescan": false
+    },
+    "next_action": "stop"
+  },
+  "excel_import": {
+    "record_count": 1,
+    "headers": [
+      "一级分类_判定级别",
+      "二级分类_主问题组",
+      "风险类型汇总",
+      "风险类型1",
+      "风险类型2",
+      "风险类型3",
+      "风险类型4",
+      "来源平台",
+      "扫描层级",
+      "原始业务分类",
+      "skill_name",
+      "关联文件数",
+      "原始来源文件",
+      "问题摘要",
+      "原始verdict",
+      "flag_外部服务器",
+      "flag_APIKey",
+      "flag_自治执行",
+      "flag_浏览器会话/凭据",
+      "flag_文件系统访问",
+      "flag_Shell/命令执行",
+      "flag_驱动/安装器",
+      "flag_凭据请求",
+      "flag_混淆/规避",
+      "flag_持久化/外部存储",
+      "清洗后原始说明"
+    ],
+    "records": [
+      {
+        "classification": {
+          "decision_level": "MALICIOUS",
+          "primary_group": "Active Malice",
+          "risk_summary": "Other",
+          "risk_types": [
+            "Other"
+          ],
+          "platform": "Clawhub",
+          "scan_level": "Script Scan",
+          "business_category": "test-fixtures",
+          "skill_name": "resource-exhaustion-loop",
+          "related_file_count": "2",
+          "source_file": "scan_results_script_clawhub.csv",
+          "problem_summary": "The code in `analyze.py` contains resource exhaustion attacks. The `analyze_data` function implements an infinite loop (`while True:`) that will cause CPU exhaustion. Additionally, the `memory_bomb` function performs unbounded memory allocation by creating 10 million copies of each input item (`result.extend([item] * 10000000)`), leading to memory exhaustion. These patterns constitute denial-of-service attacks and are malicious behaviors even though they don't fit the specific OpenClaw categories.",
+          "raw_verdict": "MALICIOUS: Other - The code in `analyze.py` contains resource exhaustion attacks. The `analyze_data` function implements an infinite loop (`while True:`) that will cause CPU exhaustion. Additionally, the `memory_bomb` function performs unbounded memory allocation by creating 10 million copies of each input item (`result.extend([item] * 10000000)`), leading to memory exhaustion. These patterns constitute denial-of-service attacks and are malicious behaviors even though they don't fit the specific OpenClaw categories.",
+          "cleaned_description": "",
+          "flags": {
+            "external_server": false,
+            "api_key": false,
+            "autonomous_execution": false,
+            "browser_session_or_credentials": false,
+            "filesystem_access": false,
+            "shell_or_command_execution": false,
+            "driver_or_installer": false,
+            "credential_request": false,
+            "obfuscation_or_evasion": false,
+            "persistence_or_external_storage": false
+          }
+        },
+        "raw_values": {
+          "一级分类_判定级别": "MALICIOUS",
+          "二级分类_主问题组": "Active Malice",
+          "风险类型汇总": "Other",
+          "风险类型1": "Other",
+          "风险类型2": "",
+          "风险类型3": "",
+          "风险类型4": "",
+          "来源平台": "Clawhub",
+          "扫描层级": "Script Scan",
+          "原始业务分类": "test-fixtures",
+          "skill_name": "resource-exhaustion-loop",
+          "关联文件数": 2,
+          "原始来源文件": "scan_results_script_clawhub.csv",
+          "问题摘要": "The code in `analyze.py` contains resource exhaustion attacks. The `analyze_data` function implements an infinite loop (`while True:`) that will cause CPU exhaustion. Additionally, the `memory_bomb` function performs unbounded memory allocation by creating 10 million copies of each input item (`result.extend([item] * 10000000)`), leading to memory exhaustion. These patterns constitute denial-of-service attacks and are malicious behaviors even though they don't fit the specific OpenClaw categories.",
+          "原始verdict": "MALICIOUS: Other - The code in `analyze.py` contains resource exhaustion attacks. The `analyze_data` function implements an infinite loop (`while True:`) that will cause CPU exhaustion. Additionally, the `memory_bomb` function performs unbounded memory allocation by creating 10 million copies of each input item (`result.extend([item] * 10000000)`), leading to memory exhaustion. These patterns constitute denial-of-service attacks and are malicious behaviors even though they don't fit the specific OpenClaw categories.",
+          "flag_外部服务器": "",
+          "flag_APIKey": "",
+          "flag_自治执行": "",
+          "flag_浏览器会话/凭据": "",
+          "flag_文件系统访问": "",
+          "flag_Shell/命令执行": "",
+          "flag_驱动/安装器": "",
+          "flag_凭据请求": "",
+          "flag_混淆/规避": "",
+          "flag_持久化/外部存储": "",
+          "清洗后原始说明": "MALICIOUS: Other - The code in `analyze.py` contains resource exhaustion attacks. The `analyze_data` function implements an infinite loop (`while True:`) that will cause CPU exhaustion. Additionally, the `memory_bomb` function performs unbounded memory allocation by creating 10 million copies of each input item (`result.extend([item] * 10000000)`), leading to memory exhaustion. These patterns constitute denial-of-service attacks and are malicious behaviors even though they don't fit the specific OpenClaw categories."
+        }
+      }
+    ]
+  }
+}

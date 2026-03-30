@@ -1,0 +1,35 @@
+{
+  "name": "lyft",
+  "version": "1.0.0",
+  "description": "Book Lyft rides, check ride history, manage payment methods, and access Lyft Pink benefits",
+  "author": "Canifi LifeOS",
+  "category": "travel",
+  "permissions": [
+    "browser",
+    "notifications",
+    "env:LYFT_EMAIL",
+    "env:LYFT_PHONE"
+  ],
+  "triggers": [
+    "lyft",
+    "ride",
+    "rideshare",
+    "lyft pink",
+    "book a lyft"
+  ],
+  "authentication": {
+    "type": "oauth-browser",
+    "loginUrl": "https://www.lyft.com/login",
+    "requires2FA": true,
+    "twoFactorMethod": "sms"
+  },
+  "endpoints": {
+    "base": "https://www.lyft.com",
+    "rides": "https://www.lyft.com/rider",
+    "history": "https://www.lyft.com/ride-history"
+  },
+  "rateLimit": {
+    "requests": 30,
+    "period": "minute"
+  }
+}

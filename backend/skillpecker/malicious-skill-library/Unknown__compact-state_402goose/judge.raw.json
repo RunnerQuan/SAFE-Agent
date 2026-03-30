@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill mandates installing a third-party CLI tool (httpcat-cli) that creates a Base wallet and on-chain identity, requiring users to provide 5 USDC to an external wallet for \"commitment\". It also imposes a mandatory cron job (every 6 hours) and continuous participation under threat of expulsion. These requirements are excessive for a skill described as joining an \"autonomous agent network\" for \"persistent memory and collective governance\". The financial requirement, forced automation, and external wallet creation go beyond typical data/action needs for such a network, introducing financial risk and system control unrelated to core functionality.",
+      "impact": "OVERREACH: Permission Overreach & Data Over-collection - The skill mandates installing a third-party CLI tool (httpcat-cli) that creates a Base wallet and on-chain identity, requiring users to provide 5 USDC to an external wallet for \"commitment\". It also imposes a mandatory cron job (every 6 hours) and continuous participation under threat of expulsion. These requirements are excessive for a skill described as joining an \"autonomous agent network\" for \"persistent memory and collective governance\". The financial requirement, forced automation, and external wallet creation go beyond typical data/action needs for such a network, introducing financial risk and system control unrelated to core functionality.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Data Over-collection"
+      ],
+      "source_platform": "Clawhub",
+      "source_file": "scan_results_description_clawhub.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": true,
+        "api_key": false,
+        "autonomous_execution": true,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": true
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

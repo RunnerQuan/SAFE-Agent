@@ -1,0 +1,47 @@
+{
+  "verdict": {
+    "label": "unsafe",
+    "primary_concern": "other",
+    "issue_types": [
+      "other"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "",
+      "class": "other",
+      "severity": "",
+      "conf": "",
+      "summary": "The provided input appears to be a directory path (\"../../docs/claude-code-skills/community/iac-planner\") rather than actual source code files. Without examining the actual source code content, I cannot perform a proper security analysis. Please provide the actual source code files in the required format (with === FILE: filename === headers followed by file contents) to determine if the skill contains malicious logic.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "SUSPICIOUS",
+      "primary_group": "Other",
+      "scan_level": "Script Scan",
+      "risk_types": [],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_script_Marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill's primary purpose is SQL query analysis and optimization, but its documentation requests excessive system access and credentials beyond what's necessary. Specifically, it demands:\n1. \"Access to system context (repos, infra, environments)\" - Unnecessary for analyzing SQL queries\n2. \"Credentials or access tokens for required environments\" - While connecting to databases might be useful, this isn't specified as optional or scoped to read-only database access\n3. Broad architectural information and system constraints that go beyond analyzing a single query\nA SQL query optimizer should only need the query text, target platform, and optionally table statistics or execution plans - not full system context, credentials, or architectural documentation.",
+      "impact": "OVERREACH: Permission Overreach & Data Over-collection - The skill's primary purpose is SQL query analysis and optimization, but its documentation requests excessive system access and credentials beyond what's necessary. Specifically, it demands:\n1. \"Access to system context (repos, infra, environments)\" - Unnecessary for analyzing SQL queries\n2. \"Credentials or access tokens for required environments\" - While connecting to databases might be useful, this isn't specified as optional or scoped to read-only database access\n3. Broad architectural information and system constraints that go beyond analyzing a single query\nA SQL query optimizer should only need the query text, target platform, and optionally table statistics or execution plans - not full system context, credentials, or architectural documentation.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Data Over-collection"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "2",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

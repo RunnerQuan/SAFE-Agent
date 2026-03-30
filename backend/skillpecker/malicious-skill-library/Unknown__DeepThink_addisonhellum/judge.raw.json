@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill requests continuous access to live voice transcripts, enabling real-time monitoring of the user's conversations (including background audio from other people, videos, podcasts, and phone calls). While marketed as \"ambient assistance,\" this level of eavesdropping is excessive for a personal knowledge base and task management tool. The skill also instructs the agent to proactively act on overheard conversations by sending messages through external channels (e.g., Telegram) without explicit user consent in the moment, creating significant privacy risks and potential for unintended actions based on misattributed speech.",
+      "impact": "OVERREACH: Data Over-collection & Permission Overreach - The skill requests continuous access to live voice transcripts, enabling real-time monitoring of the user's conversations (including background audio from other people, videos, podcasts, and phone calls). While marketed as \"ambient assistance,\" this level of eavesdropping is excessive for a personal knowledge base and task management tool. The skill also instructs the agent to proactively act on overheard conversations by sending messages through external channels (e.g., Telegram) without explicit user consent in the moment, creating significant privacy risks and potential for unintended actions based on misattributed speech.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Data Over-collection"
+      ],
+      "source_platform": "Clawhub",
+      "source_file": "scan_results_description_clawhub.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": true,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

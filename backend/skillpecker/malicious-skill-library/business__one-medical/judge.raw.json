@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "data-over-collection",
+    "issue_types": [
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-over-collection",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill description mentions handling 2FA \"via iMessage\" as part of the authentication flow, which requires access to the user's text messages. This is excessive for a healthcare portal access skill - 2FA codes can be entered manually through standard browser automation without needing persistent access to personal messaging data. Additionally, the skill requires either direct login credentials or browser automation with full session control, which could potentially access far more than just the stated healthcare functions (appointments, messages, records) once authenticated.",
+      "impact": "OVERREACH: Data Over-collection - The skill description mentions handling 2FA \"via iMessage\" as part of the authentication flow, which requires access to the user's text messages. This is excessive for a healthcare portal access skill - 2FA codes can be entered manually through standard browser automation without needing persistent access to personal messaging data. Additionally, the skill requires either direct login credentials or browser automation with full session control, which could potentially access far more than just the stated healthcare functions (appointments, messages, records) once authenticated.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Data Over-collection"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": true,
+        "filesystem_access": true,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": true
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

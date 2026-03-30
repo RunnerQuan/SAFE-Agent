@@ -1,0 +1,33 @@
+{
+  "name": "adobe-photoshop-web",
+  "displayName": "Adobe Photoshop Web",
+  "version": "1.0.0",
+  "description": "Edit images with Photoshop on the web - perform advanced photo editing, apply AI features, and manage creative projects",
+  "author": "Canifi LifeOS",
+  "category": "Design & Creative",
+  "authentication": {
+    "type": "browser",
+    "loginUrl": "https://photoshop.adobe.com",
+    "loggedInIndicator": "[data-testid='user-profile']"
+  },
+  "capabilities": [
+    "edit-images",
+    "generative-fill",
+    "remove-backgrounds",
+    "apply-filters",
+    "export-formats",
+    "cloud-sync"
+  ],
+  "requiredEnvVars": [
+    "ADOBE_EMAIL",
+    "ADOBE_PASSWORD"
+  ],
+  "endpoints": {
+    "base": "https://photoshop.adobe.com",
+    "editor": "https://photoshop.adobe.com/editor"
+  },
+  "rateLimit": {
+    "requests": 30,
+    "period": "minute"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "insufficient_evidence",
+    "primary_concern": "data-exfiltration",
+    "issue_types": [
+      "data-exfiltration",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-exfiltration",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The author field contains \"Command and Control\" terminology which is strongly associated with malware infrastructure. While the metadata file itself contains no executable malicious code, this naming convention raises red flags and suggests potential social engineering or imitation of legitimate tools.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Script Scan",
+      "risk_types": [
+        "Data Exfiltration"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_script_Marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

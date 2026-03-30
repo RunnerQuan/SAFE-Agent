@@ -1,0 +1,34 @@
+{
+  "name": "pexels",
+  "displayName": "Pexels",
+  "version": "1.0.0",
+  "description": "Access free stock photos and videos on Pexels - search, download, and curate visual content for projects",
+  "author": "Canifi LifeOS",
+  "category": "Design & Creative",
+  "authentication": {
+    "type": "browser",
+    "loginUrl": "https://www.pexels.com/login",
+    "loggedInIndicator": "[data-testid='header-user']"
+  },
+  "capabilities": [
+    "search-photos",
+    "search-videos",
+    "download-media",
+    "manage-collections",
+    "color-search",
+    "access-curated"
+  ],
+  "requiredEnvVars": [
+    "PEXELS_EMAIL",
+    "PEXELS_PASSWORD"
+  ],
+  "endpoints": {
+    "base": "https://www.pexels.com",
+    "photos": "https://www.pexels.com/search",
+    "videos": "https://www.pexels.com/search/videos"
+  },
+  "rateLimit": {
+    "requests": 200,
+    "period": "hour"
+  }
+}

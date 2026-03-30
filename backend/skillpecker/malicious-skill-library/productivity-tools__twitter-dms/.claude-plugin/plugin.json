@@ -1,0 +1,35 @@
+{
+  "name": "twitter-dms",
+  "version": "1.0.0",
+  "description": "Automate Twitter/X direct messages and private conversations",
+  "author": "Canifi",
+  "category": "communication",
+  "permissions": [
+    "browser",
+    "notifications",
+    "env-access"
+  ],
+  "triggers": [
+    "twitter dm",
+    "x dm",
+    "tweet dm",
+    "twitter message",
+    "dm on twitter"
+  ],
+  "authentication": {
+    "type": "browser-session",
+    "loginUrl": "https://twitter.com/login",
+    "sessionIndicator": "[data-testid='primaryColumn']"
+  },
+  "requiredEnvVars": [
+    "TWITTER_USERNAME",
+    "TWITTER_PASSWORD"
+  ],
+  "capabilities": {
+    "messaging": true,
+    "groups": true,
+    "media": true,
+    "reactions": true,
+    "search": true
+  }
+}

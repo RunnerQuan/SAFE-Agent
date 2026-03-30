@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "data-over-collection",
+    "issue_types": [
+      "data-over-collection",
+      "privilege-escalation",
+      "execution-system-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-over-collection",
+      "class": "execution-system-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill requests access to API keys for services like Shodan and Censys, which could be used for unauthorized surveillance or data collection beyond the stated purpose of \"bug bounty hunting\" or \"security research.\" Additionally, requiring a \"Linux-based attack machine\" and tool dependencies implies system-level access that could be misused for privilege escalation or lateral movement if the skill is executed with elevated permissions. The skill also lacks explicit user consent mechanisms for scanning third-party assets, potentially violating legal boundaries and program scopes.",
+      "impact": "OVERREACH: Data Over-collection & Privilege Escalation - The skill requests access to API keys for services like Shodan and Censys, which could be used for unauthorized surveillance or data collection beyond the stated purpose of \"bug bounty hunting\" or \"security research.\" Additionally, requiring a \"Linux-based attack machine\" and tool dependencies implies system-level access that could be misused for privilege escalation or lateral movement if the skill is executed with elevated permissions. The skill also lacks explicit user consent mechanisms for scanning third-party assets, potentially violating legal boundaries and program scopes.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Execution / System Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Data Over-collection",
+        "Privilege Escalation"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": true,
+        "api_key": true,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "data-over-collection",
+    "issue_types": [
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-over-collection",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill templates hard-code the author's personal contact information (e.g., WeChat: laohaibao2025, email: 75271002@qq.com) and fixed donation QR code images linked to external servers, which are unrelated to the user's project. This forces the inclusion of promotional content for the skill author in generated README files, exceeding the stated purpose of generating project-specific documentation and potentially misleading users about the ownership of the content.",
+      "impact": "OVERREACH: Data Over-collection - The skill templates hard-code the author's personal contact information (e.g., WeChat: laohaibao2025, email: 75271002@qq.com) and fixed donation QR code images linked to external servers, which are unrelated to the user's project. This forces the inclusion of promotional content for the skill author in generated README files, exceeding the stated purpose of generating project-specific documentation and potentially misleading users about the ownership of the content.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Data Over-collection"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "11",
+      "flags": {
+        "external_server": true,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

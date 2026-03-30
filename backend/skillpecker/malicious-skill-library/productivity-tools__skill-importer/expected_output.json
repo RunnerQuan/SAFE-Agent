@@ -1,0 +1,36 @@
+{
+  "skill_path": "generated-skills/issue-analysis",
+  "actions_taken": {
+    "skill_md_restructured": true,
+    "files_generated": [
+      "HOW_TO_USE.md",
+      "README.md",
+      "sample_input.json",
+      "expected_output.json"
+    ],
+    "files_preserved": [
+      "analyze.py"
+    ]
+  },
+  "final_structure": {
+    "SKILL.md": "restructured",
+    "HOW_TO_USE.md": "generated",
+    "README.md": "generated",
+    "sample_input.json": "generated",
+    "expected_output.json": "generated",
+    "analyze.py": "preserved"
+  },
+  "validation_result": {
+    "yaml_frontmatter": "pass",
+    "kebab_case_name": "pass",
+    "description_length": "pass",
+    "skill_md_structure": "pass",
+    "how_to_use_present": "pass",
+    "sample_data_present": "pass",
+    "readme_present": "pass",
+    "no_backup_files": "pass",
+    "no_cache_dirs": "pass"
+  },
+  "compliance_score": "100%",
+  "summary": "Skill 'issue-analysis' successfully upgraded to factory spec. SKILL.md restructured with standard sections. Generated 4 missing files. All validation checks passed."
+}

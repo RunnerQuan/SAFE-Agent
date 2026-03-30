@@ -1,0 +1,7 @@
+{
+  "name": "canifi-skill-logseq",
+  "description": "Enables Claude to create and manage notes in Logseq via Playwright MCP",
+  "version": "1.0.0",
+  "author": "Canifi",
+  "homepage": "https://canifi.com/plugins/logseq"
+}

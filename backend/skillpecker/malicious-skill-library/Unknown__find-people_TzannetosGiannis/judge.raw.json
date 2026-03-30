@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "data-over-collection",
+    "issue_types": [
+      "data-over-collection",
+      "security-risk",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-over-collection",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill requests a cryptocurrency private key (for the X402 protocol on Base network) to handle payments of $0.15 USDC per request. While payment may be necessary for the service, demanding a private key is excessive and poses significant security risks, as private keys grant full access to cryptocurrency wallets and should never be shared or stored in plain text. This sensitive financial data is unrelated to the core OSINT function of researching individuals and contradicts data minimization principles; secure alternatives like API keys or tokenized payments should be used instead.",
+      "impact": "OVERREACH: Data Over-collection - The skill requests a cryptocurrency private key (for the X402 protocol on Base network) to handle payments of $0.15 USDC per request. While payment may be necessary for the service, demanding a private key is excessive and poses significant security risks, as private keys grant full access to cryptocurrency wallets and should never be shared or stored in plain text. This sensitive financial data is unrelated to the core OSINT function of researching individuals and contradicts data minimization principles; secure alternatives like API keys or tokenized payments should be used instead.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Data Over-collection",
+        "Security Risk"
+      ],
+      "source_platform": "Clawhub",
+      "source_file": "scan_results_description_clawhub.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": true,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": true
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

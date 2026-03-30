@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "skill-scan"
+version = "0.1.0"
+description = "Multi-agent scanner for malicious and unsafe AI Skills"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "openai>=1.54.0",
+  "fastapi>=0.115.0",
+  "python-multipart>=0.0.12",
+  "uvicorn>=0.32.0",
+]
+
+[project.scripts]
+skill-scan = "skill_scan.cli:main"
+skill-scan-web = "skill_scan.webapp:main"
+safe-agent-skillpecker-web = "skill_scan.webapp:main"
+
+[tool.setuptools.packages.find]
+include = ["skill_scan*"]

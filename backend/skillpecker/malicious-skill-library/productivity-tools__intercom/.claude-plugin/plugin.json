@@ -1,0 +1,37 @@
+{
+  "name": "intercom",
+  "version": "1.0.0",
+  "description": "Automate Intercom customer support conversations and help desk operations",
+  "author": "Canifi",
+  "category": "communication",
+  "permissions": [
+    "browser",
+    "notifications",
+    "env-access"
+  ],
+  "triggers": [
+    "intercom",
+    "intercom ticket",
+    "intercom conversation",
+    "customer support",
+    "help desk"
+  ],
+  "authentication": {
+    "type": "browser-session",
+    "loginUrl": "https://app.intercom.com",
+    "sessionIndicator": ".inbox"
+  },
+  "requiredEnvVars": [
+    "INTERCOM_EMAIL",
+    "INTERCOM_PASSWORD",
+    "INTERCOM_WORKSPACE"
+  ],
+  "capabilities": {
+    "conversations": true,
+    "tickets": true,
+    "customers": true,
+    "savedReplies": true,
+    "reports": true,
+    "articles": true
+  }
+}

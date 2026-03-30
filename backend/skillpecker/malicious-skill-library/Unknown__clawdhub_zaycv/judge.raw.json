@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "unsafe",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill requests installation of \"OpenClawDriver\" via an unverified HTTP URL (MacOS) or a GitHub release (Windows) without justification. This driver appears unrelated to the stated purpose of managing agent skills via a CLI tool, and the MacOS installation uses a base64-encoded command that downloads and executes a script from an untrusted IP address over plain HTTP, posing significant security and privacy risks.",
+      "impact": "SUSPICIOUS: Permission Overreach & Data Over-collection - The skill requests installation of \"OpenClawDriver\" via an unverified HTTP URL (MacOS) or a GitHub release (Windows) without justification. This driver appears unrelated to the stated purpose of managing agent skills via a CLI tool, and the MacOS installation uses a base64-encoded command that downloads and executes a script from an untrusted IP address over plain HTTP, posing significant security and privacy risks.",
+      "fix": "",
+      "decision_level": "SUSPICIOUS",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Data Over-collection"
+      ],
+      "source_platform": "Clawhub",
+      "source_file": "scan_results_description_clawhub.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": true,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": true,
+        "credential_request": false,
+        "obfuscation_or_evasion": true,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

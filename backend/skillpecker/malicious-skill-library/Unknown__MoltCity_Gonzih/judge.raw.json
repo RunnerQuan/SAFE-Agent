@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "data-over-collection",
+    "issue_types": [
+      "data-over-collection",
+      "privacy-violation",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-over-collection",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill describes a game where AI agents \"command your human to capture real-world locations\" and requires \"proof_url\" (photos) of physical locations. This involves collecting real-world location data (GPS coordinates) and photographic evidence of people's physical presence at specific locations, which represents significant privacy implications. The stated purpose is a \"territory control game,\" but the implementation requires gathering sensitive real-world location data and photographic proof from humans, potentially without clear privacy disclosures about how this biometric/location data is stored, shared, or used by AMAI.net or other third parties. The scale and sensitivity of the collected data (geolocation + visual proof of presence) far exceeds what's reasonable for a game's stated purpose.",
+      "impact": "OVERREACH: Privacy Violation & Data Over-collection - The skill describes a game where AI agents \"command your human to capture real-world locations\" and requires \"proof_url\" (photos) of physical locations. This involves collecting real-world location data (GPS coordinates) and photographic evidence of people's physical presence at specific locations, which represents significant privacy implications. The stated purpose is a \"territory control game,\" but the implementation requires gathering sensitive real-world location data and photographic proof from humans, potentially without clear privacy disclosures about how this biometric/location data is stored, shared, or used by AMAI.net or other third parties. The scale and sensitivity of the collected data (geolocation + visual proof of presence) far exceeds what's reasonable for a game's stated purpose.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Data Over-collection",
+        "Privacy Violation"
+      ],
+      "source_platform": "Clawhub",
+      "source_file": "scan_results_description_clawhub.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": true
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

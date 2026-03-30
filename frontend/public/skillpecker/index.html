@@ -1,0 +1,503 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SkillPecker | Security Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600;700&family=Fira+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/svg+xml" href="/skillpecker/static/favicon.svg" />
+    <link rel="shortcut icon" href="/skillpecker/static/favicon.svg" />
+    <link rel="stylesheet" href="/skillpecker/static/styles.css" />
+    <script>
+      if (new URLSearchParams(window.location.search).get('embed') === '1') {
+        document.documentElement.dataset.embed = 'true'
+      }
+    </script>
+    <!-- Known charting library for homepage visualizations -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+  </head>
+  <body>
+    <!-- 全局动态渐变背景 (主要在首页显现) -->
+    <div class="global-ambient-bg" id="ambientBg"></div>
+
+    <!-- 顶层导航栏：毛玻璃效果 -->
+    <header class="topbar-shell">
+      <div class="topbar glass-panel">
+        <a
+          class="corner-school-brand"
+          href="https://sse.sysu.edu.cn/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Open Sun Yat-sen University School of Software Engineering website"
+        >
+          <span class="corner-school-brand-frame">
+            <img class="corner-school-brand-logo" src="/skillpecker/static/school_logo.png" alt="School logo" />
+          </span>
+        </a>
+        <div class="topbar-center">
+          <div class="topbar-brand">
+            <button class="brandmark" data-view-target="home" type="button" aria-label="SkillPecker home">
+              <span class="brandmark-tool-badge" aria-hidden="true">
+                <img class="brandmark-tool-logo" src="/skillpecker/static/skillpecker_logo.png" alt="" />
+              </span>
+              <span class="brandmark-text">SkillPecker</span>
+            </button>
+          </div>
+          <nav class="main-nav">
+            <button class="nav-link is-active" data-view-target="home" type="button">Home</button>
+            <button class="nav-link" data-view-target="scan" type="button">Skill Scan</button>
+            <button class="nav-link" data-view-target="library" type="button">Malicious Skill Library</button>
+          </nav>
+        </div>
+        <div class="topbar-tools">
+          <button id="languageToggle" class="toolbar-toggle" type="button" aria-label="Switch language">中文</button>
+          <button id="themeToggle" class="toolbar-toggle" type="button" aria-label="Switch theme">Dark</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="page-shell">
+      <!-- ================= 静态首页展示，文案由 app.js 翻译系统更新 ================= -->
+      <section id="view-home" class="view-panel home-fullscreen">
+        <span class="home-pointer-glow" aria-hidden="true"></span>
+        <span class="home-pointer-core" aria-hidden="true"></span>
+        <nav class="home-stage-rail glass-panel" aria-label="Homepage sections">
+          <button class="home-stage-rail-link is-active" type="button" data-home-stage-target="hero">
+            <span class="home-stage-rail-index">01</span>
+            <span id="homeStageNavHero" class="home-stage-rail-label">Home</span>
+          </button>
+          <button class="home-stage-rail-link" type="button" data-home-stage-target="analytics">
+            <span class="home-stage-rail-index">02</span>
+            <span id="homeStageNavAnalytics" class="home-stage-rail-label">Analytics</span>
+          </button>
+          <button class="home-stage-rail-link" type="button" data-home-stage-target="results">
+            <span class="home-stage-rail-index">03</span>
+            <span id="homeStageNavResults" class="home-stage-rail-label">Results</span>
+          </button>
+        </nav>
+
+        <section class="home-stage home-stage-hero" data-home-stage="hero">
+          <div class="hero-content home-stage-shell">
+            <div class="home-tech-stage" aria-hidden="true">
+              <span class="home-tech-grid"></span>
+              <span class="home-tech-glow glow-left"></span>
+              <span class="home-tech-glow glow-right"></span>
+              <span class="home-tech-sweep sweep-one"></span>
+              <span class="home-tech-sweep sweep-two"></span>
+              <span class="home-tech-track track-one"><span class="home-tech-spark spark-one"></span></span>
+              <span class="home-tech-track track-two"><span class="home-tech-spark spark-two"></span></span>
+              <span class="home-tech-beam beam-horizontal"></span>
+              <span class="home-tech-beam beam-diagonal"></span>
+              <div class="home-beam-columns">
+                <span class="home-beam-rail rail-left">
+                  <span class="home-beam-drop delay-a"></span>
+                  <span class="home-beam-drop delay-b"></span>
+                </span>
+                <span class="home-beam-rail rail-center">
+                  <span class="home-beam-drop delay-c"></span>
+                </span>
+                <span class="home-beam-rail rail-right">
+                  <span class="home-beam-drop delay-d"></span>
+                  <span class="home-beam-drop delay-e"></span>
+                </span>
+              </div>
+            </div>
+
+            <div class="hero-text-center animate-fade-in-up" style="--delay: 0.1s">
+              <p id="homeEyebrow" class="hero-eyebrow" hidden></p>
+              <h1 id="homeTitle" class="hero-title-massive" data-text="SkillPecker">SkillPecker</h1>
+              <div class="home-copy-stack">
+                <p id="homeSubhead" class="home-hero-subhead">Security and trust detection suite for Agent Skills</p>
+                <p id="homeSubtitle" class="hero-subtitle">
+                  Based on user-intent parsing and behavior analysis, precisely identify permission abuse, covert data access, and potential malicious paths
+                </p>
+              </div>
+            </div>
+
+            <div class="hero-action-pill-container animate-fade-in-up" style="--delay: 0.3s">
+              <div class="hero-action-pill glass-panel">
+                <div class="action-info">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="action-icon"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                  <span id="homeActionPlaceholder" class="action-placeholder">Ready to scan a new Agent Skill?</span>
+                </div>
+                <div class="action-buttons">
+                  <button id="homeToLibrary" class="secondary-button glass-btn" type="button" data-view-target="library">Library</button>
+                  <button id="homeToScan" class="primary-button pulse-btn" type="button" data-view-target="scan">Open Console</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="feature-bento-grid animate-fade-in-up" style="--delay: 0.5s">
+              <article class="bento-card glass-panel spotlight-hover" data-tone="queue">
+                <div class="bento-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M13 2 6 13h5l-1 9 8-12h-5l1-8Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+                  </svg>
+                </div>
+                <h3 id="homeBentoQueueTitle">Async Job Queue</h3>
+                <p id="homeBentoQueueDesc">Submit multiple skill bundles continuously and let the backend process them automatically without blocking each other.</p>
+              </article>
+              <article class="bento-card glass-panel spotlight-hover" data-tone="drill">
+                <div class="bento-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <circle cx="11" cy="11" r="6.25" stroke="currentColor" stroke-width="1.8"></circle>
+                    <path d="m16 16 4.25 4.25" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+                    <path d="M11 8.5v5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+                    <path d="M8.5 11H13.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+                  </svg>
+                </div>
+                <h3 id="homeBentoDrillTitle">Progressive Deep Review</h3>
+                <p id="homeBentoDrillDesc">Drill down from Job to Skill to each finding with transparent evidence chains and actionable remediation notes.</p>
+              </article>
+              <article class="bento-card glass-panel spotlight-hover" data-tone="library">
+                <div class="bento-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="m12 3 7 4v10l-7 4-7-4V7l7-4Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path>
+                    <path d="m5 7 7 4 7-4" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path>
+                    <path d="M12 11v10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+                  </svg>
+                </div>
+                <h3 id="homeBentoLibraryTitle">Persistent Sample Library</h3>
+                <p id="homeBentoLibraryDesc">Store scan outputs and malicious samples together to build a dedicated Agent Skill threat corpus for review and auditing.</p>
+              </article>
+            </div>
+
+            <button class="home-scroll-cue" type="button" data-home-stage-target="analytics">
+              <span id="homeScrollCueLabel">Scroll to analytics</span>
+              <span class="home-scroll-cue-icon" aria-hidden="true"></span>
+            </button>
+          </div>
+        </section>
+
+        <section class="home-stage home-stage-analytics" data-home-stage="analytics">
+          <div class="home-stage-shell home-analytics-shell">
+            <div class="home-stats-wrap animate-fade-in-up" style="--delay: 0.65s">
+              <section class="home-metric-row" aria-label="Homepage summary metrics">
+                <div class="home-metric-card metric-scan glass-panel">
+                  <div class="home-metric-number" id="homeMetricScanTotal">~100,000</div>
+                  <div class="home-metric-label" id="homeMetricScanTotalLabel">扫描 Skill 总量</div>
+                </div>
+                <div class="home-metric-card metric-issue glass-panel">
+                  <div class="home-metric-number" id="homeMetricProblemCount">1,350</div>
+                  <div class="home-metric-label" id="homeMetricProblemCountLabel">问题 Skill 数量</div>
+                </div>
+                <div class="home-metric-card metric-overreach glass-panel">
+                  <div class="home-metric-number" id="homeMetricOverreachRatio">88.7%</div>
+                  <div class="home-metric-label" id="homeMetricOverreachRatioLabel">Overreach ratio</div>
+                </div>
+              </section>
+
+              <section class="home-chart-grid" aria-label="Homepage charts">
+                <section class="home-chart-card glass-panel">
+                  <div class="home-chart-card-head">
+                    <h3 id="homeChartProblemTypeTitle" class="home-chart-card-title">问题类型分布</h3>
+                  </div>
+                  <div id="homeChartProblemType" class="home-chart-canvas"></div>
+                </section>
+
+                <section class="home-chart-card glass-panel">
+                  <div class="home-chart-card-head">
+                    <h3 id="homeChartMainRiskTitle" class="home-chart-card-title">Primary risk categories</h3>
+                  </div>
+                  <div id="homeChartMainRisk" class="home-chart-canvas"></div>
+                </section>
+
+                <section class="home-chart-card glass-panel home-chart-span-2">
+                  <div class="home-chart-card-head">
+                    <h3 id="homeChartBusinessTop10Title" class="home-chart-card-title">问题 Skill 业务分类 TOP 10</h3>
+                  </div>
+                  <div id="homeChartBusinessTop10" class="home-chart-canvas home-chart-canvas-tall"></div>
+                </section>
+              </section>
+            </div>
+          </div>
+        </section>
+
+        <section class="home-stage home-stage-results" data-home-stage="results">
+          <div class="home-stage-shell home-results-stage-shell">
+            <section id="homeResultsSection" class="home-results-shell animate-fade-in-up" style="--delay: 0.85s">
+              <div class="home-results-head">
+                <div class="home-results-copy">
+                  <h3 id="homeResultsTitle">Latest scan results</h3>
+                </div>
+                <span id="homeResultsPill" class="ghost-pill glass-pill">0 Results</span>
+              </div>
+              <div id="homeResultsEmpty" class="empty-state compact glass-panel"></div>
+              <div id="homeResultsList" class="scan-tree-list home-results-list" hidden></div>
+            </section>
+          </div>
+        </section>
+      </section>
+
+      <!-- ================= 扫描工作台 (保持原有 Dashboard 布局) ================= -->
+      <section id="view-scan" class="view-panel is-hidden scan-view">
+        <section id="skillpeckerScanConsole" class="scan-launchpad glass-panel">
+          <div class="scan-launchpad-grid">
+            <div class="scan-launchpad-copy">
+              <p class="section-tag" hidden></p>
+              <h2 class="scan-title shimmer-text">
+                <span>Scan</span>
+                <span>skill</span>
+                <span>packages</span>
+              </h2>
+              <p class="section-copy">Upload a ZIP bundle or local folder.</p>
+              <div class="scan-status-strip">
+                <article class="scan-status-tile">
+                  <span class="scan-status-label">Running</span>
+                  <strong id="queueRunningPill">0</strong>
+                </article>
+                <article class="scan-status-tile">
+                  <span class="scan-status-label">Queued</span>
+                  <strong id="queueWaitingPill">0</strong>
+                </article>
+                <article class="scan-status-tile">
+                  <span class="scan-status-label">Completed</span>
+                  <strong id="queueDonePill">0</strong>
+                </article>
+              </div>
+              <div id="scanStepFlow" class="scan-step-grid scan-step-flow" data-current-step="0">
+                <article class="scan-step-card" style="--step:0" data-step-card="0">
+                  <span class="scan-step-signal" aria-hidden="true"></span>
+                  <span class="scan-step-index">01</span>
+                  <strong>Choose input</strong>
+                  <p>ZIP archive or local folder.</p>
+                </article>
+                <article class="scan-step-card" style="--step:1" data-step-card="1">
+                  <span class="scan-step-signal" aria-hidden="true"></span>
+                  <span class="scan-step-index">02</span>
+                  <strong>Queue scan</strong>
+                  <p>Send the package into review.</p>
+                </article>
+                <article class="scan-step-card" style="--step:2" data-step-card="2">
+                  <span class="scan-step-signal" aria-hidden="true"></span>
+                  <span class="scan-step-index">03</span>
+                  <strong>Inspect results</strong>
+                  <p>Open findings in the result module.</p>
+                </article>
+              </div>
+              <div class="scan-copy-art" aria-hidden="true">
+                <span class="scan-copy-beam beam-a"></span>
+                <span class="scan-copy-beam beam-b"></span>
+                <span class="scan-copy-orbit orbit-a"></span>
+                <span class="scan-copy-orbit orbit-b"></span>
+                <span class="scan-copy-core"></span>
+                <span class="scan-copy-prism prism-a"></span>
+                <span class="scan-copy-prism prism-b"></span>
+              </div>
+            </div>
+
+            <form id="scanForm" class="scan-upload-form scan-upload-form-hero">
+              <div class="scan-upload-head">
+                <div>
+                  <p class="panel-eyebrow">Upload Station</p>
+                  <h3>New scan job</h3>
+                </div>
+              </div>
+
+              <div class="upload-mode-switch" role="tablist" aria-label="Upload mode">
+                <button class="upload-mode-button is-active" type="button" data-upload-mode="archive">ZIP archive</button>
+                <button class="upload-mode-button" type="button" data-upload-mode="directory">Folder</button>
+              </div>
+
+              <label id="packageUploadTile" class="upload-tile upload-tile-unified upload-tile-zip glass-panel">
+                  <span class="upload-tile-accent"></span>
+                  <div class="upload-tile-head">
+                    <span class="upload-tile-icon" aria-hidden="true">
+                      <svg id="archiveUploadIcon" class="upload-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="5" y="4.5" width="14" height="15" rx="2.5"></rect>
+                        <path d="M9 4.5v15"></path>
+                        <path d="M9 8h2"></path>
+                        <path d="M9 12h2"></path>
+                        <path d="M9 16h2"></path>
+                        <path d="M13 8h2"></path>
+                        <path d="M13 12h2"></path>
+                      </svg>
+                      <svg id="directoryUploadIcon" class="upload-icon-svg is-hidden-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3.5 8.5a2.5 2.5 0 0 1 2.5-2.5h4l2 2h6a2.5 2.5 0 0 1 2.5 2.5v5a2.5 2.5 0 0 1-2.5 2.5H6A2.5 2.5 0 0 1 3.5 15.5z"></path>
+                        <path d="M12 11v5"></path>
+                        <path d="m9.75 13.25 2.25-2.25 2.25 2.25"></path>
+                      </svg>
+                    </span>
+                    <div class="upload-title-stack">
+                      <span id="packageModeBadge" class="upload-tile-badge">Archive Input</span>
+                      <span id="packageUploadTitle" class="upload-title">Upload ZIP bundle</span>
+                    </div>
+                  </div>
+                  <span id="uploadModeHint" class="upload-hint">For one or many skills.</span>
+                  <div class="upload-picker upload-picker-large">
+                    <button id="packagePickerTrigger" class="upload-picker-button" type="button">Choose ZIP file</button>
+                    <span id="packagePickerValue" class="upload-picker-value">No package selected</span>
+                  </div>
+                  <input id="archiveInput" name="archives" type="file" accept=".zip" multiple />
+                  <input id="directoryInput" type="file" webkitdirectory directory multiple />
+              </label>
+
+              <div class="package-selection-inline glass-panel">
+                <div class="selection-card-head">
+                  <p class="selection-label">Selected package</p>
+                  <span id="selectedPackageCaption" class="selection-caption">ZIP archive</span>
+                </div>
+                <ul id="packageSelectionList" class="selection-list selection-list-compact"><li>No package selected.</li></ul>
+              </div>
+
+              <div class="scan-submit-row">
+                <button id="submitButton" type="submit" class="primary-button scan-submit-button">Start Scan</button>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <section id="skillpeckerTaskQueue" class="scan-tree-card glass-panel scan-console-card">
+          <div class="panel-head panel-head-stack panel-head-queue">
+            <div>
+              <p class="panel-eyebrow">Live Queue</p>
+              <h3>Job Queue</h3>
+            </div>
+            <span id="queueSummaryPill" class="ghost-pill glass-pill">0 Jobs</span>
+          </div>
+
+          <div id="scanTreeEmpty" class="empty-state compact glass-panel scan-empty-state">
+            <h4>No jobs yet</h4>
+            <p>Upload a ZIP bundle or folder above.</p>
+          </div>
+
+          <div id="scanTreeList" class="scan-tree-list" hidden></div>
+        </section>
+
+      </section>
+
+      <section id="view-library" class="view-panel is-hidden">
+        <section class="page-heading glass-panel scan-hero-card">
+          <div>
+            <p class="section-tag" hidden></p>
+            <h2>Malicious Skill Library</h2>
+          </div>
+          <div class="library-heading-visual" aria-hidden="true">
+            <div class="library-intel-stage">
+              <span class="library-intel-grid"></span>
+              <span class="library-intel-glow glow-a"></span>
+              <span class="library-intel-glow glow-b"></span>
+              <span class="library-intel-track track-a"><span class="library-intel-signal signal-a"></span></span>
+              <span class="library-intel-track track-b"><span class="library-intel-signal signal-b"></span></span>
+              <span class="library-intel-track track-c"><span class="library-intel-signal signal-c"></span></span>
+              <div class="library-intel-core">
+                <span class="library-intel-core-ring ring-outer"></span>
+                <span class="library-intel-core-ring ring-inner"></span>
+                <span class="library-intel-core-dot dot-a"></span>
+                <span class="library-intel-core-dot dot-b"></span>
+                <span class="library-intel-core-dot dot-c"></span>
+              </div>
+              <div class="library-intel-bars">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+          </div>
+          <div class="heading-pills">
+            <span id="libraryCountPill" class="ghost-pill glass-pill">Matched 0</span>
+            <span id="libraryMaliciousPill" class="ghost-pill glass-pill">0-0 / 0</span>
+          </div>
+        </section>
+        <section class="library-workspace glass-panel">
+          <div class="library-search-shell">
+            <form id="librarySearchForm" class="library-search-bar">
+              <div class="library-search-field">
+                <input
+                  id="librarySearchInput"
+                  class="library-search-input"
+                  type="search"
+                  placeholder="Search by skill name..."
+                  autocomplete="off"
+                  spellcheck="false"
+                />
+                <div class="library-filter-row">
+                  <span id="libraryDecisionFilterLabel" class="library-filter-label">Decision Level</span>
+                  <div class="library-decision-filters" role="group" aria-labelledby="libraryDecisionFilterLabel">
+                    <label class="library-filter-chip" data-decision-filter-chip>
+                      <input class="sr-only" type="checkbox" value="MALICIOUS" data-decision-filter />
+                      <span data-decision-filter-label="MALICIOUS">Malicious</span>
+                    </label>
+                    <label class="library-filter-chip" data-decision-filter-chip>
+                      <input class="sr-only" type="checkbox" value="OVERREACH" data-decision-filter />
+                      <span data-decision-filter-label="OVERREACH">Overreach</span>
+                    </label>
+                    <label class="library-filter-chip" data-decision-filter-chip>
+                      <input class="sr-only" type="checkbox" value="SUSPICIOUS" data-decision-filter />
+                      <span data-decision-filter-label="SUSPICIOUS">Suspicious</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <button id="librarySearchButton" class="secondary-button glass-btn library-search-button" type="submit">Search</button>
+            </form>
+          </div>
+
+          <div id="libraryList" class="library-results"></div>
+
+          <div class="library-pagination">
+            <div class="pagination-copy">
+              <span id="libraryPageIndicator" class="ghost-pill glass-pill">Showing 0-0 of 0</span>
+            </div>
+            <div id="libraryPaginationNumbers" class="pagination-numbers"></div>
+            <div class="pagination-actions">
+              <button id="libraryPaginationPrev" class="secondary-button glass-btn pagination-button" type="button">Previous</button>
+              <button id="libraryPaginationNext" class="secondary-button glass-btn pagination-button" type="button">Next</button>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <div id="scanResultModal" class="scan-result-modal" hidden>
+        <div class="scan-result-modal-backdrop" data-modal-close="true"></div>
+        <div class="scan-result-dialog glass-panel" role="dialog" aria-modal="true" aria-labelledby="scanResultModalTitle">
+          <div class="scan-result-dialog-head">
+            <div>
+              <p class="panel-eyebrow">Scan Result</p>
+              <h3 id="scanResultModalTitle">Job Result</h3>
+            </div>
+            <button id="scanResultModalClose" class="secondary-button glass-btn modal-close-button" type="button">Close</button>
+          </div>
+          <div id="scanResultModalBody" class="scan-result-dialog-body"></div>
+        </div>
+      </div>
+    </main>
+
+    <div id="appDialog" class="app-dialog-modal" hidden>
+      <div class="app-dialog-backdrop" data-app-dialog-close="true"></div>
+      <div
+        class="app-dialog-panel glass-panel"
+        role="alertdialog"
+        aria-modal="true"
+        aria-labelledby="appDialogTitle"
+        aria-describedby="appDialogMessage"
+      >
+        <span class="app-dialog-grid" aria-hidden="true"></span>
+        <span class="app-dialog-glow glow-a" aria-hidden="true"></span>
+        <span class="app-dialog-glow glow-b" aria-hidden="true"></span>
+        <div class="app-dialog-head">
+          <p id="appDialogEyebrow" class="app-dialog-eyebrow">System Notice</p>
+          <button id="appDialogClose" class="app-dialog-close" type="button" aria-label="Close dialog">
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+        <div class="app-dialog-body">
+          <h3 id="appDialogTitle">Scan station notice</h3>
+          <p id="appDialogMessage">Message</p>
+        </div>
+        <div id="appDialogActions" class="app-dialog-actions"></div>
+      </div>
+    </div>
+
+    <script src="/skillpecker/static/app.js" defer></script>
+  </body>
+</html>
+

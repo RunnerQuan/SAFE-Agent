@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "insufficient_evidence",
+    "primary_concern": "data-over-collection",
+    "issue_types": [
+      "data-over-collection",
+      "privacy-violation",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-over-collection",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill's detailed methodology for researching individuals (journalists/influencers) involves collecting and processing personal data (email, phone, social media activity, article history) at scale. While related to building media lists, the described practices of email pattern detection, social media scraping, and maintaining detailed personal profiles without addressing consent, data sourcing legality, or compliance frameworks (e.g., GDPR for EU journalists) represents a systemic over-collection of personal data and a potential privacy violation. The skill's purpose could be achieved with less intrusive methods (e.g., using pre-vetted professional databases).",
+      "impact": "OVERREACH: Data Over-collection & Privacy Violation - The skill's detailed methodology for researching individuals (journalists/influencers) involves collecting and processing personal data (email, phone, social media activity, article history) at scale. While related to building media lists, the described practices of email pattern detection, social media scraping, and maintaining detailed personal profiles without addressing consent, data sourcing legality, or compliance frameworks (e.g., GDPR for EU journalists) represents a systemic over-collection of personal data and a potential privacy violation. The skill's purpose could be achieved with less intrusive methods (e.g., using pre-vetted professional databases).",
+      "fix": "",
+      "decision_level": "",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Data Over-collection",
+        "Privacy Violation"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

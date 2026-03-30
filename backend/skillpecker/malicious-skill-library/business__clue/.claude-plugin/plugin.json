@@ -1,0 +1,33 @@
+{
+  "name": "clue",
+  "displayName": "Clue",
+  "version": "1.0.0",
+  "description": "Track menstrual cycles with Clue - monitor periods, symptoms, and cycle patterns",
+  "author": "Canifi LifeOS",
+  "category": "Health & Fitness",
+  "authentication": {
+    "type": "browser",
+    "loginUrl": "https://helloclue.com/login",
+    "loggedInIndicator": "[data-testid='user-menu']"
+  },
+  "capabilities": [
+    "cycle-predictions",
+    "period-history",
+    "symptom-patterns",
+    "cycle-statistics",
+    "tracking-history",
+    "cycle-insights"
+  ],
+  "requiredEnvVars": [
+    "CLUE_EMAIL",
+    "CLUE_PASSWORD"
+  ],
+  "endpoints": {
+    "base": "https://helloclue.com",
+    "app": "https://app.helloclue.com"
+  },
+  "rateLimit": {
+    "requests": 60,
+    "period": "minute"
+  }
+}

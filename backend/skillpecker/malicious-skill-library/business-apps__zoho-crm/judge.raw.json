@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "data-over-collection",
+    "issue_types": [
+      "data-over-collection",
+      "security-risk",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-over-collection",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill requests the user's Zoho account email and password as an optional authentication method (Option 2), which is unnecessary and excessive for the stated primary purpose (managing Zoho CRM). The skill already supports the standard and secure OAuth 2.0 authentication flow (client ID, secret, and refresh token) recommended by Zoho's API. Storing plaintext passwords—even locally—poses a security risk and is not a standard or required practice for OAuth-based integrations, making this request for sensitive credentials unrelated to the skill's core functionality.",
+      "impact": "OVERREACH: Data Over-collection - The skill requests the user's Zoho account email and password as an optional authentication method (Option 2), which is unnecessary and excessive for the stated primary purpose (managing Zoho CRM). The skill already supports the standard and secure OAuth 2.0 authentication flow (client ID, secret, and refresh token) recommended by Zoho's API. Storing plaintext passwords—even locally—poses a security risk and is not a standard or required practice for OAuth-based integrations, making this request for sensitive credentials unrelated to the skill's core functionality.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Data Over-collection",
+        "Security Risk"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

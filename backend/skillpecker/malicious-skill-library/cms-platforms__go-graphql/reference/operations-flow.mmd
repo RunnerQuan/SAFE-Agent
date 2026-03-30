@@ -1,0 +1,51 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#e3f2fd', 'primaryTextColor': '#1565c0', 'primaryBorderColor': '#1976d2', 'lineColor': '#1976d2'}}}%%
+graph TD
+    subgraph client["Client"]
+        query["GraphQL Query/Mutation"]
+    end
+
+    subgraph server["gqlgen Server"]
+        subgraph middleware["Middleware Layer"]
+            auth["Auth Middleware"]
+            logging["Logging"]
+            complexity["Complexity Limiter"]
+        end
+
+        subgraph directives["Directive Layer"]
+            authDir["@auth Directive"]
+            cacheDir["@cacheControl"]
+            validateDir["@validate"]
+        end
+
+        subgraph resolvers["Resolver Layer"]
+            queryRes["Query Resolvers"]
+            mutationRes["Mutation Resolvers"]
+            fieldRes["Field Resolvers"]
+        end
+
+        subgraph dataloaders["Dataloader Layer"]
+            userLoader["UserLoader"]
+            postLoader["PostLoader"]
+        end
+    end
+
+    subgraph services["Service Layer"]
+        userSvc["UserService"]
+        postSvc["PostService"]
+    end
+
+    subgraph data["Data Layer"]
+        db[(Database)]
+        cache[(Cache)]
+    end
+
+    query --> auth
+    auth --> logging
+    logging --> complexity
+    complexity --> authDir
+    authDir --> queryRes
+    queryRes --> fieldRes
+    fieldRes --> userLoader
+    userLoader --> userSvc
+    userSvc --> db
+    userSvc --> cache

@@ -1,0 +1,37 @@
+{
+  "name": "walmart",
+  "version": "1.0.0",
+  "description": "Automate Walmart product search, lists, and order tracking",
+  "author": "Canifi",
+  "category": "e-commerce",
+  "permissions": [
+    "browser",
+    "notifications",
+    "env-access"
+  ],
+  "triggers": [
+    "walmart",
+    "find on walmart",
+    "walmart order",
+    "walmart pickup"
+  ],
+  "authentication": {
+    "type": "browser-session",
+    "loginUrl": "https://www.walmart.com/account/login",
+    "sessionIndicator": "[data-automation-id='account']"
+  },
+  "requiredEnvVars": [
+    "WALMART_EMAIL",
+    "WALMART_PASSWORD"
+  ],
+  "capabilities": {
+    "search": true,
+    "lists": true,
+    "orders": true,
+    "storeAvailability": true,
+    "deals": true
+  },
+  "restrictions": {
+    "noPurchases": true
+  }
+}

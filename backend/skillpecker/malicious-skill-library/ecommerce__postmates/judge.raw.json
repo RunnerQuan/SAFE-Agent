@@ -1,0 +1,54 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "data-over-collection",
+    "issue_types": [
+      "data-over-collection",
+      "privacy-violation",
+      "security-risk",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-over-collection",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill description mentions using iMessage to handle 2FA during authentication, which implies reading the user's iMessages to obtain the 2FA code. This is unnecessary for the stated purpose of browsing merchants and tracking deliveries, and accessing iMessages is a significant privacy violation. Additionally, the installation method requires running a remote script from a third-party domain, which poses a security risk.",
+      "impact": "OVERREACH: Data Over-collection and Privacy Violation - The skill description mentions using iMessage to handle 2FA during authentication, which implies reading the user's iMessages to obtain the 2FA code. This is unnecessary for the stated purpose of browsing merchants and tracking deliveries, and accessing iMessages is a significant privacy violation. Additionally, the installation method requires running a remote script from a third-party domain, which poses a security risk.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Data Over-collection",
+        "Privacy Violation",
+        "Security Risk"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": true,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill's primary purpose is \"multi-dimensional web search.\" However, it mandates reading local user files (e.g., config files, package.json, .env files, source code) during the \"grounding\" step before any web search. This is excessive and unrelated to performing web searches; a search tool does not inherently need access to the user's local configuration, code, or environment files. While contextualizing results can be useful, it constitutes a separate functionality that should be optional, not a mandatory pre‑condition for web search. The skill also writes intermediate files locally, which is acceptable, but the compulsory inspection of sensitive local data before searching represents permission overreach.",
+      "impact": "OVERREACH: Permission Overreach & Data Over-collection - The skill's primary purpose is \"multi-dimensional web search.\" However, it mandates reading local user files (e.g., config files, package.json, .env files, source code) during the \"grounding\" step before any web search. This is excessive and unrelated to performing web searches; a search tool does not inherently need access to the user's local configuration, code, or environment files. While contextualizing results can be useful, it constitutes a separate functionality that should be optional, not a mandatory pre‑condition for web search. The skill also writes intermediate files locally, which is acceptable, but the compulsory inspection of sensitive local data before searching represents permission overreach.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Data Over-collection"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

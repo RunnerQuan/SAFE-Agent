@@ -1,0 +1,54 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "data-over-collection",
+      "privacy-violation",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The Hooks Automation skill performs extensive system monitoring and data collection that goes far beyond its stated purpose of \"automated coordination, formatting, and learning from Claude Code operations.\" Specifically:\n\n1. **Permission Overreach**: The skill automatically spawns and coordinates \"swarm agents\" with access to system resources, runs arbitrary bash commands with safety checks, monitors all file operations, and integrates deeply with git hooks to control commit/push workflows. A formatting/coordination tool should not need to spawn autonomous agents or control git workflows.\n\n2. **Data Over-collection**: The skill collects and stores extensive metadata including execution metrics, neural patterns, task decisions, agent rosters, swarm topologies, and cross-session memory. This creates a comprehensive profile of development activities far beyond simple formatting/coordination needs.\n\n3. **Privacy Violation Risk**: The \"neural training\" and pattern learning components could potentially capture and share proprietary code patterns or development methodologies without clear disclosure or user consent mechanisms.\n\nWhile some file formatting and basic coordination features are reasonable, the extensive system monitoring, agent coordination, and data collection capabilities represent significant overreach for a tool primarily described as providing \"automated coordination and formatting.\"",
+      "impact": "OVERREACH: Permission Overreach & Data Over-collection - The Hooks Automation skill performs extensive system monitoring and data collection that goes far beyond its stated purpose of \"automated coordination, formatting, and learning from Claude Code operations.\" Specifically:\n\n1. **Permission Overreach**: The skill automatically spawns and coordinates \"swarm agents\" with access to system resources, runs arbitrary bash commands with safety checks, monitors all file operations, and integrates deeply with git hooks to control commit/push workflows. A formatting/coordination tool should not need to spawn autonomous agents or control git workflows.\n\n2. **Data Over-collection**: The skill collects and stores extensive metadata including execution metrics, neural patterns, task decisions, agent rosters, swarm topologies, and cross-session memory. This creates a comprehensive profile of development activities far beyond simple formatting/coordination needs.\n\n3. **Privacy Violation Risk**: The \"neural training\" and pattern learning components could potentially capture and share proprietary code patterns or development methodologies without clear disclosure or user consent mechanisms.\n\nWhile some file formatting and basic coordination features are reasonable, the extensive system monitoring, agent coordination, and data collection capabilities represent significant overreach for a tool primarily described as providing \"automated coordination and formatting.\"",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Data Over-collection",
+        "Privacy Violation"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "6",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": true,
+        "browser_session_or_credentials": true,
+        "filesystem_access": true,
+        "shell_or_command_execution": true,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": true
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

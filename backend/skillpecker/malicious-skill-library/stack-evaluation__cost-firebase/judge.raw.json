@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "data-over-collection",
+    "issue_types": [
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-over-collection",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill requests authentication and access to Firebase/GCP projects, billing data, and usage statistics, which involve sensitive financial and project information. While cost estimation can be performed using public pricing data via web search (included as a fallback), the skill emphasizes using CLI tools and APIs that require user credentials, potentially leading to unnecessary collection of sensitive data beyond the minimal needs for general cost estimation.",
+      "impact": "OVERREACH: Data Over-collection - The skill requests authentication and access to Firebase/GCP projects, billing data, and usage statistics, which involve sensitive financial and project information. While cost estimation can be performed using public pricing data via web search (included as a fallback), the skill emphasizes using CLI tools and APIs that require user credentials, potentially leading to unnecessary collection of sensitive data beyond the minimal needs for general cost estimation.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Data Over-collection"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": true
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

@@ -1,0 +1,54 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "data-over-collection",
+      "privilege-escalation",
+      "execution-system-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "execution-system-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "While the skill's stated purpose is AWS penetration testing guidance, the documentation includes extensive instructions for actively performing malicious actions beyond enumeration/assessment, including:\n1. **Active exploitation commands** for privilege escalation (attaching admin policies, injecting malicious Lambda code)\n2. **Covering tracks techniques** (disabling CloudTrail, obfuscating logs) \n3. **Persistence mechanisms** (backdooring Lambda functions, ECR images)\n4. **Data extraction methods** (mounting EBS volumes, stealing credentials)\n5. **Lateral movement instructions** (VPC peering exploitation)\n\nThese go beyond \"guidance on security assessment\" into providing active attack tooling and post-exploitation techniques that could be used for unauthorized access. The skill requests AWS credentials (which is reasonable for testing) but then provides instructions for using those credentials to perform unauthorized administrative actions, disable security controls, and establish persistence - which exceeds what would be needed for legitimate security assessment guidance in an authorized context.",
+      "impact": "OVERREACH: Permission Overreach & Data Over-collection - While the skill's stated purpose is AWS penetration testing guidance, the documentation includes extensive instructions for actively performing malicious actions beyond enumeration/assessment, including:\n1. **Active exploitation commands** for privilege escalation (attaching admin policies, injecting malicious Lambda code)\n2. **Covering tracks techniques** (disabling CloudTrail, obfuscating logs) \n3. **Persistence mechanisms** (backdooring Lambda functions, ECR images)\n4. **Data extraction methods** (mounting EBS volumes, stealing credentials)\n5. **Lateral movement instructions** (VPC peering exploitation)\n\nThese go beyond \"guidance on security assessment\" into providing active attack tooling and post-exploitation techniques that could be used for unauthorized access. The skill requests AWS credentials (which is reasonable for testing) but then provides instructions for using those credentials to perform unauthorized administrative actions, disable security controls, and establish persistence - which exceeds what would be needed for legitimate security assessment guidance in an authorized context.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Execution / System Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Data Over-collection",
+        "Privilege Escalation"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "2",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": true
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "data-over-collection",
+    "issue_types": [
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-over-collection",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill requests access to Slack, Google Drive, Email, and Calendar to gather information for writing 3P updates. While gathering data from these sources could aid in automation, the primary purpose of formatting team updates does not necessitate such broad access to sensitive communication and storage platforms. The skill can function effectively by relying on user-provided information, as indicated in the fallback option. Accessing multiple services with minimal restrictions (e.g., \"as much context as possible\") exceeds the data minimization principle and could expose confidential or personal data unrelated to the core task of writing concise updates.",
+      "impact": "OVERREACH: Data Over-collection - The skill requests access to Slack, Google Drive, Email, and Calendar to gather information for writing 3P updates. While gathering data from these sources could aid in automation, the primary purpose of formatting team updates does not necessitate such broad access to sensitive communication and storage platforms. The skill can function effectively by relying on user-provided information, as indicated in the fallback option. Accessing multiple services with minimal restrictions (e.g., \"as much context as possible\") exceeds the data minimization principle and could expose confidential or personal data unrelated to the core task of writing concise updates.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Data Over-collection"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

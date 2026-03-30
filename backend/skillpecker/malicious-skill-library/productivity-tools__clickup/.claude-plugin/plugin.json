@@ -1,0 +1,7 @@
+{
+  "name": "canifi-skill-clickup",
+  "description": "Enables Claude to create, manage, and track tasks and projects in ClickUp via Playwright MCP",
+  "version": "1.0.0",
+  "author": "Canifi",
+  "homepage": "https://canifi.com/plugins/clickup"
+}

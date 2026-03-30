@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "data-over-collection",
+    "issue_types": [
+      "data-over-collection",
+      "privacy-violation",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-over-collection",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill description instructs the assistant to search the user's recent notes, journal entries, and sessions to help generate content ideas. This requires access to sensitive personal data that is not strictly necessary for the primary purpose of content creation (the skill could function by conversing with the user). The description does not specify obtaining explicit user consent for such access, nor does it clarify how the data is handled, which could lead to privacy violations.",
+      "impact": "OVERREACH: Data Over-collection - The skill description instructs the assistant to search the user's recent notes, journal entries, and sessions to help generate content ideas. This requires access to sensitive personal data that is not strictly necessary for the primary purpose of content creation (the skill could function by conversing with the user). The description does not specify obtaining explicit user consent for such access, nor does it clarify how the data is handled, which could lead to privacy violations.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Data Over-collection",
+        "Privacy Violation"
+      ],
+      "source_platform": "Clawhub",
+      "source_file": "scan_results_description_clawhub.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": true,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

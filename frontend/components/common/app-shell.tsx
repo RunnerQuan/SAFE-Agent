@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { FileText, Home, ScanLine, Shield, Sparkles } from 'lucide-react'
+import { FileText, Home, ScanLine, ShieldCheck, Sparkles } from 'lucide-react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 
 import { Button } from '@/components/ui/button'
@@ -20,6 +20,7 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { title: '首页', href: '/', icon: Home, description: '平台简介与双检测能力概览。' },
+  { title: 'Skill 可信安全检测', href: '/skillpecker', icon: ShieldCheck, description: 'Skill 可信安全检测工作台与恶意 Skill 样本库。' },
   { title: '任务', href: '/scans', icon: ScanLine, description: '提交工具 metadata 批次并追踪检测进度。' },
   { title: '报告', href: '/reports', icon: FileText, description: '查看 DOE 与组合式漏洞的工具级结果。' },
 ]
@@ -55,6 +56,7 @@ function SectionIntro({ pathname }: { pathname: string }) {
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   const isHome = pathname === '/'
+  const isSkillPecker = pathname === '/skillpecker' || pathname.startsWith('/skillpecker/')
   const hideTimerRef = useRef<number | null>(null)
   const lastYRef = useRef(0)
 
@@ -87,6 +89,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
       setScrolled(currentY > 8)
 
+       if (isSkillPecker) {
+        setHidden(currentY > 8)
+        return
+      }
+
       if (currentY <= 20) {
         showTopbar()
         return
@@ -100,6 +107,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     }
 
     const onPointerMove = (event: PointerEvent) => {
+      if (isSkillPecker) {
+        return
+      }
+
       if (event.clientY <= 96) {
         showTopbar()
       }
@@ -116,7 +127,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         window.clearTimeout(hideTimerRef.current)
       }
     }
-  }, [])
+  }, [isSkillPecker])
 
   const topbarClassName = useMemo(
     () => cn('topbar-shell', hidden && 'is-hidden', scrolled && 'is-scrolled'),
@@ -129,7 +140,13 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
       <header className={topbarClassName}>
         <div className="topbar">
-          <Link href="/" className="corner-school-brand" aria-label="中山大学软件工程学院">
+          <a
+            href="https://sse.sysu.edu.cn/"
+            className="corner-school-brand"
+            aria-label="中山大学软件工程学院"
+            target="_blank"
+            rel="noreferrer"
+          >
             <span className="corner-school-brand-frame">
               <Image
                 className="corner-school-brand-logo"
@@ -140,13 +157,20 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 priority
               />
             </span>
-          </Link>
+          </a>
 
           <div className="topbar-center">
             <div className="topbar-brand">
-              <Link href="/" className="brandmark" aria-label="SAFE-Agent 首页">
+              <Link href="/" className="brandmark" aria-label="返回 SAFE-Agent 首页" title="返回首页">
                 <span className="brandmark-tool-badge">
-                  <Shield className="h-5 w-5 text-slate-900 dark:text-slate-50" />
+                  <Image
+                    className="brandmark-tool-logo"
+                    src="/web_logo.png"
+                    alt="SAFE-Agent 标志"
+                    width={72}
+                    height={72}
+                    priority
+                  />
                 </span>
                 <span className="brandmark-copy">
                   <span className="brandmark-text">SAFE-Agent</span>
@@ -180,8 +204,12 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       </header>
 
       {isHome ? (
-        <main className="relative z-10 px-0 pb-0 pt-24">
+        <main className="relative z-10 px-0 pb-0 pt-20">
           <div className="animate-page-enter">{children}</div>
+        </main>
+      ) : isSkillPecker ? (
+        <main className="relative z-10 px-3 pb-6 pt-24 sm:px-4 lg:px-5">
+          <div className="skillpecker-page-shell animate-page-enter">{children}</div>
         </main>
       ) : (
         <main className="relative z-10 px-4 pb-20 pt-28 sm:px-6 lg:px-8">

@@ -1,0 +1,56 @@
+{
+  "verdict": {
+    "label": "insufficient_evidence",
+    "primary_concern": "data-exfiltration",
+    "issue_types": [
+      "data-exfiltration",
+      "trojan-downloader",
+      "supply-chain-attack",
+      "reverse-shell",
+      "execution-system-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-exfiltration",
+      "class": "execution-system-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The code is a legitimate Circle wallet integration but contains patterns that make it a high-risk supply chain attack vector. The package name `@circle/openclaw-wallet-skill` suggests targeted deployment, and the credential handling in `src/config.ts` and `src/cli.ts` creates a data exfiltration risk if the package were compromised or maliciously modified. While no active malicious code is present, this represents a classic supply chain attack pattern where legitimate functionality is used as cover for credential harvesting.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "",
+      "primary_group": "Execution / System Risk",
+      "scan_level": "Script Scan",
+      "risk_types": [
+        "Data Exfiltration",
+        "Trojan Downloader",
+        "Supply Chain Attack",
+        "Reverse Shell"
+      ],
+      "source_platform": "Clawhub",
+      "source_file": "scan_results_script_clawhub.csv",
+      "related_file_count": "11",
+      "flags": {
+        "external_server": true,
+        "api_key": true,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": true,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": true,
+        "persistence_or_external_storage": true
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

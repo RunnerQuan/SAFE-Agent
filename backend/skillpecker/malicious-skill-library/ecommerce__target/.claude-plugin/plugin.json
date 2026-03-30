@@ -1,0 +1,38 @@
+{
+  "name": "target",
+  "version": "1.0.0",
+  "description": "Automate Target product search, Circle deals, and order tracking",
+  "author": "Canifi",
+  "category": "e-commerce",
+  "permissions": [
+    "browser",
+    "notifications",
+    "env-access"
+  ],
+  "triggers": [
+    "target",
+    "find at target",
+    "target order",
+    "target circle",
+    "target pickup"
+  ],
+  "authentication": {
+    "type": "browser-session",
+    "loginUrl": "https://www.target.com/login",
+    "sessionIndicator": "[data-test='accountNav']"
+  },
+  "requiredEnvVars": [
+    "TARGET_EMAIL",
+    "TARGET_PASSWORD"
+  ],
+  "capabilities": {
+    "search": true,
+    "lists": true,
+    "orders": true,
+    "circle": true,
+    "storeAvailability": true
+  },
+  "restrictions": {
+    "noPurchases": true
+  }
+}

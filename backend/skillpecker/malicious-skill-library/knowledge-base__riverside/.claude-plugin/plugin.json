@@ -1,0 +1,33 @@
+{
+  "name": "riverside",
+  "displayName": "Riverside",
+  "version": "1.0.0",
+  "description": "Record high-quality podcasts and interviews with Riverside - manage recordings, transcripts, and exports",
+  "author": "Canifi LifeOS",
+  "category": "Video & Audio Production",
+  "authentication": {
+    "type": "browser",
+    "loginUrl": "https://riverside.fm/login",
+    "loggedInIndicator": "[data-testid='user-menu']"
+  },
+  "capabilities": [
+    "manage-recordings",
+    "export-transcripts",
+    "download-tracks",
+    "manage-sessions",
+    "access-clips",
+    "configure-studio"
+  ],
+  "requiredEnvVars": [
+    "RIVERSIDE_EMAIL",
+    "RIVERSIDE_PASSWORD"
+  ],
+  "endpoints": {
+    "base": "https://riverside.fm",
+    "studios": "https://riverside.fm/dashboard/studios"
+  },
+  "rateLimit": {
+    "requests": 30,
+    "period": "minute"
+  }
+}

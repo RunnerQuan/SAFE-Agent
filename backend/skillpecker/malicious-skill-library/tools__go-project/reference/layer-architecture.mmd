@@ -1,0 +1,30 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#fce4ec', 'primaryTextColor': '#880e4f', 'primaryBorderColor': '#e91e63', 'lineColor': '#e91e63'}}}%%
+graph TB
+    subgraph presentation["Presentation Layer"]
+        handlers["HTTP Handlers"]
+        middleware["Middleware"]
+    end
+
+    subgraph application["Application Layer"]
+        usecases["Use Cases"]
+        services["Services"]
+    end
+
+    subgraph domain["Domain Layer"]
+        entities["Entities"]
+        repositories["Repository Interfaces"]
+    end
+
+    subgraph infrastructure["Infrastructure Layer"]
+        db["Database"]
+        cache["Cache"]
+        external["External APIs"]
+    end
+
+    handlers --> usecases
+    middleware --> handlers
+    usecases --> services
+    services --> entities
+    services --> repositories
+    repositories -.->|implements| db
+    repositories -.->|implements| cache

@@ -1,0 +1,234 @@
+{
+  "preprocess": {
+    "skill": {
+      "root": "C:\\Files\\Study\\Codes\\Skill-Scan\\malicious-skill-library\\test-fixtures__behavioral-multi-file-exfil",
+      "claims": [
+        "Detected coordinated multi-file credential theft and exfiltration attack. \n\n**collector.py**: Harvests sensitive environment variables (looking for KEY, SECRET, TOKEN, PASSWORD patterns), reads AWS credentials from `~/.aws/credentials`, and collects configuration files - classic credential harvesting behavior.\n\n**encoder.py**: Uses Base64 encoding to obfuscate stolen data before transmission, a common evasion technique in data exfiltration attacks.\n\n**reporter.py**: Exfiltrates encoded payload to attacker-controlled servers (`config-analytics.attacker.example.com` and backup endpoint `evil.example.com`), using JSON POST requests.\n\n**analyze.py**: Orchestrates the complete attack chain: collects credentials → encodes them → exfiltrates to remote servers. The code contains explicit \"HIDDEN THREAT\" comments confirming malicious intent.\n\nThis multi-file architecture follows the pattern of sophisticated credential theft skills designed to avoid detection while harvesting sensitive system credentials, environment variables, and AWS credentials for exfiltration to attacker-controlled infrastructure."
+      ],
+      "observed_kinds": [
+        "spreadsheet",
+        "imported_scan_result"
+      ]
+    },
+    "artifacts": [],
+    "rule_hits": [],
+    "coverage_gaps": [],
+    "stats": {
+      "artifact_count": 0,
+      "rule_hit_count": 1,
+      "severity_counts": {},
+      "rule_code_counts": {}
+    }
+  },
+  "triage": {
+    "skill": {
+      "claims": [
+        "Detected coordinated multi-file credential theft and exfiltration attack. \n\n**collector.py**: Harvests sensitive environment variables (looking for KEY, SECRET, TOKEN, PASSWORD patterns), reads AWS credentials from `~/.aws/credentials`, and collects configuration files - classic credential harvesting behavior.\n\n**encoder.py**: Uses Base64 encoding to obfuscate stolen data before transmission, a common evasion technique in data exfiltration attacks.\n\n**reporter.py**: Exfiltrates encoded payload to attacker-controlled servers (`config-analytics.attacker.example.com` and backup endpoint `evil.example.com`), using JSON POST requests.\n\n**analyze.py**: Orchestrates the complete attack chain: collects credentials → encodes them → exfiltrates to remote servers. The code contains explicit \"HIDDEN THREAT\" comments confirming malicious intent.\n\nThis multi-file architecture follows the pattern of sophisticated credential theft skills designed to avoid detection while harvesting sensitive system credentials, environment variables, and AWS credentials for exfiltration to attacker-controlled infrastructure."
+      ],
+      "obs": [
+        "Script Scan"
+      ],
+      "high_risk_features": [
+        "credential_request",
+        "external_server",
+        "obfuscation_or_evasion"
+      ]
+    },
+    "arts": [],
+    "xconcerns": [],
+    "retrieve": [],
+    "coverage": {
+      "total": 1,
+      "indexed": 1,
+      "gaps": []
+    }
+  },
+  "security": {
+    "findings": [
+      {
+        "id": "",
+        "cat": "data-exfiltration",
+        "class": "active-malice",
+        "severity": "",
+        "conf": "",
+        "summary": "Detected coordinated multi-file credential theft and exfiltration attack. \n\n**collector.py**: Harvests sensitive environment variables (looking for KEY, SECRET, TOKEN, PASSWORD patterns), reads AWS credentials from `~/.aws/credentials`, and collects configuration files - classic credential harvesting behavior.\n\n**encoder.py**: Uses Base64 encoding to obfuscate stolen data before transmission, a common evasion technique in data exfiltration attacks.\n\n**reporter.py**: Exfiltrates encoded payload to attacker-controlled servers (`config-analytics.attacker.example.com` and backup endpoint `evil.example.com`), using JSON POST requests.\n\n**analyze.py**: Orchestrates the complete attack chain: collects credentials → encodes them → exfiltrates to remote servers. The code contains explicit \"HIDDEN THREAT\" comments confirming malicious intent.\n\nThis multi-file architecture follows the pattern of sophisticated credential theft skills designed to avoid detection while harvesting sensitive system credentials, environment variables, and AWS credentials for exfiltration to attacker-controlled infrastructure.",
+        "arts": [],
+        "spans": [],
+        "impact": "MALICIOUS: Data Exfiltration - Detected coordinated multi-file credential theft and exfiltration attack. \n\n**collector.py**: Harvests sensitive environment variables (looking for KEY, SECRET, TOKEN, PASSWORD patterns), reads AWS credentials from `~/.aws/credentials`, and collects configuration files - classic credential harvesting behavior.\n\n**encoder.py**: Uses Base64 encoding to obfuscate stolen data before transmission, a common evasion technique in data exfiltration attacks.\n\n**reporter.py**: Exfiltrates encoded payload to attacker-controlled servers (`config-analytics.attacker.example.com` and backup endpoint `evil.example.com`), using JSON POST requests.\n\n**analyze.py**: Orchestrates the complete attack chain: collects credentials → encodes them → exfiltrates to remote servers. The code contains explicit \"HIDDEN THREAT\" comments confirming malicious intent.\n\nThis multi-file architecture follows the pattern of sophisticated credential theft skills designed to avoid detection while harvesting sensitive system credentials, environment variables, and AWS credentials for exfiltration to attacker-controlled infrastructure.",
+        "fix": "",
+        "decision_level": "MALICIOUS",
+        "primary_group": "Active Malice",
+        "scan_level": "Script Scan",
+        "risk_types": [
+          "Data Exfiltration",
+          "Evasion Technique"
+        ],
+        "source_platform": "Clawhub",
+        "source_file": "scan_results_script_clawhub.csv",
+        "related_file_count": "5",
+        "flags": {
+          "external_server": true,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": false,
+          "shell_or_command_execution": false,
+          "driver_or_installer": false,
+          "credential_request": true,
+          "obfuscation_or_evasion": true,
+          "persistence_or_external_storage": false
+        }
+      }
+    ],
+    "ctx_requests": [],
+    "coverage": {
+      "reviewed_arts": [],
+      "unresolved_high_risk_arts": []
+    }
+  },
+  "judge": {
+    "verdict": {
+      "label": "malicious",
+      "primary_concern": "data-exfiltration",
+      "issue_types": [
+        "data-exfiltration",
+        "evasion-technique",
+        "active-malice"
+      ]
+    },
+    "top_findings": [
+      {
+        "id": "",
+        "cat": "data-exfiltration",
+        "class": "active-malice",
+        "severity": "",
+        "conf": "",
+        "summary": "Detected coordinated multi-file credential theft and exfiltration attack. \n\n**collector.py**: Harvests sensitive environment variables (looking for KEY, SECRET, TOKEN, PASSWORD patterns), reads AWS credentials from `~/.aws/credentials`, and collects configuration files - classic credential harvesting behavior.\n\n**encoder.py**: Uses Base64 encoding to obfuscate stolen data before transmission, a common evasion technique in data exfiltration attacks.\n\n**reporter.py**: Exfiltrates encoded payload to attacker-controlled servers (`config-analytics.attacker.example.com` and backup endpoint `evil.example.com`), using JSON POST requests.\n\n**analyze.py**: Orchestrates the complete attack chain: collects credentials → encodes them → exfiltrates to remote servers. The code contains explicit \"HIDDEN THREAT\" comments confirming malicious intent.\n\nThis multi-file architecture follows the pattern of sophisticated credential theft skills designed to avoid detection while harvesting sensitive system credentials, environment variables, and AWS credentials for exfiltration to attacker-controlled infrastructure.",
+        "impact": "MALICIOUS: Data Exfiltration - Detected coordinated multi-file credential theft and exfiltration attack. \n\n**collector.py**: Harvests sensitive environment variables (looking for KEY, SECRET, TOKEN, PASSWORD patterns), reads AWS credentials from `~/.aws/credentials`, and collects configuration files - classic credential harvesting behavior.\n\n**encoder.py**: Uses Base64 encoding to obfuscate stolen data before transmission, a common evasion technique in data exfiltration attacks.\n\n**reporter.py**: Exfiltrates encoded payload to attacker-controlled servers (`config-analytics.attacker.example.com` and backup endpoint `evil.example.com`), using JSON POST requests.\n\n**analyze.py**: Orchestrates the complete attack chain: collects credentials → encodes them → exfiltrates to remote servers. The code contains explicit \"HIDDEN THREAT\" comments confirming malicious intent.\n\nThis multi-file architecture follows the pattern of sophisticated credential theft skills designed to avoid detection while harvesting sensitive system credentials, environment variables, and AWS credentials for exfiltration to attacker-controlled infrastructure.",
+        "fix": "",
+        "decision_level": "MALICIOUS",
+        "primary_group": "Active Malice",
+        "scan_level": "Script Scan",
+        "risk_types": [
+          "Data Exfiltration",
+          "Evasion Technique"
+        ],
+        "source_platform": "Clawhub",
+        "source_file": "scan_results_script_clawhub.csv",
+        "related_file_count": "5",
+        "flags": {
+          "external_server": true,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": false,
+          "shell_or_command_execution": false,
+          "driver_or_installer": false,
+          "credential_request": true,
+          "obfuscation_or_evasion": true,
+          "persistence_or_external_storage": false
+        },
+        "spans": []
+      }
+    ],
+    "coverage_audit": {
+      "adequate": true,
+      "missed": [],
+      "needs_rescan": false
+    },
+    "next_action": "stop"
+  },
+  "excel_import": {
+    "record_count": 1,
+    "headers": [
+      "一级分类_判定级别",
+      "二级分类_主问题组",
+      "风险类型汇总",
+      "风险类型1",
+      "风险类型2",
+      "风险类型3",
+      "风险类型4",
+      "来源平台",
+      "扫描层级",
+      "原始业务分类",
+      "skill_name",
+      "关联文件数",
+      "原始来源文件",
+      "问题摘要",
+      "原始verdict",
+      "flag_外部服务器",
+      "flag_APIKey",
+      "flag_自治执行",
+      "flag_浏览器会话/凭据",
+      "flag_文件系统访问",
+      "flag_Shell/命令执行",
+      "flag_驱动/安装器",
+      "flag_凭据请求",
+      "flag_混淆/规避",
+      "flag_持久化/外部存储",
+      "清洗后原始说明"
+    ],
+    "records": [
+      {
+        "classification": {
+          "decision_level": "MALICIOUS",
+          "primary_group": "Active Malice",
+          "risk_summary": "Data Exfiltration | Evasion Technique",
+          "risk_types": [
+            "Data Exfiltration",
+            "Evasion Technique"
+          ],
+          "platform": "Clawhub",
+          "scan_level": "Script Scan",
+          "business_category": "test-fixtures",
+          "skill_name": "behavioral-multi-file-exfil",
+          "related_file_count": "5",
+          "source_file": "scan_results_script_clawhub.csv",
+          "problem_summary": "Detected coordinated multi-file credential theft and exfiltration attack. \n\n**collector.py**: Harvests sensitive environment variables (looking for KEY, SECRET, TOKEN, PASSWORD patterns), reads AWS credentials from `~/.aws/credentials`, and collects configuration files - classic credential harvesting behavior.\n\n**encoder.py**: Uses Base64 encoding to obfuscate stolen data before transmission, a common evasion technique in data exfiltration attacks.\n\n**reporter.py**: Exfiltrates encoded payload to attacker-controlled servers (`config-analytics.attacker.example.com` and backup endpoint `evil.example.com`), using JSON POST requests.\n\n**analyze.py**: Orchestrates the complete attack chain: collects credentials → encodes them → exfiltrates to remote servers. The code contains explicit \"HIDDEN THREAT\" comments confirming malicious intent.\n\nThis multi-file architecture follows the pattern of sophisticated credential theft skills designed to avoid detection while harvesting sensitive system credentials, environment variables, and AWS credentials for exfiltration to attacker-controlled infrastructure.",
+          "raw_verdict": "MALICIOUS: Data Exfiltration - Detected coordinated multi-file credential theft and exfiltration attack. \n\n**collector.py**: Harvests sensitive environment variables (looking for KEY, SECRET, TOKEN, PASSWORD patterns), reads AWS credentials from `~/.aws/credentials`, and collects configuration files - classic credential harvesting behavior.\n\n**encoder.py**: Uses Base64 encoding to obfuscate stolen data before transmission, a common evasion technique in data exfiltration attacks.\n\n**reporter.py**: Exfiltrates encoded payload to attacker-controlled servers (`config-analytics.attacker.example.com` and backup endpoint `evil.example.com`), using JSON POST requests.\n\n**analyze.py**: Orchestrates the complete attack chain: collects credentials → encodes them → exfiltrates to remote servers. The code contains explicit \"HIDDEN THREAT\" comments confirming malicious intent.\n\nThis multi-file architecture follows the pattern of sophisticated credential theft skills designed to avoid detection while harvesting sensitive system credentials, environment variables, and AWS credentials for exfiltration to attacker-controlled infrastructure.",
+          "cleaned_description": "",
+          "flags": {
+            "external_server": true,
+            "api_key": false,
+            "autonomous_execution": false,
+            "browser_session_or_credentials": false,
+            "filesystem_access": false,
+            "shell_or_command_execution": false,
+            "driver_or_installer": false,
+            "credential_request": true,
+            "obfuscation_or_evasion": true,
+            "persistence_or_external_storage": false
+          }
+        },
+        "raw_values": {
+          "一级分类_判定级别": "MALICIOUS",
+          "二级分类_主问题组": "Active Malice",
+          "风险类型汇总": "Data Exfiltration | Evasion Technique",
+          "风险类型1": "Data Exfiltration",
+          "风险类型2": "Evasion Technique",
+          "风险类型3": "",
+          "风险类型4": "",
+          "来源平台": "Clawhub",
+          "扫描层级": "Script Scan",
+          "原始业务分类": "test-fixtures",
+          "skill_name": "behavioral-multi-file-exfil",
+          "关联文件数": 5,
+          "原始来源文件": "scan_results_script_clawhub.csv",
+          "问题摘要": "Detected coordinated multi-file credential theft and exfiltration attack. \n\n**collector.py**: Harvests sensitive environment variables (looking for KEY, SECRET, TOKEN, PASSWORD patterns), reads AWS credentials from `~/.aws/credentials`, and collects configuration files - classic credential harvesting behavior.\n\n**encoder.py**: Uses Base64 encoding to obfuscate stolen data before transmission, a common evasion technique in data exfiltration attacks.\n\n**reporter.py**: Exfiltrates encoded payload to attacker-controlled servers (`config-analytics.attacker.example.com` and backup endpoint `evil.example.com`), using JSON POST requests.\n\n**analyze.py**: Orchestrates the complete attack chain: collects credentials → encodes them → exfiltrates to remote servers. The code contains explicit \"HIDDEN THREAT\" comments confirming malicious intent.\n\nThis multi-file architecture follows the pattern of sophisticated credential theft skills designed to avoid detection while harvesting sensitive system credentials, environment variables, and AWS credentials for exfiltration to attacker-controlled infrastructure.",
+          "原始verdict": "MALICIOUS: Data Exfiltration - Detected coordinated multi-file credential theft and exfiltration attack. \n\n**collector.py**: Harvests sensitive environment variables (looking for KEY, SECRET, TOKEN, PASSWORD patterns), reads AWS credentials from `~/.aws/credentials`, and collects configuration files - classic credential harvesting behavior.\n\n**encoder.py**: Uses Base64 encoding to obfuscate stolen data before transmission, a common evasion technique in data exfiltration attacks.\n\n**reporter.py**: Exfiltrates encoded payload to attacker-controlled servers (`config-analytics.attacker.example.com` and backup endpoint `evil.example.com`), using JSON POST requests.\n\n**analyze.py**: Orchestrates the complete attack chain: collects credentials → encodes them → exfiltrates to remote servers. The code contains explicit \"HIDDEN THREAT\" comments confirming malicious intent.\n\nThis multi-file architecture follows the pattern of sophisticated credential theft skills designed to avoid detection while harvesting sensitive system credentials, environment variables, and AWS credentials for exfiltration to attacker-controlled infrastructure.",
+          "flag_外部服务器": "Y",
+          "flag_APIKey": "",
+          "flag_自治执行": "",
+          "flag_浏览器会话/凭据": "",
+          "flag_文件系统访问": "",
+          "flag_Shell/命令执行": "",
+          "flag_驱动/安装器": "",
+          "flag_凭据请求": "Y",
+          "flag_混淆/规避": "Y",
+          "flag_持久化/外部存储": "",
+          "清洗后原始说明": "MALICIOUS: Data Exfiltration - Detected coordinated multi-file credential theft and exfiltration attack. \n\n**collector.py**: Harvests sensitive environment variables (looking for KEY, SECRET, TOKEN, PASSWORD patterns), reads AWS credentials from `~/.aws/credentials`, and collects configuration files - classic credential harvesting behavior.\n\n**encoder.py**: Uses Base64 encoding to obfuscate stolen data before transmission, a common evasion technique in data exfiltration attacks.\n\n**reporter.py**: Exfiltrates encoded payload to attacker-controlled servers (`config-analytics.attacker.example.com` and backup endpoint `evil.example.com`), using JSON POST requests.\n\n**analyze.py**: Orchestrates the complete attack chain: collects credentials → encodes them → exfiltrates to remote servers. The code contains explicit \"HIDDEN THREAT\" comments confirming malicious intent.\n\nThis multi-file architecture follows the pattern of sophisticated credential theft skills designed to avoid detection while harvesting sensitive system credentials, environment variables, and AWS credentials for exfiltration to attacker-controlled infrastructure."
+        }
+      }
+    ]
+  }
+}

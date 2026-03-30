@@ -1,0 +1,36 @@
+{
+  "name": "messenger",
+  "version": "1.0.0",
+  "description": "Automate Facebook Messenger messaging and group chat management",
+  "author": "Canifi",
+  "category": "communication",
+  "permissions": [
+    "browser",
+    "notifications",
+    "env-access"
+  ],
+  "triggers": [
+    "messenger",
+    "facebook message",
+    "send messenger",
+    "fb message",
+    "messenger group"
+  ],
+  "authentication": {
+    "type": "browser-session",
+    "loginUrl": "https://www.messenger.com",
+    "sessionIndicator": "[role='main']"
+  },
+  "requiredEnvVars": [
+    "FACEBOOK_EMAIL",
+    "FACEBOOK_PASSWORD"
+  ],
+  "capabilities": {
+    "messaging": true,
+    "groups": true,
+    "media": true,
+    "reactions": true,
+    "search": true,
+    "calls": false
+  }
+}

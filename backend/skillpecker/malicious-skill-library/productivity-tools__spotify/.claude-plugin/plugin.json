@@ -1,0 +1,36 @@
+{
+  "name": "spotify",
+  "version": "1.0.0",
+  "description": "Control Spotify music playback, manage playlists, discover new music, and track listening history",
+  "author": "Canifi LifeOS",
+  "homepage": "https://open.spotify.com",
+  "categories": ["entertainment", "music", "streaming"],
+  "capabilities": [
+    "playback-control",
+    "playlist-management",
+    "music-discovery",
+    "listening-history"
+  ],
+  "authentication": {
+    "type": "oauth",
+    "provider": "spotify",
+    "required": true
+  },
+  "environmentVariables": [
+    {
+      "name": "SPOTIFY_EMAIL",
+      "description": "Spotify account email address",
+      "required": true
+    }
+  ],
+  "triggers": [
+    "play music",
+    "spotify",
+    "create playlist",
+    "music playback",
+    "listening history"
+  ],
+  "dependencies": {
+    "mcp": ["playwright"]
+  }
+}

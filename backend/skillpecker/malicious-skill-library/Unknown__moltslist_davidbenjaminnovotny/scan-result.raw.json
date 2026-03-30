@@ -1,0 +1,232 @@
+{
+  "preprocess": {
+    "skill": {
+      "root": "C:\\Files\\Study\\Codes\\Skill-Scan\\malicious-skill-library\\Unknown__moltslist_davidbenjaminnovotny",
+      "claims": [
+        "The skill's documentation explicitly instructs users to provide their Solana wallet's **private key** to the agent for signing verification messages and blockchain transactions. While blockchain integration is part of the stated purpose, handling private keys is an extreme privilege that is not minimally necessary. A secure design would use a wallet connection protocol (like Wallet Standard) where the user signs locally in their wallet, never exposing the private key to the agent. Requiring the private key creates a critical security risk and is excessive for the marketplace functionality."
+      ],
+      "observed_kinds": [
+        "spreadsheet",
+        "imported_scan_result"
+      ]
+    },
+    "artifacts": [],
+    "rule_hits": [],
+    "coverage_gaps": [],
+    "stats": {
+      "artifact_count": 0,
+      "rule_hit_count": 1,
+      "severity_counts": {},
+      "rule_code_counts": {}
+    }
+  },
+  "triage": {
+    "skill": {
+      "claims": [
+        "The skill's documentation explicitly instructs users to provide their Solana wallet's **private key** to the agent for signing verification messages and blockchain transactions. While blockchain integration is part of the stated purpose, handling private keys is an extreme privilege that is not minimally necessary. A secure design would use a wallet connection protocol (like Wallet Standard) where the user signs locally in their wallet, never exposing the private key to the agent. Requiring the private key creates a critical security risk and is excessive for the marketplace functionality."
+      ],
+      "obs": [
+        "Description Scan"
+      ],
+      "high_risk_features": [
+        "credential_request"
+      ]
+    },
+    "arts": [],
+    "xconcerns": [],
+    "retrieve": [],
+    "coverage": {
+      "total": 1,
+      "indexed": 1,
+      "gaps": []
+    }
+  },
+  "security": {
+    "findings": [
+      {
+        "id": "",
+        "cat": "privilege-escalation",
+        "class": "execution-system-risk",
+        "severity": "",
+        "conf": "",
+        "summary": "The skill's documentation explicitly instructs users to provide their Solana wallet's **private key** to the agent for signing verification messages and blockchain transactions. While blockchain integration is part of the stated purpose, handling private keys is an extreme privilege that is not minimally necessary. A secure design would use a wallet connection protocol (like Wallet Standard) where the user signs locally in their wallet, never exposing the private key to the agent. Requiring the private key creates a critical security risk and is excessive for the marketplace functionality.",
+        "arts": [],
+        "spans": [],
+        "impact": "",
+        "fix": "",
+        "decision_level": "OVERREACH",
+        "primary_group": "Execution / System Risk",
+        "scan_level": "Description Scan",
+        "risk_types": [
+          "Privilege Escalation",
+          "Security Risk"
+        ],
+        "source_platform": "Clawhub",
+        "source_file": "scan_results_description_clawhub.csv",
+        "related_file_count": "1",
+        "flags": {
+          "external_server": false,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": false,
+          "shell_or_command_execution": false,
+          "driver_or_installer": false,
+          "credential_request": true,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": false
+        }
+      }
+    ],
+    "ctx_requests": [],
+    "coverage": {
+      "reviewed_arts": [],
+      "unresolved_high_risk_arts": []
+    }
+  },
+  "judge": {
+    "verdict": {
+      "label": "mixed_risk",
+      "primary_concern": "privilege-escalation",
+      "issue_types": [
+        "privilege-escalation",
+        "security-risk",
+        "execution-system-risk"
+      ]
+    },
+    "top_findings": [
+      {
+        "id": "",
+        "cat": "privilege-escalation",
+        "class": "execution-system-risk",
+        "severity": "",
+        "conf": "",
+        "summary": "The skill's documentation explicitly instructs users to provide their Solana wallet's **private key** to the agent for signing verification messages and blockchain transactions. While blockchain integration is part of the stated purpose, handling private keys is an extreme privilege that is not minimally necessary. A secure design would use a wallet connection protocol (like Wallet Standard) where the user signs locally in their wallet, never exposing the private key to the agent. Requiring the private key creates a critical security risk and is excessive for the marketplace functionality.",
+        "impact": "",
+        "fix": "",
+        "decision_level": "OVERREACH",
+        "primary_group": "Execution / System Risk",
+        "scan_level": "Description Scan",
+        "risk_types": [
+          "Privilege Escalation",
+          "Security Risk"
+        ],
+        "source_platform": "Clawhub",
+        "source_file": "scan_results_description_clawhub.csv",
+        "related_file_count": "1",
+        "flags": {
+          "external_server": false,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": false,
+          "shell_or_command_execution": false,
+          "driver_or_installer": false,
+          "credential_request": true,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": false
+        },
+        "spans": []
+      }
+    ],
+    "coverage_audit": {
+      "adequate": true,
+      "missed": [],
+      "needs_rescan": false
+    },
+    "next_action": "stop"
+  },
+  "excel_import": {
+    "record_count": 1,
+    "headers": [
+      "一级分类_判定级别",
+      "二级分类_主问题组",
+      "风险类型汇总",
+      "风险类型1",
+      "风险类型2",
+      "风险类型3",
+      "风险类型4",
+      "来源平台",
+      "扫描层级",
+      "原始业务分类",
+      "skill_name",
+      "关联文件数",
+      "原始来源文件",
+      "问题摘要",
+      "原始verdict",
+      "flag_外部服务器",
+      "flag_APIKey",
+      "flag_自治执行",
+      "flag_浏览器会话/凭据",
+      "flag_文件系统访问",
+      "flag_Shell/命令执行",
+      "flag_驱动/安装器",
+      "flag_凭据请求",
+      "flag_混淆/规避",
+      "flag_持久化/外部存储",
+      "清洗后原始说明"
+    ],
+    "records": [
+      {
+        "classification": {
+          "decision_level": "OVERREACH",
+          "primary_group": "Execution / System Risk",
+          "risk_summary": "Privilege Escalation | Security Risk",
+          "risk_types": [
+            "Privilege Escalation",
+            "Security Risk"
+          ],
+          "platform": "Clawhub",
+          "scan_level": "Description Scan",
+          "business_category": "Unknown",
+          "skill_name": "moltslist_davidbenjaminnovotny",
+          "related_file_count": "1",
+          "source_file": "scan_results_description_clawhub.csv",
+          "problem_summary": "The skill's documentation explicitly instructs users to provide their Solana wallet's **private key** to the agent for signing verification messages and blockchain transactions. While blockchain integration is part of the stated purpose, handling private keys is an extreme privilege that is not minimally necessary. A secure design would use a wallet connection protocol (like Wallet Standard) where the user signs locally in their wallet, never exposing the private key to the agent. Requiring the private key creates a critical security risk and is excessive for the marketplace functionality.",
+          "raw_verdict": "OVERREACH: Privilege Escalation - The skill's documentation explicitly instructs users to provide their Solana wallet's **private key** to the agent for signing verification messages and blockchain transactions. While blockchain integration is part of the stated purpose, handling private keys is an extreme privilege that is not minimally necessary. A secure design would use a wallet connection protocol (like Wallet Standard) where the user signs locally in their wallet, never exposing the private key to the agent. Requiring the private key creates a critical security risk and is excessive for the marketplace functionality.",
+          "cleaned_description": "",
+          "flags": {
+            "external_server": false,
+            "api_key": false,
+            "autonomous_execution": false,
+            "browser_session_or_credentials": false,
+            "filesystem_access": false,
+            "shell_or_command_execution": false,
+            "driver_or_installer": false,
+            "credential_request": true,
+            "obfuscation_or_evasion": false,
+            "persistence_or_external_storage": false
+          }
+        },
+        "raw_values": {
+          "一级分类_判定级别": "OVERREACH",
+          "二级分类_主问题组": "Execution / System Risk",
+          "风险类型汇总": "Privilege Escalation | Security Risk",
+          "风险类型1": "Privilege Escalation",
+          "风险类型2": "Security Risk",
+          "风险类型3": "",
+          "风险类型4": "",
+          "来源平台": "Clawhub",
+          "扫描层级": "Description Scan",
+          "原始业务分类": "Unknown",
+          "skill_name": "moltslist_davidbenjaminnovotny",
+          "关联文件数": 1,
+          "原始来源文件": "scan_results_description_clawhub.csv",
+          "问题摘要": "The skill's documentation explicitly instructs users to provide their Solana wallet's **private key** to the agent for signing verification messages and blockchain transactions. While blockchain integration is part of the stated purpose, handling private keys is an extreme privilege that is not minimally necessary. A secure design would use a wallet connection protocol (like Wallet Standard) where the user signs locally in their wallet, never exposing the private key to the agent. Requiring the private key creates a critical security risk and is excessive for the marketplace functionality.",
+          "原始verdict": "OVERREACH: Privilege Escalation - The skill's documentation explicitly instructs users to provide their Solana wallet's **private key** to the agent for signing verification messages and blockchain transactions. While blockchain integration is part of the stated purpose, handling private keys is an extreme privilege that is not minimally necessary. A secure design would use a wallet connection protocol (like Wallet Standard) where the user signs locally in their wallet, never exposing the private key to the agent. Requiring the private key creates a critical security risk and is excessive for the marketplace functionality.",
+          "flag_外部服务器": "",
+          "flag_APIKey": "",
+          "flag_自治执行": "",
+          "flag_浏览器会话/凭据": "",
+          "flag_文件系统访问": "",
+          "flag_Shell/命令执行": "",
+          "flag_驱动/安装器": "",
+          "flag_凭据请求": "Y",
+          "flag_混淆/规避": "",
+          "flag_持久化/外部存储": "",
+          "清洗后原始说明": "OVERREACH: Privilege Escalation - The skill's documentation explicitly instructs users to provide their Solana wallet's **private key** to the agent for signing verification messages and blockchain transactions. While blockchain integration is part of the stated purpose, handling private keys is an extreme privilege that is not minimally necessary. A secure design would use a wallet connection protocol (like Wallet Standard) where the user signs locally in their wallet, never exposing the private key to the agent. Requiring the private key creates a critical security risk and is excessive for the marketplace functionality."
+        }
+      }
+    ]
+  }
+}

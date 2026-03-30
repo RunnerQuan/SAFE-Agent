@@ -1,0 +1,237 @@
+{
+  "preprocess": {
+    "skill": {
+      "root": "C:\\Files\\Study\\Codes\\Skill-Scan\\malicious-skill-library\\Unknown__SafeExec_OTTTTTO",
+      "claims": [
+        "The skill includes monitoring scripts (check-github-issues.sh, check-openclaw-comments.sh, unified-monitor.sh, etc.) that perform actions unrelated to its primary purpose of safe command execution. These scripts monitor GitHub issues and OpenClaw comments, access external APIs, and send notifications to third-party services (Feishu) without being necessary for the core functionality of intercepting dangerous shell commands. This represents excessive data collection and external communication not required for the stated security purpose."
+      ],
+      "observed_kinds": [
+        "spreadsheet",
+        "imported_scan_result"
+      ]
+    },
+    "artifacts": [],
+    "rule_hits": [],
+    "coverage_gaps": [],
+    "stats": {
+      "artifact_count": 0,
+      "rule_hit_count": 1,
+      "severity_counts": {},
+      "rule_code_counts": {}
+    }
+  },
+  "triage": {
+    "skill": {
+      "claims": [
+        "The skill includes monitoring scripts (check-github-issues.sh, check-openclaw-comments.sh, unified-monitor.sh, etc.) that perform actions unrelated to its primary purpose of safe command execution. These scripts monitor GitHub issues and OpenClaw comments, access external APIs, and send notifications to third-party services (Feishu) without being necessary for the core functionality of intercepting dangerous shell commands. This represents excessive data collection and external communication not required for the stated security purpose."
+      ],
+      "obs": [
+        "Description Scan"
+      ],
+      "high_risk_features": [
+        "external_server",
+        "shell_or_command_execution"
+      ]
+    },
+    "arts": [],
+    "xconcerns": [],
+    "retrieve": [],
+    "coverage": {
+      "total": 1,
+      "indexed": 1,
+      "gaps": []
+    }
+  },
+  "security": {
+    "findings": [
+      {
+        "id": "",
+        "cat": "permission-overreach-action",
+        "class": "data-governance-risk",
+        "severity": "",
+        "conf": "",
+        "summary": "The skill includes monitoring scripts (check-github-issues.sh, check-openclaw-comments.sh, unified-monitor.sh, etc.) that perform actions unrelated to its primary purpose of safe command execution. These scripts monitor GitHub issues and OpenClaw comments, access external APIs, and send notifications to third-party services (Feishu) without being necessary for the core functionality of intercepting dangerous shell commands. This represents excessive data collection and external communication not required for the stated security purpose.",
+        "arts": [],
+        "spans": [],
+        "impact": "",
+        "fix": "",
+        "decision_level": "OVERREACH",
+        "primary_group": "Data Governance Risk",
+        "scan_level": "Description Scan",
+        "risk_types": [
+          "Permission Overreach (Action)",
+          "Permission Overreach",
+          "Privacy Violation"
+        ],
+        "source_platform": "Clawhub",
+        "source_file": "scan_results_description_clawhub.csv",
+        "related_file_count": "24",
+        "flags": {
+          "external_server": true,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": false,
+          "shell_or_command_execution": true,
+          "driver_or_installer": false,
+          "credential_request": false,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": false
+        }
+      }
+    ],
+    "ctx_requests": [],
+    "coverage": {
+      "reviewed_arts": [],
+      "unresolved_high_risk_arts": []
+    }
+  },
+  "judge": {
+    "verdict": {
+      "label": "mixed_risk",
+      "primary_concern": "permission-overreach-action",
+      "issue_types": [
+        "permission-overreach-action",
+        "permission-overreach",
+        "privacy-violation",
+        "data-governance-risk"
+      ]
+    },
+    "top_findings": [
+      {
+        "id": "",
+        "cat": "permission-overreach-action",
+        "class": "data-governance-risk",
+        "severity": "",
+        "conf": "",
+        "summary": "The skill includes monitoring scripts (check-github-issues.sh, check-openclaw-comments.sh, unified-monitor.sh, etc.) that perform actions unrelated to its primary purpose of safe command execution. These scripts monitor GitHub issues and OpenClaw comments, access external APIs, and send notifications to third-party services (Feishu) without being necessary for the core functionality of intercepting dangerous shell commands. This represents excessive data collection and external communication not required for the stated security purpose.",
+        "impact": "",
+        "fix": "",
+        "decision_level": "OVERREACH",
+        "primary_group": "Data Governance Risk",
+        "scan_level": "Description Scan",
+        "risk_types": [
+          "Permission Overreach (Action)",
+          "Permission Overreach",
+          "Privacy Violation"
+        ],
+        "source_platform": "Clawhub",
+        "source_file": "scan_results_description_clawhub.csv",
+        "related_file_count": "24",
+        "flags": {
+          "external_server": true,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": false,
+          "shell_or_command_execution": true,
+          "driver_or_installer": false,
+          "credential_request": false,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": false
+        },
+        "spans": []
+      }
+    ],
+    "coverage_audit": {
+      "adequate": true,
+      "missed": [],
+      "needs_rescan": false
+    },
+    "next_action": "stop"
+  },
+  "excel_import": {
+    "record_count": 1,
+    "headers": [
+      "一级分类_判定级别",
+      "二级分类_主问题组",
+      "风险类型汇总",
+      "风险类型1",
+      "风险类型2",
+      "风险类型3",
+      "风险类型4",
+      "来源平台",
+      "扫描层级",
+      "原始业务分类",
+      "skill_name",
+      "关联文件数",
+      "原始来源文件",
+      "问题摘要",
+      "原始verdict",
+      "flag_外部服务器",
+      "flag_APIKey",
+      "flag_自治执行",
+      "flag_浏览器会话/凭据",
+      "flag_文件系统访问",
+      "flag_Shell/命令执行",
+      "flag_驱动/安装器",
+      "flag_凭据请求",
+      "flag_混淆/规避",
+      "flag_持久化/外部存储",
+      "清洗后原始说明"
+    ],
+    "records": [
+      {
+        "classification": {
+          "decision_level": "OVERREACH",
+          "primary_group": "Data Governance Risk",
+          "risk_summary": "Permission Overreach (Action) | Permission Overreach | Privacy Violation",
+          "risk_types": [
+            "Permission Overreach (Action)",
+            "Permission Overreach",
+            "Privacy Violation"
+          ],
+          "platform": "Clawhub",
+          "scan_level": "Description Scan",
+          "business_category": "Unknown",
+          "skill_name": "SafeExec_OTTTTTO",
+          "related_file_count": "24",
+          "source_file": "scan_results_description_clawhub.csv",
+          "problem_summary": "The skill includes monitoring scripts (check-github-issues.sh, check-openclaw-comments.sh, unified-monitor.sh, etc.) that perform actions unrelated to its primary purpose of safe command execution. These scripts monitor GitHub issues and OpenClaw comments, access external APIs, and send notifications to third-party services (Feishu) without being necessary for the core functionality of intercepting dangerous shell commands. This represents excessive data collection and external communication not required for the stated security purpose.",
+          "raw_verdict": "OVERREACH: Permission Overreach (Action) and Privacy Violation - The skill includes monitoring scripts (check-github-issues.sh, check-openclaw-comments.sh, unified-monitor.sh, etc.) that perform actions unrelated to its primary purpose of safe command execution. These scripts monitor GitHub issues and OpenClaw comments, access external APIs, and send notifications to third-party services (Feishu) without being necessary for the core functionality of intercepting dangerous shell commands. This represents excessive data collection and external communication not required for the stated security purpose.",
+          "cleaned_description": "",
+          "flags": {
+            "external_server": true,
+            "api_key": false,
+            "autonomous_execution": false,
+            "browser_session_or_credentials": false,
+            "filesystem_access": false,
+            "shell_or_command_execution": true,
+            "driver_or_installer": false,
+            "credential_request": false,
+            "obfuscation_or_evasion": false,
+            "persistence_or_external_storage": false
+          }
+        },
+        "raw_values": {
+          "一级分类_判定级别": "OVERREACH",
+          "二级分类_主问题组": "Data Governance Risk",
+          "风险类型汇总": "Permission Overreach (Action) | Permission Overreach | Privacy Violation",
+          "风险类型1": "Permission Overreach (Action)",
+          "风险类型2": "Permission Overreach",
+          "风险类型3": "Privacy Violation",
+          "风险类型4": "",
+          "来源平台": "Clawhub",
+          "扫描层级": "Description Scan",
+          "原始业务分类": "Unknown",
+          "skill_name": "SafeExec_OTTTTTO",
+          "关联文件数": 24,
+          "原始来源文件": "scan_results_description_clawhub.csv",
+          "问题摘要": "The skill includes monitoring scripts (check-github-issues.sh, check-openclaw-comments.sh, unified-monitor.sh, etc.) that perform actions unrelated to its primary purpose of safe command execution. These scripts monitor GitHub issues and OpenClaw comments, access external APIs, and send notifications to third-party services (Feishu) without being necessary for the core functionality of intercepting dangerous shell commands. This represents excessive data collection and external communication not required for the stated security purpose.",
+          "原始verdict": "OVERREACH: Permission Overreach (Action) and Privacy Violation - The skill includes monitoring scripts (check-github-issues.sh, check-openclaw-comments.sh, unified-monitor.sh, etc.) that perform actions unrelated to its primary purpose of safe command execution. These scripts monitor GitHub issues and OpenClaw comments, access external APIs, and send notifications to third-party services (Feishu) without being necessary for the core functionality of intercepting dangerous shell commands. This represents excessive data collection and external communication not required for the stated security purpose.",
+          "flag_外部服务器": "Y",
+          "flag_APIKey": "",
+          "flag_自治执行": "",
+          "flag_浏览器会话/凭据": "",
+          "flag_文件系统访问": "",
+          "flag_Shell/命令执行": "Y",
+          "flag_驱动/安装器": "",
+          "flag_凭据请求": "",
+          "flag_混淆/规避": "",
+          "flag_持久化/外部存储": "",
+          "清洗后原始说明": "OVERREACH: Permission Overreach (Action) and Privacy Violation - The skill includes monitoring scripts (check-github-issues.sh, check-openclaw-comments.sh, unified-monitor.sh, etc.) that perform actions unrelated to its primary purpose of safe command execution. These scripts monitor GitHub issues and OpenClaw comments, access external APIs, and send notifications to third-party services (Feishu) without being necessary for the core functionality of intercepting dangerous shell commands. This represents excessive data collection and external communication not required for the stated security purpose."
+        }
+      }
+    ]
+  }
+}

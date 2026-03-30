@@ -1,0 +1,54 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "data-over-collection",
+    "issue_types": [
+      "data-over-collection",
+      "privilege-escalation",
+      "security-risk",
+      "execution-system-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-over-collection",
+      "class": "execution-system-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill requests an Ethereum private key for \"monitoring public blockchain data,\" which is unnecessary and excessive. Monitoring public blockchain data (like Uniswap swaps) requires only public RPC endpoints, not private wallet keys. Requesting private keys creates significant security risk and constitutes privilege escalation far beyond the stated purpose of monitoring public DeFi activity. Additionally, requiring USDC payments for \"free\" commands introduces financial risk without clear necessity for the core functionality.",
+      "impact": "OVERREACH: Data Over-collection & Privilege Escalation - The skill requests an Ethereum private key for \"monitoring public blockchain data,\" which is unnecessary and excessive. Monitoring public blockchain data (like Uniswap swaps) requires only public RPC endpoints, not private wallet keys. Requesting private keys creates significant security risk and constitutes privilege escalation far beyond the stated purpose of monitoring public DeFi activity. Additionally, requiring USDC payments for \"free\" commands introduces financial risk without clear necessity for the core functionality.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Execution / System Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Data Over-collection",
+        "Privilege Escalation",
+        "Security Risk"
+      ],
+      "source_platform": "Clawhub",
+      "source_file": "scan_results_description_clawhub.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "data-over-collection",
+    "issue_types": [
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-over-collection",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill scans environment variables for a broad range of sensitive API keys and credentials (including payment services like Stripe, cloud services like AWS, and communication services like Twilio) that are unrelated to its stated purpose of \"Setup and validation for the project automation suite.\" While checking for Claude/Anthropic API keys might be relevant for CLI tool functionality, scanning for unrelated services like Stripe, Firebase, or SendGrid constitutes excessive data collection. Additionally, the skill inventories and stores this sensitive credential information in JSON files without clear justification for why a setup validation tool needs to catalog payment and infrastructure credentials.",
+      "impact": "OVERREACH: Data Over-collection - The skill scans environment variables for a broad range of sensitive API keys and credentials (including payment services like Stripe, cloud services like AWS, and communication services like Twilio) that are unrelated to its stated purpose of \"Setup and validation for the project automation suite.\" While checking for Claude/Anthropic API keys might be relevant for CLI tool functionality, scanning for unrelated services like Stripe, Firebase, or SendGrid constitutes excessive data collection. Additionally, the skill inventories and stores this sensitive credential information in JSON files without clear justification for why a setup validation tool needs to catalog payment and infrastructure credentials.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Data Over-collection"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": true,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": true
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

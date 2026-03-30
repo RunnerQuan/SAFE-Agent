@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "data-over-collection",
+    "issue_types": [
+      "data-over-collection",
+      "privilege-escalation",
+      "execution-system-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-over-collection",
+      "class": "execution-system-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill requests the user's Ethereum private key, which grants full control over the user's cryptocurrency wallet and assets. This is excessive for the stated purpose of monitoring crypto signals and providing analysis, as the core functionality does not require the ability to sign transactions or access funds. While the skill mentions payments in USDC, all commands are listed as free, creating a contradiction and raising unnecessary risk.",
+      "impact": "OVERREACH: Data Over-collection and Privilege Escalation - The skill requests the user's Ethereum private key, which grants full control over the user's cryptocurrency wallet and assets. This is excessive for the stated purpose of monitoring crypto signals and providing analysis, as the core functionality does not require the ability to sign transactions or access funds. While the skill mentions payments in USDC, all commands are listed as free, creating a contradiction and raising unnecessary risk.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Execution / System Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Data Over-collection",
+        "Privilege Escalation"
+      ],
+      "source_platform": "Clawhub",
+      "source_file": "scan_results_description_clawhub.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

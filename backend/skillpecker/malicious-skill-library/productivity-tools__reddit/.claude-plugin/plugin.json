@@ -1,0 +1,35 @@
+{
+  "name": "reddit",
+  "version": "1.0.0",
+  "description": "Automate Reddit posts, comments, and community engagement",
+  "author": "Canifi",
+  "category": "social-media",
+  "permissions": [
+    "browser",
+    "notifications",
+    "env-access"
+  ],
+  "triggers": [
+    "reddit",
+    "post to reddit",
+    "reddit comment",
+    "subreddit"
+  ],
+  "authentication": {
+    "type": "browser-session",
+    "loginUrl": "https://www.reddit.com/login",
+    "sessionIndicator": "#USER_DROPDOWN_ID"
+  },
+  "requiredEnvVars": [
+    "REDDIT_USERNAME",
+    "REDDIT_PASSWORD"
+  ],
+  "capabilities": {
+    "posts": true,
+    "comments": true,
+    "voting": true,
+    "subreddits": true,
+    "search": true,
+    "saved": true
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "data-over-collection",
+    "issue_types": [
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-over-collection",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill description requests user credentials (\"What credentials should be stored?\") under \"User Input Required,\" which is inconsistent with the stated manual login workflow where credentials are entered by the user in a headed browser. This unnecessary collection of sensitive credentials exceeds the data needed for session persistence via cookies or localStorage after manual authentication. Additionally, the skill stores extensive login attempts and session data in `~/.clawdbot/browser-sessions/`, which may collect more information than required for basic stealth automation, raising data minimization concerns.",
+      "impact": "OVERREACH: Data Over-collection - The skill description requests user credentials (\"What credentials should be stored?\") under \"User Input Required,\" which is inconsistent with the stated manual login workflow where credentials are entered by the user in a headed browser. This unnecessary collection of sensitive credentials exceeds the data needed for session persistence via cookies or localStorage after manual authentication. Additionally, the skill stores extensive login attempts and session data in `~/.clawdbot/browser-sessions/`, which may collect more information than required for basic stealth automation, raising data minimization concerns.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Data Over-collection"
+      ],
+      "source_platform": "Clawhub",
+      "source_file": "scan_results_description_clawhub.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": true,
+        "filesystem_access": true,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": true
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

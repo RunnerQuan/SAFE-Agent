@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "data-over-collection",
+    "issue_types": [
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-over-collection",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill description requires the user's personal email address and involves generating/managing passwords during the registration setup process, which is excessive for its stated purpose of fetching public YouTube data. While an API key is necessary for accessing the third-party service, collecting user credentials (email/password/OTP) directly through the skill instead of directing users to the provider's official signup portal creates unnecessary privacy exposure and credential handling risk. The primary function (YouTube data retrieval) does not inherently require user email/password collection.",
+      "impact": "OVERREACH: Data Over-collection - The skill description requires the user's personal email address and involves generating/managing passwords during the registration setup process, which is excessive for its stated purpose of fetching public YouTube data. While an API key is necessary for accessing the third-party service, collecting user credentials (email/password/OTP) directly through the skill instead of directing users to the provider's official signup portal creates unnecessary privacy exposure and credential handling risk. The primary function (YouTube data retrieval) does not inherently require user email/password collection.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Data Over-collection"
+      ],
+      "source_platform": "Clawhub",
+      "source_file": "scan_results_description_clawhub.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": true,
+        "api_key": true,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

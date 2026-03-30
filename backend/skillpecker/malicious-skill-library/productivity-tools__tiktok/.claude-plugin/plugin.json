@@ -1,0 +1,36 @@
+{
+  "name": "tiktok",
+  "version": "1.0.0",
+  "description": "Automate TikTok video uploads, engagement, and creator analytics",
+  "author": "Canifi",
+  "category": "social-media",
+  "permissions": [
+    "browser",
+    "notifications",
+    "env-access"
+  ],
+  "triggers": [
+    "tiktok",
+    "tik tok",
+    "tiktok video",
+    "post to tiktok",
+    "upload tiktok"
+  ],
+  "authentication": {
+    "type": "browser-session",
+    "loginUrl": "https://www.tiktok.com/login",
+    "sessionIndicator": "[data-e2e='profile-icon']"
+  },
+  "requiredEnvVars": [
+    "TIKTOK_EMAIL",
+    "TIKTOK_PASSWORD"
+  ],
+  "capabilities": {
+    "videos": true,
+    "engagement": true,
+    "search": true,
+    "analytics": true,
+    "sounds": true,
+    "trending": true
+  }
+}

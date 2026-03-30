@@ -1,0 +1,35 @@
+{
+  "name": "datacamp",
+  "version": "1.0.0",
+  "description": "Access DataCamp data science and analytics courses",
+  "author": "Canifi LifeOS",
+  "homepage": "https://www.datacamp.com",
+  "categories": ["education", "learning", "data-science"],
+  "capabilities": [
+    "course-browsing",
+    "interactive-coding",
+    "progress-tracking",
+    "career-tracks"
+  ],
+  "authentication": {
+    "type": "credentials",
+    "provider": "datacamp",
+    "required": true
+  },
+  "environmentVariables": [
+    {
+      "name": "DATACAMP_EMAIL",
+      "description": "DataCamp account email address",
+      "required": true
+    }
+  ],
+  "triggers": [
+    "datacamp",
+    "data science",
+    "learn sql",
+    "learn r"
+  ],
+  "dependencies": {
+    "mcp": ["playwright"]
+  }
+}

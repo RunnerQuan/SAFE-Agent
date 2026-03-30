@@ -1,0 +1,18 @@
+{
+  "name": "yelp",
+  "displayName": "Yelp",
+  "version": "1.0.0",
+  "description": "Find and review local businesses, restaurants, and services",
+  "author": "Canifi",
+  "repository": "https://github.com/canifi/life-os-skills",
+  "category": "home-services",
+  "keywords": ["reviews", "restaurants", "local", "businesses", "reservations"],
+  "capabilities": ["search_business", "read_reviews", "write_reviews", "request_quotes", "make_reservations"],
+  "authentication": {"type": "oauth2", "provider": "yelp", "scopes": ["business", "reviews"]},
+  "endpoints": {"baseUrl": "https://api.yelp.com", "apiVersion": "v3"},
+  "rateLimit": {"requests": 5000, "period": "day"},
+  "environmentVariables": [{"name": "YELP_API_KEY", "description": "Yelp Fusion API key", "required": true}],
+  "dependencies": [],
+  "platforms": ["web", "ios", "android"],
+  "documentationUrl": "https://docs.developer.yelp.com"
+}

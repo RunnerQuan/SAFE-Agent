@@ -1,0 +1,33 @@
+{
+  "name": "streamyard",
+  "displayName": "StreamYard",
+  "version": "1.0.0",
+  "description": "Stream live to multiple platforms with StreamYard - manage broadcasts, guests, and recordings",
+  "author": "Canifi LifeOS",
+  "category": "Video & Audio Production",
+  "authentication": {
+    "type": "browser",
+    "loginUrl": "https://streamyard.com/login",
+    "loggedInIndicator": "[data-testid='user-menu']"
+  },
+  "capabilities": [
+    "manage-broadcasts",
+    "access-recordings",
+    "configure-destinations",
+    "manage-guests",
+    "view-history",
+    "download-recordings"
+  ],
+  "requiredEnvVars": [
+    "STREAMYARD_EMAIL",
+    "STREAMYARD_PASSWORD"
+  ],
+  "endpoints": {
+    "base": "https://streamyard.com",
+    "broadcasts": "https://streamyard.com/broadcasts"
+  },
+  "rateLimit": {
+    "requests": 60,
+    "period": "minute"
+  }
+}

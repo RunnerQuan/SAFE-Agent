@@ -1,0 +1,7 @@
+{
+  "name": "canifi-skill-google-drive",
+  "description": "Enables Claude to upload, organize, search, and manage files in Google Drive via Playwright MCP",
+  "version": "1.0.0",
+  "author": "Canifi",
+  "homepage": "https://canifi.com/plugins/google-drive"
+}

@@ -1,0 +1,34 @@
+{
+  "name": "unsplash",
+  "displayName": "Unsplash",
+  "version": "1.0.0",
+  "description": "Access free high-quality stock photos on Unsplash - search, download, and manage photo collections for projects",
+  "author": "Canifi LifeOS",
+  "category": "Design & Creative",
+  "authentication": {
+    "type": "browser",
+    "loginUrl": "https://unsplash.com/login",
+    "loggedInIndicator": "[data-testid='user-menu']"
+  },
+  "capabilities": [
+    "search-photos",
+    "download-images",
+    "manage-collections",
+    "view-photographers",
+    "track-downloads",
+    "access-editorial"
+  ],
+  "requiredEnvVars": [
+    "UNSPLASH_EMAIL",
+    "UNSPLASH_PASSWORD"
+  ],
+  "endpoints": {
+    "base": "https://unsplash.com",
+    "search": "https://unsplash.com/s/photos",
+    "collections": "https://unsplash.com/collections"
+  },
+  "rateLimit": {
+    "requests": 50,
+    "period": "hour"
+  }
+}

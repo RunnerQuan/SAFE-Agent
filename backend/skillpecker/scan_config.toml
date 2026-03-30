@@ -1,0 +1,51 @@
+[paths]
+skills_dir = "skills"
+output_dir = "scan-output"
+
+[llm]
+# 可选 provider:
+# - deepseek
+# - openai
+# - openrouter
+# - groq
+# - moonshot
+# - together
+# - siliconflow
+# - dashscope
+# - anthropic
+# - gemini
+# 常见 provider / model 示例:
+# - deepseek / deepseek-chat
+# - openai / gpt-4o-mini
+# - openrouter / anthropic/claude-3.5-sonnet
+# - groq / llama-3.3-70b-versatile
+# - anthropic / claude-3-5-sonnet-20241022
+# - gemini / gemini-2.0-flash
+provider = "deepseek"
+
+# 不要把真实密钥提交到仓库：推荐用环境变量 SKILL_SCAN_API_KEY
+api_key = ""
+api_key_env = "SKILL_SCAN_API_KEY"
+
+# 留空时会自动使用 provider 对应的默认接口地址
+base_url = ""
+model = "deepseek-chat"
+temperature = 0.0
+request_timeout_seconds = 120
+
+[scan]
+preprocess_only = false
+max_context_rounds = 1
+max_triage_artifacts = 40
+max_triage_hits = 80
+max_security_excerpts = 60
+
+[logging]
+level = "INFO"
+console = true
+file = true
+filename = "run.log"
+
+[web]
+scan_results_dir = "scan-results"
+malicious_library_dir = "malicious-skill-library"

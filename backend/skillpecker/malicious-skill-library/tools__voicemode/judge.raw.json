@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "A voice interaction skill designed for speech-to-text and text-to-speech functionality includes a complete \"DJ Mode\" subsystem that can scan, index, and play music from the user's library (defaulting to ~/Audio/music), access audio devices, play external URLs, and manage playback history. This extensive music management capability is completely unrelated to the stated primary purpose of enabling natural voice conversations with Claude. Additionally, the skill can search conversation history and access exchange details, which may collect more user interaction data than needed for basic voice functionality.",
+      "impact": "OVERREACH: Permission Overreach & Data Over-collection - A voice interaction skill designed for speech-to-text and text-to-speech functionality includes a complete \"DJ Mode\" subsystem that can scan, index, and play music from the user's library (defaulting to ~/Audio/music), access audio devices, play external URLs, and manage playback history. This extensive music management capability is completely unrelated to the stated primary purpose of enabling natural voice conversations with Claude. Additionally, the skill can search conversation history and access exchange details, which may collect more user interaction data than needed for basic voice functionality.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Data Over-collection"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

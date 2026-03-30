@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill's stated purpose is backtesting crypto trading strategies with historical data, but its prerequisites and implementation require extensive real-time system access that far exceeds what's needed for historical analysis. Specifically:\n\n1. **Permission Overreach**: Requests access to blockchain RPC endpoints, live exchange APIs, and network infrastructure (Infura/Alchemy) when backtesting should only require historical data files. The Bash tool permission `crypto:backtest-*` could execute arbitrary crypto-related commands beyond data fetching.\n\n2. **Data Over-collection**: Requires API keys for trading exchanges and real-time market data APIs (CoinGecko, CoinMarketCap) when historical backtesting can be done with downloaded datasets. The skill asks for sensitive credentials and live data feeds that aren't necessary for analyzing past performance.\n\n3. **Scope Creep**: The implementation includes real-time \"connectivity testing,\" \"rate limit management,\" and \"exchange order book\" access—all indicative of live trading system functionality rather than pure historical backtesting.\n\nA proper backtesting tool should work with static historical datasets and not require live API keys, blockchain nodes, or exchange trading permissions. The skill conflates backtesting with live trading infrastructure access.",
+      "impact": "OVERREACH: Permission Overreach & Data Over-collection - The skill's stated purpose is backtesting crypto trading strategies with historical data, but its prerequisites and implementation require extensive real-time system access that far exceeds what's needed for historical analysis. Specifically:\n\n1. **Permission Overreach**: Requests access to blockchain RPC endpoints, live exchange APIs, and network infrastructure (Infura/Alchemy) when backtesting should only require historical data files. The Bash tool permission `crypto:backtest-*` could execute arbitrary crypto-related commands beyond data fetching.\n\n2. **Data Over-collection**: Requires API keys for trading exchanges and real-time market data APIs (CoinGecko, CoinMarketCap) when historical backtesting can be done with downloaded datasets. The skill asks for sensitive credentials and live data feeds that aren't necessary for analyzing past performance.\n\n3. **Scope Creep**: The implementation includes real-time \"connectivity testing,\" \"rate limit management,\" and \"exchange order book\" access—all indicative of live trading system functionality rather than pure historical backtesting.\n\nA proper backtesting tool should work with static historical datasets and not require live API keys, blockchain nodes, or exchange trading permissions. The skill conflates backtesting with live trading infrastructure access.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Data Over-collection"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "4",
+      "flags": {
+        "external_server": false,
+        "api_key": true,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

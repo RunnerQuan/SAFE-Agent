@@ -1,0 +1,33 @@
+{
+  "name": "sketch",
+  "displayName": "Sketch",
+  "version": "1.0.0",
+  "description": "Design interfaces with Sketch - view designs in the web app, manage shared libraries, and collaborate on projects",
+  "author": "Canifi LifeOS",
+  "category": "Design & Creative",
+  "authentication": {
+    "type": "browser",
+    "loginUrl": "https://www.sketch.com/signin",
+    "loggedInIndicator": "[data-testid='user-menu']"
+  },
+  "capabilities": [
+    "view-designs",
+    "browse-workspaces",
+    "access-libraries",
+    "export-artboards",
+    "review-comments",
+    "version-history"
+  ],
+  "requiredEnvVars": [
+    "SKETCH_EMAIL",
+    "SKETCH_PASSWORD"
+  ],
+  "endpoints": {
+    "base": "https://www.sketch.com",
+    "workspace": "https://www.sketch.com/workspace"
+  },
+  "rateLimit": {
+    "requests": 60,
+    "period": "minute"
+  }
+}

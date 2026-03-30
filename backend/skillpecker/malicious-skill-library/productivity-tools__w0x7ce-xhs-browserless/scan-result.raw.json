@@ -1,0 +1,245 @@
+{
+  "preprocess": {
+    "skill": {
+      "root": "C:\\Files\\Study\\Codes\\Skill-Scan\\malicious-skill-library\\productivity-tools__w0x7ce-xhs-browserless",
+      "claims": [
+        "After analyzing the provided source code files for the Xiaohongshu automation skill, I have identified **suspicious patterns** that match known threat categories. The code exhibits behaviors consistent with **data exfiltration** and **remote command execution via unauthorized Browserless instances**.\n\n## Key Findings:\n\n### 1. **Suspicious Browserless Connection** (All files)\n- **File**: `xhs_login.py` (line 24), `scripts/publish.ts` (line 20), `scripts/xhs_publish.py` (line 21)\n- **Pattern**: All scripts default to connecting to `ws://hk2.w0x7ce.eu:10086?token=255=ff` \n- **Issue**: This is a **third-party Browserless instance** controlled by an external domain (`w0x7ce.eu`). Browserless provides remote browser automation capabilities, and connecting to an untrusted instance could allow:\n  - Session hijacking of authenticated Xiaohongshu accounts\n  - Cookie theft from browser state\n  - Remote execution of arbitrary browser actions\n  - Data exfiltration from the browsing session\n\n### 2. **Credential Storage and State Persistence**\n- **File**: `xhs_login.py` (lines 110-180, 400-420)\n- **Pattern**: Saves browser state and cookies to local files (`xhs_browser_state.json`, `cookies.txt`)\n- **Issue**: While credential storage is expected for automation tools, the combination with an external Browserless instance raises risks. The saved state could potentially be accessed by the remote Browserless operator.\n\n### 3. **Automated Social Media Posting**\n- **Files**: `scripts/publish.ts` and `scripts/xhs_publish.py`\n- **Pattern**: Full automation of Xiaohongshu posting functionality\n- **Issue**: The scripts provide complete automation capabilities that could be used for spam, fraudulent content distribution, or coordinated inauthentic behavior.\n\n## Threat Assessment:\n\nWhile the code doesn't contain explicit malware payloads (Trojan downloaders, XOR decryption, reverse shells), it exhibits **suspicious infrastructure patterns**:\n\n1. **Third-Party Browserless Control**: The default connection to `hk2.w0x7ce.eu` is problematic. Legitimate automation tools typically:\n   - Use user-provided Browserless instances\n   - Run browsers locally rather than connecting to external services\n   - Clearly document the risks of third-party browser automation services\n\n2. **Potential for Abuse**: The skill could be repurposed to:\n   - Steal Xiaohongshu account credentials via MITM attacks on the Browserless connection\n   - Use compromised accounts for spam or fraud\n   - Exfiltrate user data through the Browserless channel\n\n3. **Lack of Safety Controls**: No warnings about connecting to third-party Browserless services, no validation of the remote endpoint.\n\n## Verdict:\n\nThe code is **suspicious** due to its default connection to an external Browserless instance controlled by a third party (`w0x7ce.eu`). While the automation functionality itself is legitimate, the infrastructure choice creates potential security risks.\n\n<result>SUSPICIOUS: Data Exfiltration & Unauthorized Remote Control - The skill defaults to connecting to a third-party Browserless instance (`ws://hk2.w0x7ce.eu:10086`) which could allow remote operators to intercept browser sessions, steal authentication cookies, and execute arbitrary commands through the remote browser. While the Xiaohongshu automation functionality appears legitimate, the use of an external Browserless service creates significant security risks including potential credential theft and unauthorized account access."
+      ],
+      "observed_kinds": [
+        "spreadsheet",
+        "imported_scan_result"
+      ]
+    },
+    "artifacts": [],
+    "rule_hits": [],
+    "coverage_gaps": [],
+    "stats": {
+      "artifact_count": 0,
+      "rule_hit_count": 1,
+      "severity_counts": {},
+      "rule_code_counts": {}
+    }
+  },
+  "triage": {
+    "skill": {
+      "claims": [
+        "After analyzing the provided source code files for the Xiaohongshu automation skill, I have identified **suspicious patterns** that match known threat categories. The code exhibits behaviors consistent with **data exfiltration** and **remote command execution via unauthorized Browserless instances**.\n\n## Key Findings:\n\n### 1. **Suspicious Browserless Connection** (All files)\n- **File**: `xhs_login.py` (line 24), `scripts/publish.ts` (line 20), `scripts/xhs_publish.py` (line 21)\n- **Pattern**: All scripts default to connecting to `ws://hk2.w0x7ce.eu:10086?token=255=ff` \n- **Issue**: This is a **third-party Browserless instance** controlled by an external domain (`w0x7ce.eu`). Browserless provides remote browser automation capabilities, and connecting to an untrusted instance could allow:\n  - Session hijacking of authenticated Xiaohongshu accounts\n  - Cookie theft from browser state\n  - Remote execution of arbitrary browser actions\n  - Data exfiltration from the browsing session\n\n### 2. **Credential Storage and State Persistence**\n- **File**: `xhs_login.py` (lines 110-180, 400-420)\n- **Pattern**: Saves browser state and cookies to local files (`xhs_browser_state.json`, `cookies.txt`)\n- **Issue**: While credential storage is expected for automation tools, the combination with an external Browserless instance raises risks. The saved state could potentially be accessed by the remote Browserless operator.\n\n### 3. **Automated Social Media Posting**\n- **Files**: `scripts/publish.ts` and `scripts/xhs_publish.py`\n- **Pattern**: Full automation of Xiaohongshu posting functionality\n- **Issue**: The scripts provide complete automation capabilities that could be used for spam, fraudulent content distribution, or coordinated inauthentic behavior.\n\n## Threat Assessment:\n\nWhile the code doesn't contain explicit malware payloads (Trojan downloaders, XOR decryption, reverse shells), it exhibits **suspicious infrastructure patterns**:\n\n1. **Third-Party Browserless Control**: The default connection to `hk2.w0x7ce.eu` is problematic. Legitimate automation tools typically:\n   - Use user-provided Browserless instances\n   - Run browsers locally rather than connecting to external services\n   - Clearly document the risks of third-party browser automation services\n\n2. **Potential for Abuse**: The skill could be repurposed to:\n   - Steal Xiaohongshu account credentials via MITM attacks on the Browserless connection\n   - Use compromised accounts for spam or fraud\n   - Exfiltrate user data through the Browserless channel\n\n3. **Lack of Safety Controls**: No warnings about connecting to third-party Browserless services, no validation of the remote endpoint.\n\n## Verdict:\n\nThe code is **suspicious** due to its default connection to an external Browserless instance controlled by a third party (`w0x7ce.eu`). While the automation functionality itself is legitimate, the infrastructure choice creates potential security risks.\n\n<result>SUSPICIOUS: Data Exfiltration & Unauthorized Remote Control - The skill defaults to connecting to a third-party Browserless instance (`ws://hk2.w0x7ce.eu:10086`) which could allow remote operators to intercept browser sessions, steal authentication cookies, and execute arbitrary commands through the remote browser. While the Xiaohongshu automation functionality appears legitimate, the use of an external Browserless service creates significant security risks including potential credential theft and unauthorized account access."
+      ],
+      "obs": [
+        "Script Scan"
+      ],
+      "high_risk_features": [
+        "browser_session_or_credentials",
+        "credential_request",
+        "external_server",
+        "filesystem_access",
+        "persistence_or_external_storage",
+        "shell_or_command_execution"
+      ]
+    },
+    "arts": [],
+    "xconcerns": [],
+    "retrieve": [],
+    "coverage": {
+      "total": 1,
+      "indexed": 1,
+      "gaps": []
+    }
+  },
+  "security": {
+    "findings": [
+      {
+        "id": "",
+        "cat": "data-exfiltration",
+        "class": "execution-system-risk",
+        "severity": "",
+        "conf": "",
+        "summary": "The skill defaults to connecting to a third-party Browserless instance (`ws://hk2.w0x7ce.eu:10086`) which could allow remote operators to intercept browser sessions, steal authentication cookies, and execute arbitrary commands through the remote browser. While the Xiaohongshu automation functionality appears legitimate, the use of an external Browserless service creates significant security risks including potential credential theft and unauthorized account access.",
+        "arts": [],
+        "spans": [],
+        "impact": "",
+        "fix": "",
+        "decision_level": "",
+        "primary_group": "Execution / System Risk",
+        "scan_level": "Script Scan",
+        "risk_types": [
+          "Data Exfiltration",
+          "Trojan Downloader",
+          "Reverse Shell",
+          "Security Risk"
+        ],
+        "source_platform": "Marketplace",
+        "source_file": "scan_results_script_Marketplace.csv",
+        "related_file_count": "4",
+        "flags": {
+          "external_server": true,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": true,
+          "filesystem_access": true,
+          "shell_or_command_execution": true,
+          "driver_or_installer": false,
+          "credential_request": true,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": true
+        }
+      }
+    ],
+    "ctx_requests": [],
+    "coverage": {
+      "reviewed_arts": [],
+      "unresolved_high_risk_arts": []
+    }
+  },
+  "judge": {
+    "verdict": {
+      "label": "insufficient_evidence",
+      "primary_concern": "data-exfiltration",
+      "issue_types": [
+        "data-exfiltration",
+        "trojan-downloader",
+        "reverse-shell",
+        "security-risk",
+        "execution-system-risk"
+      ]
+    },
+    "top_findings": [
+      {
+        "id": "",
+        "cat": "data-exfiltration",
+        "class": "execution-system-risk",
+        "severity": "",
+        "conf": "",
+        "summary": "The skill defaults to connecting to a third-party Browserless instance (`ws://hk2.w0x7ce.eu:10086`) which could allow remote operators to intercept browser sessions, steal authentication cookies, and execute arbitrary commands through the remote browser. While the Xiaohongshu automation functionality appears legitimate, the use of an external Browserless service creates significant security risks including potential credential theft and unauthorized account access.",
+        "impact": "",
+        "fix": "",
+        "decision_level": "",
+        "primary_group": "Execution / System Risk",
+        "scan_level": "Script Scan",
+        "risk_types": [
+          "Data Exfiltration",
+          "Trojan Downloader",
+          "Reverse Shell",
+          "Security Risk"
+        ],
+        "source_platform": "Marketplace",
+        "source_file": "scan_results_script_Marketplace.csv",
+        "related_file_count": "4",
+        "flags": {
+          "external_server": true,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": true,
+          "filesystem_access": true,
+          "shell_or_command_execution": true,
+          "driver_or_installer": false,
+          "credential_request": true,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": true
+        },
+        "spans": []
+      }
+    ],
+    "coverage_audit": {
+      "adequate": true,
+      "missed": [],
+      "needs_rescan": false
+    },
+    "next_action": "stop"
+  },
+  "excel_import": {
+    "record_count": 1,
+    "headers": [
+      "一级分类_判定级别",
+      "二级分类_主问题组",
+      "风险类型汇总",
+      "风险类型1",
+      "风险类型2",
+      "风险类型3",
+      "风险类型4",
+      "来源平台",
+      "扫描层级",
+      "原始业务分类",
+      "skill_name",
+      "关联文件数",
+      "原始来源文件",
+      "问题摘要",
+      "原始verdict",
+      "flag_外部服务器",
+      "flag_APIKey",
+      "flag_自治执行",
+      "flag_浏览器会话/凭据",
+      "flag_文件系统访问",
+      "flag_Shell/命令执行",
+      "flag_驱动/安装器",
+      "flag_凭据请求",
+      "flag_混淆/规避",
+      "flag_持久化/外部存储",
+      "清洗后原始说明"
+    ],
+    "records": [
+      {
+        "classification": {
+          "decision_level": "",
+          "primary_group": "Execution / System Risk",
+          "risk_summary": "Data Exfiltration | Trojan Downloader | Reverse Shell | Security Risk",
+          "risk_types": [
+            "Data Exfiltration",
+            "Trojan Downloader",
+            "Reverse Shell",
+            "Security Risk"
+          ],
+          "platform": "Marketplace",
+          "scan_level": "Script Scan",
+          "business_category": "productivity-tools",
+          "skill_name": "w0x7ce-xhs-browserless",
+          "related_file_count": "4",
+          "source_file": "scan_results_script_Marketplace.csv",
+          "problem_summary": "The skill defaults to connecting to a third-party Browserless instance (`ws://hk2.w0x7ce.eu:10086`) which could allow remote operators to intercept browser sessions, steal authentication cookies, and execute arbitrary commands through the remote browser. While the Xiaohongshu automation functionality appears legitimate, the use of an external Browserless service creates significant security risks including potential credential theft and unauthorized account access.",
+          "raw_verdict": "SUSPICIOUS: Data Exfiltration & Unauthorized Remote Control - The skill defaults to connecting to a third-party Browserless instance (`ws://hk2.w0x7ce.eu:10086`) which could allow remote operators to intercept browser sessions, steal authentication cookies, and execute arbitrary commands through the remote browser. While the Xiaohongshu automation functionality appears legitimate, the use of an external Browserless service creates significant security risks including potential credential theft and unauthorized account access.",
+          "cleaned_description": "After analyzing the provided source code files for the Xiaohongshu automation skill, I have identified **suspicious patterns** that match known threat categories. The code exhibits behaviors consistent with **data exfiltration** and **remote command execution via unauthorized Browserless instances**.\n\n## Key Findings:\n\n### 1. **Suspicious Browserless Connection** (All files)\n- **File**: `xhs_login.py` (line 24), `scripts/publish.ts` (line 20), `scripts/xhs_publish.py` (line 21)\n- **Pattern**: All scripts default to connecting to `ws://hk2.w0x7ce.eu:10086?token=255=ff` \n- **Issue**: This is a **third-party Browserless instance** controlled by an external domain (`w0x7ce.eu`). Browserless provides remote browser automation capabilities, and connecting to an untrusted instance could allow:\n  - Session hijacking of authenticated Xiaohongshu accounts\n  - Cookie theft from browser state\n  - Remote execution of arbitrary browser actions\n  - Data exfiltration from the browsing session\n\n### 2. **Credential Storage and State Persistence**\n- **File**: `xhs_login.py` (lines 110-180, 400-420)\n- **Pattern**: Saves browser state and cookies to local files (`xhs_browser_state.json`, `cookies.txt`)\n- **Issue**: While credential storage is expected for automation tools, the combination with an external Browserless instance raises risks. The saved state could potentially be accessed by the remote Browserless operator.\n\n### 3. **Automated Social Media Posting**\n- **Files**: `scripts/publish.ts` and `scripts/xhs_publish.py`\n- **Pattern**: Full automation of Xiaohongshu posting functionality\n- **Issue**: The scripts provide complete automation capabilities that could be used for spam, fraudulent content distribution, or coordinated inauthentic behavior.\n\n## Threat Assessment:\n\nWhile the code doesn't contain explicit malware payloads (Trojan downloaders, XOR decryption, reverse shells), it exhibits **suspicious infrastructure patterns**:\n\n1. **Third-Party Browserless Control**: The default connection to `hk2.w0x7ce.eu` is problematic. Legitimate automation tools typically:\n   - Use user-provided Browserless instances\n   - Run browsers locally rather than connecting to external services\n   - Clearly document the risks of third-party browser automation services\n\n2. **Potential for Abuse**: The skill could be repurposed to:\n   - Steal Xiaohongshu account credentials via MITM attacks on the Browserless connection\n   - Use compromised accounts for spam or fraud\n   - Exfiltrate user data through the Browserless channel\n\n3. **Lack of Safety Controls**: No warnings about connecting to third-party Browserless services, no validation of the remote endpoint.\n\n## Verdict:\n\nThe code is **suspicious** due to its default connection to an external Browserless instance controlled by a third party (`w0x7ce.eu`). While the automation functionality itself is legitimate, the infrastructure choice creates potential security risks.\n\n<result>SUSPICIOUS: Data Exfiltration & Unauthorized Remote Control - The skill defaults to connecting to a third-party Browserless instance (`ws://hk2.w0x7ce.eu:10086`) which could allow remote operators to intercept browser sessions, steal authentication cookies, and execute arbitrary commands through the remote browser. While the Xiaohongshu automation functionality appears legitimate, the use of an external Browserless service creates significant security risks including potential credential theft and unauthorized account access.",
+          "flags": {
+            "external_server": true,
+            "api_key": false,
+            "autonomous_execution": false,
+            "browser_session_or_credentials": true,
+            "filesystem_access": true,
+            "shell_or_command_execution": true,
+            "driver_or_installer": false,
+            "credential_request": true,
+            "obfuscation_or_evasion": false,
+            "persistence_or_external_storage": true
+          }
+        },
+        "raw_values": {
+          "一级分类_判定级别": "",
+          "二级分类_主问题组": "Execution / System Risk",
+          "风险类型汇总": "Data Exfiltration | Trojan Downloader | Reverse Shell | Security Risk",
+          "风险类型1": "Data Exfiltration",
+          "风险类型2": "Trojan Downloader",
+          "风险类型3": "Reverse Shell",
+          "风险类型4": "Security Risk",
+          "来源平台": "Marketplace",
+          "扫描层级": "Script Scan",
+          "原始业务分类": "productivity-tools",
+          "skill_name": "w0x7ce-xhs-browserless",
+          "关联文件数": 4,
+          "原始来源文件": "scan_results_script_Marketplace.csv",
+          "问题摘要": "The skill defaults to connecting to a third-party Browserless instance (`ws://hk2.w0x7ce.eu:10086`) which could allow remote operators to intercept browser sessions, steal authentication cookies, and execute arbitrary commands through the remote browser. While the Xiaohongshu automation functionality appears legitimate, the use of an external Browserless service creates significant security risks including potential credential theft and unauthorized account access.",
+          "原始verdict": "SUSPICIOUS: Data Exfiltration & Unauthorized Remote Control - The skill defaults to connecting to a third-party Browserless instance (`ws://hk2.w0x7ce.eu:10086`) which could allow remote operators to intercept browser sessions, steal authentication cookies, and execute arbitrary commands through the remote browser. While the Xiaohongshu automation functionality appears legitimate, the use of an external Browserless service creates significant security risks including potential credential theft and unauthorized account access.",
+          "flag_外部服务器": "Y",
+          "flag_APIKey": "",
+          "flag_自治执行": "",
+          "flag_浏览器会话/凭据": "Y",
+          "flag_文件系统访问": "Y",
+          "flag_Shell/命令执行": "Y",
+          "flag_驱动/安装器": "",
+          "flag_凭据请求": "Y",
+          "flag_混淆/规避": "",
+          "flag_持久化/外部存储": "Y",
+          "清洗后原始说明": "After analyzing the provided source code files for the Xiaohongshu automation skill, I have identified **suspicious patterns** that match known threat categories. The code exhibits behaviors consistent with **data exfiltration** and **remote command execution via unauthorized Browserless instances**.\n\n## Key Findings:\n\n### 1. **Suspicious Browserless Connection** (All files)\n- **File**: `xhs_login.py` (line 24), `scripts/publish.ts` (line 20), `scripts/xhs_publish.py` (line 21)\n- **Pattern**: All scripts default to connecting to `ws://hk2.w0x7ce.eu:10086?token=255=ff` \n- **Issue**: This is a **third-party Browserless instance** controlled by an external domain (`w0x7ce.eu`). Browserless provides remote browser automation capabilities, and connecting to an untrusted instance could allow:\n  - Session hijacking of authenticated Xiaohongshu accounts\n  - Cookie theft from browser state\n  - Remote execution of arbitrary browser actions\n  - Data exfiltration from the browsing session\n\n### 2. **Credential Storage and State Persistence**\n- **File**: `xhs_login.py` (lines 110-180, 400-420)\n- **Pattern**: Saves browser state and cookies to local files (`xhs_browser_state.json`, `cookies.txt`)\n- **Issue**: While credential storage is expected for automation tools, the combination with an external Browserless instance raises risks. The saved state could potentially be accessed by the remote Browserless operator.\n\n### 3. **Automated Social Media Posting**\n- **Files**: `scripts/publish.ts` and `scripts/xhs_publish.py`\n- **Pattern**: Full automation of Xiaohongshu posting functionality\n- **Issue**: The scripts provide complete automation capabilities that could be used for spam, fraudulent content distribution, or coordinated inauthentic behavior.\n\n## Threat Assessment:\n\nWhile the code doesn't contain explicit malware payloads (Trojan downloaders, XOR decryption, reverse shells), it exhibits **suspicious infrastructure patterns**:\n\n1. **Third-Party Browserless Control**: The default connection to `hk2.w0x7ce.eu` is problematic. Legitimate automation tools typically:\n   - Use user-provided Browserless instances\n   - Run browsers locally rather than connecting to external services\n   - Clearly document the risks of third-party browser automation services\n\n2. **Potential for Abuse**: The skill could be repurposed to:\n   - Steal Xiaohongshu account credentials via MITM attacks on the Browserless connection\n   - Use compromised accounts for spam or fraud\n   - Exfiltrate user data through the Browserless channel\n\n3. **Lack of Safety Controls**: No warnings about connecting to third-party Browserless services, no validation of the remote endpoint.\n\n## Verdict:\n\nThe code is **suspicious** due to its default connection to an external Browserless instance controlled by a third party (`w0x7ce.eu`). While the automation functionality itself is legitimate, the infrastructure choice creates potential security risks.\n\n<result>SUSPICIOUS: Data Exfiltration & Unauthorized Remote Control - The skill defaults to connecting to a third-party Browserless instance (`ws://hk2.w0x7ce.eu:10086`) which could allow remote operators to intercept browser sessions, steal authentication cookies, and execute arbitrary commands through the remote browser. While the Xiaohongshu automation functionality appears legitimate, the use of an external Browserless service creates significant security risks including potential credential theft and unauthorized account access."
+        }
+      }
+    ]
+  }
+}

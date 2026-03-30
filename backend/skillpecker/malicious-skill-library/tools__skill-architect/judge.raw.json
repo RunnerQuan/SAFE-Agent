@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "privilege-escalation",
+      "execution-system-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "execution-system-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill requests unrestricted `Bash` tool access in its frontmatter (`allowed-tools: Read,Write,Edit,Bash`), which is excessive for its stated purpose of creating, auditing, and improving skill documentation. While the skill may need to run validation scripts (e.g., `scripts/validate_skill.py`), unrestricted Bash allows execution of arbitrary system commands, including those unrelated to skill development (e.g., file system manipulation, network calls, or privilege escalation). The skill's own guidelines caution against this (\"⚠️ **Never**: Unrestricted `Bash` for untrusted skills\"), yet it contradicts itself by requesting this broad permission. A more minimal approach would be to restrict Bash to specific script executions or omit it entirely if only file operations are needed.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Execution / System Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Privilege Escalation"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "7",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

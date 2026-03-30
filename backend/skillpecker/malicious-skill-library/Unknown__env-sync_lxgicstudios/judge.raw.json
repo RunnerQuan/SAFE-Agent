@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "data-over-collection",
+    "issue_types": [
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-over-collection",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "This skill requires an OpenAI API key to function, which is excessive for a tool that simply strips secrets from .env files and adds comments. The primary purpose (generating .env.example files from existing .env files) can be accomplished through pattern matching and basic text processing without sending data to external AI services. This creates unnecessary privacy risks by transmitting potentially sensitive environment variable names and structures to a third-party API.",
+      "impact": "OVERREACH: Data Over-collection - This skill requires an OpenAI API key to function, which is excessive for a tool that simply strips secrets from .env files and adds comments. The primary purpose (generating .env.example files from existing .env files) can be accomplished through pattern matching and basic text processing without sending data to external AI services. This creates unnecessary privacy risks by transmitting potentially sensitive environment variable names and structures to a third-party API.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Data Over-collection"
+      ],
+      "source_platform": "Clawhub",
+      "source_file": "scan_results_description_clawhub.csv",
+      "related_file_count": "2",
+      "flags": {
+        "external_server": true,
+        "api_key": true,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

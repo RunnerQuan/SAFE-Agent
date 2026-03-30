@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "data-over-collection",
+    "issue_types": [
+      "data-over-collection",
+      "security-risk",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-over-collection",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill requests the user's email, password, and OTP to facilitate registration on TranscriptAPI.com, which is unrelated to its primary purpose of resolving YouTube channel handles, browsing uploads, and getting latest videos. This personal information (email and password) is excessive for the core functionality, as the skill should only require an API key for external API calls without collecting sensitive user credentials. The setup process involves the agent handling and potentially storing passwords, introducing unnecessary privacy and security risks for a task focused on YouTube channel data retrieval.",
+      "impact": "OVERREACH: Data Over-collection - The skill requests the user's email, password, and OTP to facilitate registration on TranscriptAPI.com, which is unrelated to its primary purpose of resolving YouTube channel handles, browsing uploads, and getting latest videos. This personal information (email and password) is excessive for the core functionality, as the skill should only require an API key for external API calls without collecting sensitive user credentials. The setup process involves the agent handling and potentially storing passwords, introducing unnecessary privacy and security risks for a task focused on YouTube channel data retrieval.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Data Over-collection",
+        "Security Risk"
+      ],
+      "source_platform": "Clawhub",
+      "source_file": "scan_results_description_clawhub.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": true,
+        "api_key": true,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

@@ -1,0 +1,54 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "data-over-collection",
+      "privilege-escalation",
+      "execution-system-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "execution-system-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill description requests excessive permissions unrelated to its stated purpose of \"finding and comparing DeFi yield opportunities.\" Specifically:\n\n1. **Unnecessary Credential Access**: Requests reading API credentials from `{baseDir}/config/crypto-apis.env` including exchange API keys for trading/account data, when the PRD explicitly states the tool is \"information only\" with \"no wallet connections or private keys.\"\n\n2. **Excessive Tool Permissions**: Requests Write, Edit, and Bash execution privileges for general crypto operations, while the stated functionality only requires reading public API data (DeFiLlama, CoinGecko).\n\n3. **Unrelated Data Collection**: The SKILL.md describes collecting sensitive trading data (portfolio risk metrics, liquidation risks) and performing technical analysis, which goes beyond simple yield comparison and enters trading advisory territory.\n\n4. **Privilege Escalation Risk**: Requests blockchain RPC endpoint access and Web3 library installation, creating attack surface for potential wallet interaction despite PRD claims of \"read-only API access.\"\n\nThe skill's actual requirements in SKILL.md contradict the PRD's limited scope, requesting capabilities for trading, account monitoring, and blockchain interaction that are unnecessary for a simple yield aggregation tool.",
+      "impact": "OVERREACH: Permission Overreach & Data Over-collection - The skill description requests excessive permissions unrelated to its stated purpose of \"finding and comparing DeFi yield opportunities.\" Specifically:\n\n1. **Unnecessary Credential Access**: Requests reading API credentials from `{baseDir}/config/crypto-apis.env` including exchange API keys for trading/account data, when the PRD explicitly states the tool is \"information only\" with \"no wallet connections or private keys.\"\n\n2. **Excessive Tool Permissions**: Requests Write, Edit, and Bash execution privileges for general crypto operations, while the stated functionality only requires reading public API data (DeFiLlama, CoinGecko).\n\n3. **Unrelated Data Collection**: The SKILL.md describes collecting sensitive trading data (portfolio risk metrics, liquidation risks) and performing technical analysis, which goes beyond simple yield comparison and enters trading advisory territory.\n\n4. **Privilege Escalation Risk**: Requests blockchain RPC endpoint access and Web3 library installation, creating attack surface for potential wallet interaction despite PRD claims of \"read-only API access.\"\n\nThe skill's actual requirements in SKILL.md contradict the PRD's limited scope, requesting capabilities for trading, account monitoring, and blockchain interaction that are unnecessary for a simple yield aggregation tool.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Execution / System Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Data Over-collection",
+        "Privilege Escalation"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "6",
+      "flags": {
+        "external_server": false,
+        "api_key": true,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

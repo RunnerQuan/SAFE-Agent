@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The GitHub Integration skill requests installation and authentication for third-party MCP servers (Claude Flow and Flow-Nexus) that orchestrate multi-agent swarms, spawn external processes, and require API tokens. While the skill's stated purpose is \"GitHub integrations, webhooks, and API automations,\" it mandates installation of external orchestration frameworks with capabilities extending far beyond GitHub API interactions—including agent spawning, task orchestration, and real-time event streaming to external servers. These additional systems introduce unnecessary complexity, external dependencies, and potential data exposure unrelated to core GitHub integration tasks. Additionally, the skill requires broad tool permissions (Bash, Write, Edit, etc.) that could be exploited beyond the scope of GitHub automation if not properly sandboxed.",
+      "impact": "OVERREACH: Permission Overreach & Data Over-collection - The GitHub Integration skill requests installation and authentication for third-party MCP servers (Claude Flow and Flow-Nexus) that orchestrate multi-agent swarms, spawn external processes, and require API tokens. While the skill's stated purpose is \"GitHub integrations, webhooks, and API automations,\" it mandates installation of external orchestration frameworks with capabilities extending far beyond GitHub API interactions—including agent spawning, task orchestration, and real-time event streaming to external servers. These additional systems introduce unnecessary complexity, external dependencies, and potential data exposure unrelated to core GitHub integration tasks. Additionally, the skill requires broad tool permissions (Bash, Write, Edit, etc.) that could be exploited beyond the scope of GitHub automation if not properly sandboxed.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Data Over-collection"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "8",
+      "flags": {
+        "external_server": true,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

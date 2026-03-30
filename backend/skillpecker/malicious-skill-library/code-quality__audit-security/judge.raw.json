@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill's stated purpose is \"Scan codebase for security vulnerabilities,\" but it:\n1. Performs intrusive repository interrogation beyond security scanning (e.g., checking recent commits, database migrations, listing files via shell commands)\n2. Executes broad system commands (`git log`, `find`, `ls`, `grep`) that could expose sensitive information unrelated to vulnerability detection\n3. Specifically searches for and attempts to access environment/secret files (`.env*`, `*secret*`) and database URLs in git history, which constitutes excessive data collection for a security audit tool\n4. The skill could be implemented with more minimal, targeted scanning rather than executing wide-ranging shell commands that risk exposing sensitive repository metadata and history.\n\nWhile security auditing often requires code inspection, the approach of executing multiple shell commands to extract repository metadata and search git history goes beyond simple code analysis and could expose sensitive operational data.",
+      "impact": "OVERREACH: Permission Overreach & Data Over-collection - The skill's stated purpose is \"Scan codebase for security vulnerabilities,\" but it:\n1. Performs intrusive repository interrogation beyond security scanning (e.g., checking recent commits, database migrations, listing files via shell commands)\n2. Executes broad system commands (`git log`, `find`, `ls`, `grep`) that could expose sensitive information unrelated to vulnerability detection\n3. Specifically searches for and attempts to access environment/secret files (`.env*`, `*secret*`) and database URLs in git history, which constitutes excessive data collection for a security audit tool\n4. The skill could be implemented with more minimal, targeted scanning rather than executing wide-ranging shell commands that risk exposing sensitive repository metadata and history.\n\nWhile security auditing often requires code inspection, the approach of executing multiple shell commands to extract repository metadata and search git history goes beyond simple code analysis and could expose sensitive operational data.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Data Over-collection"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": true,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

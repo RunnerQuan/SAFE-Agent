@@ -1,0 +1,36 @@
+{
+  "name": "youtube",
+  "version": "1.0.0",
+  "description": "Automate YouTube subscriptions, playlists, and video discovery",
+  "author": "Canifi",
+  "category": "social-media",
+  "permissions": [
+    "browser",
+    "notifications",
+    "env-access"
+  ],
+  "triggers": [
+    "youtube",
+    "yt",
+    "youtube video",
+    "youtube playlist",
+    "youtube subscribe"
+  ],
+  "authentication": {
+    "type": "google-oauth",
+    "loginUrl": "https://www.youtube.com",
+    "sessionIndicator": "ytd-masthead"
+  },
+  "requiredEnvVars": [
+    "GOOGLE_EMAIL",
+    "GOOGLE_PASSWORD"
+  ],
+  "capabilities": {
+    "search": true,
+    "subscriptions": true,
+    "playlists": true,
+    "engagement": true,
+    "history": true,
+    "library": true
+  }
+}

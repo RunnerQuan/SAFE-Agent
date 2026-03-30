@@ -1,0 +1,35 @@
+{
+  "name": "bluejeans",
+  "version": "1.0.0",
+  "description": "Automate BlueJeans video conferencing and meeting management",
+  "author": "Canifi",
+  "category": "communication",
+  "permissions": [
+    "browser",
+    "notifications",
+    "env-access",
+    "downloads"
+  ],
+  "triggers": [
+    "bluejeans",
+    "blue jeans",
+    "bluejeans meeting",
+    "bj meeting"
+  ],
+  "authentication": {
+    "type": "browser-session",
+    "loginUrl": "https://www.bluejeans.com",
+    "sessionIndicator": ".dashboard"
+  },
+  "requiredEnvVars": [
+    "BLUEJEANS_EMAIL",
+    "BLUEJEANS_PASSWORD"
+  ],
+  "capabilities": {
+    "meetings": true,
+    "recordings": true,
+    "personalRoom": true,
+    "settings": true,
+    "analytics": true
+  }
+}

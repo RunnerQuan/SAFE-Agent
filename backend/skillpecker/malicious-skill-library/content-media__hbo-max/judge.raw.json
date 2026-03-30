@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "data-over-collection",
+    "issue_types": [
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-over-collection",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill requests full authentication credentials (email and password) for HBO Max, which is excessive for its stated purpose of streaming content and managing watchlists. While the skill offers a manual login option, requiring full credentials (via environment variables) gives the skill complete account access beyond what's needed for basic streaming interactions. A more minimal approach would be to only use session-based authentication or temporary tokens without requiring permanent credentials.",
+      "impact": "OVERREACH: Data Over-collection - The skill requests full authentication credentials (email and password) for HBO Max, which is excessive for its stated purpose of streaming content and managing watchlists. While the skill offers a manual login option, requiring full credentials (via environment variables) gives the skill complete account access beyond what's needed for basic streaming interactions. A more minimal approach would be to only use session-based authentication or temporary tokens without requiring permanent credentials.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Data Over-collection"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": true,
+        "filesystem_access": true,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

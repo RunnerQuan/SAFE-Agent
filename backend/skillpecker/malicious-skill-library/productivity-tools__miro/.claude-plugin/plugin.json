@@ -1,0 +1,34 @@
+{
+  "name": "miro",
+  "displayName": "Miro",
+  "version": "1.0.0",
+  "description": "Collaborate on digital whiteboards with Miro - create mind maps, flowcharts, wireframes, and run brainstorming sessions",
+  "author": "Canifi LifeOS",
+  "category": "Design & Creative",
+  "authentication": {
+    "type": "browser",
+    "loginUrl": "https://miro.com/login",
+    "loggedInIndicator": "[data-testid='dashboard-header']"
+  },
+  "capabilities": [
+    "create-boards",
+    "add-shapes",
+    "create-flowcharts",
+    "apply-templates",
+    "export-boards",
+    "manage-sharing"
+  ],
+  "requiredEnvVars": [
+    "MIRO_EMAIL",
+    "MIRO_PASSWORD"
+  ],
+  "endpoints": {
+    "base": "https://miro.com",
+    "dashboard": "https://miro.com/app/dashboard",
+    "templates": "https://miro.com/templates"
+  },
+  "rateLimit": {
+    "requests": 60,
+    "period": "minute"
+  }
+}

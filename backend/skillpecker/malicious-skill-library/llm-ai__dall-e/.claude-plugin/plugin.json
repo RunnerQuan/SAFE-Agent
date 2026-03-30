@@ -1,0 +1,33 @@
+{
+  "name": "dall-e",
+  "displayName": "DALL-E",
+  "version": "1.0.0",
+  "description": "Generate AI images with DALL-E - create images from text descriptions, edit existing images, and manage creations",
+  "author": "Canifi LifeOS",
+  "category": "Design & Creative",
+  "authentication": {
+    "type": "browser",
+    "loginUrl": "https://chat.openai.com/auth/login",
+    "loggedInIndicator": "[data-testid='user-menu']"
+  },
+  "capabilities": [
+    "generate-images",
+    "edit-images",
+    "view-history",
+    "download-images",
+    "create-variations",
+    "manage-creations"
+  ],
+  "requiredEnvVars": [
+    "OPENAI_EMAIL",
+    "OPENAI_PASSWORD"
+  ],
+  "endpoints": {
+    "base": "https://chat.openai.com",
+    "dalle": "https://chat.openai.com/?model=gpt-4-dalle"
+  },
+  "rateLimit": {
+    "requests": 50,
+    "period": "hour"
+  }
+}

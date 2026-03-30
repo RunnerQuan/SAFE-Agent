@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "data-over-collection",
+    "issue_types": [
+      "data-over-collection",
+      "security-risk",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-over-collection",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill's primary purpose is to extract public data from Instagram (e.g., profiles, posts, comments), which does not inherently require access to the user's sensitive financial information. However, the skill mandates providing an Ethereum private key and cryptocurrency (USDC) for payments via the Teneo Protocol. This request for private keys and payment details is excessive and unrelated to the core data extraction functionality, introducing unnecessary privacy and security risks. A more minimal approach would allow data extraction without embedding a monetization layer that collects sensitive user data.",
+      "impact": "OVERREACH: Data Over-collection - The skill's primary purpose is to extract public data from Instagram (e.g., profiles, posts, comments), which does not inherently require access to the user's sensitive financial information. However, the skill mandates providing an Ethereum private key and cryptocurrency (USDC) for payments via the Teneo Protocol. This request for private keys and payment details is excessive and unrelated to the core data extraction functionality, introducing unnecessary privacy and security risks. A more minimal approach would allow data extraction without embedding a monetization layer that collects sensitive user data.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Data Over-collection",
+        "Security Risk"
+      ],
+      "source_platform": "Clawhub",
+      "source_file": "scan_results_description_clawhub.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

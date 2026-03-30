@@ -1,0 +1,73 @@
+# Project Context for AI
+
+## User Context
+
+### Preferred Language
+{{PREFERRED_LANGUAGE}}
+
+### Work Domain & Purpose
+{{WORK_DOMAIN}} - {{TOOL_PURPOSE}}
+
+### Technical Background
+{{TECHNICAL_BACKGROUND}}
+
+### Project Type
+{{PROJECT_TYPE}} - local execution
+
+---
+
+## Language Constraint
+
+**Language:** Python
+**Reason:**
+- Best for data processing and automation
+- Easy to install and use
+- Rich ecosystem for common automation tasks
+
+**Note:** TypeScript support can be added as an extension if needed (e.g., for n8n workflows)
+
+---
+
+## Core Operating Principles
+
+### Documentation = Source of Truth
+- All knowledge lives in docs
+- Code is black box implementation
+- Changes reflected in docs first or simultaneously
+
+### Documentation Structure
+- `docs/knowledge-base/`: Domain knowledge, setup guides, API docs
+- `docs/plans/`: Implementation plans (PLN-XXX-YYYY-MM-DD-name.md)
+- `docs/architecture/`: Component descriptions (how things work)
+
+### Plan ID System
+- Format: PLN-001, PLN-002, ... (auto-incremented)
+- Included in file names for easy reference
+- Used in git commit messages for traceability
+
+### Validation Strategy
+- Automated tests (TDD, hidden from user)
+- Manual verification with executable commands
+- Scenario coverage tracking (SCN-001, SCN-002, ...)
+
+### Development Workflow
+1. **Plan** (requirements → scenarios → tasks)
+2. **Implement** (TDD internal, progress visible to user)
+3. **Verify** (automated tests + manual confirmation)
+4. **Git commit** (with Plan ID in message)
+
+### Communication Language
+All communication with user must be in: {{PREFERRED_LANGUAGE}}
+
+---
+
+## Project-Specific Context
+
+### Tool Purpose
+{{DETAILED_TOOL_PURPOSE}}
+
+### Key Requirements
+{{KEY_REQUIREMENTS}}
+
+### Constraints
+{{CONSTRAINTS}}

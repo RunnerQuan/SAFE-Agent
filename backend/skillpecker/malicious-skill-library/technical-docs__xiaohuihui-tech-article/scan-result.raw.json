@@ -1,0 +1,238 @@
+{
+  "preprocess": {
+    "skill": {
+      "root": "C:\\Files\\Study\\Codes\\Skill-Scan\\malicious-skill-library\\technical-docs__xiaohuihui-tech-article",
+      "claims": [
+        "The skill requests excessive permissions and data:\n1. **Hardcoded External API Credentials**: The skill description in `Skill.md` contains a hardcoded Gemini API Key (`sk-LYGZYPL2zZhGcRizHRiZv2nEXsuVHeof7LtTsT4OWwkWCFT0`) and a specific API endpoint URL. Exposing a live API key in documentation is a severe security risk and grants the skill (or anyone who reads it) unauthorized access to an external AI service unrelated to the core function of writing articles.\n2. **Demands Full Cloud Service Credentials**: The skill requires users to configure their Tencent Cloud COS (object storage) `SECRET_ID` and `SECRET_KEY`. While generating and hosting images is a stated feature, requesting full, permanent cloud service credentials with broad permissions (read/write/delete to a bucket) is excessive for the task. A more secure and minimal approach would be to generate upload tokens with limited scope or let users handle uploads themselves.\n3. **Excessive Access for Core Purpose**: The primary purpose is to generate technical articles. The integration with external AI image generation and cloud storage, while a feature, requests permissions (cloud account keys) that are disproportionate to the main goal of text generation and introduce significant external dependencies and risks."
+      ],
+      "observed_kinds": [
+        "spreadsheet",
+        "imported_scan_result"
+      ]
+    },
+    "artifacts": [],
+    "rule_hits": [],
+    "coverage_gaps": [],
+    "stats": {
+      "artifact_count": 0,
+      "rule_hit_count": 1,
+      "severity_counts": {},
+      "rule_code_counts": {}
+    }
+  },
+  "triage": {
+    "skill": {
+      "claims": [
+        "The skill requests excessive permissions and data:\n1. **Hardcoded External API Credentials**: The skill description in `Skill.md` contains a hardcoded Gemini API Key (`sk-LYGZYPL2zZhGcRizHRiZv2nEXsuVHeof7LtTsT4OWwkWCFT0`) and a specific API endpoint URL. Exposing a live API key in documentation is a severe security risk and grants the skill (or anyone who reads it) unauthorized access to an external AI service unrelated to the core function of writing articles.\n2. **Demands Full Cloud Service Credentials**: The skill requires users to configure their Tencent Cloud COS (object storage) `SECRET_ID` and `SECRET_KEY`. While generating and hosting images is a stated feature, requesting full, permanent cloud service credentials with broad permissions (read/write/delete to a bucket) is excessive for the task. A more secure and minimal approach would be to generate upload tokens with limited scope or let users handle uploads themselves.\n3. **Excessive Access for Core Purpose**: The primary purpose is to generate technical articles. The integration with external AI image generation and cloud storage, while a feature, requests permissions (cloud account keys) that are disproportionate to the main goal of text generation and introduce significant external dependencies and risks."
+      ],
+      "obs": [
+        "Description Scan"
+      ],
+      "high_risk_features": [
+        "api_key",
+        "credential_request",
+        "external_server"
+      ]
+    },
+    "arts": [],
+    "xconcerns": [],
+    "retrieve": [],
+    "coverage": {
+      "total": 1,
+      "indexed": 1,
+      "gaps": []
+    }
+  },
+  "security": {
+    "findings": [
+      {
+        "id": "",
+        "cat": "permission-overreach",
+        "class": "data-governance-risk",
+        "severity": "",
+        "conf": "",
+        "summary": "The skill requests excessive permissions and data:\n1. **Hardcoded External API Credentials**: The skill description in `Skill.md` contains a hardcoded Gemini API Key (`sk-LYGZYPL2zZhGcRizHRiZv2nEXsuVHeof7LtTsT4OWwkWCFT0`) and a specific API endpoint URL. Exposing a live API key in documentation is a severe security risk and grants the skill (or anyone who reads it) unauthorized access to an external AI service unrelated to the core function of writing articles.\n2. **Demands Full Cloud Service Credentials**: The skill requires users to configure their Tencent Cloud COS (object storage) `SECRET_ID` and `SECRET_KEY`. While generating and hosting images is a stated feature, requesting full, permanent cloud service credentials with broad permissions (read/write/delete to a bucket) is excessive for the task. A more secure and minimal approach would be to generate upload tokens with limited scope or let users handle uploads themselves.\n3. **Excessive Access for Core Purpose**: The primary purpose is to generate technical articles. The integration with external AI image generation and cloud storage, while a feature, requests permissions (cloud account keys) that are disproportionate to the main goal of text generation and introduce significant external dependencies and risks.",
+        "arts": [],
+        "spans": [],
+        "impact": "OVERREACH: Permission Overreach & Data Over-collection - The skill requests excessive permissions and data:\n1. **Hardcoded External API Credentials**: The skill description in `Skill.md` contains a hardcoded Gemini API Key (`sk-LYGZYPL2zZhGcRizHRiZv2nEXsuVHeof7LtTsT4OWwkWCFT0`) and a specific API endpoint URL. Exposing a live API key in documentation is a severe security risk and grants the skill (or anyone who reads it) unauthorized access to an external AI service unrelated to the core function of writing articles.\n2. **Demands Full Cloud Service Credentials**: The skill requires users to configure their Tencent Cloud COS (object storage) `SECRET_ID` and `SECRET_KEY`. While generating and hosting images is a stated feature, requesting full, permanent cloud service credentials with broad permissions (read/write/delete to a bucket) is excessive for the task. A more secure and minimal approach would be to generate upload tokens with limited scope or let users handle uploads themselves.\n3. **Excessive Access for Core Purpose**: The primary purpose is to generate technical articles. The integration with external AI image generation and cloud storage, while a feature, requests permissions (cloud account keys) that are disproportionate to the main goal of text generation and introduce significant external dependencies and risks.",
+        "fix": "",
+        "decision_level": "OVERREACH",
+        "primary_group": "Data Governance Risk",
+        "scan_level": "Description Scan",
+        "risk_types": [
+          "Permission Overreach",
+          "Data Over-collection",
+          "Security Risk"
+        ],
+        "source_platform": "Marketplace",
+        "source_file": "scan_results_description_marketplace.csv",
+        "related_file_count": "6",
+        "flags": {
+          "external_server": true,
+          "api_key": true,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": false,
+          "shell_or_command_execution": false,
+          "driver_or_installer": false,
+          "credential_request": true,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": false
+        }
+      }
+    ],
+    "ctx_requests": [],
+    "coverage": {
+      "reviewed_arts": [],
+      "unresolved_high_risk_arts": []
+    }
+  },
+  "judge": {
+    "verdict": {
+      "label": "mixed_risk",
+      "primary_concern": "permission-overreach",
+      "issue_types": [
+        "permission-overreach",
+        "data-over-collection",
+        "security-risk",
+        "data-governance-risk"
+      ]
+    },
+    "top_findings": [
+      {
+        "id": "",
+        "cat": "permission-overreach",
+        "class": "data-governance-risk",
+        "severity": "",
+        "conf": "",
+        "summary": "The skill requests excessive permissions and data:\n1. **Hardcoded External API Credentials**: The skill description in `Skill.md` contains a hardcoded Gemini API Key (`sk-LYGZYPL2zZhGcRizHRiZv2nEXsuVHeof7LtTsT4OWwkWCFT0`) and a specific API endpoint URL. Exposing a live API key in documentation is a severe security risk and grants the skill (or anyone who reads it) unauthorized access to an external AI service unrelated to the core function of writing articles.\n2. **Demands Full Cloud Service Credentials**: The skill requires users to configure their Tencent Cloud COS (object storage) `SECRET_ID` and `SECRET_KEY`. While generating and hosting images is a stated feature, requesting full, permanent cloud service credentials with broad permissions (read/write/delete to a bucket) is excessive for the task. A more secure and minimal approach would be to generate upload tokens with limited scope or let users handle uploads themselves.\n3. **Excessive Access for Core Purpose**: The primary purpose is to generate technical articles. The integration with external AI image generation and cloud storage, while a feature, requests permissions (cloud account keys) that are disproportionate to the main goal of text generation and introduce significant external dependencies and risks.",
+        "impact": "OVERREACH: Permission Overreach & Data Over-collection - The skill requests excessive permissions and data:\n1. **Hardcoded External API Credentials**: The skill description in `Skill.md` contains a hardcoded Gemini API Key (`sk-LYGZYPL2zZhGcRizHRiZv2nEXsuVHeof7LtTsT4OWwkWCFT0`) and a specific API endpoint URL. Exposing a live API key in documentation is a severe security risk and grants the skill (or anyone who reads it) unauthorized access to an external AI service unrelated to the core function of writing articles.\n2. **Demands Full Cloud Service Credentials**: The skill requires users to configure their Tencent Cloud COS (object storage) `SECRET_ID` and `SECRET_KEY`. While generating and hosting images is a stated feature, requesting full, permanent cloud service credentials with broad permissions (read/write/delete to a bucket) is excessive for the task. A more secure and minimal approach would be to generate upload tokens with limited scope or let users handle uploads themselves.\n3. **Excessive Access for Core Purpose**: The primary purpose is to generate technical articles. The integration with external AI image generation and cloud storage, while a feature, requests permissions (cloud account keys) that are disproportionate to the main goal of text generation and introduce significant external dependencies and risks.",
+        "fix": "",
+        "decision_level": "OVERREACH",
+        "primary_group": "Data Governance Risk",
+        "scan_level": "Description Scan",
+        "risk_types": [
+          "Permission Overreach",
+          "Data Over-collection",
+          "Security Risk"
+        ],
+        "source_platform": "Marketplace",
+        "source_file": "scan_results_description_marketplace.csv",
+        "related_file_count": "6",
+        "flags": {
+          "external_server": true,
+          "api_key": true,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": false,
+          "shell_or_command_execution": false,
+          "driver_or_installer": false,
+          "credential_request": true,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": false
+        },
+        "spans": []
+      }
+    ],
+    "coverage_audit": {
+      "adequate": true,
+      "missed": [],
+      "needs_rescan": false
+    },
+    "next_action": "stop"
+  },
+  "excel_import": {
+    "record_count": 1,
+    "headers": [
+      "一级分类_判定级别",
+      "二级分类_主问题组",
+      "风险类型汇总",
+      "风险类型1",
+      "风险类型2",
+      "风险类型3",
+      "风险类型4",
+      "来源平台",
+      "扫描层级",
+      "原始业务分类",
+      "skill_name",
+      "关联文件数",
+      "原始来源文件",
+      "问题摘要",
+      "原始verdict",
+      "flag_外部服务器",
+      "flag_APIKey",
+      "flag_自治执行",
+      "flag_浏览器会话/凭据",
+      "flag_文件系统访问",
+      "flag_Shell/命令执行",
+      "flag_驱动/安装器",
+      "flag_凭据请求",
+      "flag_混淆/规避",
+      "flag_持久化/外部存储",
+      "清洗后原始说明"
+    ],
+    "records": [
+      {
+        "classification": {
+          "decision_level": "OVERREACH",
+          "primary_group": "Data Governance Risk",
+          "risk_summary": "Permission Overreach | Data Over-collection | Security Risk",
+          "risk_types": [
+            "Permission Overreach",
+            "Data Over-collection",
+            "Security Risk"
+          ],
+          "platform": "Marketplace",
+          "scan_level": "Description Scan",
+          "business_category": "technical-docs",
+          "skill_name": "xiaohuihui-tech-article",
+          "related_file_count": "6",
+          "source_file": "scan_results_description_marketplace.csv",
+          "problem_summary": "The skill requests excessive permissions and data:\n1. **Hardcoded External API Credentials**: The skill description in `Skill.md` contains a hardcoded Gemini API Key (`sk-LYGZYPL2zZhGcRizHRiZv2nEXsuVHeof7LtTsT4OWwkWCFT0`) and a specific API endpoint URL. Exposing a live API key in documentation is a severe security risk and grants the skill (or anyone who reads it) unauthorized access to an external AI service unrelated to the core function of writing articles.\n2. **Demands Full Cloud Service Credentials**: The skill requires users to configure their Tencent Cloud COS (object storage) `SECRET_ID` and `SECRET_KEY`. While generating and hosting images is a stated feature, requesting full, permanent cloud service credentials with broad permissions (read/write/delete to a bucket) is excessive for the task. A more secure and minimal approach would be to generate upload tokens with limited scope or let users handle uploads themselves.\n3. **Excessive Access for Core Purpose**: The primary purpose is to generate technical articles. The integration with external AI image generation and cloud storage, while a feature, requests permissions (cloud account keys) that are disproportionate to the main goal of text generation and introduce significant external dependencies and risks.",
+          "raw_verdict": "OVERREACH: Permission Overreach & Data Over-collection - The skill requests excessive permissions and data:\n1. **Hardcoded External API Credentials**: The skill description in `Skill.md` contains a hardcoded Gemini API Key (`sk-LYGZYPL2zZhGcRizHRiZv2nEXsuVHeof7LtTsT4OWwkWCFT0`) and a specific API endpoint URL. Exposing a live API key in documentation is a severe security risk and grants the skill (or anyone who reads it) unauthorized access to an external AI service unrelated to the core function of writing articles.\n2. **Demands Full Cloud Service Credentials**: The skill requires users to configure their Tencent Cloud COS (object storage) `SECRET_ID` and `SECRET_KEY`. While generating and hosting images is a stated feature, requesting full, permanent cloud service credentials with broad permissions (read/write/delete to a bucket) is excessive for the task. A more secure and minimal approach would be to generate upload tokens with limited scope or let users handle uploads themselves.\n3. **Excessive Access for Core Purpose**: The primary purpose is to generate technical articles. The integration with external AI image generation and cloud storage, while a feature, requests permissions (cloud account keys) that are disproportionate to the main goal of text generation and introduce significant external dependencies and risks.",
+          "cleaned_description": "",
+          "flags": {
+            "external_server": true,
+            "api_key": true,
+            "autonomous_execution": false,
+            "browser_session_or_credentials": false,
+            "filesystem_access": false,
+            "shell_or_command_execution": false,
+            "driver_or_installer": false,
+            "credential_request": true,
+            "obfuscation_or_evasion": false,
+            "persistence_or_external_storage": false
+          }
+        },
+        "raw_values": {
+          "一级分类_判定级别": "OVERREACH",
+          "二级分类_主问题组": "Data Governance Risk",
+          "风险类型汇总": "Permission Overreach | Data Over-collection | Security Risk",
+          "风险类型1": "Permission Overreach",
+          "风险类型2": "Data Over-collection",
+          "风险类型3": "Security Risk",
+          "风险类型4": "",
+          "来源平台": "Marketplace",
+          "扫描层级": "Description Scan",
+          "原始业务分类": "technical-docs",
+          "skill_name": "xiaohuihui-tech-article",
+          "关联文件数": 6,
+          "原始来源文件": "scan_results_description_marketplace.csv",
+          "问题摘要": "The skill requests excessive permissions and data:\n1. **Hardcoded External API Credentials**: The skill description in `Skill.md` contains a hardcoded Gemini API Key (`sk-LYGZYPL2zZhGcRizHRiZv2nEXsuVHeof7LtTsT4OWwkWCFT0`) and a specific API endpoint URL. Exposing a live API key in documentation is a severe security risk and grants the skill (or anyone who reads it) unauthorized access to an external AI service unrelated to the core function of writing articles.\n2. **Demands Full Cloud Service Credentials**: The skill requires users to configure their Tencent Cloud COS (object storage) `SECRET_ID` and `SECRET_KEY`. While generating and hosting images is a stated feature, requesting full, permanent cloud service credentials with broad permissions (read/write/delete to a bucket) is excessive for the task. A more secure and minimal approach would be to generate upload tokens with limited scope or let users handle uploads themselves.\n3. **Excessive Access for Core Purpose**: The primary purpose is to generate technical articles. The integration with external AI image generation and cloud storage, while a feature, requests permissions (cloud account keys) that are disproportionate to the main goal of text generation and introduce significant external dependencies and risks.",
+          "原始verdict": "OVERREACH: Permission Overreach & Data Over-collection - The skill requests excessive permissions and data:\n1. **Hardcoded External API Credentials**: The skill description in `Skill.md` contains a hardcoded Gemini API Key (`sk-LYGZYPL2zZhGcRizHRiZv2nEXsuVHeof7LtTsT4OWwkWCFT0`) and a specific API endpoint URL. Exposing a live API key in documentation is a severe security risk and grants the skill (or anyone who reads it) unauthorized access to an external AI service unrelated to the core function of writing articles.\n2. **Demands Full Cloud Service Credentials**: The skill requires users to configure their Tencent Cloud COS (object storage) `SECRET_ID` and `SECRET_KEY`. While generating and hosting images is a stated feature, requesting full, permanent cloud service credentials with broad permissions (read/write/delete to a bucket) is excessive for the task. A more secure and minimal approach would be to generate upload tokens with limited scope or let users handle uploads themselves.\n3. **Excessive Access for Core Purpose**: The primary purpose is to generate technical articles. The integration with external AI image generation and cloud storage, while a feature, requests permissions (cloud account keys) that are disproportionate to the main goal of text generation and introduce significant external dependencies and risks.",
+          "flag_外部服务器": "Y",
+          "flag_APIKey": "Y",
+          "flag_自治执行": "",
+          "flag_浏览器会话/凭据": "",
+          "flag_文件系统访问": "",
+          "flag_Shell/命令执行": "",
+          "flag_驱动/安装器": "",
+          "flag_凭据请求": "Y",
+          "flag_混淆/规避": "",
+          "flag_持久化/外部存储": "",
+          "清洗后原始说明": "OVERREACH: Permission Overreach & Data Over-collection - The skill requests excessive permissions and data:\n1. **Hardcoded External API Credentials**: The skill description in `Skill.md` contains a hardcoded Gemini API Key (`sk-LYGZYPL2zZhGcRizHRiZv2nEXsuVHeof7LtTsT4OWwkWCFT0`) and a specific API endpoint URL. Exposing a live API key in documentation is a severe security risk and grants the skill (or anyone who reads it) unauthorized access to an external AI service unrelated to the core function of writing articles.\n2. **Demands Full Cloud Service Credentials**: The skill requires users to configure their Tencent Cloud COS (object storage) `SECRET_ID` and `SECRET_KEY`. While generating and hosting images is a stated feature, requesting full, permanent cloud service credentials with broad permissions (read/write/delete to a bucket) is excessive for the task. A more secure and minimal approach would be to generate upload tokens with limited scope or let users handle uploads themselves.\n3. **Excessive Access for Core Purpose**: The primary purpose is to generate technical articles. The integration with external AI image generation and cloud storage, while a feature, requests permissions (cloud account keys) that are disproportionate to the main goal of text generation and introduce significant external dependencies and risks."
+        }
+      }
+    ]
+  }
+}

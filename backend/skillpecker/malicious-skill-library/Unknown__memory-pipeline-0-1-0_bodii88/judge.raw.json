@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "data-over-collection",
+    "issue_types": [
+      "data-over-collection",
+      "privacy-violation",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-over-collection",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill requires at least one third-party LLM API key (OpenAI/Anthropic/Gemini) and sends potentially sensitive user data (daily notes, session transcripts containing conversations, decisions, and personal preferences) to external services for processing without a clear local-only alternative. While this may be necessary for its core AI-based extraction features, it constitutes data collection beyond what is strictly needed for a local memory consolidation system. Additionally, the skill accesses the entire workspace directory and user's agent session transcripts, which could include highly sensitive information, and automatically uploads this data to third-party LLM APIs without explicit per-session user consent beyond initial API key configuration.",
+      "impact": "OVERREACH: Data Over-collection & Privacy Violation - The skill requires at least one third-party LLM API key (OpenAI/Anthropic/Gemini) and sends potentially sensitive user data (daily notes, session transcripts containing conversations, decisions, and personal preferences) to external services for processing without a clear local-only alternative. While this may be necessary for its core AI-based extraction features, it constitutes data collection beyond what is strictly needed for a local memory consolidation system. Additionally, the skill accesses the entire workspace directory and user's agent session transcripts, which could include highly sensitive information, and automatically uploads this data to third-party LLM APIs without explicit per-session user consent beyond initial API key configuration.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Data Over-collection",
+        "Privacy Violation"
+      ],
+      "source_platform": "Clawhub",
+      "source_file": "scan_results_description_clawhub.csv",
+      "related_file_count": "2",
+      "flags": {
+        "external_server": true,
+        "api_key": true,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": true,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

@@ -1,0 +1,221 @@
+{
+  "preprocess": {
+    "skill": {
+      "root": "C:\\Files\\Study\\Codes\\Skill-Scan\\malicious-skill-library\\automation-tools__gitcommit",
+      "claims": [
+        "The single-line script `detect-mainline.sh` contains a relative path `../../../scripts/detect-mainline.sh` that attempts to execute a script located outside the current skill's directory structure. This pattern is suspicious because:\n1. It attempts to traverse three directories upward (potentially escaping the skill's sandbox/container).\n2. It references a script with the same name in a parent directory, which could be an attempt to hijack or override legitimate functionality.\n3. The referenced external script's content is unknown and could contain malicious logic not visible in the provided files.\nWhile not definitively malicious without seeing the target script, this behavior matches evasion patterns where skills attempt to execute unauthorized external code."
+      ],
+      "observed_kinds": [
+        "spreadsheet",
+        "imported_scan_result"
+      ]
+    },
+    "artifacts": [],
+    "rule_hits": [],
+    "coverage_gaps": [],
+    "stats": {
+      "artifact_count": 0,
+      "rule_hit_count": 1,
+      "severity_counts": {},
+      "rule_code_counts": {}
+    }
+  },
+  "triage": {
+    "skill": {
+      "claims": [
+        "The single-line script `detect-mainline.sh` contains a relative path `../../../scripts/detect-mainline.sh` that attempts to execute a script located outside the current skill's directory structure. This pattern is suspicious because:\n1. It attempts to traverse three directories upward (potentially escaping the skill's sandbox/container).\n2. It references a script with the same name in a parent directory, which could be an attempt to hijack or override legitimate functionality.\n3. The referenced external script's content is unknown and could contain malicious logic not visible in the provided files.\nWhile not definitively malicious without seeing the target script, this behavior matches evasion patterns where skills attempt to execute unauthorized external code."
+      ],
+      "obs": [
+        "Script Scan"
+      ],
+      "high_risk_features": [
+        "filesystem_access"
+      ]
+    },
+    "arts": [],
+    "xconcerns": [],
+    "retrieve": [],
+    "coverage": {
+      "total": 1,
+      "indexed": 1,
+      "gaps": []
+    }
+  },
+  "security": {
+    "findings": [
+      {
+        "id": "",
+        "cat": "",
+        "class": "other",
+        "severity": "",
+        "conf": "",
+        "summary": "The single-line script `detect-mainline.sh` contains a relative path `../../../scripts/detect-mainline.sh` that attempts to execute a script located outside the current skill's directory structure. This pattern is suspicious because:\n1. It attempts to traverse three directories upward (potentially escaping the skill's sandbox/container).\n2. It references a script with the same name in a parent directory, which could be an attempt to hijack or override legitimate functionality.\n3. The referenced external script's content is unknown and could contain malicious logic not visible in the provided files.\nWhile not definitively malicious without seeing the target script, this behavior matches evasion patterns where skills attempt to execute unauthorized external code.",
+        "arts": [],
+        "spans": [],
+        "impact": "SUSPICIOUS: Potential Sandbox Escape / Unauthorized Script Execution - The single-line script `detect-mainline.sh` contains a relative path `../../../scripts/detect-mainline.sh` that attempts to execute a script located outside the current skill's directory structure. This pattern is suspicious because:\n1. It attempts to traverse three directories upward (potentially escaping the skill's sandbox/container).\n2. It references a script with the same name in a parent directory, which could be an attempt to hijack or override legitimate functionality.\n3. The referenced external script's content is unknown and could contain malicious logic not visible in the provided files.\nWhile not definitively malicious without seeing the target script, this behavior matches evasion patterns where skills attempt to execute unauthorized external code.",
+        "fix": "",
+        "decision_level": "SUSPICIOUS",
+        "primary_group": "Other",
+        "scan_level": "Script Scan",
+        "risk_types": [],
+        "source_platform": "Marketplace",
+        "source_file": "scan_results_script_Marketplace.csv",
+        "related_file_count": "1",
+        "flags": {
+          "external_server": false,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": true,
+          "shell_or_command_execution": false,
+          "driver_or_installer": false,
+          "credential_request": false,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": false
+        }
+      }
+    ],
+    "ctx_requests": [],
+    "coverage": {
+      "reviewed_arts": [],
+      "unresolved_high_risk_arts": []
+    }
+  },
+  "judge": {
+    "verdict": {
+      "label": "unsafe",
+      "primary_concern": "other",
+      "issue_types": [
+        "other"
+      ]
+    },
+    "top_findings": [
+      {
+        "id": "",
+        "cat": "",
+        "class": "other",
+        "severity": "",
+        "conf": "",
+        "summary": "The single-line script `detect-mainline.sh` contains a relative path `../../../scripts/detect-mainline.sh` that attempts to execute a script located outside the current skill's directory structure. This pattern is suspicious because:\n1. It attempts to traverse three directories upward (potentially escaping the skill's sandbox/container).\n2. It references a script with the same name in a parent directory, which could be an attempt to hijack or override legitimate functionality.\n3. The referenced external script's content is unknown and could contain malicious logic not visible in the provided files.\nWhile not definitively malicious without seeing the target script, this behavior matches evasion patterns where skills attempt to execute unauthorized external code.",
+        "impact": "SUSPICIOUS: Potential Sandbox Escape / Unauthorized Script Execution - The single-line script `detect-mainline.sh` contains a relative path `../../../scripts/detect-mainline.sh` that attempts to execute a script located outside the current skill's directory structure. This pattern is suspicious because:\n1. It attempts to traverse three directories upward (potentially escaping the skill's sandbox/container).\n2. It references a script with the same name in a parent directory, which could be an attempt to hijack or override legitimate functionality.\n3. The referenced external script's content is unknown and could contain malicious logic not visible in the provided files.\nWhile not definitively malicious without seeing the target script, this behavior matches evasion patterns where skills attempt to execute unauthorized external code.",
+        "fix": "",
+        "decision_level": "SUSPICIOUS",
+        "primary_group": "Other",
+        "scan_level": "Script Scan",
+        "risk_types": [],
+        "source_platform": "Marketplace",
+        "source_file": "scan_results_script_Marketplace.csv",
+        "related_file_count": "1",
+        "flags": {
+          "external_server": false,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": true,
+          "shell_or_command_execution": false,
+          "driver_or_installer": false,
+          "credential_request": false,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": false
+        },
+        "spans": []
+      }
+    ],
+    "coverage_audit": {
+      "adequate": true,
+      "missed": [],
+      "needs_rescan": false
+    },
+    "next_action": "stop"
+  },
+  "excel_import": {
+    "record_count": 1,
+    "headers": [
+      "一级分类_判定级别",
+      "二级分类_主问题组",
+      "风险类型汇总",
+      "风险类型1",
+      "风险类型2",
+      "风险类型3",
+      "风险类型4",
+      "来源平台",
+      "扫描层级",
+      "原始业务分类",
+      "skill_name",
+      "关联文件数",
+      "原始来源文件",
+      "问题摘要",
+      "原始verdict",
+      "flag_外部服务器",
+      "flag_APIKey",
+      "flag_自治执行",
+      "flag_浏览器会话/凭据",
+      "flag_文件系统访问",
+      "flag_Shell/命令执行",
+      "flag_驱动/安装器",
+      "flag_凭据请求",
+      "flag_混淆/规避",
+      "flag_持久化/外部存储",
+      "清洗后原始说明"
+    ],
+    "records": [
+      {
+        "classification": {
+          "decision_level": "SUSPICIOUS",
+          "primary_group": "Other",
+          "risk_summary": "",
+          "risk_types": [],
+          "platform": "Marketplace",
+          "scan_level": "Script Scan",
+          "business_category": "automation-tools",
+          "skill_name": "gitcommit",
+          "related_file_count": "1",
+          "source_file": "scan_results_script_Marketplace.csv",
+          "problem_summary": "The single-line script `detect-mainline.sh` contains a relative path `../../../scripts/detect-mainline.sh` that attempts to execute a script located outside the current skill's directory structure. This pattern is suspicious because:\n1. It attempts to traverse three directories upward (potentially escaping the skill's sandbox/container).\n2. It references a script with the same name in a parent directory, which could be an attempt to hijack or override legitimate functionality.\n3. The referenced external script's content is unknown and could contain malicious logic not visible in the provided files.\nWhile not definitively malicious without seeing the target script, this behavior matches evasion patterns where skills attempt to execute unauthorized external code.",
+          "raw_verdict": "SUSPICIOUS: Potential Sandbox Escape / Unauthorized Script Execution - The single-line script `detect-mainline.sh` contains a relative path `../../../scripts/detect-mainline.sh` that attempts to execute a script located outside the current skill's directory structure. This pattern is suspicious because:\n1. It attempts to traverse three directories upward (potentially escaping the skill's sandbox/container).\n2. It references a script with the same name in a parent directory, which could be an attempt to hijack or override legitimate functionality.\n3. The referenced external script's content is unknown and could contain malicious logic not visible in the provided files.\nWhile not definitively malicious without seeing the target script, this behavior matches evasion patterns where skills attempt to execute unauthorized external code.",
+          "cleaned_description": "",
+          "flags": {
+            "external_server": false,
+            "api_key": false,
+            "autonomous_execution": false,
+            "browser_session_or_credentials": false,
+            "filesystem_access": true,
+            "shell_or_command_execution": false,
+            "driver_or_installer": false,
+            "credential_request": false,
+            "obfuscation_or_evasion": false,
+            "persistence_or_external_storage": false
+          }
+        },
+        "raw_values": {
+          "一级分类_判定级别": "SUSPICIOUS",
+          "二级分类_主问题组": "Other",
+          "风险类型汇总": "",
+          "风险类型1": "",
+          "风险类型2": "",
+          "风险类型3": "",
+          "风险类型4": "",
+          "来源平台": "Marketplace",
+          "扫描层级": "Script Scan",
+          "原始业务分类": "automation-tools",
+          "skill_name": "gitcommit",
+          "关联文件数": 1,
+          "原始来源文件": "scan_results_script_Marketplace.csv",
+          "问题摘要": "The single-line script `detect-mainline.sh` contains a relative path `../../../scripts/detect-mainline.sh` that attempts to execute a script located outside the current skill's directory structure. This pattern is suspicious because:\n1. It attempts to traverse three directories upward (potentially escaping the skill's sandbox/container).\n2. It references a script with the same name in a parent directory, which could be an attempt to hijack or override legitimate functionality.\n3. The referenced external script's content is unknown and could contain malicious logic not visible in the provided files.\nWhile not definitively malicious without seeing the target script, this behavior matches evasion patterns where skills attempt to execute unauthorized external code.",
+          "原始verdict": "SUSPICIOUS: Potential Sandbox Escape / Unauthorized Script Execution - The single-line script `detect-mainline.sh` contains a relative path `../../../scripts/detect-mainline.sh` that attempts to execute a script located outside the current skill's directory structure. This pattern is suspicious because:\n1. It attempts to traverse three directories upward (potentially escaping the skill's sandbox/container).\n2. It references a script with the same name in a parent directory, which could be an attempt to hijack or override legitimate functionality.\n3. The referenced external script's content is unknown and could contain malicious logic not visible in the provided files.\nWhile not definitively malicious without seeing the target script, this behavior matches evasion patterns where skills attempt to execute unauthorized external code.",
+          "flag_外部服务器": "",
+          "flag_APIKey": "",
+          "flag_自治执行": "",
+          "flag_浏览器会话/凭据": "",
+          "flag_文件系统访问": "Y",
+          "flag_Shell/命令执行": "",
+          "flag_驱动/安装器": "",
+          "flag_凭据请求": "",
+          "flag_混淆/规避": "",
+          "flag_持久化/外部存储": "",
+          "清洗后原始说明": "SUSPICIOUS: Potential Sandbox Escape / Unauthorized Script Execution - The single-line script `detect-mainline.sh` contains a relative path `../../../scripts/detect-mainline.sh` that attempts to execute a script located outside the current skill's directory structure. This pattern is suspicious because:\n1. It attempts to traverse three directories upward (potentially escaping the skill's sandbox/container).\n2. It references a script with the same name in a parent directory, which could be an attempt to hijack or override legitimate functionality.\n3. The referenced external script's content is unknown and could contain malicious logic not visible in the provided files.\nWhile not definitively malicious without seeing the target script, this behavior matches evasion patterns where skills attempt to execute unauthorized external code."
+        }
+      }
+    ]
+  }
+}

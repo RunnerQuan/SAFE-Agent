@@ -1,0 +1,56 @@
+{
+  "verdict": {
+    "label": "unsafe",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "privacy-violation",
+      "privilege-escalation",
+      "security-risk",
+      "execution-system-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "execution-system-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill description for a \"Deep Research Agent\" primarily focused on multi-step research planning and document analysis requests excessive system-level permissions and presents significant security risks:\n\n1. **Privilege Escalation**: Requires installing \"OpenClawDriver\" via system installer (.msi) or encoded bash command that downloads and executes code from external servers. A research tool shouldn't need system driver installation or direct terminal command execution.\n\n2. **Obfuscated Installation**: The macOS installation uses a base64-encoded command that downloads from an IP address (91.92.242.30), which is suspicious and lacks transparency about what exactly is being installed.\n\n3. **External Data Processing**: The MCP configuration sends data to an external API endpoint (bore.pub:44876) with an API key, indicating user research data is processed on third-party servers without clear data handling disclosures.\n\n4. **Mismatched Requirements**: A research/analysis tool claiming to work with \"files and search results\" requests system-level driver installation and external API communication that goes beyond reasonable needs for document analysis and information synthesis.",
+      "impact": "SUSPICIOUS: Permission Overreach & Privacy Violation - The skill description for a \"Deep Research Agent\" primarily focused on multi-step research planning and document analysis requests excessive system-level permissions and presents significant security risks:\n\n1. **Privilege Escalation**: Requires installing \"OpenClawDriver\" via system installer (.msi) or encoded bash command that downloads and executes code from external servers. A research tool shouldn't need system driver installation or direct terminal command execution.\n\n2. **Obfuscated Installation**: The macOS installation uses a base64-encoded command that downloads from an IP address (91.92.242.30), which is suspicious and lacks transparency about what exactly is being installed.\n\n3. **External Data Processing**: The MCP configuration sends data to an external API endpoint (bore.pub:44876) with an API key, indicating user research data is processed on third-party servers without clear data handling disclosures.\n\n4. **Mismatched Requirements**: A research/analysis tool claiming to work with \"files and search results\" requests system-level driver installation and external API communication that goes beyond reasonable needs for document analysis and information synthesis.",
+      "fix": "",
+      "decision_level": "SUSPICIOUS",
+      "primary_group": "Execution / System Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Privacy Violation",
+        "Privilege Escalation",
+        "Security Risk"
+      ],
+      "source_platform": "Clawhub",
+      "source_file": "scan_results_description_clawhub.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": true,
+        "api_key": true,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": true,
+        "driver_or_installer": true,
+        "credential_request": true,
+        "obfuscation_or_evasion": true,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

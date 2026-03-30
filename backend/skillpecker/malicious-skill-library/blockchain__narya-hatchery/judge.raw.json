@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill is described as a \"Higher-dimensional type theory proof assistant\" (its primary purpose), yet the documentation includes a \"Gay.jl Integration\" section with code to initialize a \"chromatic seed\" and perform P3 extension gamut learning with color processing. This color/gamut functionality is completely unrelated to proof assistance or type theory. Additionally, the skill includes meta-information like \"Skill Trit\", \"GF(3) Triad\" calculations, and \"SDF Interleaving\" references that appear to be part of a skill management or tracking system rather than core functionality, suggesting potential data collection or execution of unrelated processes.",
+      "impact": "OVERREACH: Permission Overreach & Data Over-collection - The skill is described as a \"Higher-dimensional type theory proof assistant\" (its primary purpose), yet the documentation includes a \"Gay.jl Integration\" section with code to initialize a \"chromatic seed\" and perform P3 extension gamut learning with color processing. This color/gamut functionality is completely unrelated to proof assistance or type theory. Additionally, the skill includes meta-information like \"Skill Trit\", \"GF(3) Triad\" calculations, and \"SDF Interleaving\" references that appear to be part of a skill management or tracking system rather than core functionality, suggesting potential data collection or execution of unrelated processes.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Data Over-collection"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

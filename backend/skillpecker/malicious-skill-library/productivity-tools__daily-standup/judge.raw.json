@@ -1,0 +1,54 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach-action",
+    "issue_types": [
+      "permission-overreach-action",
+      "permission-overreach",
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach-action",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "A Daily Standup/planning skill designed to analyze task status from Notion requests access to local system logs (`logs/`) and temporary files (`@temp/`) for \"context analysis.\" These file system accesses are unrelated to its primary purpose of querying a task management system (Notion MCP) and represent unnecessary data collection that could expose sensitive system or application information not relevant to daily planning.",
+      "impact": "OVERREACH: Permission Overreach (Action) and Data Over-collection - A Daily Standup/planning skill designed to analyze task status from Notion requests access to local system logs (`logs/`) and temporary files (`@temp/`) for \"context analysis.\" These file system accesses are unrelated to its primary purpose of querying a task management system (Notion MCP) and represent unnecessary data collection that could expose sensitive system or application information not relevant to daily planning.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach (Action)",
+        "Permission Overreach",
+        "Data Over-collection"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

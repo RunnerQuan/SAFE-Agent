@@ -1,0 +1,2 @@
+# Confluence Skill Dependencies
+python-dotenv>=1.0.0  # For proper .env file parsing with export syntax support

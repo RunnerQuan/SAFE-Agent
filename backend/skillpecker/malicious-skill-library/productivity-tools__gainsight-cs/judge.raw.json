@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill description for a Gainsight customer success platform integration requests an excessive set of general-purpose tools (Read, Write, Glob, Grep, Bash, WebFetch). Access to tools like `Bash` (arbitrary command execution), `Write` (write to any file), and `Glob`/`Grep` (search entire filesystem) is unnecessary for the stated purpose of interacting with a specific API to retrieve health scores and success plans. This represents significant permission overreach beyond what is required for API integration tasks.",
+      "impact": "OVERREACH: Permission Overreach & Data Over-collection - The skill description for a Gainsight customer success platform integration requests an excessive set of general-purpose tools (Read, Write, Glob, Grep, Bash, WebFetch). Access to tools like `Bash` (arbitrary command execution), `Write` (write to any file), and `Glob`/`Grep` (search entire filesystem) is unnecessary for the stated purpose of interacting with a specific API to retrieve health scores and success plans. This represents significant permission overreach beyond what is required for API integration tasks.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Data Over-collection"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

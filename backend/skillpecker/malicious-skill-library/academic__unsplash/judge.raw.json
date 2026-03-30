@@ -1,0 +1,81 @@
+{
+  "verdict": {
+    "label": "unsafe",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "other",
+      "access-boundary-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "",
+      "class": "other",
+      "severity": "",
+      "conf": "",
+      "summary": "The configuration file `.claude-plugin/plugin.json` shows a contradictory authentication setup. It specifies browser-based authentication with `unsplash.com/login` as the login URL, yet simultaneously lists `UNSPLASH_EMAIL` and `UNSPLASH_PASSWORD` as required environment variables. This combination is unusual and may indicate an attempt to harvest credentials through environment variables while maintaining a facade of legitimate browser-based OAuth flow. Legitimate Unsplash integrations use API keys or OAuth tokens, not raw credentials. The configuration itself does not contain executable malicious code, but this pattern is suspicious and warrants further investigation of any accompanying executable code files not provided in this analysis.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "SUSPICIOUS",
+      "primary_group": "Other",
+      "scan_level": "Script Scan",
+      "risk_types": [],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_script_Marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": true,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    },
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "access-boundary-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill includes error handling that requires notifying via iMessage for login failures. This action of sending iMessage notifications is unrelated to the core functionality of searching, downloading, and managing Unsplash photos. Accessing or using the user's personal messaging service (iMessage) is excessive and not necessary for the stated purpose of accessing stock photos, potentially involving permission overreach to interact with personal data or applications.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Access Boundary Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

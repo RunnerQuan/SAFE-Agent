@@ -1,0 +1,54 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "data-over-collection",
+      "privilege-escalation",
+      "execution-system-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "execution-system-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill, described as a \"NAS metadata scraping\" tool, requests excessive system-level access and credentials that go far beyond simple metadata collection. It requires:\n\n1. **Excessive Binary Access**: Demands installation/access to Python, PHP, MySQL, PowerShell, and SSH - a full stack development suite unrelated to basic NAS metadata scraping.\n\n2. **Overbroad Credential Collection**: Requires both SMB credentials (NAS_USER, NAS_PASS) AND SSH credentials (NAS_SSH_USER, NAS_SSH_PASS) plus database passwords, creating multiple attack vectors when only one access method should be needed for read-only metadata.\n\n3. **Unnecessary System Integration**: Claims to generate and write PHP/AJAX dashboards to the user's local XAMPP directory (`C:\\xampp\\htdocs\\`), which constitutes system modification unrelated to data collection.\n\n4. **Privilege Escalation Concerns**: While claiming \"read-only\" access, it performs deep system inspection via SSH (checking RAID status, Btrfs integrity, parsing SQLite databases) that requires elevated privileges beyond simple file metadata collection.\n\n5. **Mission Creep**: Poses as a \"versatile Coder, Project Manager, and System Architect\" with broad development capabilities (web dev, data analysis, business analysis) that far exceed the stated \"metadata scraping\" purpose, suggesting it may perform unauthorized system analysis or development tasks.\n\nThe combination of multiple credential types, full development toolchain access, system writing permissions, and broad operational scope represents significant overreach for a tool claiming to be a simple metadata scraper with \"strict read-only safety.\"",
+      "impact": "OVERREACH: Permission Overreach & Data Over-collection - The skill, described as a \"NAS metadata scraping\" tool, requests excessive system-level access and credentials that go far beyond simple metadata collection. It requires:\n\n1. **Excessive Binary Access**: Demands installation/access to Python, PHP, MySQL, PowerShell, and SSH - a full stack development suite unrelated to basic NAS metadata scraping.\n\n2. **Overbroad Credential Collection**: Requires both SMB credentials (NAS_USER, NAS_PASS) AND SSH credentials (NAS_SSH_USER, NAS_SSH_PASS) plus database passwords, creating multiple attack vectors when only one access method should be needed for read-only metadata.\n\n3. **Unnecessary System Integration**: Claims to generate and write PHP/AJAX dashboards to the user's local XAMPP directory (`C:\\xampp\\htdocs\\`), which constitutes system modification unrelated to data collection.\n\n4. **Privilege Escalation Concerns**: While claiming \"read-only\" access, it performs deep system inspection via SSH (checking RAID status, Btrfs integrity, parsing SQLite databases) that requires elevated privileges beyond simple file metadata collection.\n\n5. **Mission Creep**: Poses as a \"versatile Coder, Project Manager, and System Architect\" with broad development capabilities (web dev, data analysis, business analysis) that far exceed the stated \"metadata scraping\" purpose, suggesting it may perform unauthorized system analysis or development tasks.\n\nThe combination of multiple credential types, full development toolchain access, system writing permissions, and broad operational scope represents significant overreach for a tool claiming to be a simple metadata scraper with \"strict read-only safety.\"",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Execution / System Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Data Over-collection",
+        "Privilege Escalation"
+      ],
+      "source_platform": "Clawhub",
+      "source_file": "scan_results_description_clawhub.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": true,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

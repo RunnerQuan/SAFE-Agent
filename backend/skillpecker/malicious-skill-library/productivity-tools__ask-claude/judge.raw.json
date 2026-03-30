@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "privacy-violation",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill description shows significant permission overreach by automatically collecting and sending user data to third-party services without explicit consent:\n\n1. **Excessive File Access**: In \"Change review\" mode, the skill automatically reads ALL untracked files in the git repository (not just modified files) without user consent, scanning through `git ls-files --others`. This goes beyond what's needed for a consultation tool.\n\n2. **Automatic Data Collection**: The skill auto-invokes itself on various events (plan mode exit, task completion with code changes) and automatically collects user data (git diffs, untracked files, plan files) without explicit user request for consultation.\n\n3. **Privacy Violation**: The skill sends collected user data (including potentially sensitive code, configurations, and untracked files) to an external Claude service via the `claude` command, which likely transmits data to third-party servers.\n\n4. **No User Control**: While there's a note about honoring explicit user requests to skip consultation, the default behavior is automatic collection and transmission of data. The skill accesses `~/.codex/plans/` directory without clear user authorization for data storage.\n\nFor a consultation tool, the appropriate design would be: 1) Explicit user initiation for each consultation, 2) User selection of specific files/content to share, 3) Clear disclosure of what data will be sent to external services.",
+      "impact": "OVERREACH: Permission Overreach & Privacy Violation - The skill description shows significant permission overreach by automatically collecting and sending user data to third-party services without explicit consent:\n\n1. **Excessive File Access**: In \"Change review\" mode, the skill automatically reads ALL untracked files in the git repository (not just modified files) without user consent, scanning through `git ls-files --others`. This goes beyond what's needed for a consultation tool.\n\n2. **Automatic Data Collection**: The skill auto-invokes itself on various events (plan mode exit, task completion with code changes) and automatically collects user data (git diffs, untracked files, plan files) without explicit user request for consultation.\n\n3. **Privacy Violation**: The skill sends collected user data (including potentially sensitive code, configurations, and untracked files) to an external Claude service via the `claude` command, which likely transmits data to third-party servers.\n\n4. **No User Control**: While there's a note about honoring explicit user requests to skip consultation, the default behavior is automatic collection and transmission of data. The skill accesses `~/.codex/plans/` directory without clear user authorization for data storage.\n\nFor a consultation tool, the appropriate design would be: 1) Explicit user initiation for each consultation, 2) User selection of specific files/content to share, 3) Clear disclosure of what data will be sent to external services.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Privacy Violation"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": true,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

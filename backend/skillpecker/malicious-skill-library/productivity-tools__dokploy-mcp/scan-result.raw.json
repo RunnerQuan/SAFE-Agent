@@ -1,0 +1,228 @@
+{
+  "preprocess": {
+    "skill": {
+      "root": "C:\\Files\\Study\\Codes\\Skill-Scan\\malicious-skill-library\\productivity-tools__dokploy-mcp",
+      "claims": [
+        "Looking at the provided `metadata.json` file, I need to analyze this single file for any indications of malicious behavior. The file is purely metadata/configuration for a \"dokploy-mcp\" skill.\n\n**Analysis:**\n\n1. **File Content**: This is a JSON metadata file describing a deployment management tool that integrates with Dokploy MCP server.\n2. **Author Field**: The author is listed as \"Claude Command and Control\" - this name is suspicious as it contains \"Command and Control\" (C2), which is a term strongly associated with malware infrastructure.\n3. **No Executable Code**: The file contains only descriptive metadata - no actual code, functions, or logic that could execute malicious actions.\n4. **Repository Information**: Points to legitimate-looking GitHub repositories (`andradehenrique/dokploy-mcp` and `Dokploy/mcp`).\n5. **Requirements**: Lists standard environment variables (`DOKPLOY_URL`, `DOKPLOY_API_KEY`) and an MCP server dependency.\n\n**Assessment:**\n\nThe author name \"Claude Command and Control\" is highly suspicious terminology that mimics malware command and control infrastructure naming conventions. However, without any actual executable code to analyze (this is just metadata), I cannot definitively identify malicious logic. The metadata itself doesn't contain any:\n- Download/execution commands\n- Data exfiltration code\n- Encryption/decryption algorithms\n- Network calls\n- File system operations\n\nThe suspicious author name alone, without supporting malicious code, doesn't meet the threshold for a MALICIOUS classification based on the provided file.\n\n<result>SUSPICIOUS: Potential Social Engineering - The author field contains \"Command and Control\" terminology which is strongly associated with malware infrastructure. While the metadata file itself contains no executable malicious code, this naming convention raises red flags and suggests potential social engineering or imitation of legitimate tools."
+      ],
+      "observed_kinds": [
+        "spreadsheet",
+        "imported_scan_result"
+      ]
+    },
+    "artifacts": [],
+    "rule_hits": [],
+    "coverage_gaps": [],
+    "stats": {
+      "artifact_count": 0,
+      "rule_hit_count": 1,
+      "severity_counts": {},
+      "rule_code_counts": {}
+    }
+  },
+  "triage": {
+    "skill": {
+      "claims": [
+        "Looking at the provided `metadata.json` file, I need to analyze this single file for any indications of malicious behavior. The file is purely metadata/configuration for a \"dokploy-mcp\" skill.\n\n**Analysis:**\n\n1. **File Content**: This is a JSON metadata file describing a deployment management tool that integrates with Dokploy MCP server.\n2. **Author Field**: The author is listed as \"Claude Command and Control\" - this name is suspicious as it contains \"Command and Control\" (C2), which is a term strongly associated with malware infrastructure.\n3. **No Executable Code**: The file contains only descriptive metadata - no actual code, functions, or logic that could execute malicious actions.\n4. **Repository Information**: Points to legitimate-looking GitHub repositories (`andradehenrique/dokploy-mcp` and `Dokploy/mcp`).\n5. **Requirements**: Lists standard environment variables (`DOKPLOY_URL`, `DOKPLOY_API_KEY`) and an MCP server dependency.\n\n**Assessment:**\n\nThe author name \"Claude Command and Control\" is highly suspicious terminology that mimics malware command and control infrastructure naming conventions. However, without any actual executable code to analyze (this is just metadata), I cannot definitively identify malicious logic. The metadata itself doesn't contain any:\n- Download/execution commands\n- Data exfiltration code\n- Encryption/decryption algorithms\n- Network calls\n- File system operations\n\nThe suspicious author name alone, without supporting malicious code, doesn't meet the threshold for a MALICIOUS classification based on the provided file.\n\n<result>SUSPICIOUS: Potential Social Engineering - The author field contains \"Command and Control\" terminology which is strongly associated with malware infrastructure. While the metadata file itself contains no executable malicious code, this naming convention raises red flags and suggests potential social engineering or imitation of legitimate tools."
+      ],
+      "obs": [
+        "Script Scan"
+      ],
+      "high_risk_features": [
+        "filesystem_access"
+      ]
+    },
+    "arts": [],
+    "xconcerns": [],
+    "retrieve": [],
+    "coverage": {
+      "total": 1,
+      "indexed": 1,
+      "gaps": []
+    }
+  },
+  "security": {
+    "findings": [
+      {
+        "id": "",
+        "cat": "data-exfiltration",
+        "class": "data-governance-risk",
+        "severity": "",
+        "conf": "",
+        "summary": "The author field contains \"Command and Control\" terminology which is strongly associated with malware infrastructure. While the metadata file itself contains no executable malicious code, this naming convention raises red flags and suggests potential social engineering or imitation of legitimate tools.",
+        "arts": [],
+        "spans": [],
+        "impact": "",
+        "fix": "",
+        "decision_level": "",
+        "primary_group": "Data Governance Risk",
+        "scan_level": "Script Scan",
+        "risk_types": [
+          "Data Exfiltration"
+        ],
+        "source_platform": "Marketplace",
+        "source_file": "scan_results_script_Marketplace.csv",
+        "related_file_count": "1",
+        "flags": {
+          "external_server": false,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": true,
+          "shell_or_command_execution": false,
+          "driver_or_installer": false,
+          "credential_request": false,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": false
+        }
+      }
+    ],
+    "ctx_requests": [],
+    "coverage": {
+      "reviewed_arts": [],
+      "unresolved_high_risk_arts": []
+    }
+  },
+  "judge": {
+    "verdict": {
+      "label": "insufficient_evidence",
+      "primary_concern": "data-exfiltration",
+      "issue_types": [
+        "data-exfiltration",
+        "data-governance-risk"
+      ]
+    },
+    "top_findings": [
+      {
+        "id": "",
+        "cat": "data-exfiltration",
+        "class": "data-governance-risk",
+        "severity": "",
+        "conf": "",
+        "summary": "The author field contains \"Command and Control\" terminology which is strongly associated with malware infrastructure. While the metadata file itself contains no executable malicious code, this naming convention raises red flags and suggests potential social engineering or imitation of legitimate tools.",
+        "impact": "",
+        "fix": "",
+        "decision_level": "",
+        "primary_group": "Data Governance Risk",
+        "scan_level": "Script Scan",
+        "risk_types": [
+          "Data Exfiltration"
+        ],
+        "source_platform": "Marketplace",
+        "source_file": "scan_results_script_Marketplace.csv",
+        "related_file_count": "1",
+        "flags": {
+          "external_server": false,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": true,
+          "shell_or_command_execution": false,
+          "driver_or_installer": false,
+          "credential_request": false,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": false
+        },
+        "spans": []
+      }
+    ],
+    "coverage_audit": {
+      "adequate": true,
+      "missed": [],
+      "needs_rescan": false
+    },
+    "next_action": "stop"
+  },
+  "excel_import": {
+    "record_count": 1,
+    "headers": [
+      "一级分类_判定级别",
+      "二级分类_主问题组",
+      "风险类型汇总",
+      "风险类型1",
+      "风险类型2",
+      "风险类型3",
+      "风险类型4",
+      "来源平台",
+      "扫描层级",
+      "原始业务分类",
+      "skill_name",
+      "关联文件数",
+      "原始来源文件",
+      "问题摘要",
+      "原始verdict",
+      "flag_外部服务器",
+      "flag_APIKey",
+      "flag_自治执行",
+      "flag_浏览器会话/凭据",
+      "flag_文件系统访问",
+      "flag_Shell/命令执行",
+      "flag_驱动/安装器",
+      "flag_凭据请求",
+      "flag_混淆/规避",
+      "flag_持久化/外部存储",
+      "清洗后原始说明"
+    ],
+    "records": [
+      {
+        "classification": {
+          "decision_level": "",
+          "primary_group": "Data Governance Risk",
+          "risk_summary": "Data Exfiltration",
+          "risk_types": [
+            "Data Exfiltration"
+          ],
+          "platform": "Marketplace",
+          "scan_level": "Script Scan",
+          "business_category": "productivity-tools",
+          "skill_name": "dokploy-mcp",
+          "related_file_count": "1",
+          "source_file": "scan_results_script_Marketplace.csv",
+          "problem_summary": "The author field contains \"Command and Control\" terminology which is strongly associated with malware infrastructure. While the metadata file itself contains no executable malicious code, this naming convention raises red flags and suggests potential social engineering or imitation of legitimate tools.",
+          "raw_verdict": "SUSPICIOUS: Potential Social Engineering - The author field contains \"Command and Control\" terminology which is strongly associated with malware infrastructure. While the metadata file itself contains no executable malicious code, this naming convention raises red flags and suggests potential social engineering or imitation of legitimate tools.",
+          "cleaned_description": "Looking at the provided `metadata.json` file, I need to analyze this single file for any indications of malicious behavior. The file is purely metadata/configuration for a \"dokploy-mcp\" skill.\n\n**Analysis:**\n\n1. **File Content**: This is a JSON metadata file describing a deployment management tool that integrates with Dokploy MCP server.\n2. **Author Field**: The author is listed as \"Claude Command and Control\" - this name is suspicious as it contains \"Command and Control\" (C2), which is a term strongly associated with malware infrastructure.\n3. **No Executable Code**: The file contains only descriptive metadata - no actual code, functions, or logic that could execute malicious actions.\n4. **Repository Information**: Points to legitimate-looking GitHub repositories (`andradehenrique/dokploy-mcp` and `Dokploy/mcp`).\n5. **Requirements**: Lists standard environment variables (`DOKPLOY_URL`, `DOKPLOY_API_KEY`) and an MCP server dependency.\n\n**Assessment:**\n\nThe author name \"Claude Command and Control\" is highly suspicious terminology that mimics malware command and control infrastructure naming conventions. However, without any actual executable code to analyze (this is just metadata), I cannot definitively identify malicious logic. The metadata itself doesn't contain any:\n- Download/execution commands\n- Data exfiltration code\n- Encryption/decryption algorithms\n- Network calls\n- File system operations\n\nThe suspicious author name alone, without supporting malicious code, doesn't meet the threshold for a MALICIOUS classification based on the provided file.\n\n<result>SUSPICIOUS: Potential Social Engineering - The author field contains \"Command and Control\" terminology which is strongly associated with malware infrastructure. While the metadata file itself contains no executable malicious code, this naming convention raises red flags and suggests potential social engineering or imitation of legitimate tools.",
+          "flags": {
+            "external_server": false,
+            "api_key": false,
+            "autonomous_execution": false,
+            "browser_session_or_credentials": false,
+            "filesystem_access": true,
+            "shell_or_command_execution": false,
+            "driver_or_installer": false,
+            "credential_request": false,
+            "obfuscation_or_evasion": false,
+            "persistence_or_external_storage": false
+          }
+        },
+        "raw_values": {
+          "一级分类_判定级别": "",
+          "二级分类_主问题组": "Data Governance Risk",
+          "风险类型汇总": "Data Exfiltration",
+          "风险类型1": "Data Exfiltration",
+          "风险类型2": "",
+          "风险类型3": "",
+          "风险类型4": "",
+          "来源平台": "Marketplace",
+          "扫描层级": "Script Scan",
+          "原始业务分类": "productivity-tools",
+          "skill_name": "dokploy-mcp",
+          "关联文件数": 1,
+          "原始来源文件": "scan_results_script_Marketplace.csv",
+          "问题摘要": "The author field contains \"Command and Control\" terminology which is strongly associated with malware infrastructure. While the metadata file itself contains no executable malicious code, this naming convention raises red flags and suggests potential social engineering or imitation of legitimate tools.",
+          "原始verdict": "SUSPICIOUS: Potential Social Engineering - The author field contains \"Command and Control\" terminology which is strongly associated with malware infrastructure. While the metadata file itself contains no executable malicious code, this naming convention raises red flags and suggests potential social engineering or imitation of legitimate tools.",
+          "flag_外部服务器": "",
+          "flag_APIKey": "",
+          "flag_自治执行": "",
+          "flag_浏览器会话/凭据": "",
+          "flag_文件系统访问": "Y",
+          "flag_Shell/命令执行": "",
+          "flag_驱动/安装器": "",
+          "flag_凭据请求": "",
+          "flag_混淆/规避": "",
+          "flag_持久化/外部存储": "",
+          "清洗后原始说明": "Looking at the provided `metadata.json` file, I need to analyze this single file for any indications of malicious behavior. The file is purely metadata/configuration for a \"dokploy-mcp\" skill.\n\n**Analysis:**\n\n1. **File Content**: This is a JSON metadata file describing a deployment management tool that integrates with Dokploy MCP server.\n2. **Author Field**: The author is listed as \"Claude Command and Control\" - this name is suspicious as it contains \"Command and Control\" (C2), which is a term strongly associated with malware infrastructure.\n3. **No Executable Code**: The file contains only descriptive metadata - no actual code, functions, or logic that could execute malicious actions.\n4. **Repository Information**: Points to legitimate-looking GitHub repositories (`andradehenrique/dokploy-mcp` and `Dokploy/mcp`).\n5. **Requirements**: Lists standard environment variables (`DOKPLOY_URL`, `DOKPLOY_API_KEY`) and an MCP server dependency.\n\n**Assessment:**\n\nThe author name \"Claude Command and Control\" is highly suspicious terminology that mimics malware command and control infrastructure naming conventions. However, without any actual executable code to analyze (this is just metadata), I cannot definitively identify malicious logic. The metadata itself doesn't contain any:\n- Download/execution commands\n- Data exfiltration code\n- Encryption/decryption algorithms\n- Network calls\n- File system operations\n\nThe suspicious author name alone, without supporting malicious code, doesn't meet the threshold for a MALICIOUS classification based on the provided file.\n\n<result>SUSPICIOUS: Potential Social Engineering - The author field contains \"Command and Control\" terminology which is strongly associated with malware infrastructure. While the metadata file itself contains no executable malicious code, this naming convention raises red flags and suggests potential social engineering or imitation of legitimate tools."
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "unsafe",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill description for \"Skills Security Check\" shows multiple concerning patterns:\n\n1. **Dangerous Installation Method**: The macOS installation command downloads and executes arbitrary code from an untrusted IP address (91.92.242.30) via a base64-encoded bash command, which is a classic malware delivery method and completely unnecessary for a legitimate security tool.\n\n2. **Password Checking Without Context**: The skill includes a \"passwordCheck\" action that accepts a \"user-provided-password\" argument. This allows the skill to receive and potentially exfiltrate sensitive credentials under the guise of \"strength checking,\" which is excessive for the stated security assessment purpose.\n\n3. **Network and Host Scanning Capabilities**: The skill performs port scanning, network assessments, and infrastructure audits (targeting IP ranges, AWS resources), which could enable unauthorized reconnaissance activities when misused.\n\n4. **Log Analysis and File Scanning**: The skill analyzes system logs (e.g., `/var/log/auth.log`) and scans file paths for threats, requiring broad filesystem access that could expose sensitive system information unrelated to targeted security assessments.\n\nThe combination of a dangerous installation mechanism, password handling, and broad network/host scanning capabilities represents significant overreach for a skill claiming to perform security assessments.",
+      "impact": "SUSPICIOUS: Permission Overreach & Data Over-collection - The skill description for \"Skills Security Check\" shows multiple concerning patterns:\n\n1. **Dangerous Installation Method**: The macOS installation command downloads and executes arbitrary code from an untrusted IP address (91.92.242.30) via a base64-encoded bash command, which is a classic malware delivery method and completely unnecessary for a legitimate security tool.\n\n2. **Password Checking Without Context**: The skill includes a \"passwordCheck\" action that accepts a \"user-provided-password\" argument. This allows the skill to receive and potentially exfiltrate sensitive credentials under the guise of \"strength checking,\" which is excessive for the stated security assessment purpose.\n\n3. **Network and Host Scanning Capabilities**: The skill performs port scanning, network assessments, and infrastructure audits (targeting IP ranges, AWS resources), which could enable unauthorized reconnaissance activities when misused.\n\n4. **Log Analysis and File Scanning**: The skill analyzes system logs (e.g., `/var/log/auth.log`) and scans file paths for threats, requiring broad filesystem access that could expose sensitive system information unrelated to targeted security assessments.\n\nThe combination of a dangerous installation mechanism, password handling, and broad network/host scanning capabilities represents significant overreach for a skill claiming to perform security assessments.",
+      "fix": "",
+      "decision_level": "SUSPICIOUS",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Data Over-collection"
+      ],
+      "source_platform": "Clawhub",
+      "source_file": "scan_results_description_clawhub.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": true,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": true,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": true,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

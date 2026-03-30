@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "unsafe",
+    "primary_concern": "data-exfiltration",
+    "issue_types": [
+      "data-exfiltration",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-exfiltration",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "Detected in `clawbrain.py` and `brain/clawbrain.py`. The DEFAULT_CONFIG contains hardcoded PostgreSQL credentials (user: \"brain_user\", password: \"brain_secure_password_2024_rotated\") connecting to internal IP `192.168.4.176:5432`, and Redis connection to `192.168.4.175:6379`. While this appears to be local infrastructure configuration, the hardcoded internal IPs and credentials in a publicly distributed skill could be reconnaissance for lateral movement or internal network probing if deployed in victim environments. Additionally, the code collects extensive user profiling data (interests, communication patterns, emotional patterns, life context) which could be exfiltrated via these database connections. No explicit exfiltration to external C2 is present, but the hardcoded internal infrastructure access is highly suspicious for potential internal data harvesting.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "SUSPICIOUS",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Script Scan",
+      "risk_types": [
+        "Data Exfiltration"
+      ],
+      "source_platform": "Clawhub",
+      "source_file": "scan_results_script_clawhub.csv",
+      "related_file_count": "7",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

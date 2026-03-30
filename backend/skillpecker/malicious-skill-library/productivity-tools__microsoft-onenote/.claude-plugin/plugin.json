@@ -1,0 +1,7 @@
+{
+  "name": "canifi-skill-microsoft-onenote",
+  "description": "Enables Claude to create, organize, and manage notes in Microsoft OneNote via Playwright MCP",
+  "version": "1.0.0",
+  "author": "Canifi",
+  "homepage": "https://canifi.com/plugins/microsoft-onenote"
+}

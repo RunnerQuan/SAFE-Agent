@@ -1,0 +1,33 @@
+{
+  "name": "apple-fitness",
+  "displayName": "Apple Fitness+",
+  "version": "1.0.0",
+  "description": "Track workouts with Apple Fitness+ - view workout history, achievements, and activity data",
+  "author": "Canifi LifeOS",
+  "category": "Health & Fitness",
+  "authentication": {
+    "type": "browser",
+    "loginUrl": "https://fitness.apple.com",
+    "loggedInIndicator": "[data-testid='user-menu']"
+  },
+  "capabilities": [
+    "browse-workouts",
+    "view-categories",
+    "new-releases",
+    "trainer-info",
+    "subscription-status",
+    "browse-collections"
+  ],
+  "requiredEnvVars": [
+    "APPLE_EMAIL",
+    "APPLE_PASSWORD"
+  ],
+  "endpoints": {
+    "base": "https://fitness.apple.com",
+    "workouts": "https://fitness.apple.com/workouts"
+  },
+  "rateLimit": {
+    "requests": 30,
+    "period": "minute"
+  }
+}

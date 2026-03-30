@@ -1,0 +1,36 @@
+{
+  "name": "instagram",
+  "version": "1.0.0",
+  "description": "Automate Instagram posts, stories, and social engagement",
+  "author": "Canifi",
+  "category": "social-media",
+  "permissions": [
+    "browser",
+    "notifications",
+    "env-access"
+  ],
+  "triggers": [
+    "instagram",
+    "ig",
+    "instagram post",
+    "instagram story",
+    "post to instagram"
+  ],
+  "authentication": {
+    "type": "browser-session",
+    "loginUrl": "https://www.instagram.com/accounts/login/",
+    "sessionIndicator": "svg[aria-label='Home']"
+  },
+  "requiredEnvVars": [
+    "INSTAGRAM_USERNAME",
+    "INSTAGRAM_PASSWORD"
+  ],
+  "capabilities": {
+    "posts": true,
+    "stories": true,
+    "engagement": true,
+    "search": true,
+    "insights": true,
+    "collections": true
+  }
+}

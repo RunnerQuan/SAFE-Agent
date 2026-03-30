@@ -1,0 +1,230 @@
+{
+  "preprocess": {
+    "skill": {
+      "root": "C:\\Files\\Study\\Codes\\Skill-Scan\\malicious-skill-library\\fixtures__trigger-persistence-network",
+      "claims": [
+        "Detected in `daemon.sh`. The script establishes a persistent connection to a Command and Control (C2) server (`c2server.com`) by using `curl` to beacon to `/beacon` endpoint, then runs it in the background using `nohup` and `disown` to evade termination. This is characteristic of malware establishing C2 communication for remote command execution or data exfiltration."
+      ],
+      "observed_kinds": [
+        "spreadsheet",
+        "imported_scan_result"
+      ]
+    },
+    "artifacts": [],
+    "rule_hits": [],
+    "coverage_gaps": [],
+    "stats": {
+      "artifact_count": 0,
+      "rule_hit_count": 1,
+      "severity_counts": {},
+      "rule_code_counts": {}
+    }
+  },
+  "triage": {
+    "skill": {
+      "claims": [
+        "Detected in `daemon.sh`. The script establishes a persistent connection to a Command and Control (C2) server (`c2server.com`) by using `curl` to beacon to `/beacon` endpoint, then runs it in the background using `nohup` and `disown` to evade termination. This is characteristic of malware establishing C2 communication for remote command execution or data exfiltration."
+      ],
+      "obs": [
+        "Script Scan"
+      ],
+      "high_risk_features": [
+        "filesystem_access",
+        "persistence_or_external_storage",
+        "shell_or_command_execution"
+      ]
+    },
+    "arts": [],
+    "xconcerns": [],
+    "retrieve": [],
+    "coverage": {
+      "total": 1,
+      "indexed": 1,
+      "gaps": []
+    }
+  },
+  "security": {
+    "findings": [
+      {
+        "id": "",
+        "cat": "data-exfiltration",
+        "class": "active-malice",
+        "severity": "",
+        "conf": "",
+        "summary": "Detected in `daemon.sh`. The script establishes a persistent connection to a Command and Control (C2) server (`c2server.com`) by using `curl` to beacon to `/beacon` endpoint, then runs it in the background using `nohup` and `disown` to evade termination. This is characteristic of malware establishing C2 communication for remote command execution or data exfiltration.",
+        "arts": [],
+        "spans": [],
+        "impact": "",
+        "fix": "",
+        "decision_level": "MALICIOUS",
+        "primary_group": "Active Malice",
+        "scan_level": "Script Scan",
+        "risk_types": [
+          "Data Exfiltration"
+        ],
+        "source_platform": "Clawhub",
+        "source_file": "scan_results_script_clawhub.csv",
+        "related_file_count": "1",
+        "flags": {
+          "external_server": false,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": true,
+          "shell_or_command_execution": true,
+          "driver_or_installer": false,
+          "credential_request": false,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": true
+        }
+      }
+    ],
+    "ctx_requests": [],
+    "coverage": {
+      "reviewed_arts": [],
+      "unresolved_high_risk_arts": []
+    }
+  },
+  "judge": {
+    "verdict": {
+      "label": "malicious",
+      "primary_concern": "data-exfiltration",
+      "issue_types": [
+        "data-exfiltration",
+        "active-malice"
+      ]
+    },
+    "top_findings": [
+      {
+        "id": "",
+        "cat": "data-exfiltration",
+        "class": "active-malice",
+        "severity": "",
+        "conf": "",
+        "summary": "Detected in `daemon.sh`. The script establishes a persistent connection to a Command and Control (C2) server (`c2server.com`) by using `curl` to beacon to `/beacon` endpoint, then runs it in the background using `nohup` and `disown` to evade termination. This is characteristic of malware establishing C2 communication for remote command execution or data exfiltration.",
+        "impact": "",
+        "fix": "",
+        "decision_level": "MALICIOUS",
+        "primary_group": "Active Malice",
+        "scan_level": "Script Scan",
+        "risk_types": [
+          "Data Exfiltration"
+        ],
+        "source_platform": "Clawhub",
+        "source_file": "scan_results_script_clawhub.csv",
+        "related_file_count": "1",
+        "flags": {
+          "external_server": false,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": true,
+          "shell_or_command_execution": true,
+          "driver_or_installer": false,
+          "credential_request": false,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": true
+        },
+        "spans": []
+      }
+    ],
+    "coverage_audit": {
+      "adequate": true,
+      "missed": [],
+      "needs_rescan": false
+    },
+    "next_action": "stop"
+  },
+  "excel_import": {
+    "record_count": 1,
+    "headers": [
+      "一级分类_判定级别",
+      "二级分类_主问题组",
+      "风险类型汇总",
+      "风险类型1",
+      "风险类型2",
+      "风险类型3",
+      "风险类型4",
+      "来源平台",
+      "扫描层级",
+      "原始业务分类",
+      "skill_name",
+      "关联文件数",
+      "原始来源文件",
+      "问题摘要",
+      "原始verdict",
+      "flag_外部服务器",
+      "flag_APIKey",
+      "flag_自治执行",
+      "flag_浏览器会话/凭据",
+      "flag_文件系统访问",
+      "flag_Shell/命令执行",
+      "flag_驱动/安装器",
+      "flag_凭据请求",
+      "flag_混淆/规避",
+      "flag_持久化/外部存储",
+      "清洗后原始说明"
+    ],
+    "records": [
+      {
+        "classification": {
+          "decision_level": "MALICIOUS",
+          "primary_group": "Active Malice",
+          "risk_summary": "Data Exfiltration",
+          "risk_types": [
+            "Data Exfiltration"
+          ],
+          "platform": "Clawhub",
+          "scan_level": "Script Scan",
+          "business_category": "fixtures",
+          "skill_name": "trigger-persistence-network",
+          "related_file_count": "1",
+          "source_file": "scan_results_script_clawhub.csv",
+          "problem_summary": "Detected in `daemon.sh`. The script establishes a persistent connection to a Command and Control (C2) server (`c2server.com`) by using `curl` to beacon to `/beacon` endpoint, then runs it in the background using `nohup` and `disown` to evade termination. This is characteristic of malware establishing C2 communication for remote command execution or data exfiltration.",
+          "raw_verdict": "MALICIOUS: Core Malware Logic - Detected in `daemon.sh`. The script establishes a persistent connection to a Command and Control (C2) server (`c2server.com`) by using `curl` to beacon to `/beacon` endpoint, then runs it in the background using `nohup` and `disown` to evade termination. This is characteristic of malware establishing C2 communication for remote command execution or data exfiltration.",
+          "cleaned_description": "",
+          "flags": {
+            "external_server": false,
+            "api_key": false,
+            "autonomous_execution": false,
+            "browser_session_or_credentials": false,
+            "filesystem_access": true,
+            "shell_or_command_execution": true,
+            "driver_or_installer": false,
+            "credential_request": false,
+            "obfuscation_or_evasion": false,
+            "persistence_or_external_storage": true
+          }
+        },
+        "raw_values": {
+          "一级分类_判定级别": "MALICIOUS",
+          "二级分类_主问题组": "Active Malice",
+          "风险类型汇总": "Data Exfiltration",
+          "风险类型1": "Data Exfiltration",
+          "风险类型2": "",
+          "风险类型3": "",
+          "风险类型4": "",
+          "来源平台": "Clawhub",
+          "扫描层级": "Script Scan",
+          "原始业务分类": "fixtures",
+          "skill_name": "trigger-persistence-network",
+          "关联文件数": 1,
+          "原始来源文件": "scan_results_script_clawhub.csv",
+          "问题摘要": "Detected in `daemon.sh`. The script establishes a persistent connection to a Command and Control (C2) server (`c2server.com`) by using `curl` to beacon to `/beacon` endpoint, then runs it in the background using `nohup` and `disown` to evade termination. This is characteristic of malware establishing C2 communication for remote command execution or data exfiltration.",
+          "原始verdict": "MALICIOUS: Core Malware Logic - Detected in `daemon.sh`. The script establishes a persistent connection to a Command and Control (C2) server (`c2server.com`) by using `curl` to beacon to `/beacon` endpoint, then runs it in the background using `nohup` and `disown` to evade termination. This is characteristic of malware establishing C2 communication for remote command execution or data exfiltration.",
+          "flag_外部服务器": "",
+          "flag_APIKey": "",
+          "flag_自治执行": "",
+          "flag_浏览器会话/凭据": "",
+          "flag_文件系统访问": "Y",
+          "flag_Shell/命令执行": "Y",
+          "flag_驱动/安装器": "",
+          "flag_凭据请求": "",
+          "flag_混淆/规避": "",
+          "flag_持久化/外部存储": "Y",
+          "清洗后原始说明": "MALICIOUS: Core Malware Logic - Detected in `daemon.sh`. The script establishes a persistent connection to a Command and Control (C2) server (`c2server.com`) by using `curl` to beacon to `/beacon` endpoint, then runs it in the background using `nohup` and `disown` to evade termination. This is characteristic of malware establishing C2 communication for remote command execution or data exfiltration."
+        }
+      }
+    ]
+  }
+}

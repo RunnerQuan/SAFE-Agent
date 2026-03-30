@@ -1,0 +1,228 @@
+{
+  "preprocess": {
+    "skill": {
+      "root": "C:\\Files\\Study\\Codes\\Skill-Scan\\malicious-skill-library\\Unknown__marketing-mode_TheSethRose",
+      "claims": [
+        "The skill's documentation requires Node.js and npm installation, which are unnecessary for a purely knowledge-based marketing advice tool. These dependencies suggest potential code execution capabilities that exceed the stated purpose of providing marketing frameworks, strategies, and text-based advice. Such requirements could enable arbitrary code execution or external network access not justified by the skill's described functionality."
+      ],
+      "observed_kinds": [
+        "spreadsheet",
+        "imported_scan_result"
+      ]
+    },
+    "artifacts": [],
+    "rule_hits": [],
+    "coverage_gaps": [],
+    "stats": {
+      "artifact_count": 0,
+      "rule_hit_count": 1,
+      "severity_counts": {},
+      "rule_code_counts": {}
+    }
+  },
+  "triage": {
+    "skill": {
+      "claims": [
+        "The skill's documentation requires Node.js and npm installation, which are unnecessary for a purely knowledge-based marketing advice tool. These dependencies suggest potential code execution capabilities that exceed the stated purpose of providing marketing frameworks, strategies, and text-based advice. Such requirements could enable arbitrary code execution or external network access not justified by the skill's described functionality."
+      ],
+      "obs": [
+        "Description Scan"
+      ],
+      "high_risk_features": [
+        "shell_or_command_execution"
+      ]
+    },
+    "arts": [],
+    "xconcerns": [],
+    "retrieve": [],
+    "coverage": {
+      "total": 1,
+      "indexed": 1,
+      "gaps": []
+    }
+  },
+  "security": {
+    "findings": [
+      {
+        "id": "",
+        "cat": "permission-overreach",
+        "class": "access-boundary-risk",
+        "severity": "",
+        "conf": "",
+        "summary": "The skill's documentation requires Node.js and npm installation, which are unnecessary for a purely knowledge-based marketing advice tool. These dependencies suggest potential code execution capabilities that exceed the stated purpose of providing marketing frameworks, strategies, and text-based advice. Such requirements could enable arbitrary code execution or external network access not justified by the skill's described functionality.",
+        "arts": [],
+        "spans": [],
+        "impact": "",
+        "fix": "",
+        "decision_level": "OVERREACH",
+        "primary_group": "Access Boundary Risk",
+        "scan_level": "Description Scan",
+        "risk_types": [
+          "Permission Overreach"
+        ],
+        "source_platform": "Clawhub",
+        "source_file": "scan_results_description_clawhub.csv",
+        "related_file_count": "3",
+        "flags": {
+          "external_server": false,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": false,
+          "shell_or_command_execution": true,
+          "driver_or_installer": false,
+          "credential_request": false,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": false
+        }
+      }
+    ],
+    "ctx_requests": [],
+    "coverage": {
+      "reviewed_arts": [],
+      "unresolved_high_risk_arts": []
+    }
+  },
+  "judge": {
+    "verdict": {
+      "label": "mixed_risk",
+      "primary_concern": "permission-overreach",
+      "issue_types": [
+        "permission-overreach",
+        "access-boundary-risk"
+      ]
+    },
+    "top_findings": [
+      {
+        "id": "",
+        "cat": "permission-overreach",
+        "class": "access-boundary-risk",
+        "severity": "",
+        "conf": "",
+        "summary": "The skill's documentation requires Node.js and npm installation, which are unnecessary for a purely knowledge-based marketing advice tool. These dependencies suggest potential code execution capabilities that exceed the stated purpose of providing marketing frameworks, strategies, and text-based advice. Such requirements could enable arbitrary code execution or external network access not justified by the skill's described functionality.",
+        "impact": "",
+        "fix": "",
+        "decision_level": "OVERREACH",
+        "primary_group": "Access Boundary Risk",
+        "scan_level": "Description Scan",
+        "risk_types": [
+          "Permission Overreach"
+        ],
+        "source_platform": "Clawhub",
+        "source_file": "scan_results_description_clawhub.csv",
+        "related_file_count": "3",
+        "flags": {
+          "external_server": false,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": false,
+          "shell_or_command_execution": true,
+          "driver_or_installer": false,
+          "credential_request": false,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": false
+        },
+        "spans": []
+      }
+    ],
+    "coverage_audit": {
+      "adequate": true,
+      "missed": [],
+      "needs_rescan": false
+    },
+    "next_action": "stop"
+  },
+  "excel_import": {
+    "record_count": 1,
+    "headers": [
+      "一级分类_判定级别",
+      "二级分类_主问题组",
+      "风险类型汇总",
+      "风险类型1",
+      "风险类型2",
+      "风险类型3",
+      "风险类型4",
+      "来源平台",
+      "扫描层级",
+      "原始业务分类",
+      "skill_name",
+      "关联文件数",
+      "原始来源文件",
+      "问题摘要",
+      "原始verdict",
+      "flag_外部服务器",
+      "flag_APIKey",
+      "flag_自治执行",
+      "flag_浏览器会话/凭据",
+      "flag_文件系统访问",
+      "flag_Shell/命令执行",
+      "flag_驱动/安装器",
+      "flag_凭据请求",
+      "flag_混淆/规避",
+      "flag_持久化/外部存储",
+      "清洗后原始说明"
+    ],
+    "records": [
+      {
+        "classification": {
+          "decision_level": "OVERREACH",
+          "primary_group": "Access Boundary Risk",
+          "risk_summary": "Permission Overreach",
+          "risk_types": [
+            "Permission Overreach"
+          ],
+          "platform": "Clawhub",
+          "scan_level": "Description Scan",
+          "business_category": "Unknown",
+          "skill_name": "marketing-mode_TheSethRose",
+          "related_file_count": "3",
+          "source_file": "scan_results_description_clawhub.csv",
+          "problem_summary": "The skill's documentation requires Node.js and npm installation, which are unnecessary for a purely knowledge-based marketing advice tool. These dependencies suggest potential code execution capabilities that exceed the stated purpose of providing marketing frameworks, strategies, and text-based advice. Such requirements could enable arbitrary code execution or external network access not justified by the skill's described functionality.",
+          "raw_verdict": "OVERREACH: Permission Overreach - The skill's documentation requires Node.js and npm installation, which are unnecessary for a purely knowledge-based marketing advice tool. These dependencies suggest potential code execution capabilities that exceed the stated purpose of providing marketing frameworks, strategies, and text-based advice. Such requirements could enable arbitrary code execution or external network access not justified by the skill's described functionality.",
+          "cleaned_description": "",
+          "flags": {
+            "external_server": false,
+            "api_key": false,
+            "autonomous_execution": false,
+            "browser_session_or_credentials": false,
+            "filesystem_access": false,
+            "shell_or_command_execution": true,
+            "driver_or_installer": false,
+            "credential_request": false,
+            "obfuscation_or_evasion": false,
+            "persistence_or_external_storage": false
+          }
+        },
+        "raw_values": {
+          "一级分类_判定级别": "OVERREACH",
+          "二级分类_主问题组": "Access Boundary Risk",
+          "风险类型汇总": "Permission Overreach",
+          "风险类型1": "Permission Overreach",
+          "风险类型2": "",
+          "风险类型3": "",
+          "风险类型4": "",
+          "来源平台": "Clawhub",
+          "扫描层级": "Description Scan",
+          "原始业务分类": "Unknown",
+          "skill_name": "marketing-mode_TheSethRose",
+          "关联文件数": 3,
+          "原始来源文件": "scan_results_description_clawhub.csv",
+          "问题摘要": "The skill's documentation requires Node.js and npm installation, which are unnecessary for a purely knowledge-based marketing advice tool. These dependencies suggest potential code execution capabilities that exceed the stated purpose of providing marketing frameworks, strategies, and text-based advice. Such requirements could enable arbitrary code execution or external network access not justified by the skill's described functionality.",
+          "原始verdict": "OVERREACH: Permission Overreach - The skill's documentation requires Node.js and npm installation, which are unnecessary for a purely knowledge-based marketing advice tool. These dependencies suggest potential code execution capabilities that exceed the stated purpose of providing marketing frameworks, strategies, and text-based advice. Such requirements could enable arbitrary code execution or external network access not justified by the skill's described functionality.",
+          "flag_外部服务器": "",
+          "flag_APIKey": "",
+          "flag_自治执行": "",
+          "flag_浏览器会话/凭据": "",
+          "flag_文件系统访问": "",
+          "flag_Shell/命令执行": "Y",
+          "flag_驱动/安装器": "",
+          "flag_凭据请求": "",
+          "flag_混淆/规避": "",
+          "flag_持久化/外部存储": "",
+          "清洗后原始说明": "OVERREACH: Permission Overreach - The skill's documentation requires Node.js and npm installation, which are unnecessary for a purely knowledge-based marketing advice tool. These dependencies suggest potential code execution capabilities that exceed the stated purpose of providing marketing frameworks, strategies, and text-based advice. Such requirements could enable arbitrary code execution or external network access not justified by the skill's described functionality."
+        }
+      }
+    ]
+  }
+}

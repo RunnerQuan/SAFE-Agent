@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "malicious",
+    "primary_concern": "trojan-downloader",
+    "issue_types": [
+      "trojan-downloader",
+      "active-malice"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "trojan-downloader",
+      "class": "active-malice",
+      "severity": "",
+      "conf": "",
+      "summary": "Detected in `scripts/run.sh`. The code uses the classic \"curl pipe to shell\" pattern for remote code execution without user verification. The script downloads and executes a binary from GitHub (https://github.com/runkids/skillshare) with automatic updates. While GitHub repositories can be legitimate, this pattern is inherently dangerous because: 1) It executes arbitrary code from the internet without integrity checks or user confirmation. 2) The script contains no cryptographic verification (checksums, signatures) of the downloaded binary. 3) It uses the exact pattern shown in malicious examples (curl -fsSL [URL] | sh). 4) The auto-update mechanism could be used to push malicious updates later. This matches the \"Trojan Downloader\" category as it downloads and executes external binaries.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "MALICIOUS",
+      "primary_group": "Active Malice",
+      "scan_level": "Script Scan",
+      "risk_types": [
+        "Trojan Downloader"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_script_Marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": true,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

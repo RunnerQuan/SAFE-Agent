@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach-action",
+    "issue_types": [
+      "permission-overreach-action",
+      "permission-overreach",
+      "access-boundary-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach-action",
+      "class": "access-boundary-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill's mandatory \"LIBRARY-FIRST PROTOCOL\" requires reading from specific directories (`.claude/library/catalog.json`, `.claude/docs/inventories/LIBRARY-PATTERNS-GUIDE.md`, and `D:\\Projects\\*`) before executing any code in the sandbox. This involves accessing files potentially outside the current working directory (CWD), such as a different drive (`D:\\Projects\\*`), which contradicts the stated isolation principle of \"CWD only\" and is not directly necessary for the primary purpose of running code in a fully isolated sandbox for safe experimentation. While code reuse may be a feature, requesting broad access to external project directories and libraries exceeds what is minimally required for sandbox execution and could expose sensitive user data unrelated to the task.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Access Boundary Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach (Action)",
+        "Permission Overreach"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

@@ -1,0 +1,33 @@
+{
+  "name": "one-medical",
+  "displayName": "One Medical",
+  "version": "1.0.0",
+  "description": "Access primary care with One Medical - view appointments, message providers, and access health records",
+  "author": "Canifi LifeOS",
+  "category": "Healthcare & Telehealth",
+  "authentication": {
+    "type": "browser",
+    "loginUrl": "https://www.onemedical.com/login",
+    "loggedInIndicator": "[data-testid='user-menu']"
+  },
+  "capabilities": [
+    "view-appointments",
+    "visit-history",
+    "lab-results",
+    "message-inbox",
+    "care-team",
+    "health-records"
+  ],
+  "requiredEnvVars": [
+    "ONEMEDICAL_EMAIL",
+    "ONEMEDICAL_PASSWORD"
+  ],
+  "endpoints": {
+    "base": "https://www.onemedical.com",
+    "patient": "https://patient.onemedical.com"
+  },
+  "rateLimit": {
+    "requests": 60,
+    "period": "minute"
+  }
+}

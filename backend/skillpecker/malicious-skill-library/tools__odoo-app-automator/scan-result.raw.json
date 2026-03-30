@@ -1,0 +1,221 @@
+{
+  "preprocess": {
+    "skill": {
+      "root": "C:\\Files\\Study\\Codes\\Skill-Scan\\malicious-skill-library\\tools__odoo-app-automator",
+      "claims": [
+        "I cannot analyze the skill's code because only a directory path was provided without actual file contents. The input shows:\n\n```\n=== FILE: odoo-app-automator-final ===\n../../docs/claude-code-skills/community/odoo-app-automator-final\n```\n\nThis appears to be a file path reference rather than actual source code content. To perform a proper security analysis, I need the actual source code files (e.g., JavaScript, Python, Bash, configuration files) that would be contained in that directory.\n\n<result>SUSPICIOUS: Insufficient Information - No source code was provided for analysis. Only a directory path was given, which prevents comprehensive security review. To determine if this skill is safe or malicious, I would need to examine the actual source code files that would be located at this path."
+      ],
+      "observed_kinds": [
+        "spreadsheet",
+        "imported_scan_result"
+      ]
+    },
+    "artifacts": [],
+    "rule_hits": [],
+    "coverage_gaps": [],
+    "stats": {
+      "artifact_count": 0,
+      "rule_hit_count": 1,
+      "severity_counts": {},
+      "rule_code_counts": {}
+    }
+  },
+  "triage": {
+    "skill": {
+      "claims": [
+        "I cannot analyze the skill's code because only a directory path was provided without actual file contents. The input shows:\n\n```\n=== FILE: odoo-app-automator-final ===\n../../docs/claude-code-skills/community/odoo-app-automator-final\n```\n\nThis appears to be a file path reference rather than actual source code content. To perform a proper security analysis, I need the actual source code files (e.g., JavaScript, Python, Bash, configuration files) that would be contained in that directory.\n\n<result>SUSPICIOUS: Insufficient Information - No source code was provided for analysis. Only a directory path was given, which prevents comprehensive security review. To determine if this skill is safe or malicious, I would need to examine the actual source code files that would be located at this path."
+      ],
+      "obs": [
+        "Script Scan"
+      ],
+      "high_risk_features": [
+        "filesystem_access"
+      ]
+    },
+    "arts": [],
+    "xconcerns": [],
+    "retrieve": [],
+    "coverage": {
+      "total": 1,
+      "indexed": 1,
+      "gaps": []
+    }
+  },
+  "security": {
+    "findings": [
+      {
+        "id": "",
+        "cat": "",
+        "class": "other",
+        "severity": "",
+        "conf": "",
+        "summary": "No source code was provided for analysis. Only a directory path was given, which prevents comprehensive security review. To determine if this skill is safe or malicious, I would need to examine the actual source code files that would be located at this path.",
+        "arts": [],
+        "spans": [],
+        "impact": "",
+        "fix": "",
+        "decision_level": "",
+        "primary_group": "Other",
+        "scan_level": "Script Scan",
+        "risk_types": [],
+        "source_platform": "Marketplace",
+        "source_file": "scan_results_script_Marketplace.csv",
+        "related_file_count": "1",
+        "flags": {
+          "external_server": false,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": true,
+          "shell_or_command_execution": false,
+          "driver_or_installer": false,
+          "credential_request": false,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": false
+        }
+      }
+    ],
+    "ctx_requests": [],
+    "coverage": {
+      "reviewed_arts": [],
+      "unresolved_high_risk_arts": []
+    }
+  },
+  "judge": {
+    "verdict": {
+      "label": "insufficient_evidence",
+      "primary_concern": "other",
+      "issue_types": [
+        "other"
+      ]
+    },
+    "top_findings": [
+      {
+        "id": "",
+        "cat": "",
+        "class": "other",
+        "severity": "",
+        "conf": "",
+        "summary": "No source code was provided for analysis. Only a directory path was given, which prevents comprehensive security review. To determine if this skill is safe or malicious, I would need to examine the actual source code files that would be located at this path.",
+        "impact": "",
+        "fix": "",
+        "decision_level": "",
+        "primary_group": "Other",
+        "scan_level": "Script Scan",
+        "risk_types": [],
+        "source_platform": "Marketplace",
+        "source_file": "scan_results_script_Marketplace.csv",
+        "related_file_count": "1",
+        "flags": {
+          "external_server": false,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": true,
+          "shell_or_command_execution": false,
+          "driver_or_installer": false,
+          "credential_request": false,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": false
+        },
+        "spans": []
+      }
+    ],
+    "coverage_audit": {
+      "adequate": true,
+      "missed": [],
+      "needs_rescan": false
+    },
+    "next_action": "stop"
+  },
+  "excel_import": {
+    "record_count": 1,
+    "headers": [
+      "一级分类_判定级别",
+      "二级分类_主问题组",
+      "风险类型汇总",
+      "风险类型1",
+      "风险类型2",
+      "风险类型3",
+      "风险类型4",
+      "来源平台",
+      "扫描层级",
+      "原始业务分类",
+      "skill_name",
+      "关联文件数",
+      "原始来源文件",
+      "问题摘要",
+      "原始verdict",
+      "flag_外部服务器",
+      "flag_APIKey",
+      "flag_自治执行",
+      "flag_浏览器会话/凭据",
+      "flag_文件系统访问",
+      "flag_Shell/命令执行",
+      "flag_驱动/安装器",
+      "flag_凭据请求",
+      "flag_混淆/规避",
+      "flag_持久化/外部存储",
+      "清洗后原始说明"
+    ],
+    "records": [
+      {
+        "classification": {
+          "decision_level": "",
+          "primary_group": "Other",
+          "risk_summary": "",
+          "risk_types": [],
+          "platform": "Marketplace",
+          "scan_level": "Script Scan",
+          "business_category": "tools",
+          "skill_name": "odoo-app-automator",
+          "related_file_count": "1",
+          "source_file": "scan_results_script_Marketplace.csv",
+          "problem_summary": "No source code was provided for analysis. Only a directory path was given, which prevents comprehensive security review. To determine if this skill is safe or malicious, I would need to examine the actual source code files that would be located at this path.",
+          "raw_verdict": "SUSPICIOUS: Insufficient Information - No source code was provided for analysis. Only a directory path was given, which prevents comprehensive security review. To determine if this skill is safe or malicious, I would need to examine the actual source code files that would be located at this path.",
+          "cleaned_description": "I cannot analyze the skill's code because only a directory path was provided without actual file contents. The input shows:\n\n```\n=== FILE: odoo-app-automator-final ===\n../../docs/claude-code-skills/community/odoo-app-automator-final\n```\n\nThis appears to be a file path reference rather than actual source code content. To perform a proper security analysis, I need the actual source code files (e.g., JavaScript, Python, Bash, configuration files) that would be contained in that directory.\n\n<result>SUSPICIOUS: Insufficient Information - No source code was provided for analysis. Only a directory path was given, which prevents comprehensive security review. To determine if this skill is safe or malicious, I would need to examine the actual source code files that would be located at this path.",
+          "flags": {
+            "external_server": false,
+            "api_key": false,
+            "autonomous_execution": false,
+            "browser_session_or_credentials": false,
+            "filesystem_access": true,
+            "shell_or_command_execution": false,
+            "driver_or_installer": false,
+            "credential_request": false,
+            "obfuscation_or_evasion": false,
+            "persistence_or_external_storage": false
+          }
+        },
+        "raw_values": {
+          "一级分类_判定级别": "",
+          "二级分类_主问题组": "Other",
+          "风险类型汇总": "",
+          "风险类型1": "",
+          "风险类型2": "",
+          "风险类型3": "",
+          "风险类型4": "",
+          "来源平台": "Marketplace",
+          "扫描层级": "Script Scan",
+          "原始业务分类": "tools",
+          "skill_name": "odoo-app-automator",
+          "关联文件数": 1,
+          "原始来源文件": "scan_results_script_Marketplace.csv",
+          "问题摘要": "No source code was provided for analysis. Only a directory path was given, which prevents comprehensive security review. To determine if this skill is safe or malicious, I would need to examine the actual source code files that would be located at this path.",
+          "原始verdict": "SUSPICIOUS: Insufficient Information - No source code was provided for analysis. Only a directory path was given, which prevents comprehensive security review. To determine if this skill is safe or malicious, I would need to examine the actual source code files that would be located at this path.",
+          "flag_外部服务器": "",
+          "flag_APIKey": "",
+          "flag_自治执行": "",
+          "flag_浏览器会话/凭据": "",
+          "flag_文件系统访问": "Y",
+          "flag_Shell/命令执行": "",
+          "flag_驱动/安装器": "",
+          "flag_凭据请求": "",
+          "flag_混淆/规避": "",
+          "flag_持久化/外部存储": "",
+          "清洗后原始说明": "I cannot analyze the skill's code because only a directory path was provided without actual file contents. The input shows:\n\n```\n=== FILE: odoo-app-automator-final ===\n../../docs/claude-code-skills/community/odoo-app-automator-final\n```\n\nThis appears to be a file path reference rather than actual source code content. To perform a proper security analysis, I need the actual source code files (e.g., JavaScript, Python, Bash, configuration files) that would be contained in that directory.\n\n<result>SUSPICIOUS: Insufficient Information - No source code was provided for analysis. Only a directory path was given, which prevents comprehensive security review. To determine if this skill is safe or malicious, I would need to examine the actual source code files that would be located at this path."
+        }
+      }
+    ]
+  }
+}

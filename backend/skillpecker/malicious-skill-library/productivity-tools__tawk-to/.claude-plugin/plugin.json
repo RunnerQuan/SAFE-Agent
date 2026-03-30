@@ -1,0 +1,35 @@
+{
+  "name": "tawk-to",
+  "version": "1.0.0",
+  "description": "Automate Tawk.to live chat and visitor engagement",
+  "author": "Canifi",
+  "category": "communication",
+  "permissions": [
+    "browser",
+    "notifications",
+    "env-access"
+  ],
+  "triggers": [
+    "tawk",
+    "tawk.to",
+    "tawkto",
+    "tawk chat"
+  ],
+  "authentication": {
+    "type": "browser-session",
+    "loginUrl": "https://dashboard.tawk.to",
+    "sessionIndicator": ".chat-container"
+  },
+  "requiredEnvVars": [
+    "TAWKTO_EMAIL",
+    "TAWKTO_PASSWORD"
+  ],
+  "capabilities": {
+    "liveChat": true,
+    "monitoring": true,
+    "shortcuts": true,
+    "transfers": true,
+    "ticketing": true,
+    "triggers": true
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "name": "fitbit",
+  "displayName": "Fitbit",
+  "version": "1.0.0",
+  "description": "Track health metrics with Fitbit - view activity, sleep, heart rate, and wellness data",
+  "author": "Canifi LifeOS",
+  "category": "Health & Fitness",
+  "authentication": {
+    "type": "browser",
+    "loginUrl": "https://www.fitbit.com/login",
+    "loggedInIndicator": "[data-testid='user-menu']"
+  },
+  "capabilities": [
+    "view-activity",
+    "check-sleep",
+    "heart-rate",
+    "step-counts",
+    "body-metrics",
+    "exercise-history"
+  ],
+  "requiredEnvVars": [
+    "FITBIT_EMAIL",
+    "FITBIT_PASSWORD"
+  ],
+  "endpoints": {
+    "base": "https://www.fitbit.com",
+    "dashboard": "https://www.fitbit.com/dashboard"
+  },
+  "rateLimit": {
+    "requests": 60,
+    "period": "minute"
+  }
+}

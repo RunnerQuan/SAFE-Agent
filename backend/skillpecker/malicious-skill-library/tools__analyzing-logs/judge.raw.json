@@ -1,0 +1,54 @@
+{
+  "verdict": {
+    "label": "insufficient_evidence",
+    "primary_concern": "supply-chain-attack",
+    "issue_types": [
+      "supply-chain-attack",
+      "reverse-shell",
+      "evasion-technique",
+      "execution-system-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "supply-chain-attack",
+      "class": "execution-system-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "Detected in all three files. The code exhibits template-based structure with placeholder comments (\"Add processing logic here\"), deceptive file extension (.sh file containing Python code in `aggregate_logs.sh`), and significant mismatch between described functionality (machine learning anomaly detection) and actual implementation (basic file I/O). This pattern is consistent with malicious skill frameworks that use generic templates to bypass initial security reviews before injecting actual malicious payloads. The recursive file traversal (`rglob('*')`) capability could be weaponized for data collection if combined with exfiltration logic in future modifications.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "",
+      "primary_group": "Execution / System Risk",
+      "scan_level": "Script Scan",
+      "risk_types": [
+        "Supply Chain Attack",
+        "Reverse Shell",
+        "Evasion Technique"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_script_Marketplace.csv",
+      "related_file_count": "3",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": true,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

@@ -1,0 +1,47 @@
+{
+  "verdict": {
+    "label": "unsafe",
+    "primary_concern": "other",
+    "issue_types": [
+      "other"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "",
+      "class": "other",
+      "severity": "",
+      "conf": "",
+      "summary": "The single-line script `detect-mainline.sh` contains a relative path `../../../scripts/detect-mainline.sh` that attempts to execute a script located outside the current skill's directory structure. This pattern is suspicious because:\n1. It attempts to traverse three directories upward (potentially escaping the skill's sandbox/container).\n2. It references a script with the same name in a parent directory, which could be an attempt to hijack or override legitimate functionality.\n3. The referenced external script's content is unknown and could contain malicious logic not visible in the provided files.\nWhile not definitively malicious without seeing the target script, this behavior matches evasion patterns where skills attempt to execute unauthorized external code.",
+      "impact": "SUSPICIOUS: Potential Sandbox Escape / Unauthorized Script Execution - The single-line script `detect-mainline.sh` contains a relative path `../../../scripts/detect-mainline.sh` that attempts to execute a script located outside the current skill's directory structure. This pattern is suspicious because:\n1. It attempts to traverse three directories upward (potentially escaping the skill's sandbox/container).\n2. It references a script with the same name in a parent directory, which could be an attempt to hijack or override legitimate functionality.\n3. The referenced external script's content is unknown and could contain malicious logic not visible in the provided files.\nWhile not definitively malicious without seeing the target script, this behavior matches evasion patterns where skills attempt to execute unauthorized external code.",
+      "fix": "",
+      "decision_level": "SUSPICIOUS",
+      "primary_group": "Other",
+      "scan_level": "Script Scan",
+      "risk_types": [],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_script_Marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

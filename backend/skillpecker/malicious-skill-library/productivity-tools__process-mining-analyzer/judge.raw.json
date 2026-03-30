@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill requests unrestricted Bash(*) execution, full filesystem Read/Write/Edit/Glob/Grep access, and WebFetch capabilities, which are excessive for a process mining analysis tool that only needs to read event log data files and output analysis results. These broad permissions could allow arbitrary command execution, access to unrelated sensitive files, and uncontrolled network requests, far exceeding the skill's stated purpose of event log analysis and process discovery.",
+      "impact": "OVERREACH: Permission Overreach & Data Over-collection - The skill requests unrestricted Bash(*) execution, full filesystem Read/Write/Edit/Glob/Grep access, and WebFetch capabilities, which are excessive for a process mining analysis tool that only needs to read event log data files and output analysis results. These broad permissions could allow arbitrary command execution, access to unrelated sensitive files, and uncontrolled network requests, far exceeding the skill's stated purpose of event log analysis and process discovery.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Data Over-collection"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

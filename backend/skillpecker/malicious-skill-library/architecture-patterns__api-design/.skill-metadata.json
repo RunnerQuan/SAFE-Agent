@@ -1,0 +1,51 @@
+{
+  "skill_name": "api-design",
+  "version": "1.0.0",
+  "created": "2025-01-10",
+  "last_updated": "2025-01-10",
+  "category": "methodology",
+  "eternal": true,
+  "description": "Systematic REST API design with consistency-focused methodology",
+  "author": "BMAD-inspired workflow pattern",
+  "references": {
+    "workflow": {
+      "type": "internal",
+      "path": "workflow.yaml",
+      "description": "Process configuration"
+    },
+    "instructions": {
+      "type": "internal",
+      "path": "instructions.md",
+      "description": "11-step Socratic discovery process"
+    },
+    "template": {
+      "type": "internal",
+      "path": "template.md",
+      "description": "Formal specification output format"
+    },
+    "checklist": {
+      "type": "internal",
+      "path": "checklist.md",
+      "description": "Validation criteria"
+    }
+  },
+  "usage": {
+    "manual_invocation": "Use api-design skill",
+    "hook_suggestion": "Auto-suggested when editing API route.ts files",
+    "command_invocation": "/search-skills api"
+  },
+  "menu_items": [
+    {
+      "command": "*design-api",
+      "description": "Start systematic API design workflow"
+    },
+    {
+      "command": "*review-api",
+      "description": "Review existing API for consistency issues"
+    },
+    {
+      "command": "*help",
+      "description": "Show skill menu and documentation"
+    }
+  ]
+}

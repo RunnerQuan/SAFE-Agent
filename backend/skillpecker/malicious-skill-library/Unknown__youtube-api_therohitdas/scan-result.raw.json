@@ -1,0 +1,237 @@
+{
+  "preprocess": {
+    "skill": {
+      "root": "C:\\Files\\Study\\Codes\\Skill-Scan\\malicious-skill-library\\Unknown__youtube-api_therohitdas",
+      "claims": [
+        "After analyzing the provided code file (`scripts/tapi-auth.js`), I have identified **highly suspicious behavior consistent with credential theft and data exfiltration patterns**:\n\n## Key Findings:\n\n1. **Sensitive File Targeting**: The `cmdSaveKey` function explicitly targets and modifies sensitive agent configuration files:\n   - `~/.clawdbot/moltbot.json` (OpenClaw/Moltbot config)\n   - `~/.openclaw/openclaw.json` (OpenClaw config)\n\n2. **Credential Harvesting Pattern**: The code reads, parses, and modifies these configuration files to inject or update API keys for the `transcriptapi` skill. While this could be legitimate functionality, the pattern matches credential harvesting techniques where:\n   - The code accesses known sensitive locations (`~/.clawdbot/`, `~/.openclaw/`)\n   - It modifies the agent's skill configuration to potentially intercept or exfiltrate sensitive data\n\n3. **Widespread Environmental Persistence**: The code writes the API key to multiple locations across different platforms:\n   - Shell configuration files (`.zshenv`, `.profile`, `.bashrc`, etc.)\n   - Systemd environment files\n   - PowerShell profiles\n   - Fish shell configurations\n   - A plain text fallback file (`~/.transcriptapi`)\n\n4. **Suspicious Authentication Flow**: The code implements a complete authentication system that:\n   - Registers users with email/password\n   - Sends verification codes\n   - Retrieves and stores API keys\n   - While this could be legitimate, the extensive file system modifications are concerning\n\n## Why This Is Suspicious:\n\nThe combination of:\n- **Targeting known agent configuration paths** (`~/.clawdbot/`, `~/.openclaw/`)\n- **Modifying skill entries** in agent configurations\n- **Writing credentials to multiple persistence locations**\n- **Implementing a full authentication flow** that could be used to harvest credentials\n\n...matches patterns seen in supply chain attacks where malicious skills attempt to intercept or modify agent configurations for credential theft or persistence.\n\n## Important Context:\nWhile the code doesn't contain explicit data exfiltration (like sending data to external servers), it exhibits behavior consistent with the **initial stages** of a credential harvesting attack - accessing and modifying sensitive agent configuration files. The skill could be designed to later exfiltrate these collected credentials or modify agent behavior.\n\n<result>SUSPICIOUS: Credential Harvesting/Data Exfiltration - Detected in `scripts/tapi-auth.js`. The code targets and modifies sensitive OpenClaw/Moltbot configuration files (`~/.clawdbot/moltbot.json`, `~/.openclaw/openclaw.json`) to inject API keys. This pattern matches credential harvesting techniques where malicious skills access agent configurations to intercept or modify credentials. The code also writes to multiple persistence locations (shell configs, systemd, etc.), which could facilitate credential collection across sessions. While no explicit exfiltration is present, accessing and modifying agent configs is a known initial step in supply chain attacks."
+      ],
+      "observed_kinds": [
+        "spreadsheet",
+        "imported_scan_result"
+      ]
+    },
+    "artifacts": [],
+    "rule_hits": [],
+    "coverage_gaps": [],
+    "stats": {
+      "artifact_count": 0,
+      "rule_hit_count": 1,
+      "severity_counts": {},
+      "rule_code_counts": {}
+    }
+  },
+  "triage": {
+    "skill": {
+      "claims": [
+        "After analyzing the provided code file (`scripts/tapi-auth.js`), I have identified **highly suspicious behavior consistent with credential theft and data exfiltration patterns**:\n\n## Key Findings:\n\n1. **Sensitive File Targeting**: The `cmdSaveKey` function explicitly targets and modifies sensitive agent configuration files:\n   - `~/.clawdbot/moltbot.json` (OpenClaw/Moltbot config)\n   - `~/.openclaw/openclaw.json` (OpenClaw config)\n\n2. **Credential Harvesting Pattern**: The code reads, parses, and modifies these configuration files to inject or update API keys for the `transcriptapi` skill. While this could be legitimate functionality, the pattern matches credential harvesting techniques where:\n   - The code accesses known sensitive locations (`~/.clawdbot/`, `~/.openclaw/`)\n   - It modifies the agent's skill configuration to potentially intercept or exfiltrate sensitive data\n\n3. **Widespread Environmental Persistence**: The code writes the API key to multiple locations across different platforms:\n   - Shell configuration files (`.zshenv`, `.profile`, `.bashrc`, etc.)\n   - Systemd environment files\n   - PowerShell profiles\n   - Fish shell configurations\n   - A plain text fallback file (`~/.transcriptapi`)\n\n4. **Suspicious Authentication Flow**: The code implements a complete authentication system that:\n   - Registers users with email/password\n   - Sends verification codes\n   - Retrieves and stores API keys\n   - While this could be legitimate, the extensive file system modifications are concerning\n\n## Why This Is Suspicious:\n\nThe combination of:\n- **Targeting known agent configuration paths** (`~/.clawdbot/`, `~/.openclaw/`)\n- **Modifying skill entries** in agent configurations\n- **Writing credentials to multiple persistence locations**\n- **Implementing a full authentication flow** that could be used to harvest credentials\n\n...matches patterns seen in supply chain attacks where malicious skills attempt to intercept or modify agent configurations for credential theft or persistence.\n\n## Important Context:\nWhile the code doesn't contain explicit data exfiltration (like sending data to external servers), it exhibits behavior consistent with the **initial stages** of a credential harvesting attack - accessing and modifying sensitive agent configuration files. The skill could be designed to later exfiltrate these collected credentials or modify agent behavior.\n\n<result>SUSPICIOUS: Credential Harvesting/Data Exfiltration - Detected in `scripts/tapi-auth.js`. The code targets and modifies sensitive OpenClaw/Moltbot configuration files (`~/.clawdbot/moltbot.json`, `~/.openclaw/openclaw.json`) to inject API keys. This pattern matches credential harvesting techniques where malicious skills access agent configurations to intercept or modify credentials. The code also writes to multiple persistence locations (shell configs, systemd, etc.), which could facilitate credential collection across sessions. While no explicit exfiltration is present, accessing and modifying agent configs is a known initial step in supply chain attacks."
+      ],
+      "obs": [
+        "Script Scan"
+      ],
+      "high_risk_features": [
+        "api_key",
+        "browser_session_or_credentials",
+        "credential_request",
+        "external_server",
+        "persistence_or_external_storage",
+        "shell_or_command_execution"
+      ]
+    },
+    "arts": [],
+    "xconcerns": [],
+    "retrieve": [],
+    "coverage": {
+      "total": 1,
+      "indexed": 1,
+      "gaps": []
+    }
+  },
+  "security": {
+    "findings": [
+      {
+        "id": "",
+        "cat": "data-exfiltration",
+        "class": "execution-system-risk",
+        "severity": "",
+        "conf": "",
+        "summary": "Detected in `scripts/tapi-auth.js`. The code targets and modifies sensitive OpenClaw/Moltbot configuration files (`~/.clawdbot/moltbot.json`, `~/.openclaw/openclaw.json`) to inject API keys. This pattern matches credential harvesting techniques where malicious skills access agent configurations to intercept or modify credentials. The code also writes to multiple persistence locations (shell configs, systemd, etc.), which could facilitate credential collection across sessions. While no explicit exfiltration is present, accessing and modifying agent configs is a known initial step in supply chain attacks.",
+        "arts": [],
+        "spans": [],
+        "impact": "",
+        "fix": "",
+        "decision_level": "",
+        "primary_group": "Execution / System Risk",
+        "scan_level": "Script Scan",
+        "risk_types": [
+          "Data Exfiltration",
+          "Supply Chain Attack"
+        ],
+        "source_platform": "Clawhub",
+        "source_file": "scan_results_script_clawhub.csv",
+        "related_file_count": "2",
+        "flags": {
+          "external_server": true,
+          "api_key": true,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": true,
+          "filesystem_access": false,
+          "shell_or_command_execution": true,
+          "driver_or_installer": false,
+          "credential_request": true,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": true
+        }
+      }
+    ],
+    "ctx_requests": [],
+    "coverage": {
+      "reviewed_arts": [],
+      "unresolved_high_risk_arts": []
+    }
+  },
+  "judge": {
+    "verdict": {
+      "label": "insufficient_evidence",
+      "primary_concern": "data-exfiltration",
+      "issue_types": [
+        "data-exfiltration",
+        "supply-chain-attack",
+        "execution-system-risk"
+      ]
+    },
+    "top_findings": [
+      {
+        "id": "",
+        "cat": "data-exfiltration",
+        "class": "execution-system-risk",
+        "severity": "",
+        "conf": "",
+        "summary": "Detected in `scripts/tapi-auth.js`. The code targets and modifies sensitive OpenClaw/Moltbot configuration files (`~/.clawdbot/moltbot.json`, `~/.openclaw/openclaw.json`) to inject API keys. This pattern matches credential harvesting techniques where malicious skills access agent configurations to intercept or modify credentials. The code also writes to multiple persistence locations (shell configs, systemd, etc.), which could facilitate credential collection across sessions. While no explicit exfiltration is present, accessing and modifying agent configs is a known initial step in supply chain attacks.",
+        "impact": "",
+        "fix": "",
+        "decision_level": "",
+        "primary_group": "Execution / System Risk",
+        "scan_level": "Script Scan",
+        "risk_types": [
+          "Data Exfiltration",
+          "Supply Chain Attack"
+        ],
+        "source_platform": "Clawhub",
+        "source_file": "scan_results_script_clawhub.csv",
+        "related_file_count": "2",
+        "flags": {
+          "external_server": true,
+          "api_key": true,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": true,
+          "filesystem_access": false,
+          "shell_or_command_execution": true,
+          "driver_or_installer": false,
+          "credential_request": true,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": true
+        },
+        "spans": []
+      }
+    ],
+    "coverage_audit": {
+      "adequate": true,
+      "missed": [],
+      "needs_rescan": false
+    },
+    "next_action": "stop"
+  },
+  "excel_import": {
+    "record_count": 1,
+    "headers": [
+      "一级分类_判定级别",
+      "二级分类_主问题组",
+      "风险类型汇总",
+      "风险类型1",
+      "风险类型2",
+      "风险类型3",
+      "风险类型4",
+      "来源平台",
+      "扫描层级",
+      "原始业务分类",
+      "skill_name",
+      "关联文件数",
+      "原始来源文件",
+      "问题摘要",
+      "原始verdict",
+      "flag_外部服务器",
+      "flag_APIKey",
+      "flag_自治执行",
+      "flag_浏览器会话/凭据",
+      "flag_文件系统访问",
+      "flag_Shell/命令执行",
+      "flag_驱动/安装器",
+      "flag_凭据请求",
+      "flag_混淆/规避",
+      "flag_持久化/外部存储",
+      "清洗后原始说明"
+    ],
+    "records": [
+      {
+        "classification": {
+          "decision_level": "",
+          "primary_group": "Execution / System Risk",
+          "risk_summary": "Data Exfiltration | Supply Chain Attack",
+          "risk_types": [
+            "Data Exfiltration",
+            "Supply Chain Attack"
+          ],
+          "platform": "Clawhub",
+          "scan_level": "Script Scan",
+          "business_category": "Unknown",
+          "skill_name": "youtube-api_therohitdas",
+          "related_file_count": "2",
+          "source_file": "scan_results_script_clawhub.csv",
+          "problem_summary": "Detected in `scripts/tapi-auth.js`. The code targets and modifies sensitive OpenClaw/Moltbot configuration files (`~/.clawdbot/moltbot.json`, `~/.openclaw/openclaw.json`) to inject API keys. This pattern matches credential harvesting techniques where malicious skills access agent configurations to intercept or modify credentials. The code also writes to multiple persistence locations (shell configs, systemd, etc.), which could facilitate credential collection across sessions. While no explicit exfiltration is present, accessing and modifying agent configs is a known initial step in supply chain attacks.",
+          "raw_verdict": "SUSPICIOUS: Credential Harvesting/Data Exfiltration - Detected in `scripts/tapi-auth.js`. The code targets and modifies sensitive OpenClaw/Moltbot configuration files (`~/.clawdbot/moltbot.json`, `~/.openclaw/openclaw.json`) to inject API keys. This pattern matches credential harvesting techniques where malicious skills access agent configurations to intercept or modify credentials. The code also writes to multiple persistence locations (shell configs, systemd, etc.), which could facilitate credential collection across sessions. While no explicit exfiltration is present, accessing and modifying agent configs is a known initial step in supply chain attacks.",
+          "cleaned_description": "After analyzing the provided code file (`scripts/tapi-auth.js`), I have identified **highly suspicious behavior consistent with credential theft and data exfiltration patterns**:\n\n## Key Findings:\n\n1. **Sensitive File Targeting**: The `cmdSaveKey` function explicitly targets and modifies sensitive agent configuration files:\n   - `~/.clawdbot/moltbot.json` (OpenClaw/Moltbot config)\n   - `~/.openclaw/openclaw.json` (OpenClaw config)\n\n2. **Credential Harvesting Pattern**: The code reads, parses, and modifies these configuration files to inject or update API keys for the `transcriptapi` skill. While this could be legitimate functionality, the pattern matches credential harvesting techniques where:\n   - The code accesses known sensitive locations (`~/.clawdbot/`, `~/.openclaw/`)\n   - It modifies the agent's skill configuration to potentially intercept or exfiltrate sensitive data\n\n3. **Widespread Environmental Persistence**: The code writes the API key to multiple locations across different platforms:\n   - Shell configuration files (`.zshenv`, `.profile`, `.bashrc`, etc.)\n   - Systemd environment files\n   - PowerShell profiles\n   - Fish shell configurations\n   - A plain text fallback file (`~/.transcriptapi`)\n\n4. **Suspicious Authentication Flow**: The code implements a complete authentication system that:\n   - Registers users with email/password\n   - Sends verification codes\n   - Retrieves and stores API keys\n   - While this could be legitimate, the extensive file system modifications are concerning\n\n## Why This Is Suspicious:\n\nThe combination of:\n- **Targeting known agent configuration paths** (`~/.clawdbot/`, `~/.openclaw/`)\n- **Modifying skill entries** in agent configurations\n- **Writing credentials to multiple persistence locations**\n- **Implementing a full authentication flow** that could be used to harvest credentials\n\n...matches patterns seen in supply chain attacks where malicious skills attempt to intercept or modify agent configurations for credential theft or persistence.\n\n## Important Context:\nWhile the code doesn't contain explicit data exfiltration (like sending data to external servers), it exhibits behavior consistent with the **initial stages** of a credential harvesting attack - accessing and modifying sensitive agent configuration files. The skill could be designed to later exfiltrate these collected credentials or modify agent behavior.\n\n<result>SUSPICIOUS: Credential Harvesting/Data Exfiltration - Detected in `scripts/tapi-auth.js`. The code targets and modifies sensitive OpenClaw/Moltbot configuration files (`~/.clawdbot/moltbot.json`, `~/.openclaw/openclaw.json`) to inject API keys. This pattern matches credential harvesting techniques where malicious skills access agent configurations to intercept or modify credentials. The code also writes to multiple persistence locations (shell configs, systemd, etc.), which could facilitate credential collection across sessions. While no explicit exfiltration is present, accessing and modifying agent configs is a known initial step in supply chain attacks.",
+          "flags": {
+            "external_server": true,
+            "api_key": true,
+            "autonomous_execution": false,
+            "browser_session_or_credentials": true,
+            "filesystem_access": false,
+            "shell_or_command_execution": true,
+            "driver_or_installer": false,
+            "credential_request": true,
+            "obfuscation_or_evasion": false,
+            "persistence_or_external_storage": true
+          }
+        },
+        "raw_values": {
+          "一级分类_判定级别": "",
+          "二级分类_主问题组": "Execution / System Risk",
+          "风险类型汇总": "Data Exfiltration | Supply Chain Attack",
+          "风险类型1": "Data Exfiltration",
+          "风险类型2": "Supply Chain Attack",
+          "风险类型3": "",
+          "风险类型4": "",
+          "来源平台": "Clawhub",
+          "扫描层级": "Script Scan",
+          "原始业务分类": "Unknown",
+          "skill_name": "youtube-api_therohitdas",
+          "关联文件数": 2,
+          "原始来源文件": "scan_results_script_clawhub.csv",
+          "问题摘要": "Detected in `scripts/tapi-auth.js`. The code targets and modifies sensitive OpenClaw/Moltbot configuration files (`~/.clawdbot/moltbot.json`, `~/.openclaw/openclaw.json`) to inject API keys. This pattern matches credential harvesting techniques where malicious skills access agent configurations to intercept or modify credentials. The code also writes to multiple persistence locations (shell configs, systemd, etc.), which could facilitate credential collection across sessions. While no explicit exfiltration is present, accessing and modifying agent configs is a known initial step in supply chain attacks.",
+          "原始verdict": "SUSPICIOUS: Credential Harvesting/Data Exfiltration - Detected in `scripts/tapi-auth.js`. The code targets and modifies sensitive OpenClaw/Moltbot configuration files (`~/.clawdbot/moltbot.json`, `~/.openclaw/openclaw.json`) to inject API keys. This pattern matches credential harvesting techniques where malicious skills access agent configurations to intercept or modify credentials. The code also writes to multiple persistence locations (shell configs, systemd, etc.), which could facilitate credential collection across sessions. While no explicit exfiltration is present, accessing and modifying agent configs is a known initial step in supply chain attacks.",
+          "flag_外部服务器": "Y",
+          "flag_APIKey": "Y",
+          "flag_自治执行": "",
+          "flag_浏览器会话/凭据": "Y",
+          "flag_文件系统访问": "",
+          "flag_Shell/命令执行": "Y",
+          "flag_驱动/安装器": "",
+          "flag_凭据请求": "Y",
+          "flag_混淆/规避": "",
+          "flag_持久化/外部存储": "Y",
+          "清洗后原始说明": "After analyzing the provided code file (`scripts/tapi-auth.js`), I have identified **highly suspicious behavior consistent with credential theft and data exfiltration patterns**:\n\n## Key Findings:\n\n1. **Sensitive File Targeting**: The `cmdSaveKey` function explicitly targets and modifies sensitive agent configuration files:\n   - `~/.clawdbot/moltbot.json` (OpenClaw/Moltbot config)\n   - `~/.openclaw/openclaw.json` (OpenClaw config)\n\n2. **Credential Harvesting Pattern**: The code reads, parses, and modifies these configuration files to inject or update API keys for the `transcriptapi` skill. While this could be legitimate functionality, the pattern matches credential harvesting techniques where:\n   - The code accesses known sensitive locations (`~/.clawdbot/`, `~/.openclaw/`)\n   - It modifies the agent's skill configuration to potentially intercept or exfiltrate sensitive data\n\n3. **Widespread Environmental Persistence**: The code writes the API key to multiple locations across different platforms:\n   - Shell configuration files (`.zshenv`, `.profile`, `.bashrc`, etc.)\n   - Systemd environment files\n   - PowerShell profiles\n   - Fish shell configurations\n   - A plain text fallback file (`~/.transcriptapi`)\n\n4. **Suspicious Authentication Flow**: The code implements a complete authentication system that:\n   - Registers users with email/password\n   - Sends verification codes\n   - Retrieves and stores API keys\n   - While this could be legitimate, the extensive file system modifications are concerning\n\n## Why This Is Suspicious:\n\nThe combination of:\n- **Targeting known agent configuration paths** (`~/.clawdbot/`, `~/.openclaw/`)\n- **Modifying skill entries** in agent configurations\n- **Writing credentials to multiple persistence locations**\n- **Implementing a full authentication flow** that could be used to harvest credentials\n\n...matches patterns seen in supply chain attacks where malicious skills attempt to intercept or modify agent configurations for credential theft or persistence.\n\n## Important Context:\nWhile the code doesn't contain explicit data exfiltration (like sending data to external servers), it exhibits behavior consistent with the **initial stages** of a credential harvesting attack - accessing and modifying sensitive agent configuration files. The skill could be designed to later exfiltrate these collected credentials or modify agent behavior.\n\n<result>SUSPICIOUS: Credential Harvesting/Data Exfiltration - Detected in `scripts/tapi-auth.js`. The code targets and modifies sensitive OpenClaw/Moltbot configuration files (`~/.clawdbot/moltbot.json`, `~/.openclaw/openclaw.json`) to inject API keys. This pattern matches credential harvesting techniques where malicious skills access agent configurations to intercept or modify credentials. The code also writes to multiple persistence locations (shell configs, systemd, etc.), which could facilitate credential collection across sessions. While no explicit exfiltration is present, accessing and modifying agent configs is a known initial step in supply chain attacks."
+        }
+      }
+    ]
+  }
+}

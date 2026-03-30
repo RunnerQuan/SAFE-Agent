@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "data-over-collection",
+    "issue_types": [
+      "data-over-collection",
+      "security-risk",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-over-collection",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "A Slack setup wizard skill requests both an API token (xoxc-) and a session cookie (xoxd-) from the user's browser. While a token is standard for API authentication, the session cookie provides broader, stateful browser session access that is typically unnecessary for plugin functionality and poses higher security risk. Standard Slack integrations use OAuth tokens (xoxp- or xoxb-) with specific scopes, not session cookies that could grant unintended access.",
+      "impact": "OVERREACH: Data Over-collection - A Slack setup wizard skill requests both an API token (xoxc-) and a session cookie (xoxd-) from the user's browser. While a token is standard for API authentication, the session cookie provides broader, stateful browser session access that is typically unnecessary for plugin functionality and poses higher security risk. Standard Slack integrations use OAuth tokens (xoxp- or xoxb-) with specific scopes, not session cookies that could grant unintended access.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Data Over-collection",
+        "Security Risk"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": true,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

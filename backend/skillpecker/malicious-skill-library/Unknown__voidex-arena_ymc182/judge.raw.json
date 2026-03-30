@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "data-over-collection",
+    "issue_types": [
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-over-collection",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill mandates providing a Twitter/X handle (ownerHandle) as a required field during registration, which is personal identification data that is not essential for the core functionality of a space trading game. While the handle may be used for social features or referrals, collecting such personal data exceeds what is necessary for the stated primary purpose of trading goods, managing a spaceship, and competing on the leaderboard. The game could operate effectively with anonymous agent names without tying to real-world identities.",
+      "impact": "OVERREACH: Data Over-collection - The skill mandates providing a Twitter/X handle (ownerHandle) as a required field during registration, which is personal identification data that is not essential for the core functionality of a space trading game. While the handle may be used for social features or referrals, collecting such personal data exceeds what is necessary for the stated primary purpose of trading goods, managing a spaceship, and competing on the leaderboard. The game could operate effectively with anonymous agent names without tying to real-world identities.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Data Over-collection"
+      ],
+      "source_platform": "Clawhub",
+      "source_file": "scan_results_description_clawhub.csv",
+      "related_file_count": "3",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

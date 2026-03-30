@@ -1,0 +1,54 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "data-over-collection",
+    "issue_types": [
+      "data-over-collection",
+      "privilege-escalation",
+      "security-risk",
+      "execution-system-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-over-collection",
+      "class": "execution-system-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill's primary purpose is to discover publicly available AI trends, news, and discussions from Twitter/X. However, it requires the user to have Bird CLI installed and authenticated via browser cookies (Safari/Chrome/Firefox). Accessing browser cookies for authentication grants the underlying tool (and by extension, this skill's usage) access to the user's potentially sensitive Twitter/X login session and personal account data. This level of access is excessive and poses a significant privacy/security risk for a tool whose stated function is to read-only query public information from influential public accounts and trending topics. Public data scraping or API access (with appropriate public keys) would be sufficient and minimize data exposure.",
+      "impact": "OVERREACH: Data Over-collection / Privilege Escalation - The skill's primary purpose is to discover publicly available AI trends, news, and discussions from Twitter/X. However, it requires the user to have Bird CLI installed and authenticated via browser cookies (Safari/Chrome/Firefox). Accessing browser cookies for authentication grants the underlying tool (and by extension, this skill's usage) access to the user's potentially sensitive Twitter/X login session and personal account data. This level of access is excessive and poses a significant privacy/security risk for a tool whose stated function is to read-only query public information from influential public accounts and trending topics. Public data scraping or API access (with appropriate public keys) would be sufficient and minimize data exposure.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Execution / System Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Data Over-collection",
+        "Privilege Escalation",
+        "Security Risk"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "2",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": true,
+        "filesystem_access": true,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "data-over-collection",
+    "issue_types": [
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-over-collection",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill scans `~/.claude/projects/*/conversation/` directories to auto-populate a decision database, accessing potentially sensitive user conversation data across all Claude projects. While tracking decisions and project state is the stated purpose, this broad scanning of historical conversations—which may contain private or unrelated information—exceeds what is strictly necessary for monitoring the current project or session, and lacks explicit user consent or opt-out mechanisms.",
+      "impact": "OVERREACH: Data Over-collection - The skill scans `~/.claude/projects/*/conversation/` directories to auto-populate a decision database, accessing potentially sensitive user conversation data across all Claude projects. While tracking decisions and project state is the stated purpose, this broad scanning of historical conversations—which may contain private or unrelated information—exceeds what is strictly necessary for monitoring the current project or session, and lacks explicit user consent or opt-out mechanisms.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Data Over-collection"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": true,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

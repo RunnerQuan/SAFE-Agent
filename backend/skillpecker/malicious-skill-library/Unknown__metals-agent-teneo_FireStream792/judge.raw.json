@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "data-over-collection",
+    "issue_types": [
+      "data-over-collection",
+      "privilege-escalation",
+      "execution-system-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-over-collection",
+      "class": "execution-system-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill claims to provide simple metal price data, yet requires users to provide their Ethereum wallet private key and hold cryptocurrency (USDC) on a blockchain network. This is excessive for a basic data lookup service that should only need standard API access. The private key grants full control over cryptocurrency assets, creating significant financial risk unrelated to fetching commodity prices. While the protocol may enable monetization, forcing cryptocurrency integration for a free data service constitutes overreach.",
+      "impact": "OVERREACH: Data Over-collection & Privilege Escalation - The skill claims to provide simple metal price data, yet requires users to provide their Ethereum wallet private key and hold cryptocurrency (USDC) on a blockchain network. This is excessive for a basic data lookup service that should only need standard API access. The private key grants full control over cryptocurrency assets, creating significant financial risk unrelated to fetching commodity prices. While the protocol may enable monetization, forcing cryptocurrency integration for a free data service constitutes overreach.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Execution / System Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Data Over-collection",
+        "Privilege Escalation"
+      ],
+      "source_platform": "Clawhub",
+      "source_file": "scan_results_description_clawhub.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

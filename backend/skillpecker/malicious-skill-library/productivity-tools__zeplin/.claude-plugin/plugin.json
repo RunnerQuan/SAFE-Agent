@@ -1,0 +1,34 @@
+{
+  "name": "zeplin",
+  "displayName": "Zeplin",
+  "version": "1.0.0",
+  "description": "Handoff designs to developers with Zeplin - access design specs, export assets, and manage style guides",
+  "author": "Canifi LifeOS",
+  "category": "Design & Creative",
+  "authentication": {
+    "type": "browser",
+    "loginUrl": "https://app.zeplin.io/login",
+    "loggedInIndicator": "[data-testid='user-menu']"
+  },
+  "capabilities": [
+    "view-specs",
+    "download-assets",
+    "access-components",
+    "review-styleguides",
+    "navigate-screens",
+    "export-code"
+  ],
+  "requiredEnvVars": [
+    "ZEPLIN_EMAIL",
+    "ZEPLIN_PASSWORD"
+  ],
+  "endpoints": {
+    "base": "https://app.zeplin.io",
+    "projects": "https://app.zeplin.io/projects",
+    "styleguides": "https://app.zeplin.io/styleguides"
+  },
+  "rateLimit": {
+    "requests": 60,
+    "period": "minute"
+  }
+}

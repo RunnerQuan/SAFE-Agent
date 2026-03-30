@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill's stated purpose is to generate client SDKs from OpenAPI specifications, but the prerequisites, instructions, and implementation steps request extensive server-side development actions (e.g., implementing endpoint handlers, configuring database connections, integrating authentication middleware, writing integration tests) and access to backend services/databases. These actions and data requirements are unrelated to the core task of generating client libraries and represent a significant overreach beyond the stated goal.",
+      "impact": "OVERREACH: Permission Overreach and Data Over-collection - The skill's stated purpose is to generate client SDKs from OpenAPI specifications, but the prerequisites, instructions, and implementation steps request extensive server-side development actions (e.g., implementing endpoint handlers, configuring database connections, integrating authentication middleware, writing integration tests) and access to backend services/databases. These actions and data requirements are unrelated to the core task of generating client libraries and represent a significant overreach beyond the stated goal.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Data Over-collection"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "4",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

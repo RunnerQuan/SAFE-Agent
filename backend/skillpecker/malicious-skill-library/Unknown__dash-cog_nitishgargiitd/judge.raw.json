@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "data-over-collection",
+    "issue_types": [
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-over-collection",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "This skill description is primarily a guide/documentation for using a separate CellCog service, but it encourages users to upload sensitive business data (sales data, HR employee datasets, financial information) to a third-party AI service for dashboard creation. While this may be the service's purpose, the skill documentation fails to disclose critical privacy implications: uploading proprietary business data, employee records, or financial information to an external AI service could violate data protection regulations, company policies, or intellectual property rights. The documentation should prominently warn about these risks rather than encouraging such uploads without caution.",
+      "impact": "OVERREACH: Data Over-collection - This skill description is primarily a guide/documentation for using a separate CellCog service, but it encourages users to upload sensitive business data (sales data, HR employee datasets, financial information) to a third-party AI service for dashboard creation. While this may be the service's purpose, the skill documentation fails to disclose critical privacy implications: uploading proprietary business data, employee records, or financial information to an external AI service could violate data protection regulations, company policies, or intellectual property rights. The documentation should prominently warn about these risks rather than encouraging such uploads without caution.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Data Over-collection"
+      ],
+      "source_platform": "Clawhub",
+      "source_file": "scan_results_description_clawhub.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": true,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

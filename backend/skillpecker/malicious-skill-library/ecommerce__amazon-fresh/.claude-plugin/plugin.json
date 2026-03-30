@@ -1,0 +1,38 @@
+{
+  "name": "amazon-fresh",
+  "version": "1.0.0",
+  "description": "Automate Amazon Fresh grocery browsing, lists, and delivery tracking",
+  "author": "Canifi",
+  "category": "food-delivery",
+  "permissions": [
+    "browser",
+    "notifications",
+    "env-access"
+  ],
+  "triggers": [
+    "amazon fresh",
+    "amazonfresh",
+    "fresh grocery",
+    "amazon grocery"
+  ],
+  "authentication": {
+    "type": "browser-session",
+    "loginUrl": "https://www.amazon.com/alm/storefront",
+    "sessionIndicator": "#nav-link-accountList"
+  },
+  "requiredEnvVars": [
+    "AMAZON_EMAIL",
+    "AMAZON_PASSWORD"
+  ],
+  "capabilities": {
+    "browse": true,
+    "search": true,
+    "lists": true,
+    "tracking": true,
+    "deals": true,
+    "scheduling": true
+  },
+  "restrictions": {
+    "noOrdering": true
+  }
+}

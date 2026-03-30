@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill requests excessive actions beyond its core purpose of creating GitHub releases: 1) It requires full repository access including `git fetch --all` which fetches all remote branches and tags, exceeding the minimal needs for checking recent commits. 2) It automatically saves screenshots to `~/Downloads` without user consent, capturing potentially sensitive browser content (including the user's GitHub account interface) unrelated to release creation. 3) The skill includes hardcoded references to a specific repository (`Coooolfan/XiaomiAlbumSyncer`), suggesting it may not be general-purpose and could perform actions on unintended repositories. While local git access is necessary for generating release notes, the combination of these actions represents overreach for a release creation tool.",
+      "impact": "OVERREACH: Data Over-collection & Permission Overreach - The skill requests excessive actions beyond its core purpose of creating GitHub releases: 1) It requires full repository access including `git fetch --all` which fetches all remote branches and tags, exceeding the minimal needs for checking recent commits. 2) It automatically saves screenshots to `~/Downloads` without user consent, capturing potentially sensitive browser content (including the user's GitHub account interface) unrelated to release creation. 3) The skill includes hardcoded references to a specific repository (`Coooolfan/XiaomiAlbumSyncer`), suggesting it may not be general-purpose and could perform actions on unintended repositories. While local git access is necessary for generating release notes, the combination of these actions represents overreach for a release creation tool.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Data Over-collection"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "2",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

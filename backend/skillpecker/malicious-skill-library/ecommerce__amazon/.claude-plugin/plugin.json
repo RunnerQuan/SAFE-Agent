@@ -1,0 +1,39 @@
+{
+  "name": "amazon",
+  "version": "1.0.0",
+  "description": "Automate Amazon product search, wishlists, and order tracking",
+  "author": "Canifi",
+  "category": "e-commerce",
+  "permissions": [
+    "browser",
+    "notifications",
+    "env-access"
+  ],
+  "triggers": [
+    "amazon",
+    "find on amazon",
+    "amazon wishlist",
+    "amazon order",
+    "amazon search"
+  ],
+  "authentication": {
+    "type": "browser-session",
+    "loginUrl": "https://www.amazon.com/ap/signin",
+    "sessionIndicator": "#nav-link-accountList"
+  },
+  "requiredEnvVars": [
+    "AMAZON_EMAIL",
+    "AMAZON_PASSWORD"
+  ],
+  "capabilities": {
+    "search": true,
+    "wishlists": true,
+    "orders": true,
+    "reviews": true,
+    "deals": true,
+    "compare": true
+  },
+  "restrictions": {
+    "noPurchases": true
+  }
+}

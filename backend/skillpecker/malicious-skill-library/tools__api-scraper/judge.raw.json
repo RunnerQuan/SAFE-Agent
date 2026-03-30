@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill's primary purpose is to scrape data from websites. However, it requires full access to the user's browser session via Chrome DevTools MCP, explicitly instructing the extraction of authentication tokens, API keys, and other sensitive credentials from request headers and bodies. While some scraping tasks may require authentication, the skill broadly enables credential harvesting without limiting its use to public data or requiring explicit user consent per sensitive site. Additionally, it can execute arbitrary JavaScript in the page and capture DOM snapshots, extending its capability beyond API inspection to full browser automation and data access, which is excessive for a general scraping tool.",
+      "impact": "OVERREACH: Data Over-collection & Permission Overreach - The skill's primary purpose is to scrape data from websites. However, it requires full access to the user's browser session via Chrome DevTools MCP, explicitly instructing the extraction of authentication tokens, API keys, and other sensitive credentials from request headers and bodies. While some scraping tasks may require authentication, the skill broadly enables credential harvesting without limiting its use to public data or requiring explicit user consent per sensitive site. Additionally, it can execute arbitrary JavaScript in the page and capture DOM snapshots, extending its capability beyond API inspection to full browser automation and data access, which is excessive for a general scraping tool.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Data Over-collection"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": true,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": true,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

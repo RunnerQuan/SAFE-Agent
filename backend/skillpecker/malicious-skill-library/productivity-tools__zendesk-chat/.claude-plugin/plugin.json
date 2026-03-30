@@ -1,0 +1,36 @@
+{
+  "name": "zendesk-chat",
+  "version": "1.0.0",
+  "description": "Automate Zendesk Chat live chat and customer support conversations",
+  "author": "Canifi",
+  "category": "communication",
+  "permissions": [
+    "browser",
+    "notifications",
+    "env-access"
+  ],
+  "triggers": [
+    "zendesk chat",
+    "zendesk live chat",
+    "zopim",
+    "zendesk support chat"
+  ],
+  "authentication": {
+    "type": "browser-session",
+    "loginUrl": "https://{subdomain}.zendesk.com",
+    "sessionIndicator": ".chat-agent-state"
+  },
+  "requiredEnvVars": [
+    "ZENDESK_EMAIL",
+    "ZENDESK_PASSWORD",
+    "ZENDESK_SUBDOMAIN"
+  ],
+  "capabilities": {
+    "liveChat": true,
+    "tickets": true,
+    "routing": true,
+    "shortcuts": true,
+    "analytics": true,
+    "triggers": true
+  }
+}

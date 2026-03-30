@@ -1,0 +1,35 @@
+{
+  "name": "drift",
+  "version": "1.0.0",
+  "description": "Automate Drift conversational marketing and sales conversations",
+  "author": "Canifi",
+  "category": "communication",
+  "permissions": [
+    "browser",
+    "notifications",
+    "env-access"
+  ],
+  "triggers": [
+    "drift",
+    "drift chat",
+    "drift conversation",
+    "conversational marketing"
+  ],
+  "authentication": {
+    "type": "browser-session",
+    "loginUrl": "https://app.drift.com",
+    "sessionIndicator": ".inbox-view"
+  },
+  "requiredEnvVars": [
+    "DRIFT_EMAIL",
+    "DRIFT_PASSWORD"
+  ],
+  "capabilities": {
+    "conversations": true,
+    "meetings": true,
+    "playbooks": true,
+    "routing": true,
+    "analytics": true,
+    "leads": true
+  }
+}

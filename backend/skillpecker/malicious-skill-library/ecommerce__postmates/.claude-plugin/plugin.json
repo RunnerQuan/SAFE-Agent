@@ -1,0 +1,38 @@
+{
+  "name": "postmates",
+  "version": "1.0.0",
+  "description": "Automate Postmates/Uber Eats browsing and order tracking",
+  "author": "Canifi",
+  "category": "food-delivery",
+  "permissions": [
+    "browser",
+    "notifications",
+    "env-access"
+  ],
+  "triggers": [
+    "postmates",
+    "post mates",
+    "postmates delivery"
+  ],
+  "authentication": {
+    "type": "browser-session",
+    "loginUrl": "https://postmates.com",
+    "sessionIndicator": "[data-testid='user-menu']"
+  },
+  "requiredEnvVars": [
+    "POSTMATES_EMAIL",
+    "POSTMATES_PASSWORD"
+  ],
+  "capabilities": {
+    "browse": true,
+    "search": true,
+    "tracking": true,
+    "history": true
+  },
+  "restrictions": {
+    "noOrdering": true
+  },
+  "notes": {
+    "mergedWith": "Uber Eats"
+  }
+}

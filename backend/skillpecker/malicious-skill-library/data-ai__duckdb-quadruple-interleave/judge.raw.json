@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "data-over-collection",
+    "issue_types": [
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-over-collection",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill requests read access to 12 specific DuckDB database files scattered across multiple personal and project directories (e.g., ~/.agents/genesis/, ~/.claude/skills/, ~/worldnet/, ~/skill-substrate/). These databases contain sensitive tables like agent_balances, wallets, gf3_triads, skills, and personal interaction data. For a skill whose stated purpose is \"chaotic interleaving across local DuckDB databases\" for \"context injection,\" this breadth of access to potentially sensitive financial, personal, and proprietary data is excessive and unrelated to its core function of performing random walks for context priming. A minimal implementation should allow user configuration of database paths or operate on a limited, non-sensitive dataset.",
+      "impact": "OVERREACH: Data Over-collection - The skill requests read access to 12 specific DuckDB database files scattered across multiple personal and project directories (e.g., ~/.agents/genesis/, ~/.claude/skills/, ~/worldnet/, ~/skill-substrate/). These databases contain sensitive tables like agent_balances, wallets, gf3_triads, skills, and personal interaction data. For a skill whose stated purpose is \"chaotic interleaving across local DuckDB databases\" for \"context injection,\" this breadth of access to potentially sensitive financial, personal, and proprietary data is excessive and unrelated to its core function of performing random walks for context priming. A minimal implementation should allow user configuration of database paths or operate on a limited, non-sensitive dataset.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Data Over-collection"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}
