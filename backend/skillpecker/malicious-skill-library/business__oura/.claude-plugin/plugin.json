@@ -1,0 +1,33 @@
+{
+  "name": "oura",
+  "displayName": "Oura",
+  "version": "1.0.0",
+  "description": "Track health with Oura Ring - view sleep, readiness, and activity scores",
+  "author": "Canifi LifeOS",
+  "category": "Health & Fitness",
+  "authentication": {
+    "type": "browser",
+    "loginUrl": "https://cloud.ouraring.com/user/sign-in",
+    "loggedInIndicator": "[data-testid='user-menu']"
+  },
+  "capabilities": [
+    "view-readiness",
+    "sleep-analysis",
+    "activity-data",
+    "hrv-trends",
+    "body-temperature",
+    "long-term-trends"
+  ],
+  "requiredEnvVars": [
+    "OURA_EMAIL",
+    "OURA_PASSWORD"
+  ],
+  "endpoints": {
+    "base": "https://cloud.ouraring.com",
+    "dashboard": "https://cloud.ouraring.com/dashboard"
+  },
+  "rateLimit": {
+    "requests": 60,
+    "period": "minute"
+  }
+}

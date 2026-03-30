@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "access-boundary-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "access-boundary-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill provides detailed instructions and commands for conducting various DDoS attacks (e.g., SYN floods, UDP floods, ICMP smurf attacks with IP spoofing) and requests administrative access on target systems, along with promoting the use of tools like LOIC/HOIC that are notorious for malicious use. While the description emphasizes authorized testing and requires written authorization, these actions and permissions are inherently risky and could easily be misused for illegal activities. For a skill focused on network resilience assessment and detection configuration, such attack simulation capabilities may be excessive and better suited for controlled, educational environments with stricter safeguards.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Access Boundary Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "data-over-collection",
+    "issue_types": [
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-over-collection",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The \"stream\" skill's stated purpose is to query recent activity across surfaces for user recall. However, the skill has access to an extremely broad range of highly sensitive personal data streams (iMessage conversations, location changes, email events, calendar events, social media interactions, CLI sessions) through a unified event system. While querying recent conversations might be legitimate, the skill's ability to access location data, calendar events, and comprehensive communication history without any user-specified filtering or consent mechanisms for each data type represents excessive data collection relative to the simple purpose of showing \"what happened recently.\" The skill should implement data minimization by only accessing data types explicitly relevant to the user's specific query (e.g., only iMessage when asked about iMessage).",
+      "impact": "OVERREACH: Data Over-collection - The \"stream\" skill's stated purpose is to query recent activity across surfaces for user recall. However, the skill has access to an extremely broad range of highly sensitive personal data streams (iMessage conversations, location changes, email events, calendar events, social media interactions, CLI sessions) through a unified event system. While querying recent conversations might be legitimate, the skill's ability to access location data, calendar events, and comprehensive communication history without any user-specified filtering or consent mechanisms for each data type represents excessive data collection relative to the simple purpose of showing \"what happened recently.\" The skill should implement data minimization by only accessing data types explicitly relevant to the user's specific query (e.g., only iMessage when asked about iMessage).",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Data Over-collection"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": true,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

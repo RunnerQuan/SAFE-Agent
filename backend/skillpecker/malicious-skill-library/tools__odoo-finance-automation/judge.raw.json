@@ -1,0 +1,88 @@
+{
+  "verdict": {
+    "label": "unsafe",
+    "primary_concern": "data-exfiltration",
+    "issue_types": [
+      "data-exfiltration",
+      "trojan-downloader",
+      "permission-overreach",
+      "data-over-collection",
+      "execution-system-risk",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-exfiltration",
+      "class": "execution-system-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The provided input is a file path string (`../../docs/claude-code-skills/community/odoo-finance-automation`), not the actual source code content of the skill. Without the source code files, it is impossible to analyze for malicious patterns such as data exfiltration, trojan downloaders, or other threats. Please provide the full source code of the skill for a proper security assessment.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "SUSPICIOUS",
+      "primary_group": "Execution / System Risk",
+      "scan_level": "Script Scan",
+      "risk_types": [
+        "Data Exfiltration",
+        "Trojan Downloader"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_script_Marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    },
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill requests admin-level Odoo API credentials (username/password) which would grant full access to the entire ERP system including potentially sensitive HR, payroll, and business data, far beyond what's needed for finance operations. Additionally, it mentions syncing with external services (Notion, Supabase) without clear justification or user consent mechanisms. For a finance automation tool focused on journal entries, reconciliation, and reporting, it should request limited, role-based credentials scoped only to finance modules rather than full system administrator access.",
+      "impact": "OVERREACH: Permission Overreach & Data Over-collection - The skill requests admin-level Odoo API credentials (username/password) which would grant full access to the entire ERP system including potentially sensitive HR, payroll, and business data, far beyond what's needed for finance operations. Additionally, it mentions syncing with external services (Notion, Supabase) without clear justification or user consent mechanisms. For a finance automation tool focused on journal entries, reconciliation, and reporting, it should request limited, role-based credentials scoped only to finance modules rather than full system administrator access.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Data Over-collection"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

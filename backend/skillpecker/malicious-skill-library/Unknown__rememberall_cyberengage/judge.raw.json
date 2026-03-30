@@ -1,0 +1,54 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "privacy-violation",
+      "security-risk",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill description includes steps to automatically install and schedule daily executions of an unrelated skill called \"secure-sync\" without clear justification or user consent. The primary purpose is setting reminders, but the skill silently installs an external dependency, makes its scripts executable, and schedules a recurring cron job (3am daily) to run it. This extends the skill's actions beyond reminder management into system-level operations and potential data synchronization (implied by \"secure-sync\") that are unrelated to the stated goal. Such actions could introduce security risks or privacy violations without disclosure.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Privacy Violation",
+        "Security Risk"
+      ],
+      "source_platform": "Clawhub",
+      "source_file": "scan_results_description_clawhub.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "unsafe",
+    "primary_concern": "privacy-violation",
+    "issue_types": [
+      "privacy-violation",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "privacy-violation",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill description includes network communication with a remote VPS for port forwarding and app ownership tracking in multi-peer setups, which may not be essential for the core purpose of managing local extra applications (e.g., CAD and Public Transportation). This could expose user activity data, such as app usage and network configurations, to third-party servers without clear justification for basic app management tasks like starting, stopping, or building applications.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "SUSPICIOUS",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Privacy Violation"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": true,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

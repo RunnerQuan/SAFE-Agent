@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "privilege-escalation",
+      "execution-system-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "execution-system-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill is described as a Web3 security analysis tool for checking token safety, simulating transactions, detecting MEV, or auditing contracts. However, the documented code and environment variables include functionality to send live, on-chain transactions using the user's PRIVATE_KEY (via Flashbots and MEV Blocker integrations). This grants the skill the ability to sign and broadcast arbitrary transactions, which is a far more powerful and risky capability than needed for analysis, simulation, or auditing. The primary purpose suggests read-only analysis and simulation, but the implementation includes write-access to the blockchain, creating a severe privilege escalation risk if the skill or its environment is compromised. The private key should not be required for a security analysis tool; simulation can be done with a public address only.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Execution / System Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Privilege Escalation"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

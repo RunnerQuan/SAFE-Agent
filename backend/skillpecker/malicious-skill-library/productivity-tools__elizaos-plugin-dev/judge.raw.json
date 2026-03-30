@@ -1,0 +1,47 @@
+{
+  "verdict": {
+    "label": "unsafe",
+    "primary_concern": "other",
+    "issue_types": [
+      "other"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "",
+      "class": "other",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill file and its contents are not plain text source code but binary data. This is unusual for a skill and could indicate obfuscated or encrypted malicious code. Specifically, the skill file is a zip archive, and the extracted markdown files are also binary, which is not expected for documentation files. This may be an attempt to evade detection.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "SUSPICIOUS",
+      "primary_group": "Other",
+      "scan_level": "Script Scan",
+      "risk_types": [],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_script_Marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": true,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

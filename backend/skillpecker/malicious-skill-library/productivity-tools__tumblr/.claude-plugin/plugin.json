@@ -1,0 +1,35 @@
+{
+  "name": "tumblr",
+  "version": "1.0.0",
+  "description": "Automate Tumblr posts, reblogs, and blog management",
+  "author": "Canifi",
+  "category": "social-media",
+  "permissions": [
+    "browser",
+    "notifications",
+    "env-access"
+  ],
+  "triggers": [
+    "tumblr",
+    "post to tumblr",
+    "tumblr reblog",
+    "tumblr blog"
+  ],
+  "authentication": {
+    "type": "browser-session",
+    "loginUrl": "https://www.tumblr.com/login",
+    "sessionIndicator": ".dashboard"
+  },
+  "requiredEnvVars": [
+    "TUMBLR_EMAIL",
+    "TUMBLR_PASSWORD"
+  ],
+  "capabilities": {
+    "posts": true,
+    "reblogs": true,
+    "likes": true,
+    "following": true,
+    "tags": true,
+    "queue": true
+  }
+}

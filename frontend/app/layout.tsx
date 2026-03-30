@@ -58,6 +58,11 @@ const monoAltFont = Fira_Code({
 export const metadata: Metadata = {
   title: 'SAFE-Agent | 智能体应用安全合规检测平台',
   description: 'SAFE-Agent 支持输入工具 metadata 列表，统一检测数据过度暴露与组合式漏洞，并输出工具级审计报告。',
+  icons: {
+    icon: '/web_logo.png',
+    shortcut: '/web_logo.png',
+    apple: '/web_logo.png',
+  },
 }
 
 export default function RootLayout({

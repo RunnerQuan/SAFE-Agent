@@ -1,0 +1,36 @@
+{
+  "name": "mastodon",
+  "version": "1.0.0",
+  "description": "Automate Mastodon toots, boosts, and fediverse engagement",
+  "author": "Canifi",
+  "category": "social-media",
+  "permissions": [
+    "browser",
+    "notifications",
+    "env-access"
+  ],
+  "triggers": [
+    "mastodon",
+    "toot",
+    "post to mastodon",
+    "fediverse"
+  ],
+  "authentication": {
+    "type": "browser-session",
+    "loginUrl": "https://{instance}/auth/sign_in",
+    "sessionIndicator": ".column-header"
+  },
+  "requiredEnvVars": [
+    "MASTODON_INSTANCE",
+    "MASTODON_EMAIL",
+    "MASTODON_PASSWORD"
+  ],
+  "capabilities": {
+    "toots": true,
+    "boosts": true,
+    "favorites": true,
+    "following": true,
+    "hashtags": true,
+    "timelines": true
+  }
+}

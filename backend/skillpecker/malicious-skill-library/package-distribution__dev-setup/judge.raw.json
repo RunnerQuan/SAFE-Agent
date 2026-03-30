@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "access-boundary-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "access-boundary-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill requires a GitHub Personal Access Token with the `repo` scope (which grants read/write access to all private repositories) for a development environment setup task. While a token may be necessary for accessing private dependencies, the broad `repo` scope (including write permissions) is excessive for the stated purpose of installing dependencies and running builds, which typically only require read access. The skill should specify a more limited scope (e.g., `read:repo` or `repo` read-only) unless write operations are explicitly justified.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Access Boundary Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

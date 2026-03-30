@@ -1,0 +1,44 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#e8eaf6', 'primaryTextColor': '#3f51b5', 'primaryBorderColor': '#5c6bc0', 'lineColor': '#5c6bc0', 'secondaryColor': '#fff3e0', 'tertiaryColor': '#fce4ec'}}}%%
+erDiagram
+    User ||--o{ Post : "author"
+    User ||--o{ Comment : "author"
+    Post ||--o{ Comment : "comments"
+    Post }o--|| Category : "category"
+    User }o--o{ Role : "roles"
+
+    User {
+        ID id PK
+        String email
+        String firstName
+        String lastName
+        DateTime createdAt
+    }
+
+    Post {
+        ID id PK
+        String title
+        String content
+        ID authorId FK
+        ID categoryId FK
+        DateTime publishedAt
+    }
+
+    Comment {
+        ID id PK
+        String body
+        ID authorId FK
+        ID postId FK
+        DateTime createdAt
+    }
+
+    Category {
+        ID id PK
+        String name
+        String slug
+    }
+
+    Role {
+        ID id PK
+        String name
+        String[] permissions
+    }

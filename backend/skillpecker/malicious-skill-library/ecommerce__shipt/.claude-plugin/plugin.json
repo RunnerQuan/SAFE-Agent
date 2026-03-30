@@ -1,0 +1,36 @@
+{
+  "name": "shipt",
+  "version": "1.0.0",
+  "description": "Automate Shipt store browsing, lists, and delivery tracking",
+  "author": "Canifi",
+  "category": "food-delivery",
+  "permissions": [
+    "browser",
+    "notifications",
+    "env-access"
+  ],
+  "triggers": [
+    "shipt",
+    "shipt delivery",
+    "shipt grocery"
+  ],
+  "authentication": {
+    "type": "browser-session",
+    "loginUrl": "https://www.shipt.com/login",
+    "sessionIndicator": ".account-menu"
+  },
+  "requiredEnvVars": [
+    "SHIPT_EMAIL",
+    "SHIPT_PASSWORD"
+  ],
+  "capabilities": {
+    "browse": true,
+    "search": true,
+    "lists": true,
+    "tracking": true,
+    "scheduling": true
+  },
+  "restrictions": {
+    "noOrdering": true
+  }
+}

@@ -1,0 +1,232 @@
+{
+  "preprocess": {
+    "skill": {
+      "root": "C:\\Files\\Study\\Codes\\Skill-Scan\\malicious-skill-library\\productivity-tools__jetaasc-newsletter",
+      "claims": [
+        "Detected in `assets/template.html`. The file contains a suspicious script tag at the very end of the body with an unusual, long, non-descriptive path: `/9fuYoDtJvCMz7/7iPxQSJVF2a/ifw/i9cYtSVtXkhfDp/b3BILA/TQkoJjk/uOQsC`. This path resembles an attempt to obfuscate the source of the script, which could be used for malicious purposes such as loading tracking, data collection, or exploit code. While the rest of the file is a legitimate HTML email template, the inclusion of this obfuscated script tag is highly unusual and suspicious, as it does not serve any apparent functional purpose in an email template and could indicate a hidden payload or beacon. This pattern aligns with evasion techniques often seen in malicious campaigns."
+      ],
+      "observed_kinds": [
+        "spreadsheet",
+        "imported_scan_result"
+      ]
+    },
+    "artifacts": [],
+    "rule_hits": [],
+    "coverage_gaps": [],
+    "stats": {
+      "artifact_count": 0,
+      "rule_hit_count": 1,
+      "severity_counts": {},
+      "rule_code_counts": {}
+    }
+  },
+  "triage": {
+    "skill": {
+      "claims": [
+        "Detected in `assets/template.html`. The file contains a suspicious script tag at the very end of the body with an unusual, long, non-descriptive path: `/9fuYoDtJvCMz7/7iPxQSJVF2a/ifw/i9cYtSVtXkhfDp/b3BILA/TQkoJjk/uOQsC`. This path resembles an attempt to obfuscate the source of the script, which could be used for malicious purposes such as loading tracking, data collection, or exploit code. While the rest of the file is a legitimate HTML email template, the inclusion of this obfuscated script tag is highly unusual and suspicious, as it does not serve any apparent functional purpose in an email template and could indicate a hidden payload or beacon. This pattern aligns with evasion techniques often seen in malicious campaigns."
+      ],
+      "obs": [
+        "Script Scan"
+      ],
+      "high_risk_features": [
+        "obfuscation_or_evasion"
+      ]
+    },
+    "arts": [],
+    "xconcerns": [],
+    "retrieve": [],
+    "coverage": {
+      "total": 1,
+      "indexed": 1,
+      "gaps": []
+    }
+  },
+  "security": {
+    "findings": [
+      {
+        "id": "",
+        "cat": "data-exfiltration",
+        "class": "execution-system-risk",
+        "severity": "",
+        "conf": "",
+        "summary": "Detected in `assets/template.html`. The file contains a suspicious script tag at the very end of the body with an unusual, long, non-descriptive path: `/9fuYoDtJvCMz7/7iPxQSJVF2a/ifw/i9cYtSVtXkhfDp/b3BILA/TQkoJjk/uOQsC`. This path resembles an attempt to obfuscate the source of the script, which could be used for malicious purposes such as loading tracking, data collection, or exploit code. While the rest of the file is a legitimate HTML email template, the inclusion of this obfuscated script tag is highly unusual and suspicious, as it does not serve any apparent functional purpose in an email template and could indicate a hidden payload or beacon. This pattern aligns with evasion techniques often seen in malicious campaigns.",
+        "arts": [],
+        "spans": [],
+        "impact": "",
+        "fix": "",
+        "decision_level": "SUSPICIOUS",
+        "primary_group": "Execution / System Risk",
+        "scan_level": "Script Scan",
+        "risk_types": [
+          "Data Exfiltration",
+          "Evasion Technique"
+        ],
+        "source_platform": "Marketplace",
+        "source_file": "scan_results_script_Marketplace.csv",
+        "related_file_count": "1",
+        "flags": {
+          "external_server": false,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": false,
+          "shell_or_command_execution": false,
+          "driver_or_installer": false,
+          "credential_request": false,
+          "obfuscation_or_evasion": true,
+          "persistence_or_external_storage": false
+        }
+      }
+    ],
+    "ctx_requests": [],
+    "coverage": {
+      "reviewed_arts": [],
+      "unresolved_high_risk_arts": []
+    }
+  },
+  "judge": {
+    "verdict": {
+      "label": "unsafe",
+      "primary_concern": "data-exfiltration",
+      "issue_types": [
+        "data-exfiltration",
+        "evasion-technique",
+        "execution-system-risk"
+      ]
+    },
+    "top_findings": [
+      {
+        "id": "",
+        "cat": "data-exfiltration",
+        "class": "execution-system-risk",
+        "severity": "",
+        "conf": "",
+        "summary": "Detected in `assets/template.html`. The file contains a suspicious script tag at the very end of the body with an unusual, long, non-descriptive path: `/9fuYoDtJvCMz7/7iPxQSJVF2a/ifw/i9cYtSVtXkhfDp/b3BILA/TQkoJjk/uOQsC`. This path resembles an attempt to obfuscate the source of the script, which could be used for malicious purposes such as loading tracking, data collection, or exploit code. While the rest of the file is a legitimate HTML email template, the inclusion of this obfuscated script tag is highly unusual and suspicious, as it does not serve any apparent functional purpose in an email template and could indicate a hidden payload or beacon. This pattern aligns with evasion techniques often seen in malicious campaigns.",
+        "impact": "",
+        "fix": "",
+        "decision_level": "SUSPICIOUS",
+        "primary_group": "Execution / System Risk",
+        "scan_level": "Script Scan",
+        "risk_types": [
+          "Data Exfiltration",
+          "Evasion Technique"
+        ],
+        "source_platform": "Marketplace",
+        "source_file": "scan_results_script_Marketplace.csv",
+        "related_file_count": "1",
+        "flags": {
+          "external_server": false,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": false,
+          "shell_or_command_execution": false,
+          "driver_or_installer": false,
+          "credential_request": false,
+          "obfuscation_or_evasion": true,
+          "persistence_or_external_storage": false
+        },
+        "spans": []
+      }
+    ],
+    "coverage_audit": {
+      "adequate": true,
+      "missed": [],
+      "needs_rescan": false
+    },
+    "next_action": "stop"
+  },
+  "excel_import": {
+    "record_count": 1,
+    "headers": [
+      "一级分类_判定级别",
+      "二级分类_主问题组",
+      "风险类型汇总",
+      "风险类型1",
+      "风险类型2",
+      "风险类型3",
+      "风险类型4",
+      "来源平台",
+      "扫描层级",
+      "原始业务分类",
+      "skill_name",
+      "关联文件数",
+      "原始来源文件",
+      "问题摘要",
+      "原始verdict",
+      "flag_外部服务器",
+      "flag_APIKey",
+      "flag_自治执行",
+      "flag_浏览器会话/凭据",
+      "flag_文件系统访问",
+      "flag_Shell/命令执行",
+      "flag_驱动/安装器",
+      "flag_凭据请求",
+      "flag_混淆/规避",
+      "flag_持久化/外部存储",
+      "清洗后原始说明"
+    ],
+    "records": [
+      {
+        "classification": {
+          "decision_level": "SUSPICIOUS",
+          "primary_group": "Execution / System Risk",
+          "risk_summary": "Data Exfiltration | Evasion Technique",
+          "risk_types": [
+            "Data Exfiltration",
+            "Evasion Technique"
+          ],
+          "platform": "Marketplace",
+          "scan_level": "Script Scan",
+          "business_category": "productivity-tools",
+          "skill_name": "jetaasc-newsletter",
+          "related_file_count": "1",
+          "source_file": "scan_results_script_Marketplace.csv",
+          "problem_summary": "Detected in `assets/template.html`. The file contains a suspicious script tag at the very end of the body with an unusual, long, non-descriptive path: `/9fuYoDtJvCMz7/7iPxQSJVF2a/ifw/i9cYtSVtXkhfDp/b3BILA/TQkoJjk/uOQsC`. This path resembles an attempt to obfuscate the source of the script, which could be used for malicious purposes such as loading tracking, data collection, or exploit code. While the rest of the file is a legitimate HTML email template, the inclusion of this obfuscated script tag is highly unusual and suspicious, as it does not serve any apparent functional purpose in an email template and could indicate a hidden payload or beacon. This pattern aligns with evasion techniques often seen in malicious campaigns.",
+          "raw_verdict": "SUSPICIOUS: Data Exfiltration/Other - Detected in `assets/template.html`. The file contains a suspicious script tag at the very end of the body with an unusual, long, non-descriptive path: `/9fuYoDtJvCMz7/7iPxQSJVF2a/ifw/i9cYtSVtXkhfDp/b3BILA/TQkoJjk/uOQsC`. This path resembles an attempt to obfuscate the source of the script, which could be used for malicious purposes such as loading tracking, data collection, or exploit code. While the rest of the file is a legitimate HTML email template, the inclusion of this obfuscated script tag is highly unusual and suspicious, as it does not serve any apparent functional purpose in an email template and could indicate a hidden payload or beacon. This pattern aligns with evasion techniques often seen in malicious campaigns.",
+          "cleaned_description": "",
+          "flags": {
+            "external_server": false,
+            "api_key": false,
+            "autonomous_execution": false,
+            "browser_session_or_credentials": false,
+            "filesystem_access": false,
+            "shell_or_command_execution": false,
+            "driver_or_installer": false,
+            "credential_request": false,
+            "obfuscation_or_evasion": true,
+            "persistence_or_external_storage": false
+          }
+        },
+        "raw_values": {
+          "一级分类_判定级别": "SUSPICIOUS",
+          "二级分类_主问题组": "Execution / System Risk",
+          "风险类型汇总": "Data Exfiltration | Evasion Technique",
+          "风险类型1": "Data Exfiltration",
+          "风险类型2": "Evasion Technique",
+          "风险类型3": "",
+          "风险类型4": "",
+          "来源平台": "Marketplace",
+          "扫描层级": "Script Scan",
+          "原始业务分类": "productivity-tools",
+          "skill_name": "jetaasc-newsletter",
+          "关联文件数": 1,
+          "原始来源文件": "scan_results_script_Marketplace.csv",
+          "问题摘要": "Detected in `assets/template.html`. The file contains a suspicious script tag at the very end of the body with an unusual, long, non-descriptive path: `/9fuYoDtJvCMz7/7iPxQSJVF2a/ifw/i9cYtSVtXkhfDp/b3BILA/TQkoJjk/uOQsC`. This path resembles an attempt to obfuscate the source of the script, which could be used for malicious purposes such as loading tracking, data collection, or exploit code. While the rest of the file is a legitimate HTML email template, the inclusion of this obfuscated script tag is highly unusual and suspicious, as it does not serve any apparent functional purpose in an email template and could indicate a hidden payload or beacon. This pattern aligns with evasion techniques often seen in malicious campaigns.",
+          "原始verdict": "SUSPICIOUS: Data Exfiltration/Other - Detected in `assets/template.html`. The file contains a suspicious script tag at the very end of the body with an unusual, long, non-descriptive path: `/9fuYoDtJvCMz7/7iPxQSJVF2a/ifw/i9cYtSVtXkhfDp/b3BILA/TQkoJjk/uOQsC`. This path resembles an attempt to obfuscate the source of the script, which could be used for malicious purposes such as loading tracking, data collection, or exploit code. While the rest of the file is a legitimate HTML email template, the inclusion of this obfuscated script tag is highly unusual and suspicious, as it does not serve any apparent functional purpose in an email template and could indicate a hidden payload or beacon. This pattern aligns with evasion techniques often seen in malicious campaigns.",
+          "flag_外部服务器": "",
+          "flag_APIKey": "",
+          "flag_自治执行": "",
+          "flag_浏览器会话/凭据": "",
+          "flag_文件系统访问": "",
+          "flag_Shell/命令执行": "",
+          "flag_驱动/安装器": "",
+          "flag_凭据请求": "",
+          "flag_混淆/规避": "Y",
+          "flag_持久化/外部存储": "",
+          "清洗后原始说明": "SUSPICIOUS: Data Exfiltration/Other - Detected in `assets/template.html`. The file contains a suspicious script tag at the very end of the body with an unusual, long, non-descriptive path: `/9fuYoDtJvCMz7/7iPxQSJVF2a/ifw/i9cYtSVtXkhfDp/b3BILA/TQkoJjk/uOQsC`. This path resembles an attempt to obfuscate the source of the script, which could be used for malicious purposes such as loading tracking, data collection, or exploit code. While the rest of the file is a legitimate HTML email template, the inclusion of this obfuscated script tag is highly unusual and suspicious, as it does not serve any apparent functional purpose in an email template and could indicate a hidden payload or beacon. This pattern aligns with evasion techniques often seen in malicious campaigns."
+        }
+      }
+    ]
+  }
+}

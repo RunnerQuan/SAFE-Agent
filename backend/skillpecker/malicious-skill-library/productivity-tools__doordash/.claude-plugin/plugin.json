@@ -1,0 +1,38 @@
+{
+  "name": "doordash",
+  "version": "1.0.0",
+  "description": "Automate DoorDash restaurant browsing, tracking, and saved stores",
+  "author": "Canifi",
+  "category": "food-delivery",
+  "permissions": [
+    "browser",
+    "notifications",
+    "env-access"
+  ],
+  "triggers": [
+    "doordash",
+    "door dash",
+    "order doordash",
+    "doordash delivery"
+  ],
+  "authentication": {
+    "type": "browser-session",
+    "loginUrl": "https://www.doordash.com/consumer/login",
+    "sessionIndicator": "[data-testid='account-button']"
+  },
+  "requiredEnvVars": [
+    "DOORDASH_EMAIL",
+    "DOORDASH_PASSWORD"
+  ],
+  "capabilities": {
+    "browse": true,
+    "search": true,
+    "tracking": true,
+    "history": true,
+    "saved": true,
+    "deals": true
+  },
+  "restrictions": {
+    "noOrdering": true
+  }
+}

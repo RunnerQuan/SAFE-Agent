@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "privilege-escalation",
+    "issue_types": [
+      "privilege-escalation",
+      "execution-system-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "privilege-escalation",
+      "class": "execution-system-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill requests permission to automatically execute sudo commands (e.g., `sudo apt install python3-venv`) for installing system packages, which grants root/admin access. While tool installation is related to enabling security audits, this level of system modification is excessive for a static analysis tool and could be avoided by relying on pre-installed software, user-space installations, or prompting the user for manual setup. This poses a risk of unintended privilege escalation in the environment where the skill runs.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Execution / System Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Privilege Escalation"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "6",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

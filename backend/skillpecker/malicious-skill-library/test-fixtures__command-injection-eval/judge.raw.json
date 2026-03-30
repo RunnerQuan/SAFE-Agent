@@ -1,0 +1,47 @@
+{
+  "verdict": {
+    "label": "malicious",
+    "primary_concern": "active-malice",
+    "issue_types": [
+      "active-malice"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "",
+      "class": "active-malice",
+      "severity": "",
+      "conf": "",
+      "summary": "Detected in `calculate.py`. The code uses `eval()` and `exec()` on unsanitized user input (`expression`, `formula`, `variables`), allowing arbitrary code execution. This is a classic command injection vulnerability that can be exploited to run malicious commands on the host system, aligning with the \"code-execution\" threat category. The accompanying `_expected.json` confirms this is a test fixture for command injection, with expected unsafe behavior and rule detection for `EXEC_CALL`.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "MALICIOUS",
+      "primary_group": "Active Malice",
+      "scan_level": "Script Scan",
+      "risk_types": [],
+      "source_platform": "Clawhub",
+      "source_file": "scan_results_script_clawhub.csv",
+      "related_file_count": "2",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": true,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

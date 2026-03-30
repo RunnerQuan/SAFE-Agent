@@ -1,0 +1,54 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "privilege-escalation",
+      "data-exfiltration",
+      "execution-system-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "execution-system-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill requests blanket permissions for \"Read, Write, Edit, Bash(cmd:*), Grep\" which is excessive for certificate lifecycle management. This allows unrestricted execution of any bash command and full filesystem access, far beyond the specific actions needed for certificate management tasks (e.g., generating, renewing, or revoking certificates). Such broad permissions could enable privilege escalation, data exfiltration, or system modification unrelated to the stated purpose.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Execution / System Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Privilege Escalation",
+        "Data Exfiltration"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": true,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

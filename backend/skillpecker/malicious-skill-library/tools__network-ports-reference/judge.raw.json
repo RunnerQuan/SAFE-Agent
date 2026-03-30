@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "access-boundary-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "access-boundary-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "This skill is described as a \"Network Ports Reference\" tool for providing \"comprehensive network port and protocol reference information,\" yet its documentation explicitly requires \"Target IP address or hostname for port scanning\" and \"Network access to the target system\" as inputs. A reference tool should only need port numbers or protocol names as inputs to return educational information. The skill also provides detailed attack workflows, scanning commands (nmap, masscan), and exploitation techniques that go far beyond passive reference, effectively functioning as an active reconnaissance/penetration testing toolkit. This represents significant permission overreach beyond the stated purpose of being a reference guide.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Access Boundary Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": true,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

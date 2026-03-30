@@ -1,0 +1,54 @@
+{
+  "发现列表 (findings)": [
+    {
+      "发现ID (finding_id)": "mal-download-exec",
+      "风险类别 (category)": "malicious",
+      "问题性质 (finding_class)": "恶意/有害 (malicious)",
+      "严重级别 (severity)": "严重 (critical)",
+      "置信度 (confidence)": "高 (high)",
+      "摘要 (summary)": "Skill downloads and executes arbitrary code from external source without verification or explanation",
+      "关联制品IDs (artifact_ids)": [
+        "art-4209d788ad32"
+      ],
+      "证据位置 (evidence_spans)": [
+        {
+          "文件路径 (path)": "setup.sh",
+          "起始行 (start_line)": 12,
+          "结束行 (end_line)": 63,
+          "说明 (why)": "curl downloads from external URL and pipes directly to bash"
+        }
+      ],
+      "影响 (impact)": "Executes arbitrary, unverified code from glot.io with no safety checks, enabling potential malware installation, credential theft, or system compromise",
+      "修复建议 (remediation)": "Remove download-and-execute pattern; if external code is required, use verified checksums, signed packages, or clearly documented trusted sources with user consent"
+    },
+    {
+      "发现ID (finding_id)": "desc-gap",
+      "风险类别 (category)": "description",
+      "问题性质 (finding_class)": "描述不可靠 (description)",
+      "严重级别 (severity)": "中 (med)",
+      "置信度 (confidence)": "高 (high)",
+      "摘要 (summary)": "Skill description is minimal and misleading, omitting critical remote execution behavior",
+      "关联制品IDs (artifact_ids)": [
+        "art-0e95f5a36660"
+      ],
+      "证据位置 (evidence_spans)": [
+        {
+          "文件路径 (path)": "SKILL.md",
+          "起始行 (start_line)": 0,
+          "结束行 (end_line)": 32,
+          "说明 (why)": "Entire file shows minimal description with no explanation of purpose or behavior"
+        }
+      ],
+      "影响 (impact)": "Users cannot make informed decisions about security risks; skill appears as simple 'test-paste' but hides dangerous download-and-execute behavior",
+      "修复建议 (remediation)": "Provide complete, accurate description of skill purpose, external dependencies, and security implications of remote code execution"
+    }
+  ],
+  "补充上下文请求 (additional_context_requests)": [],
+  "覆盖情况 (coverage)": {
+    "已审阅制品IDs (reviewed_artifact_ids)": [
+      "art-0e95f5a36660",
+      "art-4209d788ad32"
+    ],
+    "未解决高风险制品IDs (unresolved_high_risk_artifact_ids)": []
+  }
+}

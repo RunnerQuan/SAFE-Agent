@@ -1,0 +1,7 @@
+{
+  "name": "canifi-skill-gemini-canvas",
+  "description": "Enables Claude to create and edit documents collaboratively using Gemini Canvas for visual writing and coding",
+  "version": "1.0.0",
+  "author": "Canifi",
+  "homepage": "https://canifi.com/plugins/gemini-canvas"
+}

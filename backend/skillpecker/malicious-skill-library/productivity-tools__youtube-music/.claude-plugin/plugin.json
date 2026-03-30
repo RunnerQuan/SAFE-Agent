@@ -1,0 +1,35 @@
+{
+  "name": "youtube-music",
+  "version": "1.0.0",
+  "description": "Stream music on YouTube Music, manage playlists, and access music videos",
+  "author": "Canifi LifeOS",
+  "homepage": "https://music.youtube.com",
+  "categories": ["entertainment", "music", "streaming"],
+  "capabilities": [
+    "music-streaming",
+    "playlist-management",
+    "music-videos",
+    "recommendations"
+  ],
+  "authentication": {
+    "type": "oauth",
+    "provider": "google",
+    "required": true
+  },
+  "environmentVariables": [
+    {
+      "name": "GOOGLE_EMAIL",
+      "description": "Google account email address",
+      "required": true
+    }
+  ],
+  "triggers": [
+    "youtube music",
+    "play music",
+    "music video",
+    "yt music"
+  ],
+  "dependencies": {
+    "mcp": ["playwright"]
+  }
+}

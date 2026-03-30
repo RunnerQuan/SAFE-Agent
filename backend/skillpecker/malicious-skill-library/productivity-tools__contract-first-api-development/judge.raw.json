@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach-action",
+    "issue_types": [
+      "permission-overreach-action",
+      "permission-overreach",
+      "access-boundary-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach-action",
+      "class": "access-boundary-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill's primary purpose is to author OpenAPI/AsyncAPI specifications, contracts, and mocks (design documents). However, it requests \"access to system context (repos, infra, environments)\" and \"credentials or access tokens for required environments,\" which are excessive for a design-phase activity. Authoring specifications and generating mocks do not inherently require live environment credentials or broad infrastructure access; these are typically needed for implementation, deployment, or testing stages, not initial design. This represents permission overreach beyond the stated scope of creating design artifacts.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Access Boundary Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach (Action)",
+        "Permission Overreach"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

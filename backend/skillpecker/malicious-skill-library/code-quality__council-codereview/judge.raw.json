@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "access-boundary-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "access-boundary-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "This code review skill requests access to read staged git changes and recent modifications without explicit user consent for each specific code block. While code review necessitates reading code, automatically scanning git changes (beyond what the user explicitly provides) expands the scope beyond user-controlled input. Additionally, the skill description doesn't clarify data handling practices for the two external AI services (Codex and Gemini), creating potential privacy risks when sensitive code is sent to third-party APIs without explicit disclosure about data retention or processing.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Access Boundary Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": true,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

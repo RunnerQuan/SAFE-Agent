@@ -1,0 +1,34 @@
+{
+  "name": "wix",
+  "displayName": "Wix",
+  "version": "1.0.0",
+  "description": "Build websites easily with Wix - create, edit, and manage websites using drag-and-drop tools and templates",
+  "author": "Canifi LifeOS",
+  "category": "Design & Creative",
+  "authentication": {
+    "type": "browser",
+    "loginUrl": "https://users.wix.com/signin",
+    "loggedInIndicator": "[data-testid='user-menu']"
+  },
+  "capabilities": [
+    "edit-pages",
+    "manage-blog",
+    "business-tools",
+    "handle-forms",
+    "publish-sites",
+    "view-analytics"
+  ],
+  "requiredEnvVars": [
+    "WIX_EMAIL",
+    "WIX_PASSWORD"
+  ],
+  "endpoints": {
+    "base": "https://www.wix.com",
+    "dashboard": "https://manage.wix.com",
+    "editor": "https://editor.wix.com"
+  },
+  "rateLimit": {
+    "requests": 60,
+    "period": "minute"
+  }
+}

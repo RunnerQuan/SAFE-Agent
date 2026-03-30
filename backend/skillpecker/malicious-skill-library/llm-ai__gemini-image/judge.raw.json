@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "unsafe",
+    "primary_concern": "privacy-violation",
+    "issue_types": [
+      "privacy-violation",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "privacy-violation",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill documentation includes a configuration file (config/secrets.example.md) that directs users to obtain an API key from a third-party website (https://ismaque.org/register?aff=zySn) with an affiliate code, rather than from Google's official platform. This could mislead users into providing personal data to an unrelated service, posing privacy risks. Additionally, tips/image-upload.md suggests uploading images to external servers (e.g., Litterbox, Catbox) for hosting, which may expose user data to third parties without clear necessity for the core image generation functionality, as the primary implementation in references/python.md handles local files directly.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "SUSPICIOUS",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Privacy Violation"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "6",
+      "flags": {
+        "external_server": true,
+        "api_key": true,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

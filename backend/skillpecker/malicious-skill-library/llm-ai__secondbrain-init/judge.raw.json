@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "privilege-escalation",
+      "execution-system-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "execution-system-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill generates a `.claude/settings.local.json` configuration file with excessive permissions including `allow_read: [\"~/**\", \"/tmp/**\"]` (full read access to entire home directory) and `allow_bash: [\"*\"]` (unrestricted bash command execution). While the skill's primary purpose is scaffolding a knowledge management system, these broad system-level permissions are not necessary for creating project files and documentation structure within the project directory. This represents significant privilege escalation beyond what's needed for the stated task.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Execution / System Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Privilege Escalation"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "2",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": true,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

@@ -1,0 +1,17 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#e8f5e9', 'primaryTextColor': '#1b5e20', 'primaryBorderColor': '#4caf50', 'lineColor': '#4caf50', 'secondaryColor': '#fff8e1'}}}%%
+graph LR
+    subgraph project["Project"]
+        app["application"]
+    end
+
+    subgraph external["External Dependencies"]
+        gin["github.com/gin-gonic/gin"]
+        gorm["gorm.io/gorm"]
+        zap["go.uber.org/zap"]
+        viper["github.com/spf13/viper"]
+    end
+
+    app --> gin
+    app --> gorm
+    app --> zap
+    app --> viper

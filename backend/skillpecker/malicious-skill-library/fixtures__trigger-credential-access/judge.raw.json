@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "unsafe",
+    "primary_concern": "data-exfiltration",
+    "issue_types": [
+      "data-exfiltration",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-exfiltration",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The code in `index.js` directly accesses the sensitive environment variable `OPENAI_API_KEY` and logs it to stdout. This exposes secret credentials that could be captured if the logs are monitored or forwarded externally. While not actively exfiltrating via network requests, logging API keys is a critical security violation that could enable credential theft if the execution environment is compromised or logs are stored insecurely.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "SUSPICIOUS",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Script Scan",
+      "risk_types": [
+        "Data Exfiltration"
+      ],
+      "source_platform": "Clawhub",
+      "source_file": "scan_results_script_clawhub.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": true,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": true
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

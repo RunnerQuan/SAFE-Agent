@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill requests Bash execution permission, which allows running arbitrary shell commands, and broad Read access without scope limitations. For an AI-powered internal communications tool focused on content generation, workflow optimization, and multi-format support (reports, newsletters, FAQs), these permissions are excessive. Bash access is unnecessary for the stated purpose and could be exploited for system-level actions unrelated to communication tasks. Additionally, unrestricted Read access could allow reading sensitive files (e.g., configuration files, logs, or personal data) beyond the communication sources (Slack, email, documents) needed for content generation, posing a risk of data over-collection.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Data Over-collection"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "6",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": true,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

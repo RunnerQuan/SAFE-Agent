@@ -1,0 +1,134 @@
+{
+  "发现列表 (findings)": [
+    {
+      "发现ID (finding_id)": "desc-1",
+      "风险类别 (category)": "description",
+      "问题性质 (finding_class)": "描述不可靠 (description)",
+      "严重级别 (severity)": "低 (low)",
+      "置信度 (confidence)": "高 (high)",
+      "摘要 (summary)": "Documentation makes absolute and potentially misleading safety/compatibility claims about 'web-safe fonts' and 'universally available' fonts.",
+      "关联制品IDs (artifact_ids)": [
+        "art-0e95f5a36660",
+        "art-7e1aba8a0649"
+      ],
+      "证据位置 (evidence_spans)": [
+        {
+          "文件路径 (path)": "SKILL.md",
+          "起始行 (start_line)": 60,
+          "结束行 (end_line)": 60,
+          "说明 (why)": "Claims 'Use web-safe fonts only: Arial, Helvetica...' as a requirement, implying a safety or compatibility guarantee that is not absolute."
+        },
+        {
+          "文件路径 (path)": "html2pptx.md",
+          "起始行 (start_line)": 46,
+          "结束行 (end_line)": 47,
+          "说明 (why)": "Claims 'ONLY use web-safe fonts that are universally available:' and lists specific fonts, which is a subjective and potentially misleading statement about universal availability and safety."
+        }
+      ],
+      "影响 (impact)": "Users may be misled into believing font usage is a security or guaranteed compatibility issue, when it is primarily a design and local installation concern. Could cause confusion if presentations render differently on systems lacking these fonts.",
+      "修复建议 (remediation)": "Clarify language: state these are 'commonly available' or 'recommended for broad compatibility' fonts, not a security or absolute guarantee. Remove 'universally available' and 'safe' if not referring to a security property."
+    },
+    {
+      "发现ID (finding_id)": "unsafe-1",
+      "风险类别 (category)": "input_validation",
+      "问题性质 (finding_class)": "不安全/不可靠 (unsafe)",
+      "严重级别 (severity)": "中 (med)",
+      "置信度 (confidence)": "高 (high)",
+      "摘要 (summary)": "Multiple scripts accept file paths from command-line arguments without sanitization against path traversal.",
+      "关联制品IDs (artifact_ids)": [
+        "art-a3b98e9af3e7",
+        "art-d35fe6a13b86",
+        "art-32e96034dda4"
+      ],
+      "证据位置 (evidence_spans)": [
+        {
+          "文件路径 (path)": "scripts/inventory.py",
+          "起始行 (start_line)": 82,
+          "结束行 (end_line)": 82,
+          "说明 (why)": "Reads input path from command-line argument via `args.input` and converts to Path without path traversal checks."
+        },
+        {
+          "文件路径 (path)": "scripts/replace.py",
+          "起始行 (start_line)": 362,
+          "结束行 (end_line)": 364,
+          "说明 (why)": "Reads input, JSON, and output paths directly from sys.argv and converts to Path objects without sanitization."
+        },
+        {
+          "文件路径 (path)": "scripts/thumbnail.py",
+          "起始行 (start_line)": 98,
+          "结束行 (end_line)": 98,
+          "说明 (why)": "Reads input path from command-line argument via `args.input` and converts to Path without path traversal checks."
+        }
+      ],
+      "影响 (impact)": "If these scripts are run with user-controlled input (e.g., from a web interface or untrusted CLI), an attacker could potentially read or write files outside the intended directory (path traversal).",
+      "修复建议 (remediation)": "Implement path sanitization: resolve paths to absolute, ensure they are within a permitted directory, or use `Path.resolve()` and check against a base directory. Consider using `argparse` with type callbacks for validation."
+    },
+    {
+      "发现ID (finding_id)": "unsafe-2",
+      "风险类别 (category)": "subprocess",
+      "问题性质 (finding_class)": "不安全/不可靠 (unsafe)",
+      "严重级别 (severity)": "中 (med)",
+      "置信度 (confidence)": "中 (med)",
+      "摘要 (summary)": "Subprocess calls in pack.py and redlining.py use external commands (soffice, git, diff) with user-influenced arguments, creating potential injection risk if arguments are not properly sanitized.",
+      "关联制品IDs (artifact_ids)": [
+        "art-2bf971b24994",
+        "art-a996168bd0d7"
+      ],
+      "证据位置 (evidence_spans)": [
+        {
+          "文件路径 (path)": "ooxml/scripts/pack.py",
+          "起始行 (start_line)": 103,
+          "结束行 (end_line)": 103,
+          "说明 (why)": "Calls subprocess.run with a list including `str(doc_path)`. The `doc_path` originates from user-provided `output_file` argument."
+        },
+        {
+          "文件路径 (path)": "ooxml/scripts/validation/redlining.py",
+          "起始行 (start_line)": 153,
+          "结束行 (end_line)": 153,
+          "说明 (why)": "Calls subprocess.run with a list including temporary file paths derived from user-provided XML content."
+        }
+      ],
+      "影响 (impact)": "If user-controlled input can influence the arguments (e.g., via file names or XML content that affects temporary file paths), there is a risk of command injection or unintended command execution. The use of `shell=False` and list arguments mitigates but does not eliminate risk if arguments contain shell metacharacters that are interpreted by the target command.",
+      "修复建议 (remediation)": "Ensure all arguments passed to subprocess are validated and sanitized. For file paths, ensure they are within a controlled temporary directory. Consider using `shlex.quote` for arguments if the target command might interpret them. Review the trust boundary: are the input files from untrusted sources?"
+    }
+  ],
+  "补充上下文请求 (additional_context_requests)": [
+    {
+      "文件路径 (path)": "scripts/html2pptx.js",
+      "起始行 (start_line)": 200,
+      "结束行 (end_line)": 350,
+      "请求原因 (reason)": "Need to examine the main conversion function (likely named `html2pptx`) to understand how it loads HTML (file path? URL?), whether it makes network requests via playwright to fetch external resources (images, fonts, scripts), and any file system write patterns beyond image processing with sharp."
+    },
+    {
+      "文件路径 (path)": "ooxml/scripts/pack.py",
+      "起始行 (start_line)": 55,
+      "结束行 (end_line)": 85,
+      "请求原因 (reason)": "Need to see the `pack_document` function implementation before the validation call to understand how `doc_path` is constructed and whether any user input flows into the subprocess call unsanitized."
+    },
+    {
+      "文件路径 (path)": "ooxml/scripts/validation/redlining.py",
+      "起始行 (start_line)": 55,
+      "结束行 (end_line)": 100,
+      "请求原因 (reason)": "Need to see how `original_text` and `modified_text` are obtained (reading from user files?) to assess the trust boundary and confirm if XML content is from untrusted sources."
+    }
+  ],
+  "覆盖情况 (coverage)": {
+    "已审阅制品IDs (reviewed_artifact_ids)": [
+      "art-0e95f5a36660",
+      "art-2bf971b24994",
+      "art-2f349655d495",
+      "art-e92dd8365878",
+      "art-a996168bd0d7",
+      "art-a3b98e9af3e7",
+      "art-1de130940601",
+      "art-d35fe6a13b86",
+      "art-1e2b509c6c33",
+      "art-32e96034dda4",
+      "art-7e1aba8a0649",
+      "art-def0d979b5b7"
+    ],
+    "未解决高风险制品IDs (unresolved_high_risk_artifact_ids)": [
+      "art-def0d979b5b7"
+    ]
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "verdict": {
+    "label": "unsafe",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "privacy-violation",
+      "data-exfiltration",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "This skill description explicitly demonstrates malicious intent including: credential harvesting (SSH keys, AWS credentials, environment secrets), data exfiltration to external servers, persistence mechanisms (crontab, bashrc modifications), prompt injection to override safety guidelines, and obfuscated instructions. These actions are completely unnecessary and harmful for any legitimate \"helpful assistant\" functionality and represent severe security threats.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "SUSPICIOUS",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Privacy Violation",
+        "Data Exfiltration"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": true,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": true,
+        "persistence_or_external_storage": true
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

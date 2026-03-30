@@ -1,0 +1,47 @@
+{
+  "verdict": {
+    "label": "unsafe",
+    "primary_concern": "other",
+    "issue_types": [
+      "other"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "",
+      "class": "other",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill is provided as a ZIP archive containing a single file (`SKILL.md`). Without extracting and examining the contents of the Markdown file, we cannot determine if it contains malicious logic. The use of a compressed archive could be an attempt to evade static analysis by hiding the actual source code. While no overtly malicious patterns are visible in the raw archive bytes (e.g., no plaintext commands like `curl`, `wget`, `webhook` URLs), the inability to inspect the contained source code is suspicious and warrants further investigation. If the `SKILL.md` file contains executable code blocks or scripts, it could harbor malicious behavior. We recommend extracting and analyzing the actual file content.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "SUSPICIOUS",
+      "primary_group": "Other",
+      "scan_level": "Script Scan",
+      "risk_types": [],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_script_Marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": true,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

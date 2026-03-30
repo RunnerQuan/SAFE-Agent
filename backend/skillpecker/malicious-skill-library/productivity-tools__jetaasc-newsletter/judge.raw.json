@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "unsafe",
+    "primary_concern": "data-exfiltration",
+    "issue_types": [
+      "data-exfiltration",
+      "evasion-technique",
+      "execution-system-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-exfiltration",
+      "class": "execution-system-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "Detected in `assets/template.html`. The file contains a suspicious script tag at the very end of the body with an unusual, long, non-descriptive path: `/9fuYoDtJvCMz7/7iPxQSJVF2a/ifw/i9cYtSVtXkhfDp/b3BILA/TQkoJjk/uOQsC`. This path resembles an attempt to obfuscate the source of the script, which could be used for malicious purposes such as loading tracking, data collection, or exploit code. While the rest of the file is a legitimate HTML email template, the inclusion of this obfuscated script tag is highly unusual and suspicious, as it does not serve any apparent functional purpose in an email template and could indicate a hidden payload or beacon. This pattern aligns with evasion techniques often seen in malicious campaigns.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "SUSPICIOUS",
+      "primary_group": "Execution / System Risk",
+      "scan_level": "Script Scan",
+      "risk_types": [
+        "Data Exfiltration",
+        "Evasion Technique"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_script_Marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": true,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

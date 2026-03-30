@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "unsafe",
+    "primary_concern": "data-exfiltration",
+    "issue_types": [
+      "data-exfiltration",
+      "evasion-technique",
+      "execution-system-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-exfiltration",
+      "class": "execution-system-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "Detected in `index.js`. The code constructs the `eval` function using string concatenation (`'ev' + 'al'`) to evade static string detection, then immediately executes `alert(1)`. While the payload appears benign, this evasion pattern is commonly used in malicious scripts to hide more dangerous code (e.g., data exfiltration or downloading further payloads). The use of `eval` with dynamically assembled strings is a high-risk pattern that warrants suspicion, though no explicit malicious behavior (e.g., data theft, external calls) is present in this snippet.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "SUSPICIOUS",
+      "primary_group": "Execution / System Risk",
+      "scan_level": "Script Scan",
+      "risk_types": [
+        "Data Exfiltration",
+        "Evasion Technique"
+      ],
+      "source_platform": "Clawhub",
+      "source_file": "scan_results_script_clawhub.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": true,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

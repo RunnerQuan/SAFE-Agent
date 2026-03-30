@@ -1,0 +1,54 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "data-over-collection",
+      "privilege-escalation",
+      "execution-system-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "execution-system-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "This skill claims to \"install and configure a new dependency\" but instead requests to run broad system commands including installing ALL frontend/backend dependencies (not just one new one) and copying environment files. This grants excessive system access beyond the stated purpose. Additionally, copying `.env` files containing sensitive configuration data (API keys, database credentials) when only installing a single dependency constitutes data over-collection. The skill also requests execution of arbitrary command files (`.claude/commands/prime.md`) without specifying their contents, creating potential privilege escalation risks.",
+      "impact": "OVERREACH: Permission Overreach & Data Over-collection - This skill claims to \"install and configure a new dependency\" but instead requests to run broad system commands including installing ALL frontend/backend dependencies (not just one new one) and copying environment files. This grants excessive system access beyond the stated purpose. Additionally, copying `.env` files containing sensitive configuration data (API keys, database credentials) when only installing a single dependency constitutes data over-collection. The skill also requests execution of arbitrary command files (`.claude/commands/prime.md`) without specifying their contents, creating potential privilege escalation risks.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Execution / System Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Data Over-collection",
+        "Privilege Escalation"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": true,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

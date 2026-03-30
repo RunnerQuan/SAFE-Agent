@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill's primary purpose is tracking cryptocurrency prices and setting alerts, yet it requires blockchain RPC endpoints (Infura/Alchemy) and exchange API keys (for trading/account data), which are unnecessary for simply fetching public market data. Additionally, it performs actions like querying on-chain transactions and exchange order books, which exceed the scope of basic price monitoring and could expose sensitive credentials or enable unauthorized trading activities.",
+      "impact": "OVERREACH: Data Over-collection & Permission Overreach - The skill's primary purpose is tracking cryptocurrency prices and setting alerts, yet it requires blockchain RPC endpoints (Infura/Alchemy) and exchange API keys (for trading/account data), which are unnecessary for simply fetching public market data. Additionally, it performs actions like querying on-chain transactions and exchange order books, which exceed the scope of basic price monitoring and could expose sensitive credentials or enable unauthorized trading activities.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Data Over-collection"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": true,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

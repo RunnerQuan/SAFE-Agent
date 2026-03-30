@@ -1,0 +1,99 @@
+{
+  "verdict": {
+    "label": "unsafe",
+    "primary_concern": "unsafe",
+    "issue_types": [
+      "unsafe"
+    ],
+    "maliciousness": 0,
+    "safety": 3,
+    "description_reliability": 5,
+    "coverage": 6
+  },
+  "top_findings": [
+    {
+      "id": "unsafe-1",
+      "cat": "input_validation",
+      "severity": "med",
+      "conf": "high",
+      "summary": "Multiple scripts accept file paths from command-line arguments without sanitization against path traversal.",
+      "spans": [
+        {
+          "path": "scripts/inventory.py",
+          "s": 82,
+          "e": 82,
+          "why": "Reads input path from command-line argument via `args.input` and converts to Path without path traversal checks."
+        },
+        {
+          "path": "scripts/replace.py",
+          "s": 362,
+          "e": 364,
+          "why": "Reads input, JSON, and output paths directly from sys.argv and converts to Path objects without sanitization."
+        },
+        {
+          "path": "scripts/thumbnail.py",
+          "s": 98,
+          "e": 98,
+          "why": "Reads input path from command-line argument via `args.input` and converts to Path without path traversal checks."
+        }
+      ]
+    },
+    {
+      "id": "unsafe-2",
+      "cat": "subprocess",
+      "severity": "med",
+      "conf": "med",
+      "summary": "Subprocess calls in pack.py and redlining.py use external commands (xmllint, diff) with user-influenced arguments, creating potential injection risk.",
+      "spans": [
+        {
+          "path": "ooxml/scripts/pack.py",
+          "s": 103,
+          "e": 103,
+          "why": "Calls subprocess.run with a list including `str(doc_path)`. The `doc_path` originates from user-provided `output_file` argument."
+        },
+        {
+          "path": "ooxml/scripts/validation/redlining.py",
+          "s": 153,
+          "e": 153,
+          "why": "Calls subprocess.run with a list including temporary file paths derived from user-provided XML content."
+        }
+      ]
+    },
+    {
+      "id": "desc-1",
+      "cat": "description",
+      "severity": "low",
+      "conf": "high",
+      "summary": "Documentation makes absolute and potentially misleading safety/compatibility claims about 'web-safe fonts' and 'universally available' fonts.",
+      "spans": [
+        {
+          "path": "SKILL.md",
+          "s": 60,
+          "e": 60,
+          "why": "Claims 'Use web-safe fonts only: Arial, Helvetica...' as a requirement, implying a safety or compatibility guarantee that is not absolute."
+        },
+        {
+          "path": "html2pptx.md",
+          "s": 46,
+          "e": 47,
+          "why": "Claims 'ONLY use web-safe fonts that are universally available:' and lists specific fonts, which is a subjective and potentially misleading statement about universal availability and safety."
+        }
+      ]
+    }
+  ],
+  "coverage_audit": {
+    "adequate": false,
+    "missed": [
+      {
+        "path": "scripts/html2pptx.js",
+        "why": "High-risk artifact (Node.js module using playwright and sharp) not fully reviewed; network and local resource access patterns unclear."
+      },
+      {
+        "path": "ooxml/schemas/ISO-IEC29500-4_2016/sml.xsd",
+        "why": "Truncated large text file; content not reviewed."
+      }
+    ],
+    "needs_rescan": true
+  },
+  "next_action": "rescan_targeted"
+}

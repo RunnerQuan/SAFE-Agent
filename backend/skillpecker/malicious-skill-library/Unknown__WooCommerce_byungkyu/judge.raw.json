@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "data-over-collection",
+    "issue_types": [
+      "data-over-collection",
+      "privacy-violation",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-over-collection",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill mandates the use of a third-party proxy service (Maton) for all WooCommerce API interactions, requiring users to route sensitive e-commerce data (including customer information, orders, products, and financial details) through Maton's servers. This is not strictly necessary for the stated purpose of WooCommerce REST API integration, as direct API access with WooCommerce credentials could be implemented without an intermediary. Additionally, users must create an account on maton.ai and provide an API key, further exposing their data to a third party without clear data minimization or privacy safeguards. This design choice introduces unnecessary privacy risks and data over-collection beyond the core functionality of managing e-commerce operations.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Data Over-collection",
+        "Privacy Violation"
+      ],
+      "source_platform": "Clawhub",
+      "source_file": "scan_results_description_clawhub.csv",
+      "related_file_count": "2",
+      "flags": {
+        "external_server": true,
+        "api_key": true,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

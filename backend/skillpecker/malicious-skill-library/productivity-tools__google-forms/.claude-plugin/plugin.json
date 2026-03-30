@@ -1,0 +1,7 @@
+{
+  "name": "canifi-skill-google-forms",
+  "description": "Enables Claude to create, edit, and analyze Google Forms surveys and quizzes via Playwright MCP",
+  "version": "1.0.0",
+  "author": "Canifi",
+  "homepage": "https://canifi.com/plugins/google-forms"
+}

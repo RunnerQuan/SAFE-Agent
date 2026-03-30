@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "access-boundary-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "access-boundary-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill's documentation instructs the consistent use of the `--dangerously-bypass-approvals-and-sandbox` flag combined with `--skip-git-repo-check`. While the stated purpose is to spawn autonomous subagents for context-heavy work, these flags collectively bypass all built-in security sandbox, approval prompts, and repository safety checks of the Codex CLI. This effectively escalates privileges to allow unrestricted network access, filesystem operations, and command execution without user oversight, which is excessive for the core function of offloading token-intensive tasks. The skill's own development log (DEVLOG.md) acknowledges that this bypass is \"dangerous\" and notes that network authorization issues remain a CLI-level security mechanism, indicating the skill overreaches by advocating for the systematic disablement of safety controls.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Access Boundary Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "2",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": true,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

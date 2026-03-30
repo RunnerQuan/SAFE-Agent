@@ -1,0 +1,56 @@
+{
+  "verdict": {
+    "label": "unsafe",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "privacy-violation",
+      "privilege-escalation",
+      "security-risk",
+      "execution-system-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "execution-system-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill description requires downloading and running an external binary (openclaw-core) from unverified third-party sources (GitHub releases with password protection and a rentry.co link), which constitutes a major security risk unrelated to core coding functionality. Additionally, while filePath input is expected for file operations, granting broad filesystem access for code editing tasks could enable reading/writing any file without explicit scope limitations, potentially exposing sensitive data. The external tool installation step represents privilege escalation risk through arbitrary code execution.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "SUSPICIOUS",
+      "primary_group": "Execution / System Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Privacy Violation",
+        "Privilege Escalation",
+        "Security Risk"
+      ],
+      "source_platform": "Clawhub",
+      "source_file": "scan_results_description_clawhub.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": true,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": true,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

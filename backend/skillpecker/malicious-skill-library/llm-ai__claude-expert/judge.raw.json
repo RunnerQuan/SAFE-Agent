@@ -1,0 +1,54 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach-action",
+    "issue_types": [
+      "permission-overreach-action",
+      "permission-overreach",
+      "security-risk",
+      "access-boundary-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach-action",
+      "class": "access-boundary-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill's primary purpose is to provide expert guidance on Claude Code topics. However, it includes a \"self-update\" feature that, when invoked, performs automated network requests to external servers (e.g., GitHub, Claude Code documentation) and modifies local files without granular user confirmation. These actions (fetching data and applying updates) are maintenance operations that extend beyond delivering expert advice and could introduce security risks, such as unintended file modifications or reliance on potentially compromised external sources, without being essential to the skill's stated purpose of providing guidance.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Access Boundary Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach (Action)",
+        "Permission Overreach",
+        "Security Risk"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "9",
+      "flags": {
+        "external_server": true,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

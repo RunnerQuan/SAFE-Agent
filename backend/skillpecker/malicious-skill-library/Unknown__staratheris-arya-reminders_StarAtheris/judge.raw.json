@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "privacy-violation",
+    "issue_types": [
+      "privacy-violation",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "privacy-violation",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill description reveals that reminders are delivered to a hardcoded Telegram chat ID (5028608085) without user consent or configuration option. This violates privacy principles by automatically transmitting user reminder data to a third-party service (Telegram) and a specific recipient without disclosure in the main skill documentation (SKILL.md mentions only local logging). For a reminder skill claiming to work \"locally\" without external APIs, this hidden external data transmission constitutes privacy overreach.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Privacy Violation"
+      ],
+      "source_platform": "Clawhub",
+      "source_file": "scan_results_description_clawhub.csv",
+      "related_file_count": "3",
+      "flags": {
+        "external_server": true,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

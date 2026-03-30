@@ -1,0 +1,186 @@
+{
+  "技能概览 (skill_overview)": {
+    "技能声明列表 (skill_claims)": [
+      "Find doctors with Healthgrades - search providers, read reviews, and check credentials"
+    ],
+    "观察到的行为 (observed_behaviors)": [
+      "network_call",
+      "shell_wrapper",
+      "secret_env_read"
+    ],
+    "高风险特征 (high_risk_features)": [
+      "download_and_execute"
+    ]
+  },
+  "文件分析列表 (artifact_reviews)": [
+    {
+      "制品ID (artifact_id)": "art-0e95f5a36660",
+      "文件路径 (path)": "SKILL.md",
+      "文件类型 (kind)": "Markdown 文档 (markdown)",
+      "文件角色 (role)": "Skill 定义文件 (skill_definition)",
+      "观察结果 (observations)": [
+        "network_call",
+        "shell_wrapper",
+        "secret_env_read"
+      ],
+      "风险信号 (risk_signals)": [
+        "download_and_execute",
+        "network_access"
+      ],
+      "证据位置 (evidence_spans)": [
+        {
+          "文件路径 (path)": "SKILL.md",
+          "起始行 (start_line)": 15,
+          "结束行 (end_line)": 15,
+          "说明 (why)": "curl pipe to bash - download and execute remote script"
+        },
+        {
+          "文件路径 (path)": "SKILL.md",
+          "起始行 (start_line)": 29,
+          "结束行 (end_line)": 29,
+          "说明 (why)": "commented curl pipe to bash - shows pattern but disabled"
+        },
+        {
+          "文件路径 (path)": "SKILL.md",
+          "起始行 (start_line)": 31,
+          "结束行 (end_line)": 32,
+          "说明 (why)": "environment variable storage for credentials"
+        },
+        {
+          "文件路径 (path)": "SKILL.md",
+          "起始行 (start_line)": 48,
+          "结束行 (end_line)": 49,
+          "说明 (why)": "alternative credential storage pattern"
+        }
+      ],
+      "优先级 (priority)": "高 (high)",
+      "是否需要回源查看原文 (needs_raw_review)": true
+    },
+    {
+      "制品ID (artifact_id)": "art-037fda535255",
+      "文件路径 (path)": ".claude-plugin/plugin.json",
+      "文件类型 (kind)": "JSON 配置 (json)",
+      "文件角色 (role)": "配置 (configuration)",
+      "观察结果 (observations)": [
+        "network_call"
+      ],
+      "风险信号 (risk_signals)": [],
+      "证据位置 (evidence_spans)": [
+        {
+          "文件路径 (path)": ".claude-plugin/plugin.json",
+          "起始行 (start_line)": 12,
+          "结束行 (end_line)": 14,
+          "说明 (why)": "browser authentication configuration with login URL"
+        },
+        {
+          "文件路径 (path)": ".claude-plugin/plugin.json",
+          "起始行 (start_line)": 24,
+          "结束行 (end_line)": 26,
+          "说明 (why)": "required environment variables for credentials"
+        },
+        {
+          "文件路径 (path)": ".claude-plugin/plugin.json",
+          "起始行 (start_line)": 27,
+          "结束行 (end_line)": 30,
+          "说明 (why)": "network endpoints defined"
+        }
+      ],
+      "优先级 (priority)": "中 (med)",
+      "是否需要回源查看原文 (needs_raw_review)": false
+    }
+  ],
+  "跨文件关注点 (cross_artifact_concerns)": [
+    {
+      "关注点类型 (concern_type)": "恶意候选 (malicious_candidate)",
+      "关联制品IDs (artifact_ids)": [
+        "art-0e95f5a36660"
+      ],
+      "证据位置 (evidence_spans)": [
+        {
+          "文件路径 (path)": "SKILL.md",
+          "起始行 (start_line)": 15,
+          "结束行 (end_line)": 15,
+          "说明 (why)": "Direct curl-to-bash pattern without hash verification or safety checks"
+        }
+      ],
+      "原因说明 (why)": "Download and execute remote script - classic supply chain risk pattern"
+    },
+    {
+      "关注点类型 (concern_type)": "不安全候选 (unsafe_candidate)",
+      "关联制品IDs (artifact_ids)": [
+        "art-0e95f5a36660"
+      ],
+      "证据位置 (evidence_spans)": [
+        {
+          "文件路径 (path)": "SKILL.md",
+          "起始行 (start_line)": 31,
+          "结束行 (end_line)": 32,
+          "说明 (why)": "Storing credentials in environment variables with example"
+        },
+        {
+          "文件路径 (path)": "SKILL.md",
+          "起始行 (start_line)": 48,
+          "结束行 (end_line)": 49,
+          "说明 (why)": "Alternative credential storage with different variable names"
+        }
+      ],
+      "原因说明 (why)": "Credential handling patterns without clear security context or encryption"
+    },
+    {
+      "关注点类型 (concern_type)": "描述缺口 (description_gap)",
+      "关联制品IDs (artifact_ids)": [
+        "art-0e95f5a36660",
+        "art-037fda535255"
+      ],
+      "证据位置 (evidence_spans)": [
+        {
+          "文件路径 (path)": "SKILL.md",
+          "起始行 (start_line)": 15,
+          "结束行 (end_line)": 15,
+          "说明 (why)": "Install script source not described in skill claims"
+        },
+        {
+          "文件路径 (path)": ".claude-plugin/plugin.json",
+          "起始行 (start_line)": 27,
+          "结束行 (end_line)": 30,
+          "说明 (why)": "Network endpoints defined but no implementation shown"
+        }
+      ],
+      "原因说明 (why)": "Missing implementation details for advertised capabilities and network behavior"
+    }
+  ],
+  "建议回源片段 (retrieval_requests)": [
+    {
+      "文件路径 (path)": "skills/healthgrades/install.sh",
+      "起始行 (start_line)": 0,
+      "结束行 (end_line)": 0,
+      "请求原因 (reason)": "Critical to examine the downloaded script for actual behavior"
+    },
+    {
+      "文件路径 (path)": "skills/healthgrades/",
+      "起始行 (start_line)": 0,
+      "结束行 (end_line)": 0,
+      "请求原因 (reason)": "Need to see actual implementation files for capabilities"
+    },
+    {
+      "文件路径 (path)": "~/.canifi/skills/healthgrades",
+      "起始行 (start_line)": 0,
+      "结束行 (end_line)": 0,
+      "请求原因 (reason)": "Check installed location for any additional artifacts"
+    }
+  ],
+  "覆盖情况 (coverage)": {
+    "文件总数 (total_artifacts)": 2,
+    "已索引文件数 (indexed_artifacts)": 2,
+    "覆盖缺口列表 (coverage_gaps)": [
+      {
+        "文件路径 (path)": "skills/healthgrades/",
+        "原因 (why)": "Missing implementation files for advertised capabilities (search, reviews, credentials)"
+      },
+      {
+        "文件路径 (path)": "https://canifi.com/skills/healthgrades/install.sh",
+        "原因 (why)": "Remote install script content unknown - critical for download-and-execute assessment"
+      }
+    ]
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "verdict": {
+    "label": "malicious",
+    "primary_concern": "data-exfiltration",
+    "issue_types": [
+      "data-exfiltration",
+      "trojan-downloader",
+      "supply-chain-attack",
+      "active-malice"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-exfiltration",
+      "class": "active-malice",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill's `package.json` and `package-lock.json` files include a dependency on the known malicious npm package `package-lock.json` (version 1.0.0). This package was part of a real-world supply chain attack where the postinstall script exfiltrated sensitive system data (environment variables, SSH keys, etc.) to remote servers. By embedding this dependency, the skill attempts to execute malicious code during installation, fitting the pattern of a Trojan downloader/data exfiltration attack.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "MALICIOUS",
+      "primary_group": "Active Malice",
+      "scan_level": "Script Scan",
+      "risk_types": [
+        "Data Exfiltration",
+        "Trojan Downloader",
+        "Supply Chain Attack"
+      ],
+      "source_platform": "Clawhub",
+      "source_file": "scan_results_script_clawhub.csv",
+      "related_file_count": "4",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

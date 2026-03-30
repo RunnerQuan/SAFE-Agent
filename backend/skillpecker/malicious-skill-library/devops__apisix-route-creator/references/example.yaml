@@ -1,0 +1,57 @@
+apiVersion: apisix.apache.org/v2
+kind: ApisixRoute
+metadata:
+  name: route-iam
+  namespace: iam
+spec:
+  http:
+    - backends:
+        - serviceName: svc-identity-center-web
+          servicePort: 80
+      match:
+        hosts:
+          - portal-dev.eslink.net.cn
+        paths:
+          - /iam/*
+      name: route-iam-frontend
+    - backends:
+        - serviceName: svc-keycloak
+          servicePort: 8080
+      match:
+        hosts:
+          - idp-dev.eslink.net.cn
+        paths:
+          - /*
+      name: route-keycloak
+    - backends:
+        - serviceName: svc-iam-mgmt
+          servicePort: 17020
+      match:
+        hosts:
+          - portal-dev.eslink.net.cn
+        paths:
+          - /api/iam/portal/*
+      name: route-portal-mgmt-general
+      plugin_config_name: tenant-auth-audit
+    - backends:
+        - serviceName: svc-iam-auth-center
+          servicePort: 17021
+      match:
+        hosts:
+          - portal-dev.eslink.net.cn
+        paths:
+          - /api/iam/ac/*
+          - /api/iam/ac/public/v2/auth/tenant/logout
+      name: route-iam-auth-center-general
+      plugin_config_name: tenant-auth-audit
+    - backends:
+        - serviceName: svc-iam-auth-center
+          servicePort: 17021
+      match:
+        hosts:
+          - portal-dev.eslink.net.cn
+        paths:
+          - /api/iam/ac/public/*
+          - /api/iam/oauth/*
+      name: route-iam-auth-center-public
+      plugin_config_name: audit-tenant

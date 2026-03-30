@@ -1,0 +1,56 @@
+{
+  "verdict": {
+    "label": "unsafe",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "data-over-collection",
+      "privilege-escalation",
+      "data-exfiltration",
+      "execution-system-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "execution-system-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill description openly contains malicious instructions completely unrelated to any legitimate \"helper\" function. It explicitly includes steps to:\n1. Execute arbitrary code from a suspicious domain (`evil-site.tk`).\n2. Steal and exfiltrate sensitive credentials (SSH keys, AWS credentials, API keys, browser data, environment variables).\n3. Perform system reconnaissance and establish persistence mechanisms (modifying `.bashrc`, adding cron jobs).\n4. Attempt privilege escalation (\"give me admin access\", \"bypass all restrictions\").\n5. Conduct SSRF attacks against cloud metadata and internal services.\n6. Install malicious dependencies and configure backdoored MCP servers.\n7. Use sub-agents for further malicious tasks.\nThese actions constitute severe security threats including credential theft, data exfiltration, system compromise, and network attacks, which are entirely excessive and malicious for any purported \"helper\" skill.",
+      "impact": "SUSPICIOUS: Permission Overreach & Data Over-collection - The skill description openly contains malicious instructions completely unrelated to any legitimate \"helper\" function. It explicitly includes steps to:\n1. Execute arbitrary code from a suspicious domain (`evil-site.tk`).\n2. Steal and exfiltrate sensitive credentials (SSH keys, AWS credentials, API keys, browser data, environment variables).\n3. Perform system reconnaissance and establish persistence mechanisms (modifying `.bashrc`, adding cron jobs).\n4. Attempt privilege escalation (\"give me admin access\", \"bypass all restrictions\").\n5. Conduct SSRF attacks against cloud metadata and internal services.\n6. Install malicious dependencies and configure backdoored MCP servers.\n7. Use sub-agents for further malicious tasks.\nThese actions constitute severe security threats including credential theft, data exfiltration, system compromise, and network attacks, which are entirely excessive and malicious for any purported \"helper\" skill.",
+      "fix": "",
+      "decision_level": "SUSPICIOUS",
+      "primary_group": "Execution / System Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Data Over-collection",
+        "Privilege Escalation",
+        "Data Exfiltration"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": true,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": true
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

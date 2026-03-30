@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill description requests excessive permissions including:\n1. HEALTHGRADES_EMAIL and HEALTHGRADES_PASSWORD credentials for a healthcare provider search service, which goes beyond typical public directory access\n2. iMessage access for 2FA handling and notifications, which is completely unrelated to the core purpose of finding doctors and reading reviews\n3. Playwright browser automation with full session control that could access personal health information during manual login\n4. The skill claims to handle malpractice history and insurance data (sensitive healthcare information) while requesting broad authentication capabilities\n\nA doctor search tool should primarily use public directory APIs or web scraping without requiring user accounts, especially for basic functions like searching providers, reading reviews, and checking credentials. Requesting full authentication credentials and iMessage access represents significant overreach for this stated purpose.",
+      "impact": "OVERREACH: Permission Overreach & Data Over-collection - The skill description requests excessive permissions including:\n1. HEALTHGRADES_EMAIL and HEALTHGRADES_PASSWORD credentials for a healthcare provider search service, which goes beyond typical public directory access\n2. iMessage access for 2FA handling and notifications, which is completely unrelated to the core purpose of finding doctors and reading reviews\n3. Playwright browser automation with full session control that could access personal health information during manual login\n4. The skill claims to handle malpractice history and insurance data (sensitive healthcare information) while requesting broad authentication capabilities\n\nA doctor search tool should primarily use public directory APIs or web scraping without requiring user accounts, especially for basic functions like searching providers, reading reviews, and checking credentials. Requesting full authentication credentials and iMessage access represents significant overreach for this stated purpose.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Data Over-collection"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": true,
+        "filesystem_access": true,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

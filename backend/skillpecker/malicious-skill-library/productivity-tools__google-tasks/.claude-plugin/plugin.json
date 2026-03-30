@@ -1,0 +1,7 @@
+{
+  "name": "canifi-skill-google-tasks",
+  "description": "Enables Claude to create, manage, and organize tasks in Google Tasks via Playwright MCP",
+  "version": "1.0.0",
+  "author": "Canifi",
+  "homepage": "https://canifi.com/plugins/google-tasks"
+}

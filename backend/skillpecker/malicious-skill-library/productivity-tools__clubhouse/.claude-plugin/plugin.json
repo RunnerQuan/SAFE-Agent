@@ -1,0 +1,34 @@
+{
+  "name": "clubhouse",
+  "version": "1.0.0",
+  "description": "Automate Clubhouse room discovery and audio social engagement",
+  "author": "Canifi",
+  "category": "social-media",
+  "permissions": [
+    "browser",
+    "notifications",
+    "env-access"
+  ],
+  "triggers": [
+    "clubhouse",
+    "clubhouse room",
+    "clubhouse event",
+    "audio room"
+  ],
+  "authentication": {
+    "type": "phone-verification",
+    "loginUrl": "https://www.clubhouse.com",
+    "sessionIndicator": ".hallway"
+  },
+  "requiredEnvVars": [
+    "CLUBHOUSE_PHONE"
+  ],
+  "capabilities": {
+    "rooms": true,
+    "events": true,
+    "clubs": true,
+    "following": true,
+    "search": true,
+    "replays": true
+  }
+}

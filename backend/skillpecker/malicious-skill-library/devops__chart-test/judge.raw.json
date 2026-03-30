@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "data-over-collection",
+    "issue_types": [
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-over-collection",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill description is for deploying and testing Helm charts in a k3s environment, which is a general purpose, but it specifically requires sensitive OpenAI API keys (OPENAI_API_KEY) and related environment variables. These credentials are unrelated to the core task of chart validation unless the chart is for an application that depends on OpenAI, which is not explicitly stated in the description. Requesting such third-party API keys is excessive and poses a privacy risk, as it could lead to unnecessary exposure of sensitive user data without clear justification based on the stated primary purpose.",
+      "impact": "OVERREACH: Data Over-collection - The skill description is for deploying and testing Helm charts in a k3s environment, which is a general purpose, but it specifically requires sensitive OpenAI API keys (OPENAI_API_KEY) and related environment variables. These credentials are unrelated to the core task of chart validation unless the chart is for an application that depends on OpenAI, which is not explicitly stated in the description. Requesting such third-party API keys is excessive and poses a privacy risk, as it could lead to unnecessary exposure of sensitive user data without clear justification based on the stated primary purpose.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Data Over-collection"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": true,
+        "api_key": true,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

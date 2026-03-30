@@ -1,0 +1,37 @@
+{
+  "name": "lowes",
+  "version": "1.0.0",
+  "description": "Automate Lowe's product search, lists, and order tracking",
+  "author": "Canifi",
+  "category": "e-commerce",
+  "permissions": [
+    "browser",
+    "notifications",
+    "env-access"
+  ],
+  "triggers": [
+    "lowes",
+    "lowe's",
+    "find at lowes",
+    "lowes order"
+  ],
+  "authentication": {
+    "type": "browser-session",
+    "loginUrl": "https://www.lowes.com/mylowes/login",
+    "sessionIndicator": ".account-header"
+  },
+  "requiredEnvVars": [
+    "LOWES_EMAIL",
+    "LOWES_PASSWORD"
+  ],
+  "capabilities": {
+    "search": true,
+    "lists": true,
+    "orders": true,
+    "storeInventory": true,
+    "deals": true
+  },
+  "restrictions": {
+    "noPurchases": true
+  }
+}

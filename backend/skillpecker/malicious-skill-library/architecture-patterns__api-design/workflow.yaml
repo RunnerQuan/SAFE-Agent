@@ -1,0 +1,19 @@
+name: "api-design"
+description: "Systematic REST API design with consistency-focused methodology"
+author: "BMAD-inspired workflow for Claude Code"
+
+# Output configuration
+output_folder: "specs"
+default_output_file: "{output_folder}/api-spec-{domain}-{date}.md"
+
+# Workflow components
+instructions: "{skill_path}/instructions.md"
+template: "{skill_path}/template.md"
+validation: "{skill_path}/checklist.md"
+
+# This is a template-workflow (produces document)
+template: true
+
+# Skill metadata
+category: "methodology"
+eternal: true  # Principles don't go stale

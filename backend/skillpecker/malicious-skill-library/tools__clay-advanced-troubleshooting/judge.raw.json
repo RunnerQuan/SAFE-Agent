@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill requests broad access to production systems including kubectl (to retrieve secrets and configmaps), network packet capture (tcpdump), and system logs. While advanced troubleshooting may require some system access, the skill's documentation shows it collects Kubernetes secrets (encoded but not redacted), performs unrestricted network captures on port 443 (potentially capturing unrelated sensitive traffic), and gathers extensive system data. This level of access exceeds what's necessary for application-level debugging and could expose credentials, network traffic, and system information unrelated to Clay troubleshooting. The skill should operate with more constrained permissions and data collection boundaries.",
+      "impact": "OVERREACH: Permission Overreach and Data Over-collection - The skill requests broad access to production systems including kubectl (to retrieve secrets and configmaps), network packet capture (tcpdump), and system logs. While advanced troubleshooting may require some system access, the skill's documentation shows it collects Kubernetes secrets (encoded but not redacted), performs unrestricted network captures on port 443 (potentially capturing unrelated sensitive traffic), and gathers extensive system data. This level of access exceeds what's necessary for application-level debugging and could expose credentials, network traffic, and system information unrelated to Clay troubleshooting. The skill should operate with more constrained permissions and data collection boundaries.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Data Over-collection"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

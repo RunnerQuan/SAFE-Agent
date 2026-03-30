@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "unsafe",
+    "primary_concern": "privacy-violation",
+    "issue_types": [
+      "privacy-violation",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "privacy-violation",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill description claims to be a \"Lightweight Haiku sub-agent for cleaning up C# code\" but then references using \"Gemini Flash via delegation_bridge\" and shows usage examples for JavaScript/Python/Go/Rust formatting with external tools (Prettier, ESLint, Black). This suggests the skill may delegate code to external AI services (Gemini Flash) or upload code to third-party formatting servers without clear disclosure about where user code is sent, creating privacy concerns for proprietary source code. Additionally, the inconsistency between stated C# focus and multi-language examples raises questions about actual data handling.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "SUSPICIOUS",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Privacy Violation"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "3",
+      "flags": {
+        "external_server": true,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

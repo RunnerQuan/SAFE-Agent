@@ -1,0 +1,54 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "data-over-collection",
+      "security-risk",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill requires a private key for a payment wallet and performs automated token buybacks (swapping fees to $BANKR via Uniswap), which are unrelated to the core function of analyzing crypto portfolio risk and optimization. While monetization is mentioned, handling private keys and executing financial transactions introduces significant security risks and extends beyond the scope of portfolio analysis. Additionally, requesting sensitive data like private keys is excessive for a tool that should primarily read public blockchain data.",
+      "impact": "OVERREACH: Permission Overreach and Data Over-collection - The skill requires a private key for a payment wallet and performs automated token buybacks (swapping fees to $BANKR via Uniswap), which are unrelated to the core function of analyzing crypto portfolio risk and optimization. While monetization is mentioned, handling private keys and executing financial transactions introduces significant security risks and extends beyond the scope of portfolio analysis. Additionally, requesting sensitive data like private keys is excessive for a tool that should primarily read public blockchain data.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Data Over-collection",
+        "Security Risk"
+      ],
+      "source_platform": "Clawhub",
+      "source_file": "scan_results_description_clawhub.csv",
+      "related_file_count": "2",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

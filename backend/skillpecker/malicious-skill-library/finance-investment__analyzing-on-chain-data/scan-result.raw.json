@@ -1,0 +1,237 @@
+{
+  "preprocess": {
+    "skill": {
+      "root": "C:\\Files\\Study\\Codes\\Skill-Scan\\malicious-skill-library\\finance-investment__analyzing-on-chain-data",
+      "claims": [
+        "The skill description (SKILL.md) and implementation guide request access to exchange API keys and blockchain RPC endpoints, which are excessive for the stated primary purpose. According to the PRD and ARD, the skill's core functionality relies solely on public APIs (DeFiLlama, Token Terminal, Dune, CoinGecko) for aggregated on-chain analytics. Requesting exchange API keys (implying trading or account access) and direct RPC endpoints goes beyond the stated scope of \"analyzing blockchain metrics\" and introduces unnecessary privacy/security risks. Additionally, the skill requests Write/Edit permissions without clear constraints, which could allow unintended file modifications beyond caching/output generation."
+      ],
+      "observed_kinds": [
+        "spreadsheet",
+        "imported_scan_result"
+      ]
+    },
+    "artifacts": [],
+    "rule_hits": [],
+    "coverage_gaps": [],
+    "stats": {
+      "artifact_count": 0,
+      "rule_hit_count": 1,
+      "severity_counts": {},
+      "rule_code_counts": {}
+    }
+  },
+  "triage": {
+    "skill": {
+      "claims": [
+        "The skill description (SKILL.md) and implementation guide request access to exchange API keys and blockchain RPC endpoints, which are excessive for the stated primary purpose. According to the PRD and ARD, the skill's core functionality relies solely on public APIs (DeFiLlama, Token Terminal, Dune, CoinGecko) for aggregated on-chain analytics. Requesting exchange API keys (implying trading or account access) and direct RPC endpoints goes beyond the stated scope of \"analyzing blockchain metrics\" and introduces unnecessary privacy/security risks. Additionally, the skill requests Write/Edit permissions without clear constraints, which could allow unintended file modifications beyond caching/output generation."
+      ],
+      "obs": [
+        "Description Scan"
+      ],
+      "high_risk_features": [
+        "api_key",
+        "credential_request"
+      ]
+    },
+    "arts": [],
+    "xconcerns": [],
+    "retrieve": [],
+    "coverage": {
+      "total": 1,
+      "indexed": 1,
+      "gaps": []
+    }
+  },
+  "security": {
+    "findings": [
+      {
+        "id": "",
+        "cat": "permission-overreach",
+        "class": "data-governance-risk",
+        "severity": "",
+        "conf": "",
+        "summary": "The skill description (SKILL.md) and implementation guide request access to exchange API keys and blockchain RPC endpoints, which are excessive for the stated primary purpose. According to the PRD and ARD, the skill's core functionality relies solely on public APIs (DeFiLlama, Token Terminal, Dune, CoinGecko) for aggregated on-chain analytics. Requesting exchange API keys (implying trading or account access) and direct RPC endpoints goes beyond the stated scope of \"analyzing blockchain metrics\" and introduces unnecessary privacy/security risks. Additionally, the skill requests Write/Edit permissions without clear constraints, which could allow unintended file modifications beyond caching/output generation.",
+        "arts": [],
+        "spans": [],
+        "impact": "OVERREACH: Data Over-collection & Permission Overreach - The skill description (SKILL.md) and implementation guide request access to exchange API keys and blockchain RPC endpoints, which are excessive for the stated primary purpose. According to the PRD and ARD, the skill's core functionality relies solely on public APIs (DeFiLlama, Token Terminal, Dune, CoinGecko) for aggregated on-chain analytics. Requesting exchange API keys (implying trading or account access) and direct RPC endpoints goes beyond the stated scope of \"analyzing blockchain metrics\" and introduces unnecessary privacy/security risks. Additionally, the skill requests Write/Edit permissions without clear constraints, which could allow unintended file modifications beyond caching/output generation.",
+        "fix": "",
+        "decision_level": "OVERREACH",
+        "primary_group": "Data Governance Risk",
+        "scan_level": "Description Scan",
+        "risk_types": [
+          "Permission Overreach",
+          "Data Over-collection",
+          "Security Risk"
+        ],
+        "source_platform": "Marketplace",
+        "source_file": "scan_results_description_marketplace.csv",
+        "related_file_count": "6",
+        "flags": {
+          "external_server": false,
+          "api_key": true,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": false,
+          "shell_or_command_execution": false,
+          "driver_or_installer": false,
+          "credential_request": true,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": false
+        }
+      }
+    ],
+    "ctx_requests": [],
+    "coverage": {
+      "reviewed_arts": [],
+      "unresolved_high_risk_arts": []
+    }
+  },
+  "judge": {
+    "verdict": {
+      "label": "mixed_risk",
+      "primary_concern": "permission-overreach",
+      "issue_types": [
+        "permission-overreach",
+        "data-over-collection",
+        "security-risk",
+        "data-governance-risk"
+      ]
+    },
+    "top_findings": [
+      {
+        "id": "",
+        "cat": "permission-overreach",
+        "class": "data-governance-risk",
+        "severity": "",
+        "conf": "",
+        "summary": "The skill description (SKILL.md) and implementation guide request access to exchange API keys and blockchain RPC endpoints, which are excessive for the stated primary purpose. According to the PRD and ARD, the skill's core functionality relies solely on public APIs (DeFiLlama, Token Terminal, Dune, CoinGecko) for aggregated on-chain analytics. Requesting exchange API keys (implying trading or account access) and direct RPC endpoints goes beyond the stated scope of \"analyzing blockchain metrics\" and introduces unnecessary privacy/security risks. Additionally, the skill requests Write/Edit permissions without clear constraints, which could allow unintended file modifications beyond caching/output generation.",
+        "impact": "OVERREACH: Data Over-collection & Permission Overreach - The skill description (SKILL.md) and implementation guide request access to exchange API keys and blockchain RPC endpoints, which are excessive for the stated primary purpose. According to the PRD and ARD, the skill's core functionality relies solely on public APIs (DeFiLlama, Token Terminal, Dune, CoinGecko) for aggregated on-chain analytics. Requesting exchange API keys (implying trading or account access) and direct RPC endpoints goes beyond the stated scope of \"analyzing blockchain metrics\" and introduces unnecessary privacy/security risks. Additionally, the skill requests Write/Edit permissions without clear constraints, which could allow unintended file modifications beyond caching/output generation.",
+        "fix": "",
+        "decision_level": "OVERREACH",
+        "primary_group": "Data Governance Risk",
+        "scan_level": "Description Scan",
+        "risk_types": [
+          "Permission Overreach",
+          "Data Over-collection",
+          "Security Risk"
+        ],
+        "source_platform": "Marketplace",
+        "source_file": "scan_results_description_marketplace.csv",
+        "related_file_count": "6",
+        "flags": {
+          "external_server": false,
+          "api_key": true,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": false,
+          "shell_or_command_execution": false,
+          "driver_or_installer": false,
+          "credential_request": true,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": false
+        },
+        "spans": []
+      }
+    ],
+    "coverage_audit": {
+      "adequate": true,
+      "missed": [],
+      "needs_rescan": false
+    },
+    "next_action": "stop"
+  },
+  "excel_import": {
+    "record_count": 1,
+    "headers": [
+      "一级分类_判定级别",
+      "二级分类_主问题组",
+      "风险类型汇总",
+      "风险类型1",
+      "风险类型2",
+      "风险类型3",
+      "风险类型4",
+      "来源平台",
+      "扫描层级",
+      "原始业务分类",
+      "skill_name",
+      "关联文件数",
+      "原始来源文件",
+      "问题摘要",
+      "原始verdict",
+      "flag_外部服务器",
+      "flag_APIKey",
+      "flag_自治执行",
+      "flag_浏览器会话/凭据",
+      "flag_文件系统访问",
+      "flag_Shell/命令执行",
+      "flag_驱动/安装器",
+      "flag_凭据请求",
+      "flag_混淆/规避",
+      "flag_持久化/外部存储",
+      "清洗后原始说明"
+    ],
+    "records": [
+      {
+        "classification": {
+          "decision_level": "OVERREACH",
+          "primary_group": "Data Governance Risk",
+          "risk_summary": "Permission Overreach | Data Over-collection | Security Risk",
+          "risk_types": [
+            "Permission Overreach",
+            "Data Over-collection",
+            "Security Risk"
+          ],
+          "platform": "Marketplace",
+          "scan_level": "Description Scan",
+          "business_category": "finance-investment",
+          "skill_name": "analyzing-on-chain-data",
+          "related_file_count": "6",
+          "source_file": "scan_results_description_marketplace.csv",
+          "problem_summary": "The skill description (SKILL.md) and implementation guide request access to exchange API keys and blockchain RPC endpoints, which are excessive for the stated primary purpose. According to the PRD and ARD, the skill's core functionality relies solely on public APIs (DeFiLlama, Token Terminal, Dune, CoinGecko) for aggregated on-chain analytics. Requesting exchange API keys (implying trading or account access) and direct RPC endpoints goes beyond the stated scope of \"analyzing blockchain metrics\" and introduces unnecessary privacy/security risks. Additionally, the skill requests Write/Edit permissions without clear constraints, which could allow unintended file modifications beyond caching/output generation.",
+          "raw_verdict": "OVERREACH: Data Over-collection & Permission Overreach - The skill description (SKILL.md) and implementation guide request access to exchange API keys and blockchain RPC endpoints, which are excessive for the stated primary purpose. According to the PRD and ARD, the skill's core functionality relies solely on public APIs (DeFiLlama, Token Terminal, Dune, CoinGecko) for aggregated on-chain analytics. Requesting exchange API keys (implying trading or account access) and direct RPC endpoints goes beyond the stated scope of \"analyzing blockchain metrics\" and introduces unnecessary privacy/security risks. Additionally, the skill requests Write/Edit permissions without clear constraints, which could allow unintended file modifications beyond caching/output generation.",
+          "cleaned_description": "",
+          "flags": {
+            "external_server": false,
+            "api_key": true,
+            "autonomous_execution": false,
+            "browser_session_or_credentials": false,
+            "filesystem_access": false,
+            "shell_or_command_execution": false,
+            "driver_or_installer": false,
+            "credential_request": true,
+            "obfuscation_or_evasion": false,
+            "persistence_or_external_storage": false
+          }
+        },
+        "raw_values": {
+          "一级分类_判定级别": "OVERREACH",
+          "二级分类_主问题组": "Data Governance Risk",
+          "风险类型汇总": "Permission Overreach | Data Over-collection | Security Risk",
+          "风险类型1": "Permission Overreach",
+          "风险类型2": "Data Over-collection",
+          "风险类型3": "Security Risk",
+          "风险类型4": "",
+          "来源平台": "Marketplace",
+          "扫描层级": "Description Scan",
+          "原始业务分类": "finance-investment",
+          "skill_name": "analyzing-on-chain-data",
+          "关联文件数": 6,
+          "原始来源文件": "scan_results_description_marketplace.csv",
+          "问题摘要": "The skill description (SKILL.md) and implementation guide request access to exchange API keys and blockchain RPC endpoints, which are excessive for the stated primary purpose. According to the PRD and ARD, the skill's core functionality relies solely on public APIs (DeFiLlama, Token Terminal, Dune, CoinGecko) for aggregated on-chain analytics. Requesting exchange API keys (implying trading or account access) and direct RPC endpoints goes beyond the stated scope of \"analyzing blockchain metrics\" and introduces unnecessary privacy/security risks. Additionally, the skill requests Write/Edit permissions without clear constraints, which could allow unintended file modifications beyond caching/output generation.",
+          "原始verdict": "OVERREACH: Data Over-collection & Permission Overreach - The skill description (SKILL.md) and implementation guide request access to exchange API keys and blockchain RPC endpoints, which are excessive for the stated primary purpose. According to the PRD and ARD, the skill's core functionality relies solely on public APIs (DeFiLlama, Token Terminal, Dune, CoinGecko) for aggregated on-chain analytics. Requesting exchange API keys (implying trading or account access) and direct RPC endpoints goes beyond the stated scope of \"analyzing blockchain metrics\" and introduces unnecessary privacy/security risks. Additionally, the skill requests Write/Edit permissions without clear constraints, which could allow unintended file modifications beyond caching/output generation.",
+          "flag_外部服务器": "",
+          "flag_APIKey": "Y",
+          "flag_自治执行": "",
+          "flag_浏览器会话/凭据": "",
+          "flag_文件系统访问": "",
+          "flag_Shell/命令执行": "",
+          "flag_驱动/安装器": "",
+          "flag_凭据请求": "Y",
+          "flag_混淆/规避": "",
+          "flag_持久化/外部存储": "",
+          "清洗后原始说明": "OVERREACH: Data Over-collection & Permission Overreach - The skill description (SKILL.md) and implementation guide request access to exchange API keys and blockchain RPC endpoints, which are excessive for the stated primary purpose. According to the PRD and ARD, the skill's core functionality relies solely on public APIs (DeFiLlama, Token Terminal, Dune, CoinGecko) for aggregated on-chain analytics. Requesting exchange API keys (implying trading or account access) and direct RPC endpoints goes beyond the stated scope of \"analyzing blockchain metrics\" and introduces unnecessary privacy/security risks. Additionally, the skill requests Write/Edit permissions without clear constraints, which could allow unintended file modifications beyond caching/output generation."
+        }
+      }
+    ]
+  }
+}

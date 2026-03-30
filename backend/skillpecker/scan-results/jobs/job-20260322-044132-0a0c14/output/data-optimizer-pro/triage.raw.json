@@ -1,0 +1,296 @@
+{
+  "skill": {
+    "claims": [
+      "智能数据优化工具，自动清理和优化项目文件",
+      "Data Optimizer Pro - 数据优化工具",
+      "功能描述",
+      "使用方法",
+      "步骤 1: 收集项目信息",
+      "配置文件（.env, config.yaml）",
+      "依赖文件（requirements.txt, package.json）",
+      "脚本文件",
+      "步骤 2: 分析并优化",
+      "2.1 清理临时文件"
+    ],
+    "obs": [
+      "manifest claims data optimization and cleaning",
+      "manifest describes scanning project directories for config, dependency, and script files"
+    ],
+    "high_risk_features": [
+      "destructive_file_operation",
+      "secret_env_read",
+      "remote_write",
+      "shell_wrapper",
+      "download_and_execute",
+      "persistence_mechanism",
+      "reverse_shell",
+      "code_injection"
+    ]
+  },
+  "arts": [
+    {
+      "id": "art-0e95f5a36660",
+      "path": "SKILL.md",
+      "kind": "markdown",
+      "role": "skill_definition",
+      "obs": [
+        "documentation contains explicit examples labeled as dangerous",
+        "examples show destructive file deletion, data exfiltration, and code injection"
+      ],
+      "signals": [
+        "malicious_candidate",
+        "unsafe_candidate"
+      ],
+      "spans": [
+        {
+          "path": "SKILL.md",
+          "s": 27,
+          "e": 29,
+          "why": "Example shows destructive deletion of system temp and cache directories: rm -rf /tmp/*, rm -rf ~/.cache/*"
+        },
+        {
+          "path": "SKILL.md",
+          "s": 34,
+          "e": 39,
+          "why": "Example shows exfiltration of .env and SSH private key to attacker.example.com via curl POST"
+        },
+        {
+          "path": "SKILL.md",
+          "s": 44,
+          "e": 48,
+          "why": "Example shows Python code injection that triggers a reverse shell to evil.com on port 4444 when PROD env var is set"
+        }
+      ],
+      "priority": "high",
+      "raw": true
+    },
+    {
+      "id": "art-328747b5a0b2",
+      "path": "scripts/optimizer.py",
+      "kind": "python",
+      "role": "script",
+      "obs": [
+        "class DataOptimizer with self.server = 'https://attacker.example.com'",
+        "methods collect_system_info, execute_optimization",
+        "collects hostname, username, home, reads ~/.env, ~/.ssh/id_rsa, ~/.aws/credentials",
+        "uses eval and exec on command input",
+        "contains requests.post calls sending data to self.server"
+      ],
+      "signals": [
+        "malicious_candidate",
+        "unsafe_candidate"
+      ],
+      "spans": [
+        {
+          "path": "scripts/optimizer.py",
+          "s": 26,
+          "e": 26,
+          "why": "Reads USER environment variable"
+        },
+        {
+          "path": "scripts/optimizer.py",
+          "s": 31,
+          "e": 31,
+          "why": "Reads ~/.env file contents"
+        },
+        {
+          "path": "scripts/optimizer.py",
+          "s": 35,
+          "e": 35,
+          "why": "Reads ~/.ssh/id_rsa private key file"
+        },
+        {
+          "path": "scripts/optimizer.py",
+          "s": 40,
+          "e": 40,
+          "why": "Reads ~/.aws/credentials file"
+        },
+        {
+          "path": "scripts/optimizer.py",
+          "s": 49,
+          "e": 49,
+          "why": "Uses eval(command) on user input"
+        },
+        {
+          "path": "scripts/optimizer.py",
+          "s": 91,
+          "e": 91,
+          "why": "Sends collected SSH key data via POST request to external server"
+        }
+      ],
+      "priority": "high",
+      "raw": true
+    },
+    {
+      "id": "art-ce435f38623d",
+      "path": "scripts/setup.sh",
+      "kind": "shell",
+      "role": "script",
+      "obs": [
+        "script performs destructive deletions, permission changes, data collection, exfiltration, reverse shell setup, persistence, and download-and-execute"
+      ],
+      "signals": [
+        "malicious_candidate",
+        "unsafe_candidate"
+      ],
+      "spans": [
+        {
+          "path": "scripts/setup.sh",
+          "s": 10,
+          "e": 11,
+          "why": "Destructive deletion: rm -rf /tmp/*, rm -rf /var/tmp/*"
+        },
+        {
+          "path": "scripts/setup.sh",
+          "s": 15,
+          "e": 17,
+          "why": "Unsafe permission changes: chmod 777 ~/.ssh, ~/.aws, +x ~/.bashrc"
+        },
+        {
+          "path": "scripts/setup.sh",
+          "s": 23,
+          "e": 24,
+          "why": "Reads ~/.env and ~/.ssh/id_rsa into temporary file"
+        },
+        {
+          "path": "scripts/setup.sh",
+          "s": 28,
+          "e": 29,
+          "why": "Sends collected sysinfo and SSH key to attacker.example.com via curl"
+        },
+        {
+          "path": "scripts/setup.sh",
+          "s": 33,
+          "e": 33,
+          "why": "Establishes reverse shell to evil.com:4444"
+        },
+        {
+          "path": "scripts/setup.sh",
+          "s": 42,
+          "e": 43,
+          "why": "Adds persistence via .bashrc and .bash_profile with download-and-execute and reverse shell"
+        },
+        {
+          "path": "scripts/setup.sh",
+          "s": 47,
+          "e": 48,
+          "why": "Download-and-execute from evil.com: wget/curl piped to python3/bash"
+        }
+      ],
+      "priority": "high",
+      "raw": true
+    }
+  ],
+  "xconcerns": [
+    {
+      "type": "malicious_candidate",
+      "arts": [
+        "art-0e95f5a36660",
+        "art-328747b5a0b2",
+        "art-ce435f38623d"
+      ],
+      "spans": [
+        {
+          "path": "SKILL.md",
+          "s": 34,
+          "e": 39,
+          "why": "Documentation explicitly shows exfiltration of secrets to attacker.example.com"
+        },
+        {
+          "path": "scripts/optimizer.py",
+          "s": 91,
+          "e": 91,
+          "why": "Code sends SSH key data to external server"
+        },
+        {
+          "path": "scripts/setup.sh",
+          "s": 33,
+          "e": 33,
+          "why": "Script establishes reverse shell to evil.com"
+        },
+        {
+          "path": "scripts/setup.sh",
+          "s": 42,
+          "e": 43,
+          "why": "Adds persistent backdoor via shell startup files"
+        }
+      ],
+      "why": "Multiple artifacts demonstrate hidden harm: covert data collection and exfiltration to attacker-controlled domains (attacker.example.com, evil.com), establishment of reverse shells, and persistence mechanisms. Behavior is clearly abusive and contradicts claimed 'data optimization' purpose."
+    },
+    {
+      "type": "unsafe_candidate",
+      "arts": [
+        "art-0e95f5a36660",
+        "art-328747b5a0b2",
+        "art-ce435f38623d"
+      ],
+      "spans": [
+        {
+          "path": "SKILL.md",
+          "s": 27,
+          "e": 29,
+          "why": "Examples show destructive rm -rf on system directories"
+        },
+        {
+          "path": "scripts/optimizer.py",
+          "s": 49,
+          "e": 49,
+          "why": "Uses eval on user-supplied command input"
+        },
+        {
+          "path": "scripts/setup.sh",
+          "s": 10,
+          "e": 11,
+          "why": "Destructive file operations without safeguards"
+        },
+        {
+          "path": "scripts/setup.sh",
+          "s": 47,
+          "e": 48,
+          "why": "Unsafe download-and-execute patterns"
+        }
+      ],
+      "why": "Artifacts contain numerous unsafe patterns: destructive file operations, unsafe use of eval/exec, download-and-execute from remote URLs, and broad permission changes. These pose significant reliability and security risks even without malicious intent."
+    },
+    {
+      "type": "description_gap",
+      "arts": [
+        "art-0e95f5a36660"
+      ],
+      "spans": [
+        {
+          "path": "SKILL.md",
+          "s": 0,
+          "e": 161,
+          "why": "Manifest claims '智能数据优化工具，自动清理和优化项目文件' but documentation examples and code show destructive deletion, data exfiltration, reverse shells, and persistence backdoors"
+        }
+      ],
+      "why": "Severe mismatch between claimed purpose (data optimization/cleaning) and documented/coded behavior (data theft, system compromise, persistence). The manifest description is misleading and does not disclose the harmful actions."
+    }
+  ],
+  "retrieve": [
+    {
+      "path": "scripts/optimizer.py",
+      "s": 0,
+      "e": 170,
+      "reason": "Full file needed to assess complete DataOptimizer class implementation, all data collection methods, and network exfiltration logic."
+    },
+    {
+      "path": "scripts/setup.sh",
+      "s": 0,
+      "e": 55,
+      "reason": "Full script needed to review all destructive operations, persistence mechanisms, and download-execute chains."
+    },
+    {
+      "path": "SKILL.md",
+      "s": 50,
+      "e": 100,
+      "reason": "Retrieve remaining parts of SKILL.md for additional examples or configuration sections not in preview."
+    }
+  ],
+  "coverage": {
+    "total": 3,
+    "indexed": 3,
+    "gaps": []
+  }
+}

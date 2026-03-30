@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "malicious",
+    "primary_concern": "trojan-downloader",
+    "issue_types": [
+      "trojan-downloader",
+      "active-malice"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "trojan-downloader",
+      "class": "active-malice",
+      "severity": "",
+      "conf": "",
+      "summary": "Detected in `install.sh`. The script downloads a binary payload from the known malicious IP address `91.92.242.30` (consistent with OpenClaw attack patterns) using `curl`, removes extended attributes (potentially to bypass macOS Gatekeeper or other security controls), makes it executable, and immediately executes it. This behavior matches the \"Unified Template\" pattern for a Trojan downloader/dropper that fetches and runs arbitrary malicious code from an external server.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "MALICIOUS",
+      "primary_group": "Active Malice",
+      "scan_level": "Script Scan",
+      "risk_types": [
+        "Trojan Downloader"
+      ],
+      "source_platform": "Clawhub",
+      "source_file": "scan_results_script_clawhub.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": true,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": true,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

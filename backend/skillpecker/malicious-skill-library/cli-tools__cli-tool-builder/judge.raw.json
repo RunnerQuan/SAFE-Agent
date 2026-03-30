@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "data-over-collection",
+    "issue_types": [
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-over-collection",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill requests \"credentials or access tokens for required environments\" and \"access to system context (repos, infra, environments)\" for the stated purpose of scaffolding command-line tool code (command parsing, help, and completion). These permissions are excessive because code generation and scaffolding do not inherently require access to live environments, repositories, or sensitive credentials. The skill's primary function is to produce design artifacts and code stubs, which should not necessitate access to production systems or credentials.",
+      "impact": "OVERREACH: Data Over-collection - The skill requests \"credentials or access tokens for required environments\" and \"access to system context (repos, infra, environments)\" for the stated purpose of scaffolding command-line tool code (command parsing, help, and completion). These permissions are excessive because code generation and scaffolding do not inherently require access to live environments, repositories, or sensitive credentials. The skill's primary function is to produce design artifacts and code stubs, which should not necessitate access to production systems or credentials.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Data Over-collection"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill's stated purpose is \"Structuring layers with dependency inversion, ports, and adapters\" (a design/planning activity). However, its preconditions demand broad system access (\"Access to system context (repos, infra, environments)\"), confirmed approvals, and later requires \"Credentials or access tokens for required environments.\" This is excessive: a scaffolding/design tool should not require live environment credentials or access to production infrastructure to generate architectural plans, diagrams, and code stubs. These requests are more characteristic of a deployment or operations tool, not a design-time scaffolder. True scaffolding can be done with target stack specifications and logical constraints, not actual environment access tokens.",
+      "impact": "OVERREACH: Permission Overreach & Data Over-collection - The skill's stated purpose is \"Structuring layers with dependency inversion, ports, and adapters\" (a design/planning activity). However, its preconditions demand broad system access (\"Access to system context (repos, infra, environments)\"), confirmed approvals, and later requires \"Credentials or access tokens for required environments.\" This is excessive: a scaffolding/design tool should not require live environment credentials or access to production infrastructure to generate architectural plans, diagrams, and code stubs. These requests are more characteristic of a deployment or operations tool, not a design-time scaffolder. True scaffolding can be done with target stack specifications and logical constraints, not actual environment access tokens.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Data Over-collection"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

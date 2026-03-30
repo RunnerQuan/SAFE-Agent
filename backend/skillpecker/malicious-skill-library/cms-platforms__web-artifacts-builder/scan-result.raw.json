@@ -1,0 +1,242 @@
+{
+  "preprocess": {
+    "skill": {
+      "root": "C:\\Files\\Study\\Codes\\Skill-Scan\\malicious-skill-library\\cms-platforms__web-artifacts-builder",
+      "claims": [
+        "Looking at the provided files, I can analyze them for malicious patterns:\n\n## Analysis\n\n**FILE: LICENSE.txt** - Standard Apache 2.0 license file, benign.\n\n**FILE: scripts/shadcn-components.tar.gz** - Binary tarball (compressed file). Cannot directly analyze contents without extraction, but the presence of a binary blob is worth noting.\n\n**FILE: scripts/init-artifact.sh** - This is a setup script for creating a React project with Vite, Tailwind CSS, and shadcn/ui components. Key observations:\n1. It checks for Node.js version and installs dependencies via pnpm/npm\n2. Creates configuration files for Tailwind, Vite, and TypeScript\n3. **Extracts the tarball (`shadcn-components.tar.gz`) into the project's `src/` directory**\n4. No obfuscation, no external URL downloads, no data exfiltration\n5. All dependencies are from standard npm registry\n6. No sensitive file access or credential theft attempts\n\n**FILE: scripts/bundle-artifact.sh** - Build script that bundles the React app into a single HTML file using Parcel and html-inline. Standard build process.\n\n## Security Assessment\n\n1. **No Trojan Downloader Patterns**: The scripts don't download or execute any external binaries/scripts via `curl | bash` or similar patterns.\n\n2. **No Data Exfiltration**: No reading of sensitive files (`~/.clawdbot/.env`, SSH keys, browser data) or sending data to external webhooks.\n\n3. **No Core Malware Logic**: No XOR decryption, binary dropping, or suspicious encryption algorithms.\n\n4. **No Reverse Shell**: No network connections to external C2 servers.\n\n5. **Binary Tarball Concern**: The `shadcn-components.tar.gz` is a binary blob that gets extracted into the source code. However:\n   - The script is for setting up a UI component library (shadcn/ui), which commonly includes pre-built components\n   - The tarball is included locally, not downloaded from external sources\n   - The extraction happens into a development project directory\n   - Without analyzing the tarball contents directly, I cannot determine if it contains malicious code\n\n## Verdict\n\nThe shell scripts themselves appear to be legitimate development setup scripts for a React project with shadcn/ui. However, the presence of an **unverified binary tarball** that gets extracted and integrated into the project source code raises supply chain security concerns. The tarball could potentially contain malicious components.\n\n<result>SUSPICIOUS: Supply Chain Risk - The `init-artifact.sh` script extracts a binary tarball (`shadcn-components.tar.gz`) directly into the project source code without verification. While the shell scripts themselves contain no malicious logic, the binary artifact cannot be analyzed without extraction. This presents a potential supply chain attack vector where malicious UI components could be introduced. The scripts should verify checksums or download from trusted sources instead of using a local binary blob."
+      ],
+      "observed_kinds": [
+        "spreadsheet",
+        "imported_scan_result"
+      ]
+    },
+    "artifacts": [],
+    "rule_hits": [],
+    "coverage_gaps": [],
+    "stats": {
+      "artifact_count": 0,
+      "rule_hit_count": 1,
+      "severity_counts": {},
+      "rule_code_counts": {}
+    }
+  },
+  "triage": {
+    "skill": {
+      "claims": [
+        "Looking at the provided files, I can analyze them for malicious patterns:\n\n## Analysis\n\n**FILE: LICENSE.txt** - Standard Apache 2.0 license file, benign.\n\n**FILE: scripts/shadcn-components.tar.gz** - Binary tarball (compressed file). Cannot directly analyze contents without extraction, but the presence of a binary blob is worth noting.\n\n**FILE: scripts/init-artifact.sh** - This is a setup script for creating a React project with Vite, Tailwind CSS, and shadcn/ui components. Key observations:\n1. It checks for Node.js version and installs dependencies via pnpm/npm\n2. Creates configuration files for Tailwind, Vite, and TypeScript\n3. **Extracts the tarball (`shadcn-components.tar.gz`) into the project's `src/` directory**\n4. No obfuscation, no external URL downloads, no data exfiltration\n5. All dependencies are from standard npm registry\n6. No sensitive file access or credential theft attempts\n\n**FILE: scripts/bundle-artifact.sh** - Build script that bundles the React app into a single HTML file using Parcel and html-inline. Standard build process.\n\n## Security Assessment\n\n1. **No Trojan Downloader Patterns**: The scripts don't download or execute any external binaries/scripts via `curl | bash` or similar patterns.\n\n2. **No Data Exfiltration**: No reading of sensitive files (`~/.clawdbot/.env`, SSH keys, browser data) or sending data to external webhooks.\n\n3. **No Core Malware Logic**: No XOR decryption, binary dropping, or suspicious encryption algorithms.\n\n4. **No Reverse Shell**: No network connections to external C2 servers.\n\n5. **Binary Tarball Concern**: The `shadcn-components.tar.gz` is a binary blob that gets extracted into the source code. However:\n   - The script is for setting up a UI component library (shadcn/ui), which commonly includes pre-built components\n   - The tarball is included locally, not downloaded from external sources\n   - The extraction happens into a development project directory\n   - Without analyzing the tarball contents directly, I cannot determine if it contains malicious code\n\n## Verdict\n\nThe shell scripts themselves appear to be legitimate development setup scripts for a React project with shadcn/ui. However, the presence of an **unverified binary tarball** that gets extracted and integrated into the project source code raises supply chain security concerns. The tarball could potentially contain malicious components.\n\n<result>SUSPICIOUS: Supply Chain Risk - The `init-artifact.sh` script extracts a binary tarball (`shadcn-components.tar.gz`) directly into the project source code without verification. While the shell scripts themselves contain no malicious logic, the binary artifact cannot be analyzed without extraction. This presents a potential supply chain attack vector where malicious UI components could be introduced. The scripts should verify checksums or download from trusted sources instead of using a local binary blob."
+      ],
+      "obs": [
+        "Script Scan"
+      ],
+      "high_risk_features": [
+        "credential_request",
+        "filesystem_access",
+        "shell_or_command_execution"
+      ]
+    },
+    "arts": [],
+    "xconcerns": [],
+    "retrieve": [],
+    "coverage": {
+      "total": 1,
+      "indexed": 1,
+      "gaps": []
+    }
+  },
+  "security": {
+    "findings": [
+      {
+        "id": "",
+        "cat": "data-exfiltration",
+        "class": "execution-system-risk",
+        "severity": "",
+        "conf": "",
+        "summary": "The `init-artifact.sh` script extracts a binary tarball (`shadcn-components.tar.gz`) directly into the project source code without verification. While the shell scripts themselves contain no malicious logic, the binary artifact cannot be analyzed without extraction. This presents a potential supply chain attack vector where malicious UI components could be introduced. The scripts should verify checksums or download from trusted sources instead of using a local binary blob.",
+        "arts": [],
+        "spans": [],
+        "impact": "",
+        "fix": "",
+        "decision_level": "",
+        "primary_group": "Execution / System Risk",
+        "scan_level": "Script Scan",
+        "risk_types": [
+          "Data Exfiltration",
+          "Trojan Downloader",
+          "Supply Chain Attack",
+          "Reverse Shell"
+        ],
+        "source_platform": "Marketplace",
+        "source_file": "scan_results_script_Marketplace.csv",
+        "related_file_count": "4",
+        "flags": {
+          "external_server": false,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": true,
+          "shell_or_command_execution": true,
+          "driver_or_installer": false,
+          "credential_request": true,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": false
+        }
+      }
+    ],
+    "ctx_requests": [],
+    "coverage": {
+      "reviewed_arts": [],
+      "unresolved_high_risk_arts": []
+    }
+  },
+  "judge": {
+    "verdict": {
+      "label": "insufficient_evidence",
+      "primary_concern": "data-exfiltration",
+      "issue_types": [
+        "data-exfiltration",
+        "trojan-downloader",
+        "supply-chain-attack",
+        "reverse-shell",
+        "execution-system-risk"
+      ]
+    },
+    "top_findings": [
+      {
+        "id": "",
+        "cat": "data-exfiltration",
+        "class": "execution-system-risk",
+        "severity": "",
+        "conf": "",
+        "summary": "The `init-artifact.sh` script extracts a binary tarball (`shadcn-components.tar.gz`) directly into the project source code without verification. While the shell scripts themselves contain no malicious logic, the binary artifact cannot be analyzed without extraction. This presents a potential supply chain attack vector where malicious UI components could be introduced. The scripts should verify checksums or download from trusted sources instead of using a local binary blob.",
+        "impact": "",
+        "fix": "",
+        "decision_level": "",
+        "primary_group": "Execution / System Risk",
+        "scan_level": "Script Scan",
+        "risk_types": [
+          "Data Exfiltration",
+          "Trojan Downloader",
+          "Supply Chain Attack",
+          "Reverse Shell"
+        ],
+        "source_platform": "Marketplace",
+        "source_file": "scan_results_script_Marketplace.csv",
+        "related_file_count": "4",
+        "flags": {
+          "external_server": false,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": true,
+          "shell_or_command_execution": true,
+          "driver_or_installer": false,
+          "credential_request": true,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": false
+        },
+        "spans": []
+      }
+    ],
+    "coverage_audit": {
+      "adequate": true,
+      "missed": [],
+      "needs_rescan": false
+    },
+    "next_action": "stop"
+  },
+  "excel_import": {
+    "record_count": 1,
+    "headers": [
+      "一级分类_判定级别",
+      "二级分类_主问题组",
+      "风险类型汇总",
+      "风险类型1",
+      "风险类型2",
+      "风险类型3",
+      "风险类型4",
+      "来源平台",
+      "扫描层级",
+      "原始业务分类",
+      "skill_name",
+      "关联文件数",
+      "原始来源文件",
+      "问题摘要",
+      "原始verdict",
+      "flag_外部服务器",
+      "flag_APIKey",
+      "flag_自治执行",
+      "flag_浏览器会话/凭据",
+      "flag_文件系统访问",
+      "flag_Shell/命令执行",
+      "flag_驱动/安装器",
+      "flag_凭据请求",
+      "flag_混淆/规避",
+      "flag_持久化/外部存储",
+      "清洗后原始说明"
+    ],
+    "records": [
+      {
+        "classification": {
+          "decision_level": "",
+          "primary_group": "Execution / System Risk",
+          "risk_summary": "Data Exfiltration | Trojan Downloader | Supply Chain Attack | Reverse Shell",
+          "risk_types": [
+            "Data Exfiltration",
+            "Trojan Downloader",
+            "Supply Chain Attack",
+            "Reverse Shell"
+          ],
+          "platform": "Marketplace",
+          "scan_level": "Script Scan",
+          "business_category": "cms-platforms",
+          "skill_name": "web-artifacts-builder",
+          "related_file_count": "4",
+          "source_file": "scan_results_script_Marketplace.csv",
+          "problem_summary": "The `init-artifact.sh` script extracts a binary tarball (`shadcn-components.tar.gz`) directly into the project source code without verification. While the shell scripts themselves contain no malicious logic, the binary artifact cannot be analyzed without extraction. This presents a potential supply chain attack vector where malicious UI components could be introduced. The scripts should verify checksums or download from trusted sources instead of using a local binary blob.",
+          "raw_verdict": "SUSPICIOUS: Supply Chain Risk - The `init-artifact.sh` script extracts a binary tarball (`shadcn-components.tar.gz`) directly into the project source code without verification. While the shell scripts themselves contain no malicious logic, the binary artifact cannot be analyzed without extraction. This presents a potential supply chain attack vector where malicious UI components could be introduced. The scripts should verify checksums or download from trusted sources instead of using a local binary blob.",
+          "cleaned_description": "Looking at the provided files, I can analyze them for malicious patterns:\n\n## Analysis\n\n**FILE: LICENSE.txt** - Standard Apache 2.0 license file, benign.\n\n**FILE: scripts/shadcn-components.tar.gz** - Binary tarball (compressed file). Cannot directly analyze contents without extraction, but the presence of a binary blob is worth noting.\n\n**FILE: scripts/init-artifact.sh** - This is a setup script for creating a React project with Vite, Tailwind CSS, and shadcn/ui components. Key observations:\n1. It checks for Node.js version and installs dependencies via pnpm/npm\n2. Creates configuration files for Tailwind, Vite, and TypeScript\n3. **Extracts the tarball (`shadcn-components.tar.gz`) into the project's `src/` directory**\n4. No obfuscation, no external URL downloads, no data exfiltration\n5. All dependencies are from standard npm registry\n6. No sensitive file access or credential theft attempts\n\n**FILE: scripts/bundle-artifact.sh** - Build script that bundles the React app into a single HTML file using Parcel and html-inline. Standard build process.\n\n## Security Assessment\n\n1. **No Trojan Downloader Patterns**: The scripts don't download or execute any external binaries/scripts via `curl | bash` or similar patterns.\n\n2. **No Data Exfiltration**: No reading of sensitive files (`~/.clawdbot/.env`, SSH keys, browser data) or sending data to external webhooks.\n\n3. **No Core Malware Logic**: No XOR decryption, binary dropping, or suspicious encryption algorithms.\n\n4. **No Reverse Shell**: No network connections to external C2 servers.\n\n5. **Binary Tarball Concern**: The `shadcn-components.tar.gz` is a binary blob that gets extracted into the source code. However:\n   - The script is for setting up a UI component library (shadcn/ui), which commonly includes pre-built components\n   - The tarball is included locally, not downloaded from external sources\n   - The extraction happens into a development project directory\n   - Without analyzing the tarball contents directly, I cannot determine if it contains malicious code\n\n## Verdict\n\nThe shell scripts themselves appear to be legitimate development setup scripts for a React project with shadcn/ui. However, the presence of an **unverified binary tarball** that gets extracted and integrated into the project source code raises supply chain security concerns. The tarball could potentially contain malicious components.\n\n<result>SUSPICIOUS: Supply Chain Risk - The `init-artifact.sh` script extracts a binary tarball (`shadcn-components.tar.gz`) directly into the project source code without verification. While the shell scripts themselves contain no malicious logic, the binary artifact cannot be analyzed without extraction. This presents a potential supply chain attack vector where malicious UI components could be introduced. The scripts should verify checksums or download from trusted sources instead of using a local binary blob.",
+          "flags": {
+            "external_server": false,
+            "api_key": false,
+            "autonomous_execution": false,
+            "browser_session_or_credentials": false,
+            "filesystem_access": true,
+            "shell_or_command_execution": true,
+            "driver_or_installer": false,
+            "credential_request": true,
+            "obfuscation_or_evasion": false,
+            "persistence_or_external_storage": false
+          }
+        },
+        "raw_values": {
+          "一级分类_判定级别": "",
+          "二级分类_主问题组": "Execution / System Risk",
+          "风险类型汇总": "Data Exfiltration | Trojan Downloader | Supply Chain Attack | Reverse Shell",
+          "风险类型1": "Data Exfiltration",
+          "风险类型2": "Trojan Downloader",
+          "风险类型3": "Supply Chain Attack",
+          "风险类型4": "Reverse Shell",
+          "来源平台": "Marketplace",
+          "扫描层级": "Script Scan",
+          "原始业务分类": "cms-platforms",
+          "skill_name": "web-artifacts-builder",
+          "关联文件数": 4,
+          "原始来源文件": "scan_results_script_Marketplace.csv",
+          "问题摘要": "The `init-artifact.sh` script extracts a binary tarball (`shadcn-components.tar.gz`) directly into the project source code without verification. While the shell scripts themselves contain no malicious logic, the binary artifact cannot be analyzed without extraction. This presents a potential supply chain attack vector where malicious UI components could be introduced. The scripts should verify checksums or download from trusted sources instead of using a local binary blob.",
+          "原始verdict": "SUSPICIOUS: Supply Chain Risk - The `init-artifact.sh` script extracts a binary tarball (`shadcn-components.tar.gz`) directly into the project source code without verification. While the shell scripts themselves contain no malicious logic, the binary artifact cannot be analyzed without extraction. This presents a potential supply chain attack vector where malicious UI components could be introduced. The scripts should verify checksums or download from trusted sources instead of using a local binary blob.",
+          "flag_外部服务器": "",
+          "flag_APIKey": "",
+          "flag_自治执行": "",
+          "flag_浏览器会话/凭据": "",
+          "flag_文件系统访问": "Y",
+          "flag_Shell/命令执行": "Y",
+          "flag_驱动/安装器": "",
+          "flag_凭据请求": "Y",
+          "flag_混淆/规避": "",
+          "flag_持久化/外部存储": "",
+          "清洗后原始说明": "Looking at the provided files, I can analyze them for malicious patterns:\n\n## Analysis\n\n**FILE: LICENSE.txt** - Standard Apache 2.0 license file, benign.\n\n**FILE: scripts/shadcn-components.tar.gz** - Binary tarball (compressed file). Cannot directly analyze contents without extraction, but the presence of a binary blob is worth noting.\n\n**FILE: scripts/init-artifact.sh** - This is a setup script for creating a React project with Vite, Tailwind CSS, and shadcn/ui components. Key observations:\n1. It checks for Node.js version and installs dependencies via pnpm/npm\n2. Creates configuration files for Tailwind, Vite, and TypeScript\n3. **Extracts the tarball (`shadcn-components.tar.gz`) into the project's `src/` directory**\n4. No obfuscation, no external URL downloads, no data exfiltration\n5. All dependencies are from standard npm registry\n6. No sensitive file access or credential theft attempts\n\n**FILE: scripts/bundle-artifact.sh** - Build script that bundles the React app into a single HTML file using Parcel and html-inline. Standard build process.\n\n## Security Assessment\n\n1. **No Trojan Downloader Patterns**: The scripts don't download or execute any external binaries/scripts via `curl | bash` or similar patterns.\n\n2. **No Data Exfiltration**: No reading of sensitive files (`~/.clawdbot/.env`, SSH keys, browser data) or sending data to external webhooks.\n\n3. **No Core Malware Logic**: No XOR decryption, binary dropping, or suspicious encryption algorithms.\n\n4. **No Reverse Shell**: No network connections to external C2 servers.\n\n5. **Binary Tarball Concern**: The `shadcn-components.tar.gz` is a binary blob that gets extracted into the source code. However:\n   - The script is for setting up a UI component library (shadcn/ui), which commonly includes pre-built components\n   - The tarball is included locally, not downloaded from external sources\n   - The extraction happens into a development project directory\n   - Without analyzing the tarball contents directly, I cannot determine if it contains malicious code\n\n## Verdict\n\nThe shell scripts themselves appear to be legitimate development setup scripts for a React project with shadcn/ui. However, the presence of an **unverified binary tarball** that gets extracted and integrated into the project source code raises supply chain security concerns. The tarball could potentially contain malicious components.\n\n<result>SUSPICIOUS: Supply Chain Risk - The `init-artifact.sh` script extracts a binary tarball (`shadcn-components.tar.gz`) directly into the project source code without verification. While the shell scripts themselves contain no malicious logic, the binary artifact cannot be analyzed without extraction. This presents a potential supply chain attack vector where malicious UI components could be introduced. The scripts should verify checksums or download from trusted sources instead of using a local binary blob."
+        }
+      }
+    ]
+  }
+}

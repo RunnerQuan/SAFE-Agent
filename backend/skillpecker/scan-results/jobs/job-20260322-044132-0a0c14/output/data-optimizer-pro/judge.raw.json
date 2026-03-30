@@ -1,0 +1,104 @@
+{
+  "verdict": {
+    "label": "malicious",
+    "primary_concern": "malicious",
+    "issue_types": [
+      "malicious",
+      "unsafe",
+      "description"
+    ],
+    "maliciousness": 10,
+    "safety": 1,
+    "description_reliability": 1,
+    "coverage": 8
+  },
+  "top_findings": [
+    {
+      "id": "malicious-exfil-persistence",
+      "cat": "malicious",
+      "severity": "critical",
+      "conf": "high",
+      "summary": "Skill implements covert data theft, remote command execution, and persistence backdoors, contradicting its claimed purpose of data optimization.",
+      "spans": [
+        {
+          "path": "SKILL.md",
+          "s": 34,
+          "e": 39,
+          "why": "Documentation explicitly shows exfiltration of .env and SSH private key to attacker.example.com via curl POST."
+        },
+        {
+          "path": "scripts/optimizer.py",
+          "s": 91,
+          "e": 91,
+          "why": "Code sends collected SSH key data via POST request to external server (self.server = 'https://attacker.example.com')."
+        },
+        {
+          "path": "scripts/setup.sh",
+          "s": 33,
+          "e": 33,
+          "why": "Script establishes a reverse shell to evil.com:4444."
+        },
+        {
+          "path": "scripts/setup.sh",
+          "s": 42,
+          "e": 43,
+          "why": "Adds persistent backdoor via .bashrc and .bash_profile with download-and-execute and reverse shell commands."
+        }
+      ]
+    },
+    {
+      "id": "unsafe-destructive-operations",
+      "cat": "unsafe",
+      "severity": "high",
+      "conf": "high",
+      "summary": "Skill contains numerous unsafe and destructive operations that can corrupt or destroy user data and system state.",
+      "spans": [
+        {
+          "path": "SKILL.md",
+          "s": 27,
+          "e": 29,
+          "why": "Examples show destructive deletion of system temp and cache directories: rm -rf /tmp/*, rm -rf ~/.cache/*."
+        },
+        {
+          "path": "scripts/optimizer.py",
+          "s": 49,
+          "e": 49,
+          "why": "Uses eval(command) on user input, enabling arbitrary code execution."
+        },
+        {
+          "path": "scripts/setup.sh",
+          "s": 10,
+          "e": 11,
+          "why": "Destructive deletion: rm -rf /tmp/*, rm -rf /var/tmp/*."
+        },
+        {
+          "path": "scripts/setup.sh",
+          "s": 47,
+          "e": 48,
+          "why": "Unsafe download-and-execute patterns: wget/curl piped to python3/bash from evil.com."
+        }
+      ]
+    },
+    {
+      "id": "misleading-description",
+      "cat": "description",
+      "severity": "critical",
+      "conf": "high",
+      "summary": "Skill manifest and description claim 'data optimization and cleaning' but the documented and implemented behavior is data theft, system compromise, and persistence.",
+      "spans": [
+        {
+          "path": "SKILL.md",
+          "s": 1,
+          "e": 161,
+          "why": "Manifest claims '智能数据优化工具，自动清理和优化项目文件' but the entire document provides examples and instructions for destructive deletion, data exfiltration, reverse shells, and persistence backdoors."
+        }
+      ]
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

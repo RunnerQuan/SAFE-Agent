@@ -1,0 +1,150 @@
+{
+  "技能信息 (skill_info)": {
+    "技能根目录 (skill_root)": "C:\\Files\\Study\\Codes\\Skill-Scan\\scan-results\\jobs\\job-20260322-044132-0a0c14\\skills\\healthgrades",
+    "技能声明列表 (skill_claims)": [
+      "--",
+      "Find doctors with Healthgrades - search providers, read reviews, and check credentials",
+      "Healthgrades Skill",
+      "Overview",
+      "Quick Install",
+      "Setup",
+      "First, ensure canifi-env is installed:",
+      "curl -sSL https://canifi.com/install.sh | bash",
+      "Privacy & Authentication",
+      "*Your credentials, your choice.** Canifi LifeOS respects your privacy.",
+      "Option 1: Manual Browser Login (Recommended)"
+    ],
+    "观察到的文件类型 (observed_kinds)": [
+      "JSON 配置 (json)",
+      "Markdown 文档 (markdown)"
+    ]
+  },
+  "文件制品列表 (artifacts)": [
+    {
+      "制品ID (artifact_id)": "art-037fda535255",
+      "文件路径 (path)": ".claude-plugin/plugin.json",
+      "文件类型 (kind)": "JSON 配置 (json)",
+      "文件角色 (role)": "配置 (configuration)",
+      "大小字节 (size_bytes)": 852,
+      "行数 (line_count)": 33,
+      "预览 (preview)": "{\n  \"name\": \"healthgrades\",\n  \"displayName\": \"Healthgrades\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Find doctors with Healthgrades - search providers, read reviews, and check credentials\",\n  \"author\": \"Canifi LifeOS\",\n  \"category\": \"Healthcare & Telehealth\",\n  \"authentication\": {\n    \"type\": \"browser\",\n    \"loginUrl\": \"https://www.healthgrades.com/login\",\n    \"loggedInIndicator\": \"[data-testid='user-menu']\"\n  },\n  \"capabilities\": [\n    \"search-doctors\",\n    \"read-reviews\",\n    \"check-credentials\",\n    \"hospital-ratings\",\n    \"compare-providers\",\n    \"find-specialists\"\n  ],\n  \"requiredEnvVars\": [\n    \"HEALTHGRADES_EMAIL\",\n    \"HEALTHGRADES_PASSWORD\"\n  ],\n  \"endpoints\": {\n    \"base\": \"https://www.healthgrades.com\",\n    \"find\": \"https://www.healthgrades.com/find-a-doctor\"\n  },\n  \"rateLimit\": {\n    \"requests\": 60,\n    \"period\": \"minute\"\n  }\n}",
+      "是否截断 (is_truncated)": false,
+      "是否二进制 (is_binary)": false,
+      "内容摘要Hash (sha256_12)": "1710dee8e791",
+      "代码块列表 (code_blocks)": [],
+      "规则命中数 (rule_hit_count)": 0
+    },
+    {
+      "制品ID (artifact_id)": "art-0e95f5a36660",
+      "文件路径 (path)": "SKILL.md",
+      "文件类型 (kind)": "Markdown 文档 (markdown)",
+      "文件角色 (role)": "Skill 定义文件 (skill_definition)",
+      "大小字节 (size_bytes)": 3390,
+      "行数 (line_count)": 122,
+      "预览 (preview)": "---\nname: healthgrades\ndescription: Find doctors with Healthgrades - search providers, read reviews, and check credentials\ncategory: healthcare\n---\n\n# Healthgrades Skill\n\n## Overview\nEnables Claude to use Healthgrades for finding and researching healthcare providers including searching doctors, reading patient reviews, and checking credentials.\n\n## Quick Install\n\n```bash\ncurl -sSL https://canifi.com/skills/healthgrades/install.sh | bash\n```\n\nOr manually:\n```bash\ncp -r skills/healthgrades ~/.canifi/skills/\n```\n\n## Setup\n\nConfigure via [canifi-env](https://canifi.com/setup/scripts):\n\n```bash\n# First, ensure canifi-env is installed:\n# curl -sSL https://canifi.com/install.sh | bash\n\ncanifi-env set HEALTHGRADES_EMAIL \"your-email@example.com\"\ncanifi-env set HEALTHGRADES_PASSWORD \"your-password\"\n```\n\n## Privacy & Authentication\n\n**Your credentials, your choice.** Canifi LifeOS respects your privacy.\n\n### Option 1: Manual Browser Login (Recommended)\nIf you prefer not to share credentials with Claude Code:\n1. Complete the [Browser Automation Setup](/setup/automation) using CDP mode\n2. Login to the service manually in the Playwright-controlled Chrome window\n3. Claude will use your authenticated session without ever seeing your password\n\n### Option 2: Environment Variables\nIf you're comfortable sharing credentials, you can store them locally:\n```bash\ncanifi-env set SERVICE_EMAIL \"your-email\"\ncanifi-env set SERVICE_PASSWORD \"your-password\"\n```",
+      "是否截断 (is_truncated)": false,
+      "是否二进制 (is_binary)": false,
+      "内容摘要Hash (sha256_12)": "a9b62dc48666",
+      "代码块列表 (code_blocks)": [
+        {
+          "语言 (language)": "Shell 脚本 (shell)",
+          "起始行 (start_line)": 15,
+          "结束行 (end_line)": 15,
+          "预览 (preview)": "curl -sSL https://canifi.com/skills/healthgrades/install.sh | bash"
+        },
+        {
+          "语言 (language)": "Shell 脚本 (shell)",
+          "起始行 (start_line)": 20,
+          "结束行 (end_line)": 20,
+          "预览 (preview)": "cp -r skills/healthgrades ~/.canifi/skills/"
+        },
+        {
+          "语言 (language)": "Shell 脚本 (shell)",
+          "起始行 (start_line)": 28,
+          "结束行 (end_line)": 32,
+          "预览 (preview)": "# First, ensure canifi-env is installed:\n# curl -sSL https://canifi.com/install.sh | bash\n\ncanifi-env set HEALTHGRADES_EMAIL \"your-email@example.com\"\ncanifi-env set HEALTHGRADES_PASSWORD \"your-password\""
+        },
+        {
+          "语言 (language)": "Shell 脚本 (shell)",
+          "起始行 (start_line)": 48,
+          "结束行 (end_line)": 49,
+          "预览 (preview)": "canifi-env set SERVICE_EMAIL \"your-email\"\ncanifi-env set SERVICE_PASSWORD \"your-password\""
+        },
+        {
+          "语言 (language)": "文本文件 (text)",
+          "起始行 (start_line)": 66,
+          "结束行 (end_line)": 72,
+          "预览 (preview)": "User: \"Find a highly rated cardiologist near me\"\nClaude: I'll search for cardiologists.\n1. Opening Healthgrades via Playwright MCP\n2. Searching for cardiologists\n3. Filtering by location\n4. Sorting by patient ratings\n5. Listing top-rated options"
+        },
+        {
+          "语言 (language)": "文本文件 (text)",
+          "起始行 (start_line)": 77,
+          "结束行 (end_line)": 82,
+          "预览 (preview)": "User: \"What do patients say about Dr. Johnson?\"\nClaude: I'll check patient reviews.\n1. Finding Dr. Johnson's profile\n2. Accessing patient reviews\n3. Summarizing feedback themes\n4. Noting ratings breakdown"
+        },
+        {
+          "语言 (language)": "文本文件 (text)",
+          "起始行 (start_line)": 87,
+          "结束行 (end_line)": 92,
+          "预览 (preview)": "User: \"Is Dr. Smith board certified?\"\nClaude: I'll verify credentials.\n1. Finding Dr. Smith's profile\n2. Viewing credentials section\n3. Checking board certifications\n4. Noting education and training"
+        }
+      ],
+      "规则命中数 (rule_hit_count)": 4
+    }
+  ],
+  "规则命中列表 (rule_hits)": [
+    {
+      "规则代码 (rule_code)": "MAL-DOWNLOAD-EXEC",
+      "严重级别 (severity)": "严重 (critical)",
+      "文件路径 (path)": "SKILL.md",
+      "起始行 (start_line)": 15,
+      "结束行 (end_line)": 15,
+      "规则说明 (message)": "Potential download-and-execute behavior",
+      "命中片段 (excerpt)": "curl -sSL https://canifi.com/skills/healthgrades/install.sh | bash",
+      "来源 (source)": "文档代码块 (code_block)"
+    },
+    {
+      "规则代码 (rule_code)": "MAL-DOWNLOAD-EXEC",
+      "严重级别 (severity)": "严重 (critical)",
+      "文件路径 (path)": "SKILL.md",
+      "起始行 (start_line)": 29,
+      "结束行 (end_line)": 29,
+      "规则说明 (message)": "Potential download-and-execute behavior",
+      "命中片段 (excerpt)": "# curl -sSL https://canifi.com/install.sh | bash",
+      "来源 (source)": "文档代码块 (code_block)"
+    },
+    {
+      "规则代码 (rule_code)": "FEAT-NETWORK",
+      "严重级别 (severity)": "低 (low)",
+      "文件路径 (path)": "SKILL.md",
+      "起始行 (start_line)": 15,
+      "结束行 (end_line)": 15,
+      "规则说明 (message)": "Network access behavior",
+      "命中片段 (excerpt)": "curl -sSL https://canifi.com/skills/healthgrades/install.sh | bash",
+      "来源 (source)": "文档代码块 (code_block)"
+    },
+    {
+      "规则代码 (rule_code)": "FEAT-NETWORK",
+      "严重级别 (severity)": "低 (low)",
+      "文件路径 (path)": "SKILL.md",
+      "起始行 (start_line)": 29,
+      "结束行 (end_line)": 29,
+      "规则说明 (message)": "Network access behavior",
+      "命中片段 (excerpt)": "# curl -sSL https://canifi.com/install.sh | bash",
+      "来源 (source)": "文档代码块 (code_block)"
+    }
+  ],
+  "覆盖缺口列表 (coverage_gaps)": [],
+  "统计信息 (statistics)": {
+    "文件总数 (artifact_count)": 2,
+    "规则命中总数 (rule_hit_count)": 4,
+    "按严重级别统计 (severity_counts)": {
+      "严重 (critical)": 2,
+      "低 (low)": 2
+    },
+    "按规则代码统计 (rule_code_counts)": {
+      "FEAT-NETWORK": 2,
+      "MAL-DOWNLOAD-EXEC": 2
+    }
+  }
+}

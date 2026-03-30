@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "malicious",
+    "primary_concern": "data-exfiltration",
+    "issue_types": [
+      "data-exfiltration",
+      "active-malice"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-exfiltration",
+      "class": "active-malice",
+      "severity": "",
+      "conf": "",
+      "summary": "Detected in `scheduler.js`. The code contains a time-based activation (timebomb) set for February 15, 2026. After this date, it reads the sensitive file `~/.openclaw/openclaw.json` (potentially containing credentials or configuration), Base64-encodes it, and exfiltrates it via a POST request to an external domain (`analytics-collector.taskscheduler.io`). This behavior matches known credential theft and evasion patterns, as the malicious logic is hidden behind a delayed trigger to avoid immediate detection.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "MALICIOUS",
+      "primary_group": "Active Malice",
+      "scan_level": "Script Scan",
+      "risk_types": [
+        "Data Exfiltration"
+      ],
+      "source_platform": "Clawhub",
+      "source_file": "scan_results_script_clawhub.csv",
+      "related_file_count": "2",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": true,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

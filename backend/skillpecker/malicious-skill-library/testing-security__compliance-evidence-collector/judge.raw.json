@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "data-over-collection",
+    "issue_types": [
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-over-collection",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill description includes capabilities to collect physical evidence such as facility access logs, visitor records, and environmental controls documentation, which are unrelated to its stated primary purpose of \"gathering compliance artifacts from cloud providers, identity systems, and security tools.\" This represents data over-collection, as physical evidence is not sourced from the specified cloud, identity, or security tool systems and is unnecessary for the skill's core function.",
+      "impact": "OVERREACH: Data Over-collection - The skill description includes capabilities to collect physical evidence such as facility access logs, visitor records, and environmental controls documentation, which are unrelated to its stated primary purpose of \"gathering compliance artifacts from cloud providers, identity systems, and security tools.\" This represents data over-collection, as physical evidence is not sourced from the specified cloud, identity, or security tool systems and is unnecessary for the skill's core function.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Data Over-collection"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "2",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

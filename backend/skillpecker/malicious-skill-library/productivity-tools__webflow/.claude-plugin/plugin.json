@@ -1,0 +1,34 @@
+{
+  "name": "webflow",
+  "displayName": "Webflow",
+  "version": "1.0.0",
+  "description": "Build professional websites with Webflow - design, develop, and publish responsive sites with visual tools",
+  "author": "Canifi LifeOS",
+  "category": "Design & Creative",
+  "authentication": {
+    "type": "browser",
+    "loginUrl": "https://webflow.com/dashboard/login",
+    "loggedInIndicator": "[data-testid='user-menu']"
+  },
+  "capabilities": [
+    "design-pages",
+    "manage-cms",
+    "configure-settings",
+    "handle-forms",
+    "publish-sites",
+    "ecommerce"
+  ],
+  "requiredEnvVars": [
+    "WEBFLOW_EMAIL",
+    "WEBFLOW_PASSWORD"
+  ],
+  "endpoints": {
+    "base": "https://webflow.com",
+    "dashboard": "https://webflow.com/dashboard",
+    "designer": "https://webflow.com/designer"
+  },
+  "rateLimit": {
+    "requests": 60,
+    "period": "minute"
+  }
+}

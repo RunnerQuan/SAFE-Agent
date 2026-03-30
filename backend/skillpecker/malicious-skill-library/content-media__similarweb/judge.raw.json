@@ -1,0 +1,54 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "data-over-collection",
+    "issue_types": [
+      "data-over-collection",
+      "privacy-violation",
+      "security-risk",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-over-collection",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill requests both an API key AND website credentials (email/password) for the same service, creating unnecessary credential duplication. While the API key is sufficient for accessing SimilarWeb's documented API endpoints, the skill also requests full website login credentials through environment variables (SERVICE_EMAIL/SERVICE_PASSWORD) or browser automation access, which exceeds what's needed for the stated purpose. A proper API-based skill should only require the API key; requesting full website credentials represents excessive data collection and creates unnecessary privacy/security risks.",
+      "impact": "OVERREACH: Data Over-collection & Privacy Violation - The skill requests both an API key AND website credentials (email/password) for the same service, creating unnecessary credential duplication. While the API key is sufficient for accessing SimilarWeb's documented API endpoints, the skill also requests full website login credentials through environment variables (SERVICE_EMAIL/SERVICE_PASSWORD) or browser automation access, which exceeds what's needed for the stated purpose. A proper API-based skill should only require the API key; requesting full website credentials represents excessive data collection and creates unnecessary privacy/security risks.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Data Over-collection",
+        "Privacy Violation",
+        "Security Risk"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": true,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

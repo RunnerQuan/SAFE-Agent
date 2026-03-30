@@ -1,0 +1,201 @@
+{
+  "预处理结果 (preprocess)": {
+    "技能信息 (skill_info)": {
+      "技能根目录 (skill_root)": "C:\\Files\\Study\\Codes\\Skill-Scan\\scan-results\\jobs\\job-20260320-084148-ff5944\\skills\\autoupdater-live-zip",
+      "技能声明列表 (skill_claims)": [
+        "Demo zip skill"
+      ],
+      "观察到的文件类型 (observed_kinds)": [
+        "JSON 配置 (json)",
+        "Markdown 文档 (markdown)"
+      ]
+    },
+    "文件制品列表 (artifacts)": [
+      {
+        "制品ID (artifact_id)": "art-0b54d9e13ca0",
+        "文件路径 (path)": "_meta.json",
+        "文件类型 (kind)": "JSON 配置 (json)",
+        "文件角色 (role)": "配置 (configuration)",
+        "大小字节 (size_bytes)": 32,
+        "行数 (line_count)": 1,
+        "预览 (preview)": "{\"slug\": \"autoupdater-live-zip\"}",
+        "是否截断 (is_truncated)": false,
+        "是否二进制 (is_binary)": false,
+        "内容摘要Hash (sha256_12)": "d2367b96a463",
+        "代码块列表 (code_blocks)": [],
+        "规则命中数 (rule_hit_count)": 0
+      },
+      {
+        "制品ID (artifact_id)": "art-4c82cac5ff25",
+        "文件路径 (path)": "skill.md",
+        "文件类型 (kind)": "Markdown 文档 (markdown)",
+        "文件角色 (role)": "Skill 定义文件 (skill_definition)",
+        "大小字节 (size_bytes)": 17,
+        "行数 (line_count)": 1,
+        "预览 (preview)": "# Demo zip skill",
+        "是否截断 (is_truncated)": false,
+        "是否二进制 (is_binary)": false,
+        "内容摘要Hash (sha256_12)": "9605a24047af",
+        "代码块列表 (code_blocks)": [],
+        "规则命中数 (rule_hit_count)": 0
+      }
+    ],
+    "规则命中列表 (rule_hits)": [],
+    "覆盖缺口列表 (coverage_gaps)": [],
+    "统计信息 (statistics)": {
+      "文件总数 (artifact_count)": 2,
+      "规则命中总数 (rule_hit_count)": 0,
+      "按严重级别统计 (severity_counts)": {},
+      "按规则代码统计 (rule_code_counts)": {}
+    }
+  },
+  "分诊结果 (triage)": {
+    "技能概览 (skill_overview)": {
+      "技能声明列表 (skill_claims)": [
+        "Demo zip skill"
+      ],
+      "观察到的行为 (observed_behaviors)": [
+        "slug: autoupdater-live-zip"
+      ],
+      "高风险特征 (high_risk_features)": []
+    },
+    "文件分析列表 (artifact_reviews)": [
+      {
+        "制品ID (artifact_id)": "art-4c82cac5ff25",
+        "文件路径 (path)": "skill.md",
+        "文件类型 (kind)": "Markdown 文档 (markdown)",
+        "文件角色 (role)": "Skill 定义文件 (skill_definition)",
+        "观察结果 (observations)": [
+          "Contains only title 'Demo zip skill'"
+        ],
+        "风险信号 (risk_signals)": [],
+        "证据位置 (evidence_spans)": [
+          {
+            "文件路径 (path)": "skill.md",
+            "起始行 (start_line)": 0,
+            "结束行 (end_line)": 17,
+            "说明 (why)": "Only title present, no description of behavior"
+          }
+        ],
+        "优先级 (priority)": "低 (low)",
+        "是否需要回源查看原文 (needs_raw_review)": false
+      },
+      {
+        "制品ID (artifact_id)": "art-0b54d9e13ca0",
+        "文件路径 (path)": "_meta.json",
+        "文件类型 (kind)": "JSON 配置 (json)",
+        "文件角色 (role)": "配置 (configuration)",
+        "观察结果 (observations)": [
+          "slug: autoupdater-live-zip"
+        ],
+        "风险信号 (risk_signals)": [],
+        "证据位置 (evidence_spans)": [
+          {
+            "文件路径 (path)": "_meta.json",
+            "起始行 (start_line)": 0,
+            "结束行 (end_line)": 32,
+            "说明 (why)": "Only contains slug identifier"
+          }
+        ],
+        "优先级 (priority)": "低 (low)",
+        "是否需要回源查看原文 (needs_raw_review)": false
+      }
+    ],
+    "跨文件关注点 (cross_artifact_concerns)": [
+      {
+        "关注点类型 (concern_type)": "描述缺口 (description_gap)",
+        "关联制品IDs (artifact_ids)": [
+          "art-4c82cac5ff25"
+        ],
+        "证据位置 (evidence_spans)": [
+          {
+            "文件路径 (path)": "skill.md",
+            "起始行 (start_line)": 0,
+            "结束行 (end_line)": 17,
+            "说明 (why)": "Skill claims 'Demo zip skill' but provides no description of what it does, how it works, or what data it accesses"
+          }
+        ],
+        "原因说明 (why)": "Skill name suggests zip-related functionality but no implementation details, behavior description, or data handling information provided"
+      }
+    ],
+    "建议回源片段 (retrieval_requests)": [
+      {
+        "文件路径 (path)": "skill.md",
+        "起始行 (start_line)": 0,
+        "结束行 (end_line)": 17,
+        "请求原因 (reason)": "Only artifact with any description, though minimal"
+      },
+      {
+        "文件路径 (path)": "_meta.json",
+        "起始行 (start_line)": 0,
+        "结束行 (end_line)": 32,
+        "请求原因 (reason)": "Configuration metadata"
+      }
+    ],
+    "覆盖情况 (coverage)": {
+      "文件总数 (total_artifacts)": 2,
+      "已索引文件数 (indexed_artifacts)": 2,
+      "覆盖缺口列表 (coverage_gaps)": [
+        {
+          "文件路径 (path)": "skill.md",
+          "原因 (why)": "No implementation code, no behavior description, no examples, no data handling information"
+        },
+        {
+          "文件路径 (path)": "_meta.json",
+          "原因 (why)": "No configuration parameters, no dependencies, no runtime requirements"
+        }
+      ]
+    }
+  },
+  "安全分析结果 (security)": {
+    "发现列表 (findings)": [],
+    "补充上下文请求 (additional_context_requests)": [
+      {
+        "文件路径 (path)": "skill.md",
+        "起始行 (start_line)": 0,
+        "结束行 (end_line)": 0,
+        "请求原因 (reason)": "The skill.md file contains only a title. More context is needed to understand the skill's intended behavior, implementation, or any examples that could reveal safety or description issues."
+      },
+      {
+        "文件路径 (path)": "_meta.json",
+        "起始行 (start_line)": 0,
+        "结束行 (end_line)": 0,
+        "请求原因 (reason)": "The _meta.json file contains only a slug. More context is needed to examine any configuration parameters, dependencies, or runtime declarations that could indicate behavior."
+      }
+    ],
+    "覆盖情况 (coverage)": {
+      "已审阅制品IDs (reviewed_artifact_ids)": [
+        "art-4c82cac5ff25",
+        "art-0b54d9e13ca0"
+      ],
+      "未解决高风险制品IDs (unresolved_high_risk_artifact_ids)": []
+    }
+  },
+  "裁决结果 (judge)": {
+    "最终裁决 (verdict)": {
+      "裁决标签 (label)": "证据不足 (insufficient_evidence)",
+      "主要问题类型 (primary_concern)": "未知 (unknown)",
+      "问题类型列表 (issue_types)": [],
+      "恶意风险分，越高越危险 (maliciousness_score)": 0,
+      "实现风险分，越高越危险 (implementation_risk_score)": 0,
+      "描述可靠度分，越低越不可靠 (description_reliability_score)": 0,
+      "覆盖度分，越高越完整 (coverage_score)": 0
+    },
+    "主要发现 (top_findings)": [],
+    "覆盖审计 (coverage_audit)": {
+      "覆盖是否充分 (is_coverage_adequate)": false,
+      "遗漏项 (missed_items)": [
+        {
+          "文件路径 (path)": "skill.md",
+          "原因 (why)": "No implementation code, no behavior description, no examples, no data handling information"
+        },
+        {
+          "文件路径 (path)": "_meta.json",
+          "原因 (why)": "No configuration parameters, no dependencies, no runtime requirements"
+        }
+      ],
+      "是否需要重扫 (needs_rescan)": true
+    },
+    "下一步动作 (next_action)": "扩大范围重扫 (rescan_broad)"
+  }
+}

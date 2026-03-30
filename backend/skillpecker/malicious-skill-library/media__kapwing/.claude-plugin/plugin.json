@@ -1,0 +1,33 @@
+{
+  "name": "kapwing",
+  "displayName": "Kapwing",
+  "version": "1.0.0",
+  "description": "Edit videos online with Kapwing - create, edit, and export video content with collaborative tools",
+  "author": "Canifi LifeOS",
+  "category": "Video & Audio Production",
+  "authentication": {
+    "type": "browser",
+    "loginUrl": "https://www.kapwing.com/signin",
+    "loggedInIndicator": "[data-testid='user-menu']"
+  },
+  "capabilities": [
+    "edit-videos",
+    "ai-features",
+    "use-templates",
+    "export-formats",
+    "manage-library",
+    "subtitle-tools"
+  ],
+  "requiredEnvVars": [
+    "KAPWING_EMAIL",
+    "KAPWING_PASSWORD"
+  ],
+  "endpoints": {
+    "base": "https://www.kapwing.com",
+    "workspace": "https://www.kapwing.com/workspace"
+  },
+  "rateLimit": {
+    "requests": 30,
+    "period": "minute"
+  }
+}

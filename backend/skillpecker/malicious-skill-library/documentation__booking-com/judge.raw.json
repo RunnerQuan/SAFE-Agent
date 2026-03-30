@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The Booking.com skill requests several permissions that extend beyond its stated purpose:\n\n1. **iMessage Access**: The error handling section states \"alert via iMessage\" for login failures, requiring access to the user's messaging system which is completely unrelated to hotel booking functionality.\n\n2. **Email Access**: The skill mentions \"Retrieve code from email via Playwright\" for 2FA handling, indicating it would access the user's email account to read authentication codes. This grants the skill broad access to the user's personal email, which is excessive for a hotel booking tool. 2FA codes should be entered manually by the user.\n\n3. **Browser Automation with Wide Access**: While Playwright automation for Booking.com interactions is reasonable, the documentation doesn't specify what web domains the automation can access, raising concerns about potential access to other websites or services beyond Booking.com during the automation process.\n\nThese permissions represent overreach because a hotel booking tool doesn't need to read the user's email, send iMessages, or potentially access other web domains to fulfill its primary function of searching and booking accommodations.",
+      "impact": "OVERREACH: Permission Overreach & Data Over-collection - The Booking.com skill requests several permissions that extend beyond its stated purpose:\n\n1. **iMessage Access**: The error handling section states \"alert via iMessage\" for login failures, requiring access to the user's messaging system which is completely unrelated to hotel booking functionality.\n\n2. **Email Access**: The skill mentions \"Retrieve code from email via Playwright\" for 2FA handling, indicating it would access the user's email account to read authentication codes. This grants the skill broad access to the user's personal email, which is excessive for a hotel booking tool. 2FA codes should be entered manually by the user.\n\n3. **Browser Automation with Wide Access**: While Playwright automation for Booking.com interactions is reasonable, the documentation doesn't specify what web domains the automation can access, raising concerns about potential access to other websites or services beyond Booking.com during the automation process.\n\nThese permissions represent overreach because a hotel booking tool doesn't need to read the user's email, send iMessages, or potentially access other web domains to fulfill its primary function of searching and booking accommodations.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Data Over-collection"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

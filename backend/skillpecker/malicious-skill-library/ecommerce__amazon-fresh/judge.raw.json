@@ -1,0 +1,54 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "data-over-collection",
+    "issue_types": [
+      "data-over-collection",
+      "privacy-violation",
+      "security-risk",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-over-collection",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill requests Amazon account credentials (email and password) for full account access when its stated purpose only requires browsing groceries, managing lists, and tracking deliveries. A more privacy-conscious approach would limit access to specific Amazon Fresh APIs or use temporary tokens. Additionally, the authentication flow mentions handling 2FA via iMessage notification, which would require access to messaging services unrelated to grocery shopping functionality. The installation method (curl pipe to bash from external domain) also presents security risks beyond the scope of permissions analysis.",
+      "impact": "OVERREACH: Data Over-collection & Privacy Violation - The skill requests Amazon account credentials (email and password) for full account access when its stated purpose only requires browsing groceries, managing lists, and tracking deliveries. A more privacy-conscious approach would limit access to specific Amazon Fresh APIs or use temporary tokens. Additionally, the authentication flow mentions handling 2FA via iMessage notification, which would require access to messaging services unrelated to grocery shopping functionality. The installation method (curl pipe to bash from external domain) also presents security risks beyond the scope of permissions analysis.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Data Over-collection",
+        "Privacy Violation",
+        "Security Risk"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": true,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

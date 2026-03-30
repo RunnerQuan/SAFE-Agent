@@ -1,0 +1,228 @@
+{
+  "preprocess": {
+    "skill": {
+      "root": "C:\\Files\\Study\\Codes\\Skill-Scan\\malicious-skill-library\\tools__i18n-refactor",
+      "claims": [
+        "The skill includes an \"auto-translate\" feature that converts English text to Traditional Chinese, which strongly implies the use of an external translation API or service. However, the description does not disclose whether this requires network access, what external service is used, or if user code strings are transmitted to third-party servers. This lack of transparency about data handling during translation poses a privacy risk."
+      ],
+      "observed_kinds": [
+        "spreadsheet",
+        "imported_scan_result"
+      ]
+    },
+    "artifacts": [],
+    "rule_hits": [],
+    "coverage_gaps": [],
+    "stats": {
+      "artifact_count": 0,
+      "rule_hit_count": 1,
+      "severity_counts": {},
+      "rule_code_counts": {}
+    }
+  },
+  "triage": {
+    "skill": {
+      "claims": [
+        "The skill includes an \"auto-translate\" feature that converts English text to Traditional Chinese, which strongly implies the use of an external translation API or service. However, the description does not disclose whether this requires network access, what external service is used, or if user code strings are transmitted to third-party servers. This lack of transparency about data handling during translation poses a privacy risk."
+      ],
+      "obs": [
+        "Description Scan"
+      ],
+      "high_risk_features": [
+        "external_server"
+      ]
+    },
+    "arts": [],
+    "xconcerns": [],
+    "retrieve": [],
+    "coverage": {
+      "total": 1,
+      "indexed": 1,
+      "gaps": []
+    }
+  },
+  "security": {
+    "findings": [
+      {
+        "id": "",
+        "cat": "privacy-violation",
+        "class": "data-governance-risk",
+        "severity": "",
+        "conf": "",
+        "summary": "The skill includes an \"auto-translate\" feature that converts English text to Traditional Chinese, which strongly implies the use of an external translation API or service. However, the description does not disclose whether this requires network access, what external service is used, or if user code strings are transmitted to third-party servers. This lack of transparency about data handling during translation poses a privacy risk.",
+        "arts": [],
+        "spans": [],
+        "impact": "",
+        "fix": "",
+        "decision_level": "SUSPICIOUS",
+        "primary_group": "Data Governance Risk",
+        "scan_level": "Description Scan",
+        "risk_types": [
+          "Privacy Violation"
+        ],
+        "source_platform": "Marketplace",
+        "source_file": "scan_results_description_marketplace.csv",
+        "related_file_count": "1",
+        "flags": {
+          "external_server": true,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": false,
+          "shell_or_command_execution": false,
+          "driver_or_installer": false,
+          "credential_request": false,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": false
+        }
+      }
+    ],
+    "ctx_requests": [],
+    "coverage": {
+      "reviewed_arts": [],
+      "unresolved_high_risk_arts": []
+    }
+  },
+  "judge": {
+    "verdict": {
+      "label": "unsafe",
+      "primary_concern": "privacy-violation",
+      "issue_types": [
+        "privacy-violation",
+        "data-governance-risk"
+      ]
+    },
+    "top_findings": [
+      {
+        "id": "",
+        "cat": "privacy-violation",
+        "class": "data-governance-risk",
+        "severity": "",
+        "conf": "",
+        "summary": "The skill includes an \"auto-translate\" feature that converts English text to Traditional Chinese, which strongly implies the use of an external translation API or service. However, the description does not disclose whether this requires network access, what external service is used, or if user code strings are transmitted to third-party servers. This lack of transparency about data handling during translation poses a privacy risk.",
+        "impact": "",
+        "fix": "",
+        "decision_level": "SUSPICIOUS",
+        "primary_group": "Data Governance Risk",
+        "scan_level": "Description Scan",
+        "risk_types": [
+          "Privacy Violation"
+        ],
+        "source_platform": "Marketplace",
+        "source_file": "scan_results_description_marketplace.csv",
+        "related_file_count": "1",
+        "flags": {
+          "external_server": true,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": false,
+          "shell_or_command_execution": false,
+          "driver_or_installer": false,
+          "credential_request": false,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": false
+        },
+        "spans": []
+      }
+    ],
+    "coverage_audit": {
+      "adequate": true,
+      "missed": [],
+      "needs_rescan": false
+    },
+    "next_action": "stop"
+  },
+  "excel_import": {
+    "record_count": 1,
+    "headers": [
+      "一级分类_判定级别",
+      "二级分类_主问题组",
+      "风险类型汇总",
+      "风险类型1",
+      "风险类型2",
+      "风险类型3",
+      "风险类型4",
+      "来源平台",
+      "扫描层级",
+      "原始业务分类",
+      "skill_name",
+      "关联文件数",
+      "原始来源文件",
+      "问题摘要",
+      "原始verdict",
+      "flag_外部服务器",
+      "flag_APIKey",
+      "flag_自治执行",
+      "flag_浏览器会话/凭据",
+      "flag_文件系统访问",
+      "flag_Shell/命令执行",
+      "flag_驱动/安装器",
+      "flag_凭据请求",
+      "flag_混淆/规避",
+      "flag_持久化/外部存储",
+      "清洗后原始说明"
+    ],
+    "records": [
+      {
+        "classification": {
+          "decision_level": "SUSPICIOUS",
+          "primary_group": "Data Governance Risk",
+          "risk_summary": "Privacy Violation",
+          "risk_types": [
+            "Privacy Violation"
+          ],
+          "platform": "Marketplace",
+          "scan_level": "Description Scan",
+          "business_category": "tools",
+          "skill_name": "i18n-refactor",
+          "related_file_count": "1",
+          "source_file": "scan_results_description_marketplace.csv",
+          "problem_summary": "The skill includes an \"auto-translate\" feature that converts English text to Traditional Chinese, which strongly implies the use of an external translation API or service. However, the description does not disclose whether this requires network access, what external service is used, or if user code strings are transmitted to third-party servers. This lack of transparency about data handling during translation poses a privacy risk.",
+          "raw_verdict": "SUSPICIOUS: Privacy Violation - The skill includes an \"auto-translate\" feature that converts English text to Traditional Chinese, which strongly implies the use of an external translation API or service. However, the description does not disclose whether this requires network access, what external service is used, or if user code strings are transmitted to third-party servers. This lack of transparency about data handling during translation poses a privacy risk.",
+          "cleaned_description": "",
+          "flags": {
+            "external_server": true,
+            "api_key": false,
+            "autonomous_execution": false,
+            "browser_session_or_credentials": false,
+            "filesystem_access": false,
+            "shell_or_command_execution": false,
+            "driver_or_installer": false,
+            "credential_request": false,
+            "obfuscation_or_evasion": false,
+            "persistence_or_external_storage": false
+          }
+        },
+        "raw_values": {
+          "一级分类_判定级别": "SUSPICIOUS",
+          "二级分类_主问题组": "Data Governance Risk",
+          "风险类型汇总": "Privacy Violation",
+          "风险类型1": "Privacy Violation",
+          "风险类型2": "",
+          "风险类型3": "",
+          "风险类型4": "",
+          "来源平台": "Marketplace",
+          "扫描层级": "Description Scan",
+          "原始业务分类": "tools",
+          "skill_name": "i18n-refactor",
+          "关联文件数": 1,
+          "原始来源文件": "scan_results_description_marketplace.csv",
+          "问题摘要": "The skill includes an \"auto-translate\" feature that converts English text to Traditional Chinese, which strongly implies the use of an external translation API or service. However, the description does not disclose whether this requires network access, what external service is used, or if user code strings are transmitted to third-party servers. This lack of transparency about data handling during translation poses a privacy risk.",
+          "原始verdict": "SUSPICIOUS: Privacy Violation - The skill includes an \"auto-translate\" feature that converts English text to Traditional Chinese, which strongly implies the use of an external translation API or service. However, the description does not disclose whether this requires network access, what external service is used, or if user code strings are transmitted to third-party servers. This lack of transparency about data handling during translation poses a privacy risk.",
+          "flag_外部服务器": "Y",
+          "flag_APIKey": "",
+          "flag_自治执行": "",
+          "flag_浏览器会话/凭据": "",
+          "flag_文件系统访问": "",
+          "flag_Shell/命令执行": "",
+          "flag_驱动/安装器": "",
+          "flag_凭据请求": "",
+          "flag_混淆/规避": "",
+          "flag_持久化/外部存储": "",
+          "清洗后原始说明": "SUSPICIOUS: Privacy Violation - The skill includes an \"auto-translate\" feature that converts English text to Traditional Chinese, which strongly implies the use of an external translation API or service. However, the description does not disclose whether this requires network access, what external service is used, or if user code strings are transmitted to third-party servers. This lack of transparency about data handling during translation poses a privacy risk."
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "data-over-collection",
+      "security-risk",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill automatically monitors all conversations without explicit user invocation to collect and store specific correction texts (including \"original\" and \"corrected_to\" fields), which may capture sensitive or excessive details beyond the generalized patterns needed for learning user preferences. Additionally, the skill requests Bash tool access, allowing arbitrary command execution, which is excessive for a profile management skill that primarily requires file I/O operations. While the purpose is to adapt to user style, these permissions and data collection practices go beyond minimal necessity and introduce privacy and security risks.",
+      "impact": "OVERREACH: Data Over-collection & Permission Overreach - The skill automatically monitors all conversations without explicit user invocation to collect and store specific correction texts (including \"original\" and \"corrected_to\" fields), which may capture sensitive or excessive details beyond the generalized patterns needed for learning user preferences. Additionally, the skill requests Bash tool access, allowing arbitrary command execution, which is excessive for a profile management skill that primarily requires file I/O operations. While the purpose is to adapt to user style, these permissions and data collection practices go beyond minimal necessity and introduce privacy and security risks.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Data Over-collection",
+        "Security Risk"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": true
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

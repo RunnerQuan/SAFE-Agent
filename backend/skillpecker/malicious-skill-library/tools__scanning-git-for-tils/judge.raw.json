@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill requests excessive permissions for its stated purpose. While scanning GitHub commits for TIL ideas requires GitHub access, the skill also demands:\n\n1. **Full 1Password/op CLI access** - Requires \"op\" CLI authenticated to access secrets, which is excessive overreach for a TIL scanning tool. A simpler API key approach would suffice.\n\n2. **Full Notion integration access** - Requests access to multiple Notion databases for both reading and writing, when a simpler approach (like local tracking or a single database) could work for tracking assessed commits.\n\n3. **Broad GitHub access scope** - Accesses \"all your repos across all orgs\" when only analyzing commit history for TIL candidates. A more minimal approach would scan only specified repositories.\n\n4. **Automated publishing capability** - The skill drafts and publishes to Notion automatically, which goes beyond just \"scanning for TIL ideas\" as stated in the primary purpose.\n\nThe skill requests enterprise-level authentication systems (1Password CLI integration) and broad permissions across multiple platforms for what should be a simpler analysis task. The complexity of the setup suggests permission overreach beyond the core function of identifying potential TIL topics from Git history.",
+      "impact": "OVERREACH: Permission Overreach & Data Over-collection - The skill requests excessive permissions for its stated purpose. While scanning GitHub commits for TIL ideas requires GitHub access, the skill also demands:\n\n1. **Full 1Password/op CLI access** - Requires \"op\" CLI authenticated to access secrets, which is excessive overreach for a TIL scanning tool. A simpler API key approach would suffice.\n\n2. **Full Notion integration access** - Requests access to multiple Notion databases for both reading and writing, when a simpler approach (like local tracking or a single database) could work for tracking assessed commits.\n\n3. **Broad GitHub access scope** - Accesses \"all your repos across all orgs\" when only analyzing commit history for TIL candidates. A more minimal approach would scan only specified repositories.\n\n4. **Automated publishing capability** - The skill drafts and publishes to Notion automatically, which goes beyond just \"scanning for TIL ideas\" as stated in the primary purpose.\n\nThe skill requests enterprise-level authentication systems (1Password CLI integration) and broad permissions across multiple platforms for what should be a simpler analysis task. The complexity of the setup suggests permission overreach beyond the core function of identifying potential TIL topics from Git history.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Data Over-collection"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "2",
+      "flags": {
+        "external_server": false,
+        "api_key": true,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

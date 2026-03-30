@@ -1,0 +1,40 @@
+{
+  "name": "ebay",
+  "version": "1.0.0",
+  "description": "Automate eBay product search, watchlist, and auction tracking",
+  "author": "Canifi",
+  "category": "e-commerce",
+  "permissions": [
+    "browser",
+    "notifications",
+    "env-access"
+  ],
+  "triggers": [
+    "ebay",
+    "find on ebay",
+    "ebay watchlist",
+    "ebay auction",
+    "ebay search"
+  ],
+  "authentication": {
+    "type": "browser-session",
+    "loginUrl": "https://signin.ebay.com",
+    "sessionIndicator": "#gh-ug"
+  },
+  "requiredEnvVars": [
+    "EBAY_EMAIL",
+    "EBAY_PASSWORD"
+  ],
+  "capabilities": {
+    "search": true,
+    "watchlist": true,
+    "auctions": true,
+    "sellers": true,
+    "history": true,
+    "savedSearches": true
+  },
+  "restrictions": {
+    "noPurchases": true,
+    "noBidding": true
+  }
+}

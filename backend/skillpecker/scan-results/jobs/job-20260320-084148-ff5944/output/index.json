@@ -1,0 +1,27 @@
+{
+  "技能根目录 (skills_root)": "C:\\Files\\Study\\Codes\\Skill-Scan\\scan-results\\jobs\\job-20260320-084148-ff5944\\skills",
+  "输出根目录 (output_root)": "C:\\Files\\Study\\Codes\\Skill-Scan\\scan-results\\jobs\\job-20260320-084148-ff5944\\output",
+  "技能总数 (skill_count)": 1,
+  "成功扫描数量 (scanned_count)": 1,
+  "失败数量 (failed_count)": 0,
+  "技能条目列表 (skills)": [
+    {
+      "技能名称 (skill_name)": "autoupdater-live-zip",
+      "技能路径 (skill_path)": "C:\\Files\\Study\\Codes\\Skill-Scan\\scan-results\\jobs\\job-20260320-084148-ff5944\\skills\\autoupdater-live-zip",
+      "状态 (status)": "成功 (ok)",
+      "输出目录 (output_dir)": "C:\\Files\\Study\\Codes\\Skill-Scan\\scan-results\\jobs\\job-20260320-084148-ff5944\\output\\autoupdater-live-zip",
+      "文件总数 (artifact_count)": 2,
+      "规则命中总数 (rule_hit_count)": 0,
+      "错误信息 (error)": null,
+      "裁决摘要 (verdict_summary)": {
+        "裁决标签 (label)": "证据不足 (insufficient_evidence)",
+        "主要问题类型 (primary_concern)": "未知 (unknown)",
+        "问题类型列表 (issue_types)": [],
+        "恶意风险分，越高越危险 (maliciousness_score)": 0,
+        "实现风险分，越高越危险 (implementation_risk_score)": 0,
+        "描述可靠度分，越低越不可靠 (description_reliability_score)": 0,
+        "覆盖度分，越高越完整 (coverage_score)": 0
+      }
+    }
+  ]
+}

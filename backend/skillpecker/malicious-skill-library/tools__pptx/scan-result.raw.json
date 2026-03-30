@@ -1,0 +1,230 @@
+{
+  "preprocess": {
+    "skill": {
+      "root": "C:\\Files\\Study\\Codes\\Skill-Scan\\malicious-skill-library\\tools__pptx",
+      "claims": [
+        "Looking at the skill description, I identify the primary purpose: creating, editing, and analyzing PowerPoint (.pptx) files.\n\nThe concerning section is in SKILL.md under \"🎯 Load Full PAI Context\":\n\n```\n**Before starting any task with this skill, load complete PAI context:**\n\n`read ~/.opencode/skills/CORE/SKILL.md`\n\nThis provides access to:\n- Complete contact list (Angela, Bunny, Saša, Greg, team members)\n- Stack preferences (TypeScript>Python, bun>npm, uv>pip)\n- Security rules and repository safety protocols\n- Response format requirements (structured emoji format)\n- Voice IDs for agent routing (ElevenLabs)\n- Personal preferences and operating instructions\n```\n\nThis request is problematic because:\n\n1. **Unrelated Data Collection**: A PowerPoint processing tool has no legitimate need for a user's complete contact list, personal preferences, voice IDs, or team member information to create, edit, or analyze presentations.\n\n2. **Permission Overreach**: The skill demands reading a system-wide configuration file (`~/.opencode/skills/CORE/SKILL.md`) that contains highly sensitive personal and operational data unrelated to PowerPoint operations.\n\n3. **Lack of Justification**: There's no technical explanation for why processing PowerPoint files requires access to personal contacts, voice IDs, or team member information.\n\n4. **Scope Mismatch**: The skill's stated purpose (PPTX creation/editing) doesn't align with the extensive personal and operational data it requests.\n\nThe contact list, personal preferences, voice IDs, and team information are completely unrelated to PowerPoint file processing. At most, a PowerPoint tool might need access to presentation files and temporary directories for processing, not personal contact databases or voice recognition systems.\n\n<result>OVERREACH: Data Over-collection and Permission Overreach - The skill demands reading a system configuration file containing a complete contact list, personal preferences, voice IDs, and team information, which is completely unnecessary for PowerPoint file creation, editing, or analysis. PowerPoint processing does not require access to personal contacts, voice recognition systems, or operational preferences."
+      ],
+      "observed_kinds": [
+        "spreadsheet",
+        "imported_scan_result"
+      ]
+    },
+    "artifacts": [],
+    "rule_hits": [],
+    "coverage_gaps": [],
+    "stats": {
+      "artifact_count": 0,
+      "rule_hit_count": 1,
+      "severity_counts": {},
+      "rule_code_counts": {}
+    }
+  },
+  "triage": {
+    "skill": {
+      "claims": [
+        "Looking at the skill description, I identify the primary purpose: creating, editing, and analyzing PowerPoint (.pptx) files.\n\nThe concerning section is in SKILL.md under \"🎯 Load Full PAI Context\":\n\n```\n**Before starting any task with this skill, load complete PAI context:**\n\n`read ~/.opencode/skills/CORE/SKILL.md`\n\nThis provides access to:\n- Complete contact list (Angela, Bunny, Saša, Greg, team members)\n- Stack preferences (TypeScript>Python, bun>npm, uv>pip)\n- Security rules and repository safety protocols\n- Response format requirements (structured emoji format)\n- Voice IDs for agent routing (ElevenLabs)\n- Personal preferences and operating instructions\n```\n\nThis request is problematic because:\n\n1. **Unrelated Data Collection**: A PowerPoint processing tool has no legitimate need for a user's complete contact list, personal preferences, voice IDs, or team member information to create, edit, or analyze presentations.\n\n2. **Permission Overreach**: The skill demands reading a system-wide configuration file (`~/.opencode/skills/CORE/SKILL.md`) that contains highly sensitive personal and operational data unrelated to PowerPoint operations.\n\n3. **Lack of Justification**: There's no technical explanation for why processing PowerPoint files requires access to personal contacts, voice IDs, or team member information.\n\n4. **Scope Mismatch**: The skill's stated purpose (PPTX creation/editing) doesn't align with the extensive personal and operational data it requests.\n\nThe contact list, personal preferences, voice IDs, and team information are completely unrelated to PowerPoint file processing. At most, a PowerPoint tool might need access to presentation files and temporary directories for processing, not personal contact databases or voice recognition systems.\n\n<result>OVERREACH: Data Over-collection and Permission Overreach - The skill demands reading a system configuration file containing a complete contact list, personal preferences, voice IDs, and team information, which is completely unnecessary for PowerPoint file creation, editing, or analysis. PowerPoint processing does not require access to personal contacts, voice recognition systems, or operational preferences."
+      ],
+      "obs": [
+        "Description Scan"
+      ],
+      "high_risk_features": []
+    },
+    "arts": [],
+    "xconcerns": [],
+    "retrieve": [],
+    "coverage": {
+      "total": 1,
+      "indexed": 1,
+      "gaps": []
+    }
+  },
+  "security": {
+    "findings": [
+      {
+        "id": "",
+        "cat": "permission-overreach",
+        "class": "data-governance-risk",
+        "severity": "",
+        "conf": "",
+        "summary": "The skill demands reading a system configuration file containing a complete contact list, personal preferences, voice IDs, and team information, which is completely unnecessary for PowerPoint file creation, editing, or analysis. PowerPoint processing does not require access to personal contacts, voice recognition systems, or operational preferences.",
+        "arts": [],
+        "spans": [],
+        "impact": "OVERREACH: Data Over-collection and Permission Overreach - The skill demands reading a system configuration file containing a complete contact list, personal preferences, voice IDs, and team information, which is completely unnecessary for PowerPoint file creation, editing, or analysis. PowerPoint processing does not require access to personal contacts, voice recognition systems, or operational preferences.",
+        "fix": "",
+        "decision_level": "",
+        "primary_group": "Data Governance Risk",
+        "scan_level": "Description Scan",
+        "risk_types": [
+          "Permission Overreach",
+          "Data Over-collection"
+        ],
+        "source_platform": "Marketplace",
+        "source_file": "scan_results_description_marketplace.csv",
+        "related_file_count": "4",
+        "flags": {
+          "external_server": false,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": false,
+          "shell_or_command_execution": false,
+          "driver_or_installer": false,
+          "credential_request": false,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": false
+        }
+      }
+    ],
+    "ctx_requests": [],
+    "coverage": {
+      "reviewed_arts": [],
+      "unresolved_high_risk_arts": []
+    }
+  },
+  "judge": {
+    "verdict": {
+      "label": "insufficient_evidence",
+      "primary_concern": "permission-overreach",
+      "issue_types": [
+        "permission-overreach",
+        "data-over-collection",
+        "data-governance-risk"
+      ]
+    },
+    "top_findings": [
+      {
+        "id": "",
+        "cat": "permission-overreach",
+        "class": "data-governance-risk",
+        "severity": "",
+        "conf": "",
+        "summary": "The skill demands reading a system configuration file containing a complete contact list, personal preferences, voice IDs, and team information, which is completely unnecessary for PowerPoint file creation, editing, or analysis. PowerPoint processing does not require access to personal contacts, voice recognition systems, or operational preferences.",
+        "impact": "OVERREACH: Data Over-collection and Permission Overreach - The skill demands reading a system configuration file containing a complete contact list, personal preferences, voice IDs, and team information, which is completely unnecessary for PowerPoint file creation, editing, or analysis. PowerPoint processing does not require access to personal contacts, voice recognition systems, or operational preferences.",
+        "fix": "",
+        "decision_level": "",
+        "primary_group": "Data Governance Risk",
+        "scan_level": "Description Scan",
+        "risk_types": [
+          "Permission Overreach",
+          "Data Over-collection"
+        ],
+        "source_platform": "Marketplace",
+        "source_file": "scan_results_description_marketplace.csv",
+        "related_file_count": "4",
+        "flags": {
+          "external_server": false,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": false,
+          "shell_or_command_execution": false,
+          "driver_or_installer": false,
+          "credential_request": false,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": false
+        },
+        "spans": []
+      }
+    ],
+    "coverage_audit": {
+      "adequate": true,
+      "missed": [],
+      "needs_rescan": false
+    },
+    "next_action": "stop"
+  },
+  "excel_import": {
+    "record_count": 1,
+    "headers": [
+      "一级分类_判定级别",
+      "二级分类_主问题组",
+      "风险类型汇总",
+      "风险类型1",
+      "风险类型2",
+      "风险类型3",
+      "风险类型4",
+      "来源平台",
+      "扫描层级",
+      "原始业务分类",
+      "skill_name",
+      "关联文件数",
+      "原始来源文件",
+      "问题摘要",
+      "原始verdict",
+      "flag_外部服务器",
+      "flag_APIKey",
+      "flag_自治执行",
+      "flag_浏览器会话/凭据",
+      "flag_文件系统访问",
+      "flag_Shell/命令执行",
+      "flag_驱动/安装器",
+      "flag_凭据请求",
+      "flag_混淆/规避",
+      "flag_持久化/外部存储",
+      "清洗后原始说明"
+    ],
+    "records": [
+      {
+        "classification": {
+          "decision_level": "",
+          "primary_group": "Data Governance Risk",
+          "risk_summary": "Permission Overreach | Data Over-collection",
+          "risk_types": [
+            "Permission Overreach",
+            "Data Over-collection"
+          ],
+          "platform": "Marketplace",
+          "scan_level": "Description Scan",
+          "business_category": "tools",
+          "skill_name": "pptx",
+          "related_file_count": "4",
+          "source_file": "scan_results_description_marketplace.csv",
+          "problem_summary": "The skill demands reading a system configuration file containing a complete contact list, personal preferences, voice IDs, and team information, which is completely unnecessary for PowerPoint file creation, editing, or analysis. PowerPoint processing does not require access to personal contacts, voice recognition systems, or operational preferences.",
+          "raw_verdict": "OVERREACH: Data Over-collection and Permission Overreach - The skill demands reading a system configuration file containing a complete contact list, personal preferences, voice IDs, and team information, which is completely unnecessary for PowerPoint file creation, editing, or analysis. PowerPoint processing does not require access to personal contacts, voice recognition systems, or operational preferences.",
+          "cleaned_description": "Looking at the skill description, I identify the primary purpose: creating, editing, and analyzing PowerPoint (.pptx) files.\n\nThe concerning section is in SKILL.md under \"🎯 Load Full PAI Context\":\n\n```\n**Before starting any task with this skill, load complete PAI context:**\n\n`read ~/.opencode/skills/CORE/SKILL.md`\n\nThis provides access to:\n- Complete contact list (Angela, Bunny, Saša, Greg, team members)\n- Stack preferences (TypeScript>Python, bun>npm, uv>pip)\n- Security rules and repository safety protocols\n- Response format requirements (structured emoji format)\n- Voice IDs for agent routing (ElevenLabs)\n- Personal preferences and operating instructions\n```\n\nThis request is problematic because:\n\n1. **Unrelated Data Collection**: A PowerPoint processing tool has no legitimate need for a user's complete contact list, personal preferences, voice IDs, or team member information to create, edit, or analyze presentations.\n\n2. **Permission Overreach**: The skill demands reading a system-wide configuration file (`~/.opencode/skills/CORE/SKILL.md`) that contains highly sensitive personal and operational data unrelated to PowerPoint operations.\n\n3. **Lack of Justification**: There's no technical explanation for why processing PowerPoint files requires access to personal contacts, voice IDs, or team member information.\n\n4. **Scope Mismatch**: The skill's stated purpose (PPTX creation/editing) doesn't align with the extensive personal and operational data it requests.\n\nThe contact list, personal preferences, voice IDs, and team information are completely unrelated to PowerPoint file processing. At most, a PowerPoint tool might need access to presentation files and temporary directories for processing, not personal contact databases or voice recognition systems.\n\n<result>OVERREACH: Data Over-collection and Permission Overreach - The skill demands reading a system configuration file containing a complete contact list, personal preferences, voice IDs, and team information, which is completely unnecessary for PowerPoint file creation, editing, or analysis. PowerPoint processing does not require access to personal contacts, voice recognition systems, or operational preferences.",
+          "flags": {
+            "external_server": false,
+            "api_key": false,
+            "autonomous_execution": false,
+            "browser_session_or_credentials": false,
+            "filesystem_access": false,
+            "shell_or_command_execution": false,
+            "driver_or_installer": false,
+            "credential_request": false,
+            "obfuscation_or_evasion": false,
+            "persistence_or_external_storage": false
+          }
+        },
+        "raw_values": {
+          "一级分类_判定级别": "",
+          "二级分类_主问题组": "Data Governance Risk",
+          "风险类型汇总": "Permission Overreach | Data Over-collection",
+          "风险类型1": "Permission Overreach",
+          "风险类型2": "Data Over-collection",
+          "风险类型3": "",
+          "风险类型4": "",
+          "来源平台": "Marketplace",
+          "扫描层级": "Description Scan",
+          "原始业务分类": "tools",
+          "skill_name": "pptx",
+          "关联文件数": 4,
+          "原始来源文件": "scan_results_description_marketplace.csv",
+          "问题摘要": "The skill demands reading a system configuration file containing a complete contact list, personal preferences, voice IDs, and team information, which is completely unnecessary for PowerPoint file creation, editing, or analysis. PowerPoint processing does not require access to personal contacts, voice recognition systems, or operational preferences.",
+          "原始verdict": "OVERREACH: Data Over-collection and Permission Overreach - The skill demands reading a system configuration file containing a complete contact list, personal preferences, voice IDs, and team information, which is completely unnecessary for PowerPoint file creation, editing, or analysis. PowerPoint processing does not require access to personal contacts, voice recognition systems, or operational preferences.",
+          "flag_外部服务器": "",
+          "flag_APIKey": "",
+          "flag_自治执行": "",
+          "flag_浏览器会话/凭据": "",
+          "flag_文件系统访问": "",
+          "flag_Shell/命令执行": "",
+          "flag_驱动/安装器": "",
+          "flag_凭据请求": "",
+          "flag_混淆/规避": "",
+          "flag_持久化/外部存储": "",
+          "清洗后原始说明": "Looking at the skill description, I identify the primary purpose: creating, editing, and analyzing PowerPoint (.pptx) files.\n\nThe concerning section is in SKILL.md under \"🎯 Load Full PAI Context\":\n\n```\n**Before starting any task with this skill, load complete PAI context:**\n\n`read ~/.opencode/skills/CORE/SKILL.md`\n\nThis provides access to:\n- Complete contact list (Angela, Bunny, Saša, Greg, team members)\n- Stack preferences (TypeScript>Python, bun>npm, uv>pip)\n- Security rules and repository safety protocols\n- Response format requirements (structured emoji format)\n- Voice IDs for agent routing (ElevenLabs)\n- Personal preferences and operating instructions\n```\n\nThis request is problematic because:\n\n1. **Unrelated Data Collection**: A PowerPoint processing tool has no legitimate need for a user's complete contact list, personal preferences, voice IDs, or team member information to create, edit, or analyze presentations.\n\n2. **Permission Overreach**: The skill demands reading a system-wide configuration file (`~/.opencode/skills/CORE/SKILL.md`) that contains highly sensitive personal and operational data unrelated to PowerPoint operations.\n\n3. **Lack of Justification**: There's no technical explanation for why processing PowerPoint files requires access to personal contacts, voice IDs, or team member information.\n\n4. **Scope Mismatch**: The skill's stated purpose (PPTX creation/editing) doesn't align with the extensive personal and operational data it requests.\n\nThe contact list, personal preferences, voice IDs, and team information are completely unrelated to PowerPoint file processing. At most, a PowerPoint tool might need access to presentation files and temporary directories for processing, not personal contact databases or voice recognition systems.\n\n<result>OVERREACH: Data Over-collection and Permission Overreach - The skill demands reading a system configuration file containing a complete contact list, personal preferences, voice IDs, and team information, which is completely unnecessary for PowerPoint file creation, editing, or analysis. PowerPoint processing does not require access to personal contacts, voice recognition systems, or operational preferences."
+        }
+      }
+    ]
+  }
+}

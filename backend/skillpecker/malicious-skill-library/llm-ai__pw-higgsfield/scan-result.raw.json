@@ -1,0 +1,232 @@
+{
+  "preprocess": {
+    "skill": {
+      "root": "C:\\Files\\Study\\Codes\\Skill-Scan\\malicious-skill-library\\llm-ai__pw-higgsfield",
+      "claims": [
+        "The provided `scripts/higgsfield.nu` file contains legitimate browser automation logic for interacting with the Higgsfield AI website. However, the analysis reveals two concerning patterns:\n\n1. **External Code Execution via Undisclosed Modules**: The script imports `pw.nu` and `start-daemon.sh` from `../../pw/scripts/`, which are relative paths pointing outside the skill's directory structure. The actual content of these critical dependency files is NOT provided for review, creating a supply chain risk. Malicious payloads could be hidden in these external files (e.g., in `pw.nu`'s browser automation functions or `start-daemon.sh`'s startup scripts).\n\n2. **JavaScript Obfuscation Pattern**: The script uses `pw eval` to execute inline JavaScript code that interacts with DOM elements. While the current JS snippets appear benign (checking/enabling a UI toggle), this pattern could easily be replaced with malicious JS (e.g., data exfiltration from browser storage, cookie theft, or downloading external scripts) without changing the surrounding Nushell code structure.\n\nThe skill cannot be fully validated without reviewing the external dependency files (`pw.nu` and `start-daemon.sh`), which could contain Trojan downloaders, data exfiltration, or other malicious logic as seen in OpenClaw attacks."
+      ],
+      "observed_kinds": [
+        "spreadsheet",
+        "imported_scan_result"
+      ]
+    },
+    "artifacts": [],
+    "rule_hits": [],
+    "coverage_gaps": [],
+    "stats": {
+      "artifact_count": 0,
+      "rule_hit_count": 1,
+      "severity_counts": {},
+      "rule_code_counts": {}
+    }
+  },
+  "triage": {
+    "skill": {
+      "claims": [
+        "The provided `scripts/higgsfield.nu` file contains legitimate browser automation logic for interacting with the Higgsfield AI website. However, the analysis reveals two concerning patterns:\n\n1. **External Code Execution via Undisclosed Modules**: The script imports `pw.nu` and `start-daemon.sh` from `../../pw/scripts/`, which are relative paths pointing outside the skill's directory structure. The actual content of these critical dependency files is NOT provided for review, creating a supply chain risk. Malicious payloads could be hidden in these external files (e.g., in `pw.nu`'s browser automation functions or `start-daemon.sh`'s startup scripts).\n\n2. **JavaScript Obfuscation Pattern**: The script uses `pw eval` to execute inline JavaScript code that interacts with DOM elements. While the current JS snippets appear benign (checking/enabling a UI toggle), this pattern could easily be replaced with malicious JS (e.g., data exfiltration from browser storage, cookie theft, or downloading external scripts) without changing the surrounding Nushell code structure.\n\nThe skill cannot be fully validated without reviewing the external dependency files (`pw.nu` and `start-daemon.sh`), which could contain Trojan downloaders, data exfiltration, or other malicious logic as seen in OpenClaw attacks."
+      ],
+      "obs": [
+        "Script Scan"
+      ],
+      "high_risk_features": [
+        "filesystem_access"
+      ]
+    },
+    "arts": [],
+    "xconcerns": [],
+    "retrieve": [],
+    "coverage": {
+      "total": 1,
+      "indexed": 1,
+      "gaps": []
+    }
+  },
+  "security": {
+    "findings": [
+      {
+        "id": "",
+        "cat": "data-exfiltration",
+        "class": "execution-system-risk",
+        "severity": "",
+        "conf": "",
+        "summary": "The provided `scripts/higgsfield.nu` file contains legitimate browser automation logic for interacting with the Higgsfield AI website. However, the analysis reveals two concerning patterns:\n\n1. **External Code Execution via Undisclosed Modules**: The script imports `pw.nu` and `start-daemon.sh` from `../../pw/scripts/`, which are relative paths pointing outside the skill's directory structure. The actual content of these critical dependency files is NOT provided for review, creating a supply chain risk. Malicious payloads could be hidden in these external files (e.g., in `pw.nu`'s browser automation functions or `start-daemon.sh`'s startup scripts).\n\n2. **JavaScript Obfuscation Pattern**: The script uses `pw eval` to execute inline JavaScript code that interacts with DOM elements. While the current JS snippets appear benign (checking/enabling a UI toggle), this pattern could easily be replaced with malicious JS (e.g., data exfiltration from browser storage, cookie theft, or downloading external scripts) without changing the surrounding Nushell code structure.\n\nThe skill cannot be fully validated without reviewing the external dependency files (`pw.nu` and `start-daemon.sh`), which could contain Trojan downloaders, data exfiltration, or other malicious logic as seen in OpenClaw attacks.",
+        "arts": [],
+        "spans": [],
+        "impact": "SUSPICIOUS: Code Obfuscation & External Dependency Risk - The provided `scripts/higgsfield.nu` file contains legitimate browser automation logic for interacting with the Higgsfield AI website. However, the analysis reveals two concerning patterns:\n\n1. **External Code Execution via Undisclosed Modules**: The script imports `pw.nu` and `start-daemon.sh` from `../../pw/scripts/`, which are relative paths pointing outside the skill's directory structure. The actual content of these critical dependency files is NOT provided for review, creating a supply chain risk. Malicious payloads could be hidden in these external files (e.g., in `pw.nu`'s browser automation functions or `start-daemon.sh`'s startup scripts).\n\n2. **JavaScript Obfuscation Pattern**: The script uses `pw eval` to execute inline JavaScript code that interacts with DOM elements. While the current JS snippets appear benign (checking/enabling a UI toggle), this pattern could easily be replaced with malicious JS (e.g., data exfiltration from browser storage, cookie theft, or downloading external scripts) without changing the surrounding Nushell code structure.\n\nThe skill cannot be fully validated without reviewing the external dependency files (`pw.nu` and `start-daemon.sh`), which could contain Trojan downloaders, data exfiltration, or other malicious logic as seen in OpenClaw attacks.",
+        "fix": "",
+        "decision_level": "SUSPICIOUS",
+        "primary_group": "Execution / System Risk",
+        "scan_level": "Script Scan",
+        "risk_types": [
+          "Data Exfiltration",
+          "Trojan Downloader"
+        ],
+        "source_platform": "Marketplace",
+        "source_file": "scan_results_script_Marketplace.csv",
+        "related_file_count": "3",
+        "flags": {
+          "external_server": false,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": true,
+          "shell_or_command_execution": false,
+          "driver_or_installer": false,
+          "credential_request": false,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": false
+        }
+      }
+    ],
+    "ctx_requests": [],
+    "coverage": {
+      "reviewed_arts": [],
+      "unresolved_high_risk_arts": []
+    }
+  },
+  "judge": {
+    "verdict": {
+      "label": "unsafe",
+      "primary_concern": "data-exfiltration",
+      "issue_types": [
+        "data-exfiltration",
+        "trojan-downloader",
+        "execution-system-risk"
+      ]
+    },
+    "top_findings": [
+      {
+        "id": "",
+        "cat": "data-exfiltration",
+        "class": "execution-system-risk",
+        "severity": "",
+        "conf": "",
+        "summary": "The provided `scripts/higgsfield.nu` file contains legitimate browser automation logic for interacting with the Higgsfield AI website. However, the analysis reveals two concerning patterns:\n\n1. **External Code Execution via Undisclosed Modules**: The script imports `pw.nu` and `start-daemon.sh` from `../../pw/scripts/`, which are relative paths pointing outside the skill's directory structure. The actual content of these critical dependency files is NOT provided for review, creating a supply chain risk. Malicious payloads could be hidden in these external files (e.g., in `pw.nu`'s browser automation functions or `start-daemon.sh`'s startup scripts).\n\n2. **JavaScript Obfuscation Pattern**: The script uses `pw eval` to execute inline JavaScript code that interacts with DOM elements. While the current JS snippets appear benign (checking/enabling a UI toggle), this pattern could easily be replaced with malicious JS (e.g., data exfiltration from browser storage, cookie theft, or downloading external scripts) without changing the surrounding Nushell code structure.\n\nThe skill cannot be fully validated without reviewing the external dependency files (`pw.nu` and `start-daemon.sh`), which could contain Trojan downloaders, data exfiltration, or other malicious logic as seen in OpenClaw attacks.",
+        "impact": "SUSPICIOUS: Code Obfuscation & External Dependency Risk - The provided `scripts/higgsfield.nu` file contains legitimate browser automation logic for interacting with the Higgsfield AI website. However, the analysis reveals two concerning patterns:\n\n1. **External Code Execution via Undisclosed Modules**: The script imports `pw.nu` and `start-daemon.sh` from `../../pw/scripts/`, which are relative paths pointing outside the skill's directory structure. The actual content of these critical dependency files is NOT provided for review, creating a supply chain risk. Malicious payloads could be hidden in these external files (e.g., in `pw.nu`'s browser automation functions or `start-daemon.sh`'s startup scripts).\n\n2. **JavaScript Obfuscation Pattern**: The script uses `pw eval` to execute inline JavaScript code that interacts with DOM elements. While the current JS snippets appear benign (checking/enabling a UI toggle), this pattern could easily be replaced with malicious JS (e.g., data exfiltration from browser storage, cookie theft, or downloading external scripts) without changing the surrounding Nushell code structure.\n\nThe skill cannot be fully validated without reviewing the external dependency files (`pw.nu` and `start-daemon.sh`), which could contain Trojan downloaders, data exfiltration, or other malicious logic as seen in OpenClaw attacks.",
+        "fix": "",
+        "decision_level": "SUSPICIOUS",
+        "primary_group": "Execution / System Risk",
+        "scan_level": "Script Scan",
+        "risk_types": [
+          "Data Exfiltration",
+          "Trojan Downloader"
+        ],
+        "source_platform": "Marketplace",
+        "source_file": "scan_results_script_Marketplace.csv",
+        "related_file_count": "3",
+        "flags": {
+          "external_server": false,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": true,
+          "shell_or_command_execution": false,
+          "driver_or_installer": false,
+          "credential_request": false,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": false
+        },
+        "spans": []
+      }
+    ],
+    "coverage_audit": {
+      "adequate": true,
+      "missed": [],
+      "needs_rescan": false
+    },
+    "next_action": "stop"
+  },
+  "excel_import": {
+    "record_count": 1,
+    "headers": [
+      "一级分类_判定级别",
+      "二级分类_主问题组",
+      "风险类型汇总",
+      "风险类型1",
+      "风险类型2",
+      "风险类型3",
+      "风险类型4",
+      "来源平台",
+      "扫描层级",
+      "原始业务分类",
+      "skill_name",
+      "关联文件数",
+      "原始来源文件",
+      "问题摘要",
+      "原始verdict",
+      "flag_外部服务器",
+      "flag_APIKey",
+      "flag_自治执行",
+      "flag_浏览器会话/凭据",
+      "flag_文件系统访问",
+      "flag_Shell/命令执行",
+      "flag_驱动/安装器",
+      "flag_凭据请求",
+      "flag_混淆/规避",
+      "flag_持久化/外部存储",
+      "清洗后原始说明"
+    ],
+    "records": [
+      {
+        "classification": {
+          "decision_level": "SUSPICIOUS",
+          "primary_group": "Execution / System Risk",
+          "risk_summary": "Data Exfiltration | Trojan Downloader",
+          "risk_types": [
+            "Data Exfiltration",
+            "Trojan Downloader"
+          ],
+          "platform": "Marketplace",
+          "scan_level": "Script Scan",
+          "business_category": "llm-ai",
+          "skill_name": "pw-higgsfield",
+          "related_file_count": "3",
+          "source_file": "scan_results_script_Marketplace.csv",
+          "problem_summary": "The provided `scripts/higgsfield.nu` file contains legitimate browser automation logic for interacting with the Higgsfield AI website. However, the analysis reveals two concerning patterns:\n\n1. **External Code Execution via Undisclosed Modules**: The script imports `pw.nu` and `start-daemon.sh` from `../../pw/scripts/`, which are relative paths pointing outside the skill's directory structure. The actual content of these critical dependency files is NOT provided for review, creating a supply chain risk. Malicious payloads could be hidden in these external files (e.g., in `pw.nu`'s browser automation functions or `start-daemon.sh`'s startup scripts).\n\n2. **JavaScript Obfuscation Pattern**: The script uses `pw eval` to execute inline JavaScript code that interacts with DOM elements. While the current JS snippets appear benign (checking/enabling a UI toggle), this pattern could easily be replaced with malicious JS (e.g., data exfiltration from browser storage, cookie theft, or downloading external scripts) without changing the surrounding Nushell code structure.\n\nThe skill cannot be fully validated without reviewing the external dependency files (`pw.nu` and `start-daemon.sh`), which could contain Trojan downloaders, data exfiltration, or other malicious logic as seen in OpenClaw attacks.",
+          "raw_verdict": "SUSPICIOUS: Code Obfuscation & External Dependency Risk - The provided `scripts/higgsfield.nu` file contains legitimate browser automation logic for interacting with the Higgsfield AI website. However, the analysis reveals two concerning patterns:\n\n1. **External Code Execution via Undisclosed Modules**: The script imports `pw.nu` and `start-daemon.sh` from `../../pw/scripts/`, which are relative paths pointing outside the skill's directory structure. The actual content of these critical dependency files is NOT provided for review, creating a supply chain risk. Malicious payloads could be hidden in these external files (e.g., in `pw.nu`'s browser automation functions or `start-daemon.sh`'s startup scripts).\n\n2. **JavaScript Obfuscation Pattern**: The script uses `pw eval` to execute inline JavaScript code that interacts with DOM elements. While the current JS snippets appear benign (checking/enabling a UI toggle), this pattern could easily be replaced with malicious JS (e.g., data exfiltration from browser storage, cookie theft, or downloading external scripts) without changing the surrounding Nushell code structure.\n\nThe skill cannot be fully validated without reviewing the external dependency files (`pw.nu` and `start-daemon.sh`), which could contain Trojan downloaders, data exfiltration, or other malicious logic as seen in OpenClaw attacks.",
+          "cleaned_description": "",
+          "flags": {
+            "external_server": false,
+            "api_key": false,
+            "autonomous_execution": false,
+            "browser_session_or_credentials": false,
+            "filesystem_access": true,
+            "shell_or_command_execution": false,
+            "driver_or_installer": false,
+            "credential_request": false,
+            "obfuscation_or_evasion": false,
+            "persistence_or_external_storage": false
+          }
+        },
+        "raw_values": {
+          "一级分类_判定级别": "SUSPICIOUS",
+          "二级分类_主问题组": "Execution / System Risk",
+          "风险类型汇总": "Data Exfiltration | Trojan Downloader",
+          "风险类型1": "Data Exfiltration",
+          "风险类型2": "Trojan Downloader",
+          "风险类型3": "",
+          "风险类型4": "",
+          "来源平台": "Marketplace",
+          "扫描层级": "Script Scan",
+          "原始业务分类": "llm-ai",
+          "skill_name": "pw-higgsfield",
+          "关联文件数": 3,
+          "原始来源文件": "scan_results_script_Marketplace.csv",
+          "问题摘要": "The provided `scripts/higgsfield.nu` file contains legitimate browser automation logic for interacting with the Higgsfield AI website. However, the analysis reveals two concerning patterns:\n\n1. **External Code Execution via Undisclosed Modules**: The script imports `pw.nu` and `start-daemon.sh` from `../../pw/scripts/`, which are relative paths pointing outside the skill's directory structure. The actual content of these critical dependency files is NOT provided for review, creating a supply chain risk. Malicious payloads could be hidden in these external files (e.g., in `pw.nu`'s browser automation functions or `start-daemon.sh`'s startup scripts).\n\n2. **JavaScript Obfuscation Pattern**: The script uses `pw eval` to execute inline JavaScript code that interacts with DOM elements. While the current JS snippets appear benign (checking/enabling a UI toggle), this pattern could easily be replaced with malicious JS (e.g., data exfiltration from browser storage, cookie theft, or downloading external scripts) without changing the surrounding Nushell code structure.\n\nThe skill cannot be fully validated without reviewing the external dependency files (`pw.nu` and `start-daemon.sh`), which could contain Trojan downloaders, data exfiltration, or other malicious logic as seen in OpenClaw attacks.",
+          "原始verdict": "SUSPICIOUS: Code Obfuscation & External Dependency Risk - The provided `scripts/higgsfield.nu` file contains legitimate browser automation logic for interacting with the Higgsfield AI website. However, the analysis reveals two concerning patterns:\n\n1. **External Code Execution via Undisclosed Modules**: The script imports `pw.nu` and `start-daemon.sh` from `../../pw/scripts/`, which are relative paths pointing outside the skill's directory structure. The actual content of these critical dependency files is NOT provided for review, creating a supply chain risk. Malicious payloads could be hidden in these external files (e.g., in `pw.nu`'s browser automation functions or `start-daemon.sh`'s startup scripts).\n\n2. **JavaScript Obfuscation Pattern**: The script uses `pw eval` to execute inline JavaScript code that interacts with DOM elements. While the current JS snippets appear benign (checking/enabling a UI toggle), this pattern could easily be replaced with malicious JS (e.g., data exfiltration from browser storage, cookie theft, or downloading external scripts) without changing the surrounding Nushell code structure.\n\nThe skill cannot be fully validated without reviewing the external dependency files (`pw.nu` and `start-daemon.sh`), which could contain Trojan downloaders, data exfiltration, or other malicious logic as seen in OpenClaw attacks.",
+          "flag_外部服务器": "",
+          "flag_APIKey": "",
+          "flag_自治执行": "",
+          "flag_浏览器会话/凭据": "",
+          "flag_文件系统访问": "Y",
+          "flag_Shell/命令执行": "",
+          "flag_驱动/安装器": "",
+          "flag_凭据请求": "",
+          "flag_混淆/规避": "",
+          "flag_持久化/外部存储": "",
+          "清洗后原始说明": "SUSPICIOUS: Code Obfuscation & External Dependency Risk - The provided `scripts/higgsfield.nu` file contains legitimate browser automation logic for interacting with the Higgsfield AI website. However, the analysis reveals two concerning patterns:\n\n1. **External Code Execution via Undisclosed Modules**: The script imports `pw.nu` and `start-daemon.sh` from `../../pw/scripts/`, which are relative paths pointing outside the skill's directory structure. The actual content of these critical dependency files is NOT provided for review, creating a supply chain risk. Malicious payloads could be hidden in these external files (e.g., in `pw.nu`'s browser automation functions or `start-daemon.sh`'s startup scripts).\n\n2. **JavaScript Obfuscation Pattern**: The script uses `pw eval` to execute inline JavaScript code that interacts with DOM elements. While the current JS snippets appear benign (checking/enabling a UI toggle), this pattern could easily be replaced with malicious JS (e.g., data exfiltration from browser storage, cookie theft, or downloading external scripts) without changing the surrounding Nushell code structure.\n\nThe skill cannot be fully validated without reviewing the external dependency files (`pw.nu` and `start-daemon.sh`), which could contain Trojan downloaders, data exfiltration, or other malicious logic as seen in OpenClaw attacks."
+        }
+      }
+    ]
+  }
+}

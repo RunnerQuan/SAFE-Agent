@@ -1,0 +1,36 @@
+{
+  "name": "uber",
+  "version": "1.0.0",
+  "description": "Request rides, check trip history, manage payment methods, and track drivers via Uber",
+  "author": "Canifi LifeOS",
+  "category": "travel",
+  "permissions": [
+    "browser",
+    "notifications",
+    "env:UBER_EMAIL",
+    "env:UBER_PHONE"
+  ],
+  "triggers": [
+    "uber",
+    "ride",
+    "rideshare",
+    "get a car",
+    "call a ride",
+    "trip history"
+  ],
+  "authentication": {
+    "type": "oauth-browser",
+    "loginUrl": "https://auth.uber.com/login",
+    "requires2FA": true,
+    "twoFactorMethod": "sms"
+  },
+  "endpoints": {
+    "base": "https://m.uber.com",
+    "rides": "https://m.uber.com/looking",
+    "history": "https://riders.uber.com/trips"
+  },
+  "rateLimit": {
+    "requests": 30,
+    "period": "minute"
+  }
+}

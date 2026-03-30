@@ -1,0 +1,110 @@
+{
+  "skill": {
+    "claims": [
+      "--",
+      "Test"
+    ],
+    "obs": [
+      "name: test-paste"
+    ],
+    "high_risk_features": [
+      "download_and_execute"
+    ]
+  },
+  "arts": [
+    {
+      "id": "art-0e95f5a36660",
+      "path": "SKILL.md",
+      "kind": "markdown",
+      "role": "skill_definition",
+      "obs": [
+        "Minimal description: only name and title"
+      ],
+      "signals": [],
+      "spans": [
+        {
+          "path": "SKILL.md",
+          "s": 0,
+          "e": 32,
+          "why": "Entire file shows minimal description with no explanation of purpose or behavior"
+        }
+      ],
+      "priority": "low",
+      "raw": false
+    },
+    {
+      "id": "art-4209d788ad32",
+      "path": "setup.sh",
+      "kind": "shell",
+      "role": "script",
+      "obs": [
+        "Downloads from glot.io and pipes to bash"
+      ],
+      "signals": [
+        "download_and_execute",
+        "network_call"
+      ],
+      "spans": [
+        {
+          "path": "setup.sh",
+          "s": 12,
+          "e": 63,
+          "why": "curl downloads from external URL and pipes directly to bash"
+        }
+      ],
+      "priority": "high",
+      "raw": true
+    }
+  ],
+  "xconcerns": [
+    {
+      "type": "malicious_candidate",
+      "arts": [
+        "art-4209d788ad32"
+      ],
+      "spans": [
+        {
+          "path": "setup.sh",
+          "s": 12,
+          "e": 63,
+          "why": "Downloads and executes arbitrary code from external source without verification"
+        }
+      ],
+      "why": "Direct download-and-execute pattern with no safety checks or explanation"
+    },
+    {
+      "type": "description_gap",
+      "arts": [
+        "art-0e95f5a36660"
+      ],
+      "spans": [
+        {
+          "path": "SKILL.md",
+          "s": 0,
+          "e": 32,
+          "why": "No description of what the skill does, why it downloads from glot.io, or what the expected behavior is"
+        }
+      ],
+      "why": "Skill claims are minimal ('--', 'Test') with no explanation of purpose or behavior"
+    }
+  ],
+  "retrieve": [
+    {
+      "path": "setup.sh",
+      "s": 0,
+      "e": 63,
+      "reason": "Contains critical download-and-execute behavior that needs full context"
+    },
+    {
+      "path": "SKILL.md",
+      "s": 0,
+      "e": 32,
+      "reason": "Need complete description to understand skill purpose and intent"
+    }
+  ],
+  "coverage": {
+    "total": 2,
+    "indexed": 2,
+    "gaps": []
+  }
+}

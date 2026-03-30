@@ -1,0 +1,29 @@
+{
+  "skills_root": "C:\\Files\\Study\\Codes\\Skill-Scan\\scan-results\\jobs\\job-20260321-141659-2df040\\skills",
+  "output_root": "C:\\Files\\Study\\Codes\\Skill-Scan\\scan-results\\jobs\\job-20260321-141659-2df040\\output",
+  "skill_count": 1,
+  "scanned_count": 1,
+  "failed_count": 0,
+  "skills": [
+    {
+      "name": "trigger-paste-service",
+      "path": "C:\\Files\\Study\\Codes\\Skill-Scan\\scan-results\\jobs\\job-20260321-141659-2df040\\skills\\trigger-paste-service",
+      "status": "ok",
+      "output_dir": "C:\\Files\\Study\\Codes\\Skill-Scan\\scan-results\\jobs\\job-20260321-141659-2df040\\output\\trigger-paste-service",
+      "artifact_count": 2,
+      "rule_hit_count": 2,
+      "verdict": {
+        "label": "malicious",
+        "primary_concern": "malicious",
+        "issue_types": [
+          "malicious",
+          "description_unreliable"
+        ],
+        "maliciousness": 9,
+        "safety": 1,
+        "description_reliability": 1,
+        "coverage": 8
+      }
+    }
+  ]
+}

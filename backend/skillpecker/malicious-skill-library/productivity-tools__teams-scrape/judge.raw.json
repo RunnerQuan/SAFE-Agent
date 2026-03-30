@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "unsafe",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "privacy-violation",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "This skill performs extensive UI automation requiring Accessibility permissions to control Microsoft Teams desktop application, effectively giving it programmatic access to read all Teams chat content, copy it to clipboard, and persistently store it locally. While the stated purpose is \"extracting Microsoft Teams chat messages,\" the implementation requires broad system-level permissions that could be exploited to capture sensitive data beyond just chat messages (including potentially accessing other applications via the same automation framework). Additionally, the skill stores complete chat histories locally without clear data retention or deletion policies, creating privacy risks if the stored data is compromised. The use of clipboard interception also risks exposing other sensitive clipboard data during operation.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "SUSPICIOUS",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Privacy Violation"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "2",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": true
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

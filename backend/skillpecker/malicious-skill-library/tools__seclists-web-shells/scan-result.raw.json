@@ -1,0 +1,236 @@
+{
+  "preprocess": {
+    "skill": {
+      "root": "C:\\Files\\Study\\Codes\\Skill-Scan\\malicious-skill-library\\tools__seclists-web-shells",
+      "claims": [
+        "The provided skill includes a comprehensive collection of known malicious web shells and pentesting tools in multiple languages (PHP, ASP, JSP, CFM, etc.). These scripts provide capabilities for unauthorized command execution, file upload, directory listing, reverse shell, and data exfiltration. The presence of such files in a skill indicates malicious intent, as they are typically used to compromise and maintain access to web servers."
+      ],
+      "observed_kinds": [
+        "spreadsheet",
+        "imported_scan_result"
+      ]
+    },
+    "artifacts": [],
+    "rule_hits": [],
+    "coverage_gaps": [],
+    "stats": {
+      "artifact_count": 0,
+      "rule_hit_count": 1,
+      "severity_counts": {},
+      "rule_code_counts": {}
+    }
+  },
+  "triage": {
+    "skill": {
+      "claims": [
+        "The provided skill includes a comprehensive collection of known malicious web shells and pentesting tools in multiple languages (PHP, ASP, JSP, CFM, etc.). These scripts provide capabilities for unauthorized command execution, file upload, directory listing, reverse shell, and data exfiltration. The presence of such files in a skill indicates malicious intent, as they are typically used to compromise and maintain access to web servers."
+      ],
+      "obs": [
+        "Script Scan"
+      ],
+      "high_risk_features": [
+        "shell_or_command_execution"
+      ]
+    },
+    "arts": [],
+    "xconcerns": [],
+    "retrieve": [],
+    "coverage": {
+      "total": 1,
+      "indexed": 1,
+      "gaps": []
+    }
+  },
+  "security": {
+    "findings": [
+      {
+        "id": "",
+        "cat": "data-exfiltration",
+        "class": "active-malice",
+        "severity": "",
+        "conf": "",
+        "summary": "The provided skill includes a comprehensive collection of known malicious web shells and pentesting tools in multiple languages (PHP, ASP, JSP, CFM, etc.). These scripts provide capabilities for unauthorized command execution, file upload, directory listing, reverse shell, and data exfiltration. The presence of such files in a skill indicates malicious intent, as they are typically used to compromise and maintain access to web servers.",
+        "arts": [],
+        "spans": [],
+        "impact": "",
+        "fix": "",
+        "decision_level": "MALICIOUS",
+        "primary_group": "Active Malice",
+        "scan_level": "Script Scan",
+        "risk_types": [
+          "Data Exfiltration",
+          "Reverse Shell",
+          "Collection of Web Shells"
+        ],
+        "source_platform": "Marketplace",
+        "source_file": "scan_results_script_Marketplace.csv",
+        "related_file_count": "60",
+        "flags": {
+          "external_server": false,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": false,
+          "shell_or_command_execution": true,
+          "driver_or_installer": false,
+          "credential_request": false,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": false
+        }
+      }
+    ],
+    "ctx_requests": [],
+    "coverage": {
+      "reviewed_arts": [],
+      "unresolved_high_risk_arts": []
+    }
+  },
+  "judge": {
+    "verdict": {
+      "label": "malicious",
+      "primary_concern": "data-exfiltration",
+      "issue_types": [
+        "data-exfiltration",
+        "reverse-shell",
+        "collection-of-web-shells",
+        "active-malice"
+      ]
+    },
+    "top_findings": [
+      {
+        "id": "",
+        "cat": "data-exfiltration",
+        "class": "active-malice",
+        "severity": "",
+        "conf": "",
+        "summary": "The provided skill includes a comprehensive collection of known malicious web shells and pentesting tools in multiple languages (PHP, ASP, JSP, CFM, etc.). These scripts provide capabilities for unauthorized command execution, file upload, directory listing, reverse shell, and data exfiltration. The presence of such files in a skill indicates malicious intent, as they are typically used to compromise and maintain access to web servers.",
+        "impact": "",
+        "fix": "",
+        "decision_level": "MALICIOUS",
+        "primary_group": "Active Malice",
+        "scan_level": "Script Scan",
+        "risk_types": [
+          "Data Exfiltration",
+          "Reverse Shell",
+          "Collection of Web Shells"
+        ],
+        "source_platform": "Marketplace",
+        "source_file": "scan_results_script_Marketplace.csv",
+        "related_file_count": "60",
+        "flags": {
+          "external_server": false,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": false,
+          "shell_or_command_execution": true,
+          "driver_or_installer": false,
+          "credential_request": false,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": false
+        },
+        "spans": []
+      }
+    ],
+    "coverage_audit": {
+      "adequate": true,
+      "missed": [],
+      "needs_rescan": false
+    },
+    "next_action": "stop"
+  },
+  "excel_import": {
+    "record_count": 1,
+    "headers": [
+      "一级分类_判定级别",
+      "二级分类_主问题组",
+      "风险类型汇总",
+      "风险类型1",
+      "风险类型2",
+      "风险类型3",
+      "风险类型4",
+      "来源平台",
+      "扫描层级",
+      "原始业务分类",
+      "skill_name",
+      "关联文件数",
+      "原始来源文件",
+      "问题摘要",
+      "原始verdict",
+      "flag_外部服务器",
+      "flag_APIKey",
+      "flag_自治执行",
+      "flag_浏览器会话/凭据",
+      "flag_文件系统访问",
+      "flag_Shell/命令执行",
+      "flag_驱动/安装器",
+      "flag_凭据请求",
+      "flag_混淆/规避",
+      "flag_持久化/外部存储",
+      "清洗后原始说明"
+    ],
+    "records": [
+      {
+        "classification": {
+          "decision_level": "MALICIOUS",
+          "primary_group": "Active Malice",
+          "risk_summary": "Data Exfiltration | Reverse Shell | Collection of Web Shells",
+          "risk_types": [
+            "Data Exfiltration",
+            "Reverse Shell",
+            "Collection of Web Shells"
+          ],
+          "platform": "Marketplace",
+          "scan_level": "Script Scan",
+          "business_category": "tools",
+          "skill_name": "seclists-web-shells",
+          "related_file_count": "60",
+          "source_file": "scan_results_script_Marketplace.csv",
+          "problem_summary": "The provided skill includes a comprehensive collection of known malicious web shells and pentesting tools in multiple languages (PHP, ASP, JSP, CFM, etc.). These scripts provide capabilities for unauthorized command execution, file upload, directory listing, reverse shell, and data exfiltration. The presence of such files in a skill indicates malicious intent, as they are typically used to compromise and maintain access to web servers.",
+          "raw_verdict": "MALICIOUS: Collection of Web Shells - The provided skill includes a comprehensive collection of known malicious web shells and pentesting tools in multiple languages (PHP, ASP, JSP, CFM, etc.). These scripts provide capabilities for unauthorized command execution, file upload, directory listing, reverse shell, and data exfiltration. The presence of such files in a skill indicates malicious intent, as they are typically used to compromise and maintain access to web servers.",
+          "cleaned_description": "",
+          "flags": {
+            "external_server": false,
+            "api_key": false,
+            "autonomous_execution": false,
+            "browser_session_or_credentials": false,
+            "filesystem_access": false,
+            "shell_or_command_execution": true,
+            "driver_or_installer": false,
+            "credential_request": false,
+            "obfuscation_or_evasion": false,
+            "persistence_or_external_storage": false
+          }
+        },
+        "raw_values": {
+          "一级分类_判定级别": "MALICIOUS",
+          "二级分类_主问题组": "Active Malice",
+          "风险类型汇总": "Data Exfiltration | Reverse Shell | Collection of Web Shells",
+          "风险类型1": "Data Exfiltration",
+          "风险类型2": "Reverse Shell",
+          "风险类型3": "Collection of Web Shells",
+          "风险类型4": "",
+          "来源平台": "Marketplace",
+          "扫描层级": "Script Scan",
+          "原始业务分类": "tools",
+          "skill_name": "seclists-web-shells",
+          "关联文件数": 60,
+          "原始来源文件": "scan_results_script_Marketplace.csv",
+          "问题摘要": "The provided skill includes a comprehensive collection of known malicious web shells and pentesting tools in multiple languages (PHP, ASP, JSP, CFM, etc.). These scripts provide capabilities for unauthorized command execution, file upload, directory listing, reverse shell, and data exfiltration. The presence of such files in a skill indicates malicious intent, as they are typically used to compromise and maintain access to web servers.",
+          "原始verdict": "MALICIOUS: Collection of Web Shells - The provided skill includes a comprehensive collection of known malicious web shells and pentesting tools in multiple languages (PHP, ASP, JSP, CFM, etc.). These scripts provide capabilities for unauthorized command execution, file upload, directory listing, reverse shell, and data exfiltration. The presence of such files in a skill indicates malicious intent, as they are typically used to compromise and maintain access to web servers.",
+          "flag_外部服务器": "",
+          "flag_APIKey": "",
+          "flag_自治执行": "",
+          "flag_浏览器会话/凭据": "",
+          "flag_文件系统访问": "",
+          "flag_Shell/命令执行": "Y",
+          "flag_驱动/安装器": "",
+          "flag_凭据请求": "",
+          "flag_混淆/规避": "",
+          "flag_持久化/外部存储": "",
+          "清洗后原始说明": "MALICIOUS: Collection of Web Shells - The provided skill includes a comprehensive collection of known malicious web shells and pentesting tools in multiple languages (PHP, ASP, JSP, CFM, etc.). These scripts provide capabilities for unauthorized command execution, file upload, directory listing, reverse shell, and data exfiltration. The presence of such files in a skill indicates malicious intent, as they are typically used to compromise and maintain access to web servers."
+        }
+      }
+    ]
+  }
+}

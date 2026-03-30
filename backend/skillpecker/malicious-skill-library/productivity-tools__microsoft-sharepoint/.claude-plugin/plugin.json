@@ -1,0 +1,7 @@
+{
+  "name": "canifi-skill-microsoft-sharepoint",
+  "description": "Enables Claude to access, organize, and collaborate on Microsoft SharePoint sites and document libraries via Playwright MCP",
+  "version": "1.0.0",
+  "author": "Canifi",
+  "homepage": "https://canifi.com/plugins/microsoft-sharepoint"
+}

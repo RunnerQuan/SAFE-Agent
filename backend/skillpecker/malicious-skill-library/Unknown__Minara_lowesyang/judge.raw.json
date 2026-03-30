@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "data-over-collection",
+    "issue_types": [
+      "data-over-collection",
+      "privilege-escalation",
+      "execution-system-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-over-collection",
+      "class": "execution-system-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill's \"x402\" payment option requires users to provide an EVM private key, which grants complete control over the associated cryptocurrency wallet and funds. This is excessive and unnecessarily risky for the stated purpose of obtaining crypto trading analysis and suggestions, as the core functionality does not require direct wallet access. While the API Key method is a safer alternative, offering and documenting a method that demands such a highly sensitive credential for a non-essential payment option constitutes data over-collection and introduces a significant privilege escalation risk.",
+      "impact": "OVERREACH: Data Over-collection - The skill's \"x402\" payment option requires users to provide an EVM private key, which grants complete control over the associated cryptocurrency wallet and funds. This is excessive and unnecessarily risky for the stated purpose of obtaining crypto trading analysis and suggestions, as the core functionality does not require direct wallet access. While the API Key method is a safer alternative, offering and documenting a method that demands such a highly sensitive credential for a non-essential payment option constitutes data over-collection and introduces a significant privilege escalation risk.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Execution / System Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Data Over-collection",
+        "Privilege Escalation"
+      ],
+      "source_platform": "Clawhub",
+      "source_file": "scan_results_description_clawhub.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": true,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

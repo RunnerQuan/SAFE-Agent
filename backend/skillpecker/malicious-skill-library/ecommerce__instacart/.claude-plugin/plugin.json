@@ -1,0 +1,38 @@
+{
+  "name": "instacart",
+  "version": "1.0.0",
+  "description": "Automate Instacart grocery browsing, lists, and order tracking",
+  "author": "Canifi",
+  "category": "food-delivery",
+  "permissions": [
+    "browser",
+    "notifications",
+    "env-access"
+  ],
+  "triggers": [
+    "instacart",
+    "insta cart",
+    "grocery delivery",
+    "instacart order"
+  ],
+  "authentication": {
+    "type": "browser-session",
+    "loginUrl": "https://www.instacart.com/login",
+    "sessionIndicator": "[data-testid='account-menu']"
+  },
+  "requiredEnvVars": [
+    "INSTACART_EMAIL",
+    "INSTACART_PASSWORD"
+  ],
+  "capabilities": {
+    "browse": true,
+    "search": true,
+    "lists": true,
+    "tracking": true,
+    "history": true,
+    "deals": true
+  },
+  "restrictions": {
+    "noOrdering": true
+  }
+}

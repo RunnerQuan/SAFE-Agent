@@ -1,0 +1,77 @@
+{
+  "name": "canifi",
+  "displayName": "Canifi LifeOS Core",
+  "version": "1.0.0",
+  "description": "Core LifeOS skill - enables AI assistant with research, storage, and iMessage integration. Transforms Claude into a personal life operating system with deep research capabilities via Gemini, structured storage via Notion, and mobile messaging via iMessage.",
+  "author": "Canifi",
+  "category": "productivity",
+  "keywords": [
+    "lifeos",
+    "research",
+    "notion",
+    "imessage",
+    "automation",
+    "gemini",
+    "productivity",
+    "personal-assistant",
+    "knowledge-management"
+  ],
+  "capabilities": [
+    "research",
+    "notion_storage",
+    "imessage",
+    "browser_automation"
+  ],
+  "authentication": {
+    "type": "credentials",
+    "provider": "canifi"
+  },
+  "environmentVariables": [
+    {
+      "name": "CANIFI_GOOGLE_EMAIL",
+      "description": "Google account email for Playwright authentication (Gemini, Gmail, etc.)",
+      "required": true
+    },
+    {
+      "name": "CANIFI_GOOGLE_PASSWORD",
+      "description": "Google account password for Playwright authentication",
+      "required": true
+    },
+    {
+      "name": "CANIFI_NOTION_TOKEN",
+      "description": "Notion integration token (starts with 'ntn_' or 'secret_')",
+      "required": true
+    },
+    {
+      "name": "CANIFI_IMESSAGE_CONTACTS",
+      "description": "Comma-separated whitelisted iMessage contacts (phone numbers with +1, emails)",
+      "required": true
+    },
+    {
+      "name": "CANIFI_NOTION_WORKSPACE",
+      "description": "Notion workspace name for display purposes",
+      "required": false
+    },
+    {
+      "name": "CANIFI_SCRIPTS_PATH",
+      "description": "Path to canifi scripts directory (default: ~/canifi)",
+      "required": false,
+      "default": "~/canifi"
+    }
+  ],
+  "dependencies": [
+    "playwright"
+  ],
+  "platforms": [
+    "macos"
+  ],
+  "mcpServers": {
+    "required": [
+      "@notionhq/notion-mcp-server"
+    ],
+    "optional": []
+  },
+  "documentationUrl": "https://canifi.com/docs/lifeos",
+  "repository": "https://github.com/canifi/canifi-life-os",
+  "license": "MIT"
+}

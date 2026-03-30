@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill description states it provides \"read-only access to macOS Calendar.app via icalBuddy\" (a local tool), but the installation instructions (INSTALL.md) require setting up OAuth2 authentication for Google Calendar API and Google People API, granting cloud-based access to Google Calendar data and contacts. This is excessive and unrelated to the stated purpose of reading local macOS Calendar.app events. Additionally, the request for Google People API access (contacts) is not justified by the skill's primary function of reading calendar events.",
+      "impact": "OVERREACH: Permission Overreach and Data Over-collection - The skill description states it provides \"read-only access to macOS Calendar.app via icalBuddy\" (a local tool), but the installation instructions (INSTALL.md) require setting up OAuth2 authentication for Google Calendar API and Google People API, granting cloud-based access to Google Calendar data and contacts. This is excessive and unrelated to the stated purpose of reading local macOS Calendar.app events. Additionally, the request for Google People API access (contacts) is not justified by the skill's primary function of reading calendar events.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Data Over-collection"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "8",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

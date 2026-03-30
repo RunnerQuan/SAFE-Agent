@@ -1,0 +1,54 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "data-over-collection",
+      "privilege-escalation",
+      "execution-system-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "execution-system-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill requests access to sensitive system-wide user data and performs privileged operations unrelated to its core purpose. Specifically:\n\n1. **Data Over-collection**: The skill reads from `~/.claude/state/braintrust_sessions/*.json` to extract Braintrust IDs, which is user-wide session tracking data unrelated to creating a simple handoff document for transferring work between sessions.\n\n2. **Permission Overreach**: The skill executes custom scripts (`~/.claude/scripts/spec_metadata.sh`) from the user's home directory and runs arbitrary Python scripts (`artifact_index.py`, `artifact_mark.py`) that interact with databases, which are excessive permissions for a document creation tool. A handoff document creator should only need to read/write within the current project directory, not access global user state or database systems.\n\n3. **Privilege Escalation**: The skill requires running database indexing and marking operations that go beyond simple file creation and should be handled by separate systems, not a document creation tool.\n\nThe primary purpose is \"create handoff document for transferring work to another session\" - this should only require reading/writing files in the current project directory and gathering metadata from the current session, not accessing global user state or database operations.",
+      "impact": "OVERREACH: Data Over-collection & Permission Overreach - The skill requests access to sensitive system-wide user data and performs privileged operations unrelated to its core purpose. Specifically:\n\n1. **Data Over-collection**: The skill reads from `~/.claude/state/braintrust_sessions/*.json` to extract Braintrust IDs, which is user-wide session tracking data unrelated to creating a simple handoff document for transferring work between sessions.\n\n2. **Permission Overreach**: The skill executes custom scripts (`~/.claude/scripts/spec_metadata.sh`) from the user's home directory and runs arbitrary Python scripts (`artifact_index.py`, `artifact_mark.py`) that interact with databases, which are excessive permissions for a document creation tool. A handoff document creator should only need to read/write within the current project directory, not access global user state or database systems.\n\n3. **Privilege Escalation**: The skill requires running database indexing and marking operations that go beyond simple file creation and should be handled by separate systems, not a document creation tool.\n\nThe primary purpose is \"create handoff document for transferring work to another session\" - this should only require reading/writing files in the current project directory and gathering metadata from the current session, not accessing global user state or database operations.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Execution / System Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Data Over-collection",
+        "Privilege Escalation"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "2",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": true,
+        "filesystem_access": true,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

@@ -1,0 +1,77 @@
+{
+  "verdict": {
+    "label": "insufficient_evidence",
+    "primary_concern": "unknown",
+    "issue_types": [
+      "malicious_candidate",
+      "unsafe_candidate",
+      "description_gap"
+    ],
+    "maliciousness": 0.6,
+    "safety": 0.7,
+    "description_reliability": 0.4,
+    "coverage": 0.3
+  },
+  "top_findings": [
+    {
+      "id": "malicious-download-execute",
+      "cat": "installation",
+      "severity": "critical",
+      "conf": "medium",
+      "summary": "Skill instructs users to download and execute unverified scripts from external domain canifi.com via curl|bash pattern.",
+      "spans": [
+        {
+          "path": "SKILL.md",
+          "s": 13,
+          "e": 13,
+          "why": "Direct instruction: 'curl -sSL https://canifi.com/skills/apple-news/install.sh | bash' - downloads and executes script without verification"
+        }
+      ]
+    },
+    {
+      "id": "unsafe-credential-storage",
+      "cat": "authentication",
+      "severity": "high",
+      "conf": "high",
+      "summary": "Skill instructs users to store Apple ID passwords in environment variables via canifi-env tool, insecure credential storage practice.",
+      "spans": [
+        {
+          "path": "SKILL.md",
+          "s": 29,
+          "e": 30,
+          "why": "Instructions: 'canifi-env set APPLE_ID \"your_apple_id\"' and 'canifi-env set APPLE_PASSWORD \"your_password\"' - stores sensitive credentials"
+        }
+      ]
+    },
+    {
+      "id": "description-mismatch-auth",
+      "cat": "authentication",
+      "severity": "med",
+      "conf": "high",
+      "summary": "Manifest claims 'system_authentication' method but implementation requires raw credential collection, misleading privacy expectations.",
+      "spans": [
+        {
+          "path": ".claude-plugin/plugin.json",
+          "s": 17,
+          "e": 21,
+          "why": "Claims: 'authentication': {'method': 'system_authentication'} but requires APPLE_ID and APPLE_PASSWORD environment variables"
+        }
+      ]
+    }
+  ],
+  "coverage_audit": {
+    "adequate": false,
+    "missed": [
+      {
+        "path": "install.sh",
+        "why": "Critical missing file referenced in SKILL.md line 13. Contains actual download-execute logic and potential credential collection or malicious behavior."
+      },
+      {
+        "path": "src/",
+        "why": "Missing source code directory. Needed to understand how credentials are used, what network calls are made, and verify implementation matches claims."
+      }
+    ],
+    "needs_rescan": true
+  },
+  "next_action": "rescan_targeted"
+}

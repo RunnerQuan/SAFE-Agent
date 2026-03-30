@@ -1,0 +1,54 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "data-over-collection",
+      "privacy-violation",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill description includes capabilities such as \"Scrape tweets and user profiles,\" \"Archive tweets and user data,\" \"Bulk operations (mass follow/unfollow/block),\" and \"Monitor brand mentions and sentiment,\" which go beyond typical Twitter API automation and may violate Twitter's Terms of Service or user privacy. Scraping data (especially with dependencies like beautifulsoup4) suggests unauthorized data collection methods, while bulk operations and archiving of user data could lead to excessive data harvesting and potential privacy violations unrelated to core Twitter management tasks. Additionally, the skill requests extensive local storage and configuration access (~/.openclaw/), which, while typical for such tools, could be excessive if combined with scraping or bulk data collection.",
+      "impact": "OVERREACH: Permission Overreach and Data Over-collection - The skill description includes capabilities such as \"Scrape tweets and user profiles,\" \"Archive tweets and user data,\" \"Bulk operations (mass follow/unfollow/block),\" and \"Monitor brand mentions and sentiment,\" which go beyond typical Twitter API automation and may violate Twitter's Terms of Service or user privacy. Scraping data (especially with dependencies like beautifulsoup4) suggests unauthorized data collection methods, while bulk operations and archiving of user data could lead to excessive data harvesting and potential privacy violations unrelated to core Twitter management tasks. Additionally, the skill requests extensive local storage and configuration access (~/.openclaw/), which, while typical for such tools, could be excessive if combined with scraping or bulk data collection.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Data Over-collection",
+        "Privacy Violation"
+      ],
+      "source_platform": "Clawhub",
+      "source_file": "scan_results_description_clawhub.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

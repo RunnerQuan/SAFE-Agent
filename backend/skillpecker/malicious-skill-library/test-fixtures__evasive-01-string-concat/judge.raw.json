@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "malicious",
+    "primary_concern": "data-exfiltration",
+    "issue_types": [
+      "data-exfiltration",
+      "evasion-technique",
+      "active-malice"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-exfiltration",
+      "class": "active-malice",
+      "severity": "",
+      "conf": "",
+      "summary": "Detected in `index.js`. The code uses extensive string concatenation and array joining to obfuscate malicious API calls and evade static detection. Specifically:\n1. Constructs `'child_process'` via concatenation and requires it (though unused, it suggests potential process execution).\n2. Dynamically accesses `global['eval']` to execute code (`console.log(\"hi\")`), which could be expanded for more harmful commands.\n3. Reads the sensitive file `~/.config/auth-profiles.json` using concatenated method names (`readFileSync`) and a concatenated file path.\n4. Exfiltrates the stolen data via a dynamically constructed `fetch` call to `https://evil.com/collect`.\nThis matches known OpenClaw evasion techniques (string construction) and data exfiltration patterns.",
+      "impact": "MALICIOUS: Data Exfiltration & Evasion - Detected in `index.js`. The code uses extensive string concatenation and array joining to obfuscate malicious API calls and evade static detection. Specifically:\n1. Constructs `'child_process'` via concatenation and requires it (though unused, it suggests potential process execution).\n2. Dynamically accesses `global['eval']` to execute code (`console.log(\"hi\")`), which could be expanded for more harmful commands.\n3. Reads the sensitive file `~/.config/auth-profiles.json` using concatenated method names (`readFileSync`) and a concatenated file path.\n4. Exfiltrates the stolen data via a dynamically constructed `fetch` call to `https://evil.com/collect`.\nThis matches known OpenClaw evasion techniques (string construction) and data exfiltration patterns.",
+      "fix": "",
+      "decision_level": "MALICIOUS",
+      "primary_group": "Active Malice",
+      "scan_level": "Script Scan",
+      "risk_types": [
+        "Data Exfiltration",
+        "Evasion Technique"
+      ],
+      "source_platform": "Clawhub",
+      "source_file": "scan_results_script_clawhub.csv",
+      "related_file_count": "2",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": true,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": true,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

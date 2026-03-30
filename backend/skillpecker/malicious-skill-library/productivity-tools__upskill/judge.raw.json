@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "access-boundary-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "access-boundary-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "This meta-skill requests and performs system-level actions that are excessive for its stated purpose of \"learning new capabilities.\" While the primary function (searching package registries and generating documentation) is reasonable, the skill goes further by:\n1. Installing packages globally to the user's home directory without explicit user approval for each installation\n2. Executing arbitrary package installation commands (npm install, pip install) which could install malicious or vulnerable packages\n3. Automatically modifying the user's system by creating directories and files outside of a sandboxed environment\n4. Setting environment variables and modifying shell configuration\n\nFor a skill that claims to \"learn new capabilities,\" it should be limited to searching registries, analyzing documentation, and generating skill files - not performing system modifications. The actual package installation should require explicit user consent and be performed in a controlled, project-specific environment rather than globally.",
+      "impact": "OVERREACH: Permission Overreach - This meta-skill requests and performs system-level actions that are excessive for its stated purpose of \"learning new capabilities.\" While the primary function (searching package registries and generating documentation) is reasonable, the skill goes further by:\n1. Installing packages globally to the user's home directory without explicit user approval for each installation\n2. Executing arbitrary package installation commands (npm install, pip install) which could install malicious or vulnerable packages\n3. Automatically modifying the user's system by creating directories and files outside of a sandboxed environment\n4. Setting environment variables and modifying shell configuration\n\nFor a skill that claims to \"learn new capabilities,\" it should be limited to searching registries, analyzing documentation, and generating skill files - not performing system modifications. The actual package installation should require explicit user consent and be performed in a controlled, project-specific environment rather than globally.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Access Boundary Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "2",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

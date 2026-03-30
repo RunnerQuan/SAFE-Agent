@@ -1,0 +1,61 @@
+{
+  "_comment": "Sample marketing channel data for CAC (Customer Acquisition Cost) analysis. Edit spend and customers values based on your actual data.",
+  "channels": [
+    {
+      "channel": "LinkedIn Ads",
+      "spend": 25000,
+      "customers": 45,
+      "period": "Q4 2025",
+      "notes": "B2B focus, IT decision makers, high-value customers"
+    },
+    {
+      "channel": "Google Search",
+      "spend": 18000,
+      "customers": 62,
+      "period": "Q4 2025",
+      "notes": "High intent traffic, strong conversion rates"
+    },
+    {
+      "channel": "SEO/Organic",
+      "spend": 8000,
+      "customers": 35,
+      "period": "Q4 2025",
+      "notes": "Long-term play, compound growth, blog and content"
+    },
+    {
+      "channel": "Partnerships",
+      "spend": 5000,
+      "customers": 18,
+      "period": "Q4 2025",
+      "notes": "Co-marketing partnerships, referral programs"
+    },
+    {
+      "channel": "Content Marketing",
+      "spend": 12000,
+      "customers": 28,
+      "period": "Q4 2025",
+      "notes": "Webinars, whitepapers, educational content"
+    },
+    {
+      "channel": "Email Marketing",
+      "spend": 3000,
+      "customers": 15,
+      "period": "Q4 2025",
+      "notes": "Newsletter subscribers, existing database"
+    },
+    {
+      "channel": "Trade Shows",
+      "spend": 15000,
+      "customers": 22,
+      "period": "Q4 2025",
+      "notes": "In-person events, high-touch engagement"
+    }
+  ],
+  "metadata": {
+    "company": "Sample Company",
+    "fiscal_quarter": "Q4 2025",
+    "total_marketing_spend": 86000,
+    "total_customers_acquired": 225,
+    "expected_blended_cac": 382
+  }
+}

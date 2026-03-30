@@ -1,0 +1,7 @@
+{
+  "name": "canifi-skill-google-sheets",
+  "description": "Enables Claude to create, edit, analyze, and automate Google Sheets spreadsheets via Playwright MCP",
+  "version": "1.0.0",
+  "author": "Canifi",
+  "homepage": "https://canifi.com/plugins/google-sheets"
+}

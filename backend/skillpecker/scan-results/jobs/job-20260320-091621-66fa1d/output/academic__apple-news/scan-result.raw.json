@@ -1,0 +1,713 @@
+{
+  "preprocess": {
+    "skill": {
+      "root": "C:\\Files\\Study\\Codes\\Skill-Scan\\scan-results\\jobs\\job-20260320-091621-66fa1d\\skills\\academic__apple-news",
+      "claims": [
+        "--",
+        "Access personalized news and premium content through Apple's native news aggregator.",
+        "Apple News Skill",
+        "Quick Install",
+        "Setup",
+        "First, ensure canifi-env is installed:",
+        "curl -sSL https://canifi.com/install.sh | bash",
+        "Privacy & Authentication",
+        "*Your credentials, your choice.** Canifi LifeOS respects your privacy.",
+        "Option 1: Manual Browser Login (Recommended)",
+        "Option 2: Environment Variables"
+      ],
+      "observed_kinds": [
+        "json",
+        "markdown"
+      ]
+    },
+    "artifacts": [
+      {
+        "id": "art-037fda535255",
+        "path": ".claude-plugin/plugin.json",
+        "kind": "json",
+        "role": "configuration",
+        "size_bytes": 1130,
+        "line_count": 45,
+        "preview": "{\n  \"name\": \"apple-news\",\n  \"displayName\": \"Apple News\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Access personalized news through Apple's native news aggregator\",\n  \"author\": \"Canifi\",\n  \"repository\": \"https://github.com/canifi/life-os-skills\",\n  \"category\": \"news-reading\",\n  \"keywords\": [\"news\", \"apple\", \"magazines\", \"premium\", \"aggregator\"],\n  \"capabilities\": [\n    \"personalized_feed\",\n    \"channel_following\",\n    \"news_plus_access\",\n    \"offline_reading\",\n    \"audio_stories\"\n  ],\n  \"authentication\": {\n    \"type\": \"apple_id\",\n    \"provider\": \"apple\",\n    \"method\": \"system_authentication\"\n  },\n  \"endpoints\": {\n    \"baseUrl\": \"apple-news://\",\n    \"app\": \"com.apple.news\"\n  },\n  \"rateLimit\": {\n    \"requests\": 0,\n    \"period\": \"unlimited\"\n  },\n  \"environmentVariables\": [\n    {\n      \"name\": \"APPLE_ID\",\n      \"description\": \"Apple ID email address\",\n      \"required\": true\n    },\n    {\n      \"name\": \"APPLE_PASSWORD\",\n      \"description\": \"Apple ID password\",\n      \"required\": true\n    }\n  ],\n  \"dependencies\": [],\n  \"platforms\": [\"macos\", \"ios\", \"ipados\"],\n  \"documentationUrl\": \"https://support.apple.com/apple-news\"\n}",
+        "truncated": false,
+        "binary": false,
+        "sha256_12": "8e80a359362d",
+        "code_blocks": [],
+        "hit_count": 0
+      },
+      {
+        "id": "art-f8f86863151a",
+        "path": "judge.raw.json",
+        "kind": "json",
+        "role": "configuration",
+        "size_bytes": 2149,
+        "line_count": 47,
+        "preview": "{\n  \"verdict\": {\n    \"label\": \"unsafe\",\n    \"primary_concern\": \"other\",\n    \"issue_types\": [\n      \"other\"\n    ]\n  },\n  \"top_findings\": [\n    {\n      \"id\": \"\",\n      \"cat\": \"\",\n      \"class\": \"other\",\n      \"severity\": \"\",\n      \"conf\": \"\",\n      \"summary\": \"The plugin configuration in `.claude-plugin/plugin.json` requires sensitive Apple ID credentials (APPLE_ID and APPLE_PASSWORD) as environment variables, which is atypical for legitimate Apple News integrations. Legitimate Apple News integrations typically use system authentication (like Apple ID SSO) rather than collecting raw credentials. This pattern could facilitate credential theft if combined with malicious code (not visible in this configuration file alone). The plugin also claims access to personalized feeds, channels, and premium content which would require proper Apple authentication, making credential collection via environment variables suspicious. Additionally, the configuration specifies a custom repository `https://github.com/canifi/life-os-skills`, but no actual source code is provided for analysis, preventing verification of how these credentials are used. Without executable code to analyze, this remains suspicious but not definitively malicious.\",\n      \"impact\": \"\",\n      \"fix\": \"\",\n      \"decision_level\": \"SUSPICIOUS\",\n      \"primary_group\": \"Other\",\n      \"scan_level\": \"Script Scan\",\n      \"risk_types\": [],\n      \"source_platform\": \"Marketplace\",\n      \"source_file\": \"scan_results_script_Marketplace.csv\",\n      \"related_file_count\": \"1\",\n      \"flags\": {\n        \"external_server\": false,\n        \"api_key\": false,\n        \"autonomous_execution\": false,\n        \"browser_session_or_credentials\": false,\n        \"filesystem_access\": false,\n        \"shell_or_command_execution\": false,\n        \"driver_or_installer\": false,\n        \"credential_request\": true,\n        \"obfuscation_or_evasion\": false,\n        \"persistence_or_external_storage\": false\n      },\n      \"spans\": []\n    }\n  ],\n  \"coverage_audit\": {\n    \"adequate\": true,\n    \"missed\": [],\n    \"needs_rescan\": false\n  },\n  \"next_action\": \"stop\"\n}",
+        "truncated": false,
+        "binary": false,
+        "sha256_12": "f41805d32b25",
+        "code_blocks": [],
+        "hit_count": 0
+      },
+      {
+        "id": "art-2a7a69b18866",
+        "path": "scan-result.raw.json",
+        "kind": "json",
+        "role": "configuration",
+        "size_bytes": 15149,
+        "line_count": 221,
+        "preview": "{\n  \"preprocess\": {\n    \"skill\": {\n      \"root\": \"C:\\\\Files\\\\Study\\\\Codes\\\\Skill-Scan\\\\malicious-skill-library\\\\academic__apple-news\",\n      \"claims\": [\n        \"The plugin configuration in `.claude-plugin/plugin.json` requires sensitive Apple ID credentials (APPLE_ID and APPLE_PASSWORD) as environment variables, which is atypical for legitimate Apple News integrations. Legitimate Apple News integrations typically use system authentication (like Apple ID SSO) rather than collecting raw credentials. This pattern could facilitate credential theft if combined with malicious code (not visible in this configuration file alone). The plugin also claims access to personalized feeds, channels, and premium content which would require proper Apple authentication, making credential collection via environment variables suspicious. Additionally, the configuration specifies a custom repository `https://github.com/canifi/life-os-skills`, but no actual source code is provided for analysis, preventing verification of how these credentials are used. Without executable code to analyze, this remains suspicious but not definitively malicious.\"\n      ],\n      \"observed_kinds\": [\n        \"spreadsheet\",\n        \"imported_scan_result\"\n      ]\n    },\n    \"artifacts\": [],\n    \"rule_hits\": [],\n    \"coverage_gaps\": [],\n    \"stats\": {\n      \"artifact_count\": 0,\n      \"rule_hit_count\": 1,\n      \"severity_counts\": {},\n      \"rule_code_counts\": {}\n    }\n  },\n  \"triage\": {\n    \"skill\": {\n      \"claims\": [\n        \"The plugin configuration in `.claude-plugin/plugin.json` requires sensitive Apple ID credentials (APPLE_ID and APPLE_PASSWORD) as environment variables, which is atypical for legitimate Apple News integrations. Legitimate Apple News integrations typically use system authentication (like Apple ID SSO) rather than collecting raw credentials. This pattern could facilitate credential theft if combined with malicious code (not visible in this configuration file alone). The plugin also claims access to personalized feeds, channels, and premium content which would require proper Apple authentication, making credential collection via environment variables suspicious. Additionally, the configuration specifies a custom repository `https://github.com/canifi/life-os-skills`, but no actual source code is provided for analysis, preventing verification of how these credentials are used. Without executable code to analyze, this remains suspicious but not definitively malicious.\"\n      ],\n      \"obs\": [\n        \"Script Scan\"\n      ],\n      \"high_risk_features\": [\n        \"credential_request\"\n      ]\n    },\n    \"arts\": [],\n    \"xconcerns\": [],\n    \"retrieve\": [],\n    \"coverage\": {\n      \"total\": 1,\n      \"indexed\": 1,\n      \"gaps\": []\n    }\n  },\n  \"security\": {\n    \"findings\": [\n      {\n        \"id\": \"\",\n        \"cat\": \"\",\n        \"class\": \"other\",\n        \"severity\": \"\",",
+        "truncated": false,
+        "binary": false,
+        "sha256_12": "9ae5c07d6a4a",
+        "code_blocks": [],
+        "hit_count": 0
+      },
+      {
+        "id": "art-0e95f5a36660",
+        "path": "SKILL.md",
+        "kind": "markdown",
+        "role": "skill_definition",
+        "size_bytes": 3247,
+        "line_count": 109,
+        "preview": "---\nname: apple-news\ndescription: Access personalized news and premium content through Apple's native news aggregator.\ncategory: news\n---\n# Apple News Skill\n\nAccess personalized news and premium content through Apple's native news aggregator.\n\n## Quick Install\n\n```bash\ncurl -sSL https://canifi.com/skills/apple-news/install.sh | bash\n```\n\nOr manually:\n```bash\ncp -r skills/apple-news ~/.canifi/skills/\n```\n\n## Setup\n\nConfigure via [canifi-env](https://canifi.com/setup/scripts):\n\n```bash\n# First, ensure canifi-env is installed:\n# curl -sSL https://canifi.com/install.sh | bash\n\ncanifi-env set APPLE_ID \"your_apple_id\"\ncanifi-env set APPLE_PASSWORD \"your_password\"\n```\n\n## Privacy & Authentication\n\n**Your credentials, your choice.** Canifi LifeOS respects your privacy.\n\n### Option 1: Manual Browser Login (Recommended)\nIf you prefer not to share credentials with Claude Code:\n1. Complete the [Browser Automation Setup](/setup/automation) using CDP mode\n2. Login to the service manually in the Playwright-controlled Chrome window\n3. Claude will use your authenticated session without ever seeing your password\n\n### Option 2: Environment Variables\nIf you're comfortable sharing credentials, you can store them locally:\n```bash\ncanifi-env set SERVICE_EMAIL \"your-email\"\ncanifi-env set SERVICE_PASSWORD \"your-password\"\n```\n\n**Note**: Credentials stored in canifi-env are only accessible locally on your machine and are never transmitted.",
+        "truncated": false,
+        "binary": false,
+        "sha256_12": "bb9f51a727ca",
+        "code_blocks": [
+          {
+            "language": "shell",
+            "start_line": 13,
+            "end_line": 13,
+            "preview": "curl -sSL https://canifi.com/skills/apple-news/install.sh | bash"
+          },
+          {
+            "language": "shell",
+            "start_line": 18,
+            "end_line": 18,
+            "preview": "cp -r skills/apple-news ~/.canifi/skills/"
+          },
+          {
+            "language": "shell",
+            "start_line": 26,
+            "end_line": 30,
+            "preview": "# First, ensure canifi-env is installed:\n# curl -sSL https://canifi.com/install.sh | bash\n\ncanifi-env set APPLE_ID \"your_apple_id\"\ncanifi-env set APPLE_PASSWORD \"your_password\""
+          },
+          {
+            "language": "shell",
+            "start_line": 46,
+            "end_line": 47,
+            "preview": "canifi-env set SERVICE_EMAIL \"your-email\"\ncanifi-env set SERVICE_PASSWORD \"your-password\""
+          },
+          {
+            "language": "text",
+            "start_line": 64,
+            "end_line": 65,
+            "preview": "User: \"Show me today's top stories from Apple News\"\nAssistant: Returns top headlines and trending stories"
+          },
+          {
+            "language": "text",
+            "start_line": 70,
+            "end_line": 71,
+            "preview": "User: \"Follow The Verge on Apple News\"\nAssistant: Adds The Verge to your followed channels"
+          },
+          {
+            "language": "text",
+            "start_line": 76,
+            "end_line": 77,
+            "preview": "User: \"Search Apple News for articles about electric vehicles\"\nAssistant: Returns relevant articles from subscribed and suggested sources"
+          },
+          {
+            "language": "text",
+            "start_line": 82,
+            "end_line": 83,
+            "preview": "User: \"Show me the latest issue of Wired magazine\"\nAssistant: Opens current Wired issue (requires News+ subscription)"
+          }
+        ],
+        "hit_count": 4
+      }
+    ],
+    "rule_hits": [
+      {
+        "code": "MAL-DOWNLOAD-EXEC",
+        "severity": "critical",
+        "path": "SKILL.md",
+        "start_line": 13,
+        "end_line": 13,
+        "message": "Potential download-and-execute behavior",
+        "excerpt": "curl -sSL https://canifi.com/skills/apple-news/install.sh | bash",
+        "source": "code_block"
+      },
+      {
+        "code": "MAL-DOWNLOAD-EXEC",
+        "severity": "critical",
+        "path": "SKILL.md",
+        "start_line": 27,
+        "end_line": 27,
+        "message": "Potential download-and-execute behavior",
+        "excerpt": "# curl -sSL https://canifi.com/install.sh | bash",
+        "source": "code_block"
+      },
+      {
+        "code": "FEAT-NETWORK",
+        "severity": "low",
+        "path": "SKILL.md",
+        "start_line": 13,
+        "end_line": 13,
+        "message": "Network access behavior",
+        "excerpt": "curl -sSL https://canifi.com/skills/apple-news/install.sh | bash",
+        "source": "code_block"
+      },
+      {
+        "code": "FEAT-NETWORK",
+        "severity": "low",
+        "path": "SKILL.md",
+        "start_line": 27,
+        "end_line": 27,
+        "message": "Network access behavior",
+        "excerpt": "# curl -sSL https://canifi.com/install.sh | bash",
+        "source": "code_block"
+      }
+    ],
+    "coverage_gaps": [],
+    "stats": {
+      "artifact_count": 4,
+      "rule_hit_count": 4,
+      "severity_counts": {
+        "critical": 2,
+        "low": 2
+      },
+      "rule_code_counts": {
+        "FEAT-NETWORK": 2,
+        "MAL-DOWNLOAD-EXEC": 2
+      }
+    }
+  },
+  "triage": {
+    "skill": {
+      "claims": [
+        "Access personalized news and premium content through Apple's native news aggregator.",
+        "Apple News Skill",
+        "Quick Install",
+        "Setup",
+        "First, ensure canifi-env is installed:",
+        "curl -sSL https://canifi.com/install.sh | bash",
+        "Privacy & Authentication",
+        "*Your credentials, your choice.** Canifi LifeOS respects your privacy.",
+        "Option 1: Manual Browser Login (Recommended)",
+        "Option 2: Environment Variables"
+      ],
+      "obs": [
+        "Claims to access Apple News personalized feeds, channels, premium content, offline reading, audio stories",
+        "Provides two installation methods: curl-pipe-bash and manual copy",
+        "Offers two authentication methods: manual browser login via Playwright/CDP and environment variables",
+        "Uses canifi-env for credential storage",
+        "Configuration declares Apple ID authentication type but collects raw credentials",
+        "No executable code visible in provided artifacts"
+      ],
+      "high_risk_features": [
+        "download_and_execute",
+        "credential_collection",
+        "authentication_bypass_pattern"
+      ]
+    },
+    "arts": [
+      {
+        "id": "art-0e95f5a36660",
+        "path": "SKILL.md",
+        "kind": "markdown",
+        "role": "skill_definition",
+        "obs": [
+          "Contains two curl-pipe-bash commands (one active, one commented)",
+          "Promotes credential storage in canifi-env",
+          "Describes browser automation setup as alternative",
+          "Claims credentials never transmitted"
+        ],
+        "signals": [
+          "download_and_execute",
+          "credential_collection",
+          "network_call"
+        ],
+        "spans": [
+          {
+            "path": "SKILL.md",
+            "s": 13,
+            "e": 13,
+            "why": "Active curl-pipe-bash to canifi.com domain"
+          },
+          {
+            "path": "SKILL.md",
+            "s": 27,
+            "e": 27,
+            "why": "Commented curl-pipe-bash for canifi-env installation"
+          },
+          {
+            "path": "SKILL.md",
+            "s": 26,
+            "e": 30,
+            "why": "Instructions to set APPLE_ID and APPLE_PASSWORD via canifi-env"
+          },
+          {
+            "path": "SKILL.md",
+            "s": 46,
+            "e": 47,
+            "why": "Alternative credential storage for SERVICE_EMAIL and SERVICE_PASSWORD"
+          }
+        ],
+        "priority": "high",
+        "raw": true
+      },
+      {
+        "id": "art-037fda535255",
+        "path": ".claude-plugin/plugin.json",
+        "kind": "json",
+        "role": "configuration",
+        "obs": [
+          "Declares authentication type as 'apple_id' with provider 'apple' and method 'system_authentication'",
+          "Requires APPLE_ID and APPLE_PASSWORD environment variables",
+          "Claims capabilities include personalized_feed, channel_following, news_plus_access",
+          "Specifies baseUrl as 'apple-news://' and app as 'com.apple.news'",
+          "Links to repository https://github.com/canifi/life-os-skills"
+        ],
+        "signals": [
+          "credential_collection",
+          "authentication_bypass_pattern"
+        ],
+        "spans": [
+          {
+            "path": ".claude-plugin/plugin.json",
+            "s": 0,
+            "e": 0,
+            "why": "Full file shows contradictory claims: system_authentication method but collects raw credentials"
+          }
+        ],
+        "priority": "high",
+        "raw": true
+      },
+      {
+        "id": "art-f8f86863151a",
+        "path": "judge.raw.json",
+        "kind": "json",
+        "role": "configuration",
+        "obs": [
+          "External verdict labels skill as 'unsafe' with primary_concern 'other'",
+          "Notes credential collection pattern is atypical for Apple News integrations",
+          "Highlights missing source code prevents verification",
+          "Mentions custom repository but no executable code"
+        ],
+        "signals": [
+          "credential_collection",
+          "description_gap"
+        ],
+        "spans": [
+          {
+            "path": "judge.raw.json",
+            "s": 0,
+            "e": 0,
+            "why": "External analysis flags credential collection as suspicious"
+          }
+        ],
+        "priority": "med",
+        "raw": false
+      },
+      {
+        "id": "art-2a7a69b18866",
+        "path": "scan-result.raw.json",
+        "kind": "json",
+        "role": "configuration",
+        "obs": [
+          "Contains imported scan results summarizing concerns",
+          "Repeats credential collection suspicion from judge.raw.json"
+        ],
+        "signals": [
+          "credential_collection"
+        ],
+        "spans": [
+          {
+            "path": "scan-result.raw.json",
+            "s": 0,
+            "e": 0,
+            "why": "Summarizes credential theft risk concerns"
+          }
+        ],
+        "priority": "low",
+        "raw": false
+      }
+    ],
+    "xconcerns": [
+      {
+        "type": "malicious_candidate",
+        "arts": [
+          "art-0e95f5a36660",
+          "art-037fda535255"
+        ],
+        "spans": [
+          {
+            "path": "SKILL.md",
+            "s": 13,
+            "e": 13,
+            "why": "Download-and-execute from external domain could deliver hidden payload"
+          },
+          {
+            "path": ".claude-plugin/plugin.json",
+            "s": 0,
+            "e": 0,
+            "why": "Contradiction between claimed 'system_authentication' and actual credential collection suggests concealment"
+          }
+        ],
+        "why": "Pattern of collecting Apple ID credentials via environment variables contradicts declared system authentication method; combined with download-and-execute installation, could facilitate credential theft if hidden code exists."
+      },
+      {
+        "type": "unsafe_candidate",
+        "arts": [
+          "art-0e95f5a36660"
+        ],
+        "spans": [
+          {
+            "path": "SKILL.md",
+            "s": 13,
+            "e": 13,
+            "why": "curl-pipe-bash pattern is inherently unsafe due to lack of verification"
+          },
+          {
+            "path": "SKILL.md",
+            "s": 26,
+            "e": 30,
+            "why": "Encourages storing sensitive credentials in local tool without clarity on access controls"
+          }
+        ],
+        "why": "Unsafe installation pattern (curl-pipe-bash) and credential handling practices; promotes storing Apple ID/password in local environment without clear security boundaries."
+      },
+      {
+        "type": "description_gap",
+        "arts": [
+          "art-037fda535255",
+          "art-f8f86863151a"
+        ],
+        "spans": [
+          {
+            "path": ".claude-plugin/plugin.json",
+            "s": 0,
+            "e": 0,
+            "why": "No executable code shown to verify how credentials are used"
+          },
+          {
+            "path": "judge.raw.json",
+            "s": 0,
+            "e": 0,
+            "why": "External analysis notes missing source code prevents verification"
+          }
+        ],
+        "why": "Skill claims extensive Apple News integration capabilities but provides no executable code; repository link exists but code not included in artifacts; cannot verify actual behavior."
+      }
+    ],
+    "retrieve": [
+      {
+        "path": "SKILL.md",
+        "s": 0,
+        "e": 109,
+        "reason": "Full markdown needed to understand complete installation, authentication instructions, and privacy claims"
+      },
+      {
+        "path": ".claude-plugin/plugin.json",
+        "s": 0,
+        "e": 45,
+        "reason": "Complete configuration to analyze authentication method contradictions and capability claims"
+      },
+      {
+        "path": "https://github.com/canifi/life-os-skills",
+        "s": 0,
+        "e": 0,
+        "reason": "External repository mentioned in configuration; may contain executable code not included in artifacts"
+      },
+      {
+        "path": "https://canifi.com/skills/apple-news/install.sh",
+        "s": 0,
+        "e": 0,
+        "reason": "External script referenced in curl-pipe-bash command; needed to verify download-and-execute payload"
+      }
+    ],
+    "coverage": {
+      "total": 4,
+      "indexed": 4,
+      "gaps": [
+        {
+          "path": "executable_code",
+          "why": "No Python, JavaScript, or other executable code files present in artifacts; cannot analyze actual skill implementation"
+        },
+        {
+          "path": "canifi-env_tool",
+          "why": "Referenced credential storage tool not included; cannot verify its security or access patterns"
+        }
+      ]
+    }
+  },
+  "security": {
+    "findings": [
+      {
+        "id": "malicious-candidate-1",
+        "cat": "credential_theft",
+        "class": "malicious",
+        "severity": "high",
+        "conf": "med",
+        "summary": "Skill configuration contradicts its stated authentication method, collecting raw Apple ID credentials while claiming to use system authentication, suggesting potential credential theft intent.",
+        "arts": [
+          "art-037fda535255"
+        ],
+        "spans": [
+          {
+            "path": ".claude-plugin/plugin.json",
+            "s": 17,
+            "e": 21,
+            "why": "Declares authentication method as 'system_authentication'"
+          },
+          {
+            "path": ".claude-plugin/plugin.json",
+            "s": 30,
+            "e": 41,
+            "why": "Requires APPLE_ID and APPLE_PASSWORD environment variables, indicating collection of raw credentials"
+          }
+        ],
+        "impact": "If malicious, the skill could exfiltrate Apple ID credentials, compromising user accounts and personal data. The contradiction between claimed 'system' authentication and actual credential collection is a strong suspicious signal.",
+        "fix": "Remove credential collection or clarify actual authentication flow. If system authentication is used, credentials should not be requested."
+      },
+      {
+        "id": "unsafe-install-1",
+        "cat": "insecure_installation",
+        "class": "unsafe",
+        "severity": "high",
+        "conf": "high",
+        "summary": "Promotes unsafe installation via curl-pipe-bash from an external domain without verification, risking arbitrary code execution.",
+        "arts": [
+          "art-0e95f5a36660"
+        ],
+        "spans": [
+          {
+            "path": "SKILL.md",
+            "s": 12,
+            "e": 14,
+            "why": "Active instruction: 'curl -sSL https://canifi.com/skills/apple-news/install.sh | bash'"
+          }
+        ],
+        "impact": "Users executing this command download and run an arbitrary script from canifi.com without integrity checks, exposing their system to potential malware or unwanted modifications.",
+        "fix": "Replace with verified installation method, provide checksums, or instruct manual download and inspection."
+      },
+      {
+        "id": "unsafe-cred-handling",
+        "cat": "insecure_credential_storage",
+        "class": "unsafe",
+        "severity": "med",
+        "conf": "high",
+        "summary": "Instructs users to store sensitive Apple ID credentials in a local tool (canifi-env) without detailing security controls, access boundaries, or encryption.",
+        "arts": [
+          "art-0e95f5a36660"
+        ],
+        "spans": [
+          {
+            "path": "SKILL.md",
+            "s": 29,
+            "e": 30,
+            "why": "Instructions: 'canifi-env set APPLE_ID \"your_apple_id\"' and 'canifi-env set APPLE_PASSWORD \"your_password\"'"
+          },
+          {
+            "path": "SKILL.md",
+            "s": 46,
+            "e": 47,
+            "why": "Alternative credential storage for SERVICE_EMAIL and SERVICE_PASSWORD"
+          }
+        ],
+        "impact": "Credentials stored without clear security model may be exposed to other local processes or users, or written to insecure locations (e.g., plaintext files).",
+        "fix": "Document how canifi-env secures credentials (encryption, access controls). Recommend system keychain or credential manager instead."
+      },
+      {
+        "id": "description-gap-1",
+        "cat": "missing_executable_code",
+        "class": "description",
+        "severity": "med",
+        "conf": "high",
+        "summary": "Skill claims extensive Apple News integration capabilities but provides no executable code in artifacts, making verification impossible.",
+        "arts": [
+          "art-037fda535255",
+          "art-f8f86863151a"
+        ],
+        "spans": [
+          {
+            "path": ".claude-plugin/plugin.json",
+            "s": 10,
+            "e": 16,
+            "why": "Claims capabilities: personalized_feed, channel_following, news_plus_access, offline_reading, audio_stories"
+          },
+          {
+            "path": "judge.raw.json",
+            "s": 1,
+            "e": 6,
+            "why": "External analysis notes missing source code prevents verification"
+          }
+        ],
+        "impact": "Users cannot assess how the skill operates, what it does with credentials, or whether it performs as described. This lack of transparency undermines trust and safety evaluation.",
+        "fix": "Include the skill's implementation code (e.g., Python, JavaScript) in the artifacts, or provide a verifiable link to the source."
+      },
+      {
+        "id": "description-contradiction-1",
+        "cat": "misleading_authentication",
+        "class": "description",
+        "severity": "med",
+        "conf": "high",
+        "summary": "Skill description claims 'system-level Apple ID authentication' and 'credentials never transmitted', but configuration collects raw credentials, creating a contradictory and misleading privacy promise.",
+        "arts": [
+          "art-0e95f5a36660",
+          "art-037fda535255"
+        ],
+        "spans": [
+          {
+            "path": "SKILL.md",
+            "s": 107,
+            "e": 108,
+            "why": "Claims: 'Uses system-level Apple ID authentication'"
+          },
+          {
+            "path": "SKILL.md",
+            "s": 50,
+            "e": 50,
+            "why": "Claims: 'Credentials stored in canifi-env are only accessible locally on your machine and are never transmitted.'"
+          },
+          {
+            "path": ".claude-plugin/plugin.json",
+            "s": 30,
+            "e": 41,
+            "why": "Requires APPLE_ID and APPLE_PASSWORD environment variables"
+          }
+        ],
+        "impact": "Users may believe their credentials are handled by the system securely and not exposed, while the skill actually collects and stores them, potentially leading to credential exposure if the implementation is flawed or malicious.",
+        "fix": "Align description with actual behavior. If credentials are collected, clearly state how they are used, stored, and protected."
+      }
+    ],
+    "ctx_requests": [
+      {
+        "path": "https://github.com/canifi/life-os-skills",
+        "s": 0,
+        "e": 0,
+        "reason": "External repository mentioned in configuration; may contain executable code not included in artifacts, needed to verify actual implementation and assess maliciousness."
+      },
+      {
+        "path": "https://canifi.com/skills/apple-news/install.sh",
+        "s": 0,
+        "e": 0,
+        "reason": "External script referenced in curl-pipe-bash command; needed to verify download-and-execute payload and assess if it contains malicious code or further unsafe instructions."
+      }
+    ],
+    "coverage": {
+      "reviewed_arts": [
+        "art-0e95f5a36660",
+        "art-037fda535255",
+        "art-f8f86863151a",
+        "art-2a7a69b18866"
+      ],
+      "unresolved_high_risk_arts": [
+        "art-0e95f5a36660",
+        "art-037fda535255"
+      ]
+    }
+  },
+  "judge": {
+    "verdict": {
+      "label": "mixed_risk",
+      "primary_concern": "mixed",
+      "issue_types": [
+        "unsafe",
+        "description_unreliable"
+      ],
+      "maliciousness": 2,
+      "safety": 4,
+      "description_reliability": 2,
+      "coverage": 2
+    },
+    "top_findings": [
+      {
+        "id": "unsafe-install-1",
+        "cat": "insecure_installation",
+        "severity": "high",
+        "conf": "high",
+        "summary": "Promotes unsafe installation via curl-pipe-bash from an external domain (canifi.com) without verification, risking arbitrary code execution.",
+        "spans": [
+          {
+            "path": "SKILL.md",
+            "s": 12,
+            "e": 14,
+            "why": "Active instruction: 'curl -sSL https://canifi.com/skills/apple-news/install.sh | bash'"
+          }
+        ]
+      },
+      {
+        "id": "description-gap-1",
+        "cat": "missing_executable_code",
+        "severity": "med",
+        "conf": "high",
+        "summary": "Skill claims extensive Apple News integration capabilities but provides no executable code in artifacts, making verification impossible.",
+        "spans": [
+          {
+            "path": ".claude-plugin/plugin.json",
+            "s": 10,
+            "e": 16,
+            "why": "Claims capabilities: personalized_feed, channel_following, news_plus_access, offline_reading, audio_stories"
+          }
+        ]
+      },
+      {
+        "id": "description-contradiction-1",
+        "cat": "misleading_authentication",
+        "severity": "med",
+        "conf": "high",
+        "summary": "Skill description claims 'system-level Apple ID authentication' and 'credentials never transmitted', but configuration collects raw APPLE_ID and APPLE_PASSWORD environment variables, creating a contradictory and misleading privacy promise.",
+        "spans": [
+          {
+            "path": "SKILL.md",
+            "s": 107,
+            "e": 108,
+            "why": "Claims: 'Uses system-level Apple ID authentication'"
+          },
+          {
+            "path": ".claude-plugin/plugin.json",
+            "s": 30,
+            "e": 41,
+            "why": "Requires APPLE_ID and APPLE_PASSWORD environment variables"
+          }
+        ]
+      },
+      {
+        "id": "unsafe-cred-handling",
+        "cat": "insecure_credential_storage",
+        "severity": "med",
+        "conf": "high",
+        "summary": "Instructs users to store sensitive Apple ID credentials in a local tool (canifi-env) without detailing security controls, access boundaries, or encryption.",
+        "spans": [
+          {
+            "path": "SKILL.md",
+            "s": 29,
+            "e": 30,
+            "why": "Instructions: 'canifi-env set APPLE_ID \"your_apple_id\"' and 'canifi-env set APPLE_PASSWORD \"your_password\"'"
+          }
+        ]
+      }
+    ],
+    "coverage_audit": {
+      "adequate": false,
+      "missed": [
+        {
+          "path": "executable_code",
+          "why": "No Python, JavaScript, or other executable code files present in artifacts; cannot analyze actual skill implementation or verify credential usage."
+        },
+        {
+          "path": "https://github.com/canifi/life-os-skills",
+          "why": "External repository mentioned in configuration; may contain source code not included in artifacts, needed to verify implementation."
+        },
+        {
+          "path": "https://canifi.com/skills/apple-news/install.sh",
+          "why": "External script referenced in curl-pipe-bash command; needed to verify download-and-execute payload."
+        }
+      ],
+      "needs_rescan": true
+    },
+    "next_action": "rescan_targeted"
+  }
+}

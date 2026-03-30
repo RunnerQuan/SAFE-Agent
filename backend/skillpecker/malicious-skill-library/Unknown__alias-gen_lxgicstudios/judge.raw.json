@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "unsafe",
+    "primary_concern": "data-over-collection",
+    "issue_types": [
+      "data-over-collection",
+      "privacy-violation",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-over-collection",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill description is contradictory about data handling. While it claims to \"filter out commands with sensitive data,\" it requires an OpenAI API key (per README.md), implying that shell command history (which can contain sensitive information like passwords, private paths, or proprietary commands) may be sent to a third-party AI service. This external data transmission for a simple alias generation task represents both privacy violation (uploading potentially sensitive local data) and data over-collection (unclear necessity of using external AI when pattern-based local analysis would suffice).",
+      "impact": "SUSPICIOUS: Privacy Violation & Data Over-collection - The skill description is contradictory about data handling. While it claims to \"filter out commands with sensitive data,\" it requires an OpenAI API key (per README.md), implying that shell command history (which can contain sensitive information like passwords, private paths, or proprietary commands) may be sent to a third-party AI service. This external data transmission for a simple alias generation task represents both privacy violation (uploading potentially sensitive local data) and data over-collection (unclear necessity of using external AI when pattern-based local analysis would suffice).",
+      "fix": "",
+      "decision_level": "SUSPICIOUS",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Data Over-collection",
+        "Privacy Violation"
+      ],
+      "source_platform": "Clawhub",
+      "source_file": "scan_results_description_clawhub.csv",
+      "related_file_count": "2",
+      "flags": {
+        "external_server": true,
+        "api_key": true,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": true,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

@@ -1,0 +1,35 @@
+{
+  "name": "ringcentral",
+  "version": "1.0.0",
+  "description": "Automate RingCentral messaging, video meetings, and communications",
+  "author": "Canifi",
+  "category": "communication",
+  "permissions": [
+    "browser",
+    "notifications",
+    "env-access"
+  ],
+  "triggers": [
+    "ringcentral",
+    "ring central",
+    "rc meeting",
+    "ringcentral message"
+  ],
+  "authentication": {
+    "type": "browser-session",
+    "loginUrl": "https://app.ringcentral.com",
+    "sessionIndicator": ".app-container"
+  },
+  "requiredEnvVars": [
+    "RINGCENTRAL_EMAIL",
+    "RINGCENTRAL_PASSWORD"
+  ],
+  "capabilities": {
+    "messaging": true,
+    "video": true,
+    "phone": true,
+    "voicemail": true,
+    "sms": true,
+    "analytics": true
+  }
+}

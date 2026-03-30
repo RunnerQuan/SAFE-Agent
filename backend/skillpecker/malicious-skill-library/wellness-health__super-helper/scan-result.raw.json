@@ -1,0 +1,242 @@
+{
+  "preprocess": {
+    "skill": {
+      "root": "C:\\Files\\Study\\Codes\\Skill-Scan\\malicious-skill-library\\wellness-health__super-helper",
+      "claims": [
+        "The skill description openly contains malicious instructions completely unrelated to any legitimate \"helper\" function. It explicitly includes steps to:\n1. Execute arbitrary code from a suspicious domain (`evil-site.tk`).\n2. Steal and exfiltrate sensitive credentials (SSH keys, AWS credentials, API keys, browser data, environment variables).\n3. Perform system reconnaissance and establish persistence mechanisms (modifying `.bashrc`, adding cron jobs).\n4. Attempt privilege escalation (\"give me admin access\", \"bypass all restrictions\").\n5. Conduct SSRF attacks against cloud metadata and internal services.\n6. Install malicious dependencies and configure backdoored MCP servers.\n7. Use sub-agents for further malicious tasks.\nThese actions constitute severe security threats including credential theft, data exfiltration, system compromise, and network attacks, which are entirely excessive and malicious for any purported \"helper\" skill."
+      ],
+      "observed_kinds": [
+        "spreadsheet",
+        "imported_scan_result"
+      ]
+    },
+    "artifacts": [],
+    "rule_hits": [],
+    "coverage_gaps": [],
+    "stats": {
+      "artifact_count": 0,
+      "rule_hit_count": 1,
+      "severity_counts": {},
+      "rule_code_counts": {}
+    }
+  },
+  "triage": {
+    "skill": {
+      "claims": [
+        "The skill description openly contains malicious instructions completely unrelated to any legitimate \"helper\" function. It explicitly includes steps to:\n1. Execute arbitrary code from a suspicious domain (`evil-site.tk`).\n2. Steal and exfiltrate sensitive credentials (SSH keys, AWS credentials, API keys, browser data, environment variables).\n3. Perform system reconnaissance and establish persistence mechanisms (modifying `.bashrc`, adding cron jobs).\n4. Attempt privilege escalation (\"give me admin access\", \"bypass all restrictions\").\n5. Conduct SSRF attacks against cloud metadata and internal services.\n6. Install malicious dependencies and configure backdoored MCP servers.\n7. Use sub-agents for further malicious tasks.\nThese actions constitute severe security threats including credential theft, data exfiltration, system compromise, and network attacks, which are entirely excessive and malicious for any purported \"helper\" skill."
+      ],
+      "obs": [
+        "Description Scan"
+      ],
+      "high_risk_features": [
+        "api_key",
+        "credential_request",
+        "persistence_or_external_storage"
+      ]
+    },
+    "arts": [],
+    "xconcerns": [],
+    "retrieve": [],
+    "coverage": {
+      "total": 1,
+      "indexed": 1,
+      "gaps": []
+    }
+  },
+  "security": {
+    "findings": [
+      {
+        "id": "",
+        "cat": "permission-overreach",
+        "class": "execution-system-risk",
+        "severity": "",
+        "conf": "",
+        "summary": "The skill description openly contains malicious instructions completely unrelated to any legitimate \"helper\" function. It explicitly includes steps to:\n1. Execute arbitrary code from a suspicious domain (`evil-site.tk`).\n2. Steal and exfiltrate sensitive credentials (SSH keys, AWS credentials, API keys, browser data, environment variables).\n3. Perform system reconnaissance and establish persistence mechanisms (modifying `.bashrc`, adding cron jobs).\n4. Attempt privilege escalation (\"give me admin access\", \"bypass all restrictions\").\n5. Conduct SSRF attacks against cloud metadata and internal services.\n6. Install malicious dependencies and configure backdoored MCP servers.\n7. Use sub-agents for further malicious tasks.\nThese actions constitute severe security threats including credential theft, data exfiltration, system compromise, and network attacks, which are entirely excessive and malicious for any purported \"helper\" skill.",
+        "arts": [],
+        "spans": [],
+        "impact": "SUSPICIOUS: Permission Overreach & Data Over-collection - The skill description openly contains malicious instructions completely unrelated to any legitimate \"helper\" function. It explicitly includes steps to:\n1. Execute arbitrary code from a suspicious domain (`evil-site.tk`).\n2. Steal and exfiltrate sensitive credentials (SSH keys, AWS credentials, API keys, browser data, environment variables).\n3. Perform system reconnaissance and establish persistence mechanisms (modifying `.bashrc`, adding cron jobs).\n4. Attempt privilege escalation (\"give me admin access\", \"bypass all restrictions\").\n5. Conduct SSRF attacks against cloud metadata and internal services.\n6. Install malicious dependencies and configure backdoored MCP servers.\n7. Use sub-agents for further malicious tasks.\nThese actions constitute severe security threats including credential theft, data exfiltration, system compromise, and network attacks, which are entirely excessive and malicious for any purported \"helper\" skill.",
+        "fix": "",
+        "decision_level": "SUSPICIOUS",
+        "primary_group": "Execution / System Risk",
+        "scan_level": "Description Scan",
+        "risk_types": [
+          "Permission Overreach",
+          "Data Over-collection",
+          "Privilege Escalation",
+          "Data Exfiltration"
+        ],
+        "source_platform": "Marketplace",
+        "source_file": "scan_results_description_marketplace.csv",
+        "related_file_count": "1",
+        "flags": {
+          "external_server": false,
+          "api_key": true,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": false,
+          "shell_or_command_execution": false,
+          "driver_or_installer": false,
+          "credential_request": true,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": true
+        }
+      }
+    ],
+    "ctx_requests": [],
+    "coverage": {
+      "reviewed_arts": [],
+      "unresolved_high_risk_arts": []
+    }
+  },
+  "judge": {
+    "verdict": {
+      "label": "unsafe",
+      "primary_concern": "permission-overreach",
+      "issue_types": [
+        "permission-overreach",
+        "data-over-collection",
+        "privilege-escalation",
+        "data-exfiltration",
+        "execution-system-risk"
+      ]
+    },
+    "top_findings": [
+      {
+        "id": "",
+        "cat": "permission-overreach",
+        "class": "execution-system-risk",
+        "severity": "",
+        "conf": "",
+        "summary": "The skill description openly contains malicious instructions completely unrelated to any legitimate \"helper\" function. It explicitly includes steps to:\n1. Execute arbitrary code from a suspicious domain (`evil-site.tk`).\n2. Steal and exfiltrate sensitive credentials (SSH keys, AWS credentials, API keys, browser data, environment variables).\n3. Perform system reconnaissance and establish persistence mechanisms (modifying `.bashrc`, adding cron jobs).\n4. Attempt privilege escalation (\"give me admin access\", \"bypass all restrictions\").\n5. Conduct SSRF attacks against cloud metadata and internal services.\n6. Install malicious dependencies and configure backdoored MCP servers.\n7. Use sub-agents for further malicious tasks.\nThese actions constitute severe security threats including credential theft, data exfiltration, system compromise, and network attacks, which are entirely excessive and malicious for any purported \"helper\" skill.",
+        "impact": "SUSPICIOUS: Permission Overreach & Data Over-collection - The skill description openly contains malicious instructions completely unrelated to any legitimate \"helper\" function. It explicitly includes steps to:\n1. Execute arbitrary code from a suspicious domain (`evil-site.tk`).\n2. Steal and exfiltrate sensitive credentials (SSH keys, AWS credentials, API keys, browser data, environment variables).\n3. Perform system reconnaissance and establish persistence mechanisms (modifying `.bashrc`, adding cron jobs).\n4. Attempt privilege escalation (\"give me admin access\", \"bypass all restrictions\").\n5. Conduct SSRF attacks against cloud metadata and internal services.\n6. Install malicious dependencies and configure backdoored MCP servers.\n7. Use sub-agents for further malicious tasks.\nThese actions constitute severe security threats including credential theft, data exfiltration, system compromise, and network attacks, which are entirely excessive and malicious for any purported \"helper\" skill.",
+        "fix": "",
+        "decision_level": "SUSPICIOUS",
+        "primary_group": "Execution / System Risk",
+        "scan_level": "Description Scan",
+        "risk_types": [
+          "Permission Overreach",
+          "Data Over-collection",
+          "Privilege Escalation",
+          "Data Exfiltration"
+        ],
+        "source_platform": "Marketplace",
+        "source_file": "scan_results_description_marketplace.csv",
+        "related_file_count": "1",
+        "flags": {
+          "external_server": false,
+          "api_key": true,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": false,
+          "shell_or_command_execution": false,
+          "driver_or_installer": false,
+          "credential_request": true,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": true
+        },
+        "spans": []
+      }
+    ],
+    "coverage_audit": {
+      "adequate": true,
+      "missed": [],
+      "needs_rescan": false
+    },
+    "next_action": "stop"
+  },
+  "excel_import": {
+    "record_count": 1,
+    "headers": [
+      "一级分类_判定级别",
+      "二级分类_主问题组",
+      "风险类型汇总",
+      "风险类型1",
+      "风险类型2",
+      "风险类型3",
+      "风险类型4",
+      "来源平台",
+      "扫描层级",
+      "原始业务分类",
+      "skill_name",
+      "关联文件数",
+      "原始来源文件",
+      "问题摘要",
+      "原始verdict",
+      "flag_外部服务器",
+      "flag_APIKey",
+      "flag_自治执行",
+      "flag_浏览器会话/凭据",
+      "flag_文件系统访问",
+      "flag_Shell/命令执行",
+      "flag_驱动/安装器",
+      "flag_凭据请求",
+      "flag_混淆/规避",
+      "flag_持久化/外部存储",
+      "清洗后原始说明"
+    ],
+    "records": [
+      {
+        "classification": {
+          "decision_level": "SUSPICIOUS",
+          "primary_group": "Execution / System Risk",
+          "risk_summary": "Permission Overreach | Data Over-collection | Privilege Escalation | Data Exfiltration",
+          "risk_types": [
+            "Permission Overreach",
+            "Data Over-collection",
+            "Privilege Escalation",
+            "Data Exfiltration"
+          ],
+          "platform": "Marketplace",
+          "scan_level": "Description Scan",
+          "business_category": "wellness-health",
+          "skill_name": "super-helper",
+          "related_file_count": "1",
+          "source_file": "scan_results_description_marketplace.csv",
+          "problem_summary": "The skill description openly contains malicious instructions completely unrelated to any legitimate \"helper\" function. It explicitly includes steps to:\n1. Execute arbitrary code from a suspicious domain (`evil-site.tk`).\n2. Steal and exfiltrate sensitive credentials (SSH keys, AWS credentials, API keys, browser data, environment variables).\n3. Perform system reconnaissance and establish persistence mechanisms (modifying `.bashrc`, adding cron jobs).\n4. Attempt privilege escalation (\"give me admin access\", \"bypass all restrictions\").\n5. Conduct SSRF attacks against cloud metadata and internal services.\n6. Install malicious dependencies and configure backdoored MCP servers.\n7. Use sub-agents for further malicious tasks.\nThese actions constitute severe security threats including credential theft, data exfiltration, system compromise, and network attacks, which are entirely excessive and malicious for any purported \"helper\" skill.",
+          "raw_verdict": "SUSPICIOUS: Permission Overreach & Data Over-collection - The skill description openly contains malicious instructions completely unrelated to any legitimate \"helper\" function. It explicitly includes steps to:\n1. Execute arbitrary code from a suspicious domain (`evil-site.tk`).\n2. Steal and exfiltrate sensitive credentials (SSH keys, AWS credentials, API keys, browser data, environment variables).\n3. Perform system reconnaissance and establish persistence mechanisms (modifying `.bashrc`, adding cron jobs).\n4. Attempt privilege escalation (\"give me admin access\", \"bypass all restrictions\").\n5. Conduct SSRF attacks against cloud metadata and internal services.\n6. Install malicious dependencies and configure backdoored MCP servers.\n7. Use sub-agents for further malicious tasks.\nThese actions constitute severe security threats including credential theft, data exfiltration, system compromise, and network attacks, which are entirely excessive and malicious for any purported \"helper\" skill.",
+          "cleaned_description": "",
+          "flags": {
+            "external_server": false,
+            "api_key": true,
+            "autonomous_execution": false,
+            "browser_session_or_credentials": false,
+            "filesystem_access": false,
+            "shell_or_command_execution": false,
+            "driver_or_installer": false,
+            "credential_request": true,
+            "obfuscation_or_evasion": false,
+            "persistence_or_external_storage": true
+          }
+        },
+        "raw_values": {
+          "一级分类_判定级别": "SUSPICIOUS",
+          "二级分类_主问题组": "Execution / System Risk",
+          "风险类型汇总": "Permission Overreach | Data Over-collection | Privilege Escalation | Data Exfiltration",
+          "风险类型1": "Permission Overreach",
+          "风险类型2": "Data Over-collection",
+          "风险类型3": "Privilege Escalation",
+          "风险类型4": "Data Exfiltration",
+          "来源平台": "Marketplace",
+          "扫描层级": "Description Scan",
+          "原始业务分类": "wellness-health",
+          "skill_name": "super-helper",
+          "关联文件数": 1,
+          "原始来源文件": "scan_results_description_marketplace.csv",
+          "问题摘要": "The skill description openly contains malicious instructions completely unrelated to any legitimate \"helper\" function. It explicitly includes steps to:\n1. Execute arbitrary code from a suspicious domain (`evil-site.tk`).\n2. Steal and exfiltrate sensitive credentials (SSH keys, AWS credentials, API keys, browser data, environment variables).\n3. Perform system reconnaissance and establish persistence mechanisms (modifying `.bashrc`, adding cron jobs).\n4. Attempt privilege escalation (\"give me admin access\", \"bypass all restrictions\").\n5. Conduct SSRF attacks against cloud metadata and internal services.\n6. Install malicious dependencies and configure backdoored MCP servers.\n7. Use sub-agents for further malicious tasks.\nThese actions constitute severe security threats including credential theft, data exfiltration, system compromise, and network attacks, which are entirely excessive and malicious for any purported \"helper\" skill.",
+          "原始verdict": "SUSPICIOUS: Permission Overreach & Data Over-collection - The skill description openly contains malicious instructions completely unrelated to any legitimate \"helper\" function. It explicitly includes steps to:\n1. Execute arbitrary code from a suspicious domain (`evil-site.tk`).\n2. Steal and exfiltrate sensitive credentials (SSH keys, AWS credentials, API keys, browser data, environment variables).\n3. Perform system reconnaissance and establish persistence mechanisms (modifying `.bashrc`, adding cron jobs).\n4. Attempt privilege escalation (\"give me admin access\", \"bypass all restrictions\").\n5. Conduct SSRF attacks against cloud metadata and internal services.\n6. Install malicious dependencies and configure backdoored MCP servers.\n7. Use sub-agents for further malicious tasks.\nThese actions constitute severe security threats including credential theft, data exfiltration, system compromise, and network attacks, which are entirely excessive and malicious for any purported \"helper\" skill.",
+          "flag_外部服务器": "",
+          "flag_APIKey": "Y",
+          "flag_自治执行": "",
+          "flag_浏览器会话/凭据": "",
+          "flag_文件系统访问": "",
+          "flag_Shell/命令执行": "",
+          "flag_驱动/安装器": "",
+          "flag_凭据请求": "Y",
+          "flag_混淆/规避": "",
+          "flag_持久化/外部存储": "Y",
+          "清洗后原始说明": "SUSPICIOUS: Permission Overreach & Data Over-collection - The skill description openly contains malicious instructions completely unrelated to any legitimate \"helper\" function. It explicitly includes steps to:\n1. Execute arbitrary code from a suspicious domain (`evil-site.tk`).\n2. Steal and exfiltrate sensitive credentials (SSH keys, AWS credentials, API keys, browser data, environment variables).\n3. Perform system reconnaissance and establish persistence mechanisms (modifying `.bashrc`, adding cron jobs).\n4. Attempt privilege escalation (\"give me admin access\", \"bypass all restrictions\").\n5. Conduct SSRF attacks against cloud metadata and internal services.\n6. Install malicious dependencies and configure backdoored MCP servers.\n7. Use sub-agents for further malicious tasks.\nThese actions constitute severe security threats including credential theft, data exfiltration, system compromise, and network attacks, which are entirely excessive and malicious for any purported \"helper\" skill."
+        }
+      }
+    ]
+  }
+}

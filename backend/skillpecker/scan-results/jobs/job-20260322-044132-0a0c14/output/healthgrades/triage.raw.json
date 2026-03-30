@@ -1,0 +1,186 @@
+{
+  "skill": {
+    "claims": [
+      "Find doctors with Healthgrades - search providers, read reviews, and check credentials"
+    ],
+    "obs": [
+      "network_call",
+      "shell_wrapper",
+      "secret_env_read"
+    ],
+    "high_risk_features": [
+      "download_and_execute"
+    ]
+  },
+  "arts": [
+    {
+      "id": "art-0e95f5a36660",
+      "path": "SKILL.md",
+      "kind": "markdown",
+      "role": "skill_definition",
+      "obs": [
+        "network_call",
+        "shell_wrapper",
+        "secret_env_read"
+      ],
+      "signals": [
+        "download_and_execute",
+        "network_access"
+      ],
+      "spans": [
+        {
+          "path": "SKILL.md",
+          "s": 15,
+          "e": 15,
+          "why": "curl pipe to bash - download and execute remote script"
+        },
+        {
+          "path": "SKILL.md",
+          "s": 29,
+          "e": 29,
+          "why": "commented curl pipe to bash - shows pattern but disabled"
+        },
+        {
+          "path": "SKILL.md",
+          "s": 31,
+          "e": 32,
+          "why": "environment variable storage for credentials"
+        },
+        {
+          "path": "SKILL.md",
+          "s": 48,
+          "e": 49,
+          "why": "alternative credential storage pattern"
+        }
+      ],
+      "priority": "high",
+      "raw": true
+    },
+    {
+      "id": "art-037fda535255",
+      "path": ".claude-plugin/plugin.json",
+      "kind": "json",
+      "role": "configuration",
+      "obs": [
+        "network_call"
+      ],
+      "signals": [],
+      "spans": [
+        {
+          "path": ".claude-plugin/plugin.json",
+          "s": 12,
+          "e": 14,
+          "why": "browser authentication configuration with login URL"
+        },
+        {
+          "path": ".claude-plugin/plugin.json",
+          "s": 24,
+          "e": 26,
+          "why": "required environment variables for credentials"
+        },
+        {
+          "path": ".claude-plugin/plugin.json",
+          "s": 27,
+          "e": 30,
+          "why": "network endpoints defined"
+        }
+      ],
+      "priority": "med",
+      "raw": false
+    }
+  ],
+  "xconcerns": [
+    {
+      "type": "malicious_candidate",
+      "arts": [
+        "art-0e95f5a36660"
+      ],
+      "spans": [
+        {
+          "path": "SKILL.md",
+          "s": 15,
+          "e": 15,
+          "why": "Direct curl-to-bash pattern without hash verification or safety checks"
+        }
+      ],
+      "why": "Download and execute remote script - classic supply chain risk pattern"
+    },
+    {
+      "type": "unsafe_candidate",
+      "arts": [
+        "art-0e95f5a36660"
+      ],
+      "spans": [
+        {
+          "path": "SKILL.md",
+          "s": 31,
+          "e": 32,
+          "why": "Storing credentials in environment variables with example"
+        },
+        {
+          "path": "SKILL.md",
+          "s": 48,
+          "e": 49,
+          "why": "Alternative credential storage with different variable names"
+        }
+      ],
+      "why": "Credential handling patterns without clear security context or encryption"
+    },
+    {
+      "type": "description_gap",
+      "arts": [
+        "art-0e95f5a36660",
+        "art-037fda535255"
+      ],
+      "spans": [
+        {
+          "path": "SKILL.md",
+          "s": 15,
+          "e": 15,
+          "why": "Install script source not described in skill claims"
+        },
+        {
+          "path": ".claude-plugin/plugin.json",
+          "s": 27,
+          "e": 30,
+          "why": "Network endpoints defined but no implementation shown"
+        }
+      ],
+      "why": "Missing implementation details for advertised capabilities and network behavior"
+    }
+  ],
+  "retrieve": [
+    {
+      "path": "skills/healthgrades/install.sh",
+      "s": 0,
+      "e": 0,
+      "reason": "Critical to examine the downloaded script for actual behavior"
+    },
+    {
+      "path": "skills/healthgrades/",
+      "s": 0,
+      "e": 0,
+      "reason": "Need to see actual implementation files for capabilities"
+    },
+    {
+      "path": "~/.canifi/skills/healthgrades",
+      "s": 0,
+      "e": 0,
+      "reason": "Check installed location for any additional artifacts"
+    }
+  ],
+  "coverage": {
+    "total": 2,
+    "indexed": 2,
+    "gaps": [
+      {
+        "path": "skills/healthgrades/",
+        "why": "Missing implementation files for advertised capabilities (search, reviews, credentials)"
+      },
+      {
+        "path": "https://canifi.com/skills/healthgrades/install.sh",
+        "why": "Remote install script content unknown - critical for download-and-execute assessment"
+      }
+    ]
+  }
+}

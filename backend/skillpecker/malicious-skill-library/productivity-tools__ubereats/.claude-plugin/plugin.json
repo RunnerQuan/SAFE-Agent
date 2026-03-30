@@ -1,0 +1,38 @@
+{
+  "name": "ubereats",
+  "version": "1.0.0",
+  "description": "Automate Uber Eats restaurant browsing, tracking, and favorites",
+  "author": "Canifi",
+  "category": "food-delivery",
+  "permissions": [
+    "browser",
+    "notifications",
+    "env-access"
+  ],
+  "triggers": [
+    "uber eats",
+    "ubereats",
+    "order uber eats",
+    "uber eats delivery"
+  ],
+  "authentication": {
+    "type": "browser-session",
+    "loginUrl": "https://www.ubereats.com/login",
+    "sessionIndicator": "[data-testid='user-menu']"
+  },
+  "requiredEnvVars": [
+    "UBEREATS_EMAIL",
+    "UBEREATS_PASSWORD"
+  ],
+  "capabilities": {
+    "browse": true,
+    "search": true,
+    "tracking": true,
+    "history": true,
+    "favorites": true,
+    "deals": true
+  },
+  "restrictions": {
+    "noOrdering": true
+  }
+}

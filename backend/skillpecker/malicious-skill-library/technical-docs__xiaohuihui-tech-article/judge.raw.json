@@ -1,0 +1,54 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "data-over-collection",
+      "security-risk",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill requests excessive permissions and data:\n1. **Hardcoded External API Credentials**: The skill description in `Skill.md` contains a hardcoded Gemini API Key (`sk-LYGZYPL2zZhGcRizHRiZv2nEXsuVHeof7LtTsT4OWwkWCFT0`) and a specific API endpoint URL. Exposing a live API key in documentation is a severe security risk and grants the skill (or anyone who reads it) unauthorized access to an external AI service unrelated to the core function of writing articles.\n2. **Demands Full Cloud Service Credentials**: The skill requires users to configure their Tencent Cloud COS (object storage) `SECRET_ID` and `SECRET_KEY`. While generating and hosting images is a stated feature, requesting full, permanent cloud service credentials with broad permissions (read/write/delete to a bucket) is excessive for the task. A more secure and minimal approach would be to generate upload tokens with limited scope or let users handle uploads themselves.\n3. **Excessive Access for Core Purpose**: The primary purpose is to generate technical articles. The integration with external AI image generation and cloud storage, while a feature, requests permissions (cloud account keys) that are disproportionate to the main goal of text generation and introduce significant external dependencies and risks.",
+      "impact": "OVERREACH: Permission Overreach & Data Over-collection - The skill requests excessive permissions and data:\n1. **Hardcoded External API Credentials**: The skill description in `Skill.md` contains a hardcoded Gemini API Key (`sk-LYGZYPL2zZhGcRizHRiZv2nEXsuVHeof7LtTsT4OWwkWCFT0`) and a specific API endpoint URL. Exposing a live API key in documentation is a severe security risk and grants the skill (or anyone who reads it) unauthorized access to an external AI service unrelated to the core function of writing articles.\n2. **Demands Full Cloud Service Credentials**: The skill requires users to configure their Tencent Cloud COS (object storage) `SECRET_ID` and `SECRET_KEY`. While generating and hosting images is a stated feature, requesting full, permanent cloud service credentials with broad permissions (read/write/delete to a bucket) is excessive for the task. A more secure and minimal approach would be to generate upload tokens with limited scope or let users handle uploads themselves.\n3. **Excessive Access for Core Purpose**: The primary purpose is to generate technical articles. The integration with external AI image generation and cloud storage, while a feature, requests permissions (cloud account keys) that are disproportionate to the main goal of text generation and introduce significant external dependencies and risks.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Data Over-collection",
+        "Security Risk"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "6",
+      "flags": {
+        "external_server": true,
+        "api_key": true,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

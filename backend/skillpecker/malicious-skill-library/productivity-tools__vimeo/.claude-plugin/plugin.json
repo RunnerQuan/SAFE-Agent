@@ -1,0 +1,34 @@
+{
+  "name": "vimeo",
+  "displayName": "Vimeo",
+  "version": "1.0.0",
+  "description": "Host and manage videos with Vimeo - upload, organize, and analyze professional video content",
+  "author": "Canifi LifeOS",
+  "category": "Video & Audio Production",
+  "authentication": {
+    "type": "browser",
+    "loginUrl": "https://vimeo.com/log_in",
+    "loggedInIndicator": "[data-testid='user-menu']"
+  },
+  "capabilities": [
+    "upload-videos",
+    "organize-library",
+    "view-analytics",
+    "configure-privacy",
+    "manage-metadata",
+    "download-files"
+  ],
+  "requiredEnvVars": [
+    "VIMEO_EMAIL",
+    "VIMEO_PASSWORD"
+  ],
+  "endpoints": {
+    "base": "https://vimeo.com",
+    "library": "https://vimeo.com/manage/videos",
+    "analytics": "https://vimeo.com/manage/analytics"
+  },
+  "rateLimit": {
+    "requests": 60,
+    "period": "minute"
+  }
+}

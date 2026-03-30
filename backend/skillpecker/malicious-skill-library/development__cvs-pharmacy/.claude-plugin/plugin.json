@@ -1,0 +1,33 @@
+{
+  "name": "cvs-pharmacy",
+  "displayName": "CVS Pharmacy",
+  "version": "1.0.0",
+  "description": "Manage prescriptions with CVS - check prescription status, view pharmacy services, and manage refills",
+  "author": "Canifi LifeOS",
+  "category": "Healthcare & Telehealth",
+  "authentication": {
+    "type": "browser",
+    "loginUrl": "https://www.cvs.com/account/login",
+    "loggedInIndicator": "[data-testid='user-menu']"
+  },
+  "capabilities": [
+    "prescription-status",
+    "medication-list",
+    "refill-info",
+    "pharmacy-locations",
+    "immunization-records",
+    "extracare-rewards"
+  ],
+  "requiredEnvVars": [
+    "CVS_EMAIL",
+    "CVS_PASSWORD"
+  ],
+  "endpoints": {
+    "base": "https://www.cvs.com",
+    "pharmacy": "https://www.cvs.com/pharmacy"
+  },
+  "rateLimit": {
+    "requests": 60,
+    "period": "minute"
+  }
+}

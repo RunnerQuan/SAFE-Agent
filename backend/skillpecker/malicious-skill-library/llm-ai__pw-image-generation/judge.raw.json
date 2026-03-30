@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "data-over-collection",
+    "issue_types": [
+      "data-over-collection",
+      "security-risk",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-over-collection",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill documentation (`config/secrets.md`) contains a hardcoded, exposed API key (`sk-1p6RyJLH3e3TnfMEfN9clcwZru2V513pAIwK8h5fMVUTDnEv`). This is a live, sensitive credential embedded in the provided files. The primary purpose of an image generation skill is to generate and process images. While requiring an API key for the underlying AI service is necessary, the documentation should only provide a placeholder template (e.g., `your-api-key-here`). Supplying a real, working key within the skill files is a severe case of data over-collection and credential exposure, posing a direct security risk and enabling unauthorized use of the associated API service.",
+      "impact": "OVERREACH: Data Over-collection - The skill documentation (`config/secrets.md`) contains a hardcoded, exposed API key (`sk-1p6RyJLH3e3TnfMEfN9clcwZru2V513pAIwK8h5fMVUTDnEv`). This is a live, sensitive credential embedded in the provided files. The primary purpose of an image generation skill is to generate and process images. While requiring an API key for the underlying AI service is necessary, the documentation should only provide a placeholder template (e.g., `your-api-key-here`). Supplying a real, working key within the skill files is a severe case of data over-collection and credential exposure, posing a direct security risk and enabling unauthorized use of the associated API service.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Data Over-collection",
+        "Security Risk"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "10",
+      "flags": {
+        "external_server": false,
+        "api_key": true,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

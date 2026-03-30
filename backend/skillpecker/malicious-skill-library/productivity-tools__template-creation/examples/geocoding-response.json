@@ -1,0 +1,43 @@
+{
+  "success": true,
+  "confidence": 0.65,
+  "coordinates": {
+    "latitude": 48.7164,
+    "longitude": 21.2611
+  },
+  "address": "Košice City Center, Slovakia",
+  "type": "city_center",
+  "alternatives": [
+    {
+      "coordinates": {
+        "latitude": 48.7164,
+        "longitude": 21.2611
+      },
+      "address": "Košice City Center, Slovakia",
+      "type": "city_center",
+      "confidence": 0.75,
+      "description": "Capital city center"
+    },
+    {
+      "coordinates": {
+        "latitude": 48.6950,
+        "longitude": 21.2550
+      },
+      "address": "OMV Košice South, Slovakia",
+      "type": "fuel_station",
+      "confidence": 0.60,
+      "description": "Fuel station south district"
+    },
+    {
+      "coordinates": {
+        "latitude": 48.7100,
+        "longitude": 21.2850
+      },
+      "address": "Shell Košice East, Slovakia",
+      "type": "fuel_station",
+      "confidence": 0.58,
+      "description": "Fuel station near highway exit"
+    }
+  ],
+  "notes": "Example of ambiguous geocoding result. Confidence <0.7 indicates multiple matches. User should select the correct alternative to ensure accurate GPS coordinates for template."
+}

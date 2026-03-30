@@ -1,0 +1,56 @@
+{
+  "verdict": {
+    "label": "unsafe",
+    "primary_concern": "data-exfiltration",
+    "issue_types": [
+      "data-exfiltration",
+      "trojan-downloader",
+      "supply-chain-attack",
+      "evasion-technique",
+      "execution-system-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-exfiltration",
+      "class": "execution-system-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "Detected in `scripts/detect-mainline.sh`. The file contains only a relative path reference (`../../../scripts/detect-mainline.sh`), which appears to be an attempt to load/execute an external script located outside the skill's directory structure. This pattern is concerning because:\n1. It avoids embedding malicious code directly in the skill files, making static analysis difficult.\n2. The relative path points three directories up, suggesting it may be trying to access shared system or parent project scripts not included in the skill package.\n3. This could be a loader mechanism where the referenced script contains the actual malicious payload (e.g., Trojan downloader, data exfiltration).\n4. Without the actual content of the referenced script, the true behavior cannot be verified.\n\nThis evasion technique matches known supply chain attacks where malicious functionality is hidden in external dependencies or dynamically loaded scripts.",
+      "impact": "SUSPICIOUS: Evasion Technique - Detected in `scripts/detect-mainline.sh`. The file contains only a relative path reference (`../../../scripts/detect-mainline.sh`), which appears to be an attempt to load/execute an external script located outside the skill's directory structure. This pattern is concerning because:\n1. It avoids embedding malicious code directly in the skill files, making static analysis difficult.\n2. The relative path points three directories up, suggesting it may be trying to access shared system or parent project scripts not included in the skill package.\n3. This could be a loader mechanism where the referenced script contains the actual malicious payload (e.g., Trojan downloader, data exfiltration).\n4. Without the actual content of the referenced script, the true behavior cannot be verified.\n\nThis evasion technique matches known supply chain attacks where malicious functionality is hidden in external dependencies or dynamically loaded scripts.",
+      "fix": "",
+      "decision_level": "SUSPICIOUS",
+      "primary_group": "Execution / System Risk",
+      "scan_level": "Script Scan",
+      "risk_types": [
+        "Data Exfiltration",
+        "Trojan Downloader",
+        "Supply Chain Attack",
+        "Evasion Technique"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_script_Marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

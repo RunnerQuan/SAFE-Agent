@@ -1,0 +1,33 @@
+{
+  "name": "adobe-illustrator-web",
+  "displayName": "Adobe Illustrator Web",
+  "version": "1.0.0",
+  "description": "Create vector graphics with Illustrator on the web - design logos, icons, and illustrations with AI-powered tools",
+  "author": "Canifi LifeOS",
+  "category": "Design & Creative",
+  "authentication": {
+    "type": "browser",
+    "loginUrl": "https://illustrator.adobe.com",
+    "loggedInIndicator": "[data-testid='user-profile']"
+  },
+  "capabilities": [
+    "create-vectors",
+    "ai-design-tools",
+    "create-logos",
+    "export-svg",
+    "apply-colors",
+    "cloud-sync"
+  ],
+  "requiredEnvVars": [
+    "ADOBE_EMAIL",
+    "ADOBE_PASSWORD"
+  ],
+  "endpoints": {
+    "base": "https://illustrator.adobe.com",
+    "editor": "https://illustrator.adobe.com/editor"
+  },
+  "rateLimit": {
+    "requests": 30,
+    "period": "minute"
+  }
+}

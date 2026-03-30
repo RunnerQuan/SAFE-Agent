@@ -1,0 +1,42 @@
+{
+  "name": "similarweb",
+  "displayName": "SimilarWeb",
+  "version": "1.0.0",
+  "description": "Analyze website traffic and competitive intelligence",
+  "author": "Canifi",
+  "repository": "https://github.com/canifi/life-os-skills",
+  "category": "analytics-seo",
+  "keywords": ["traffic", "competitive", "intelligence", "analytics", "market"],
+  "capabilities": [
+    "traffic_analysis",
+    "audience_insights",
+    "competitive_benchmarking",
+    "industry_analysis",
+    "keyword_analysis"
+  ],
+  "authentication": {
+    "type": "api_key",
+    "provider": "similarweb",
+    "headerName": "api_key"
+  },
+  "endpoints": {
+    "baseUrl": "https://api.similarweb.com/v1",
+    "totalVisits": "/Website/{domain}/total-traffic-and-engagement/visits",
+    "keywords": "/Website/{domain}/search-keywords",
+    "competitors": "/Website/{domain}/competitors"
+  },
+  "rateLimit": {
+    "requests": 10,
+    "period": "second"
+  },
+  "environmentVariables": [
+    {
+      "name": "SIMILARWEB_API_KEY",
+      "description": "SimilarWeb API key",
+      "required": true
+    }
+  ],
+  "dependencies": [],
+  "platforms": ["web"],
+  "documentationUrl": "https://developer.similarweb.com/"
+}

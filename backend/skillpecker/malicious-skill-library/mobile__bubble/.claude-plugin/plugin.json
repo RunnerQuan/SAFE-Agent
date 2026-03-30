@@ -1,0 +1,33 @@
+{
+  "name": "bubble",
+  "displayName": "Bubble",
+  "version": "1.0.0",
+  "description": "Build web applications with Bubble - create no-code apps with databases, workflows, and complex logic",
+  "author": "Canifi LifeOS",
+  "category": "Design & Creative",
+  "authentication": {
+    "type": "browser",
+    "loginUrl": "https://bubble.io/login",
+    "loggedInIndicator": "[data-testid='user-menu']"
+  },
+  "capabilities": [
+    "edit-pages",
+    "manage-database",
+    "configure-workflows",
+    "view-logs",
+    "deploy-apps",
+    "manage-users"
+  ],
+  "requiredEnvVars": [
+    "BUBBLE_EMAIL",
+    "BUBBLE_PASSWORD"
+  ],
+  "endpoints": {
+    "base": "https://bubble.io",
+    "apps": "https://bubble.io/home/apps"
+  },
+  "rateLimit": {
+    "requests": 60,
+    "period": "minute"
+  }
+}

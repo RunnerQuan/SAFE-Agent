@@ -1,0 +1,35 @@
+{
+  "name": "wyze",
+  "version": "1.0.0",
+  "description": "Control Wyze smart home devices including cameras, bulbs, and plugs",
+  "author": "Canifi LifeOS",
+  "homepage": "https://www.wyze.com",
+  "categories": ["smart-home", "cameras", "lighting"],
+  "capabilities": [
+    "camera-viewing",
+    "device-control",
+    "lock-management",
+    "event-detection"
+  ],
+  "authentication": {
+    "type": "credentials",
+    "provider": "wyze",
+    "required": true
+  },
+  "environmentVariables": [
+    {
+      "name": "WYZE_EMAIL",
+      "description": "Wyze account email address",
+      "required": true
+    }
+  ],
+  "triggers": [
+    "wyze",
+    "wyze camera",
+    "wyze bulb",
+    "wyze plug"
+  ],
+  "dependencies": {
+    "mcp": ["playwright"]
+  }
+}

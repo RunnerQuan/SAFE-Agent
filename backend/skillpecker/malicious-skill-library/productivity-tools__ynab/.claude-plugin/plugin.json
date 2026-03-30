@@ -1,0 +1,34 @@
+{
+  "name": "ynab",
+  "version": "1.0.0",
+  "description": "Manage zero-based budgets and track spending with You Need A Budget",
+  "author": "Canifi LifeOS",
+  "category": "finance",
+  "permissions": [
+    "browser",
+    "notifications",
+    "env:YNAB_EMAIL"
+  ],
+  "triggers": [
+    "ynab",
+    "budget",
+    "you need a budget",
+    "age of money",
+    "available to spend"
+  ],
+  "authentication": {
+    "type": "oauth-browser",
+    "loginUrl": "https://app.ynab.com/users/sign_in",
+    "requires2FA": false,
+    "twoFactorMethod": "email"
+  },
+  "endpoints": {
+    "base": "https://app.ynab.com",
+    "budget": "https://app.ynab.com/budget",
+    "reports": "https://app.ynab.com/reports"
+  },
+  "rateLimit": {
+    "requests": 20,
+    "period": "minute"
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "data-over-collection",
+    "issue_types": [
+      "data-over-collection",
+      "privacy-violation",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-over-collection",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill includes a command (`activity`) to scrape another user's LinkedIn activity, which is not necessary for the primary purpose of automating the user's own LinkedIn account for personal productivity and engagement. Collecting data from other users' profiles without their consent exceeds the stated purpose and may violate LinkedIn's terms of service and privacy norms.",
+      "impact": "OVERREACH: Data Over-collection and Privacy Violation - The skill includes a command (`activity`) to scrape another user's LinkedIn activity, which is not necessary for the primary purpose of automating the user's own LinkedIn account for personal productivity and engagement. Collecting data from other users' profiles without their consent exceeds the stated purpose and may violate LinkedIn's terms of service and privacy norms.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Data Over-collection",
+        "Privacy Violation"
+      ],
+      "source_platform": "Clawhub",
+      "source_file": "scan_results_description_clawhub.csv",
+      "related_file_count": "6",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

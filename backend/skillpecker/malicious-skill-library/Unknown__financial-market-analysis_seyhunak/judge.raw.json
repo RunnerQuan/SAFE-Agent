@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "data-over-collection",
+    "issue_types": [
+      "data-over-collection",
+      "privacy-violation",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-over-collection",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill's primary purpose is financial market analysis, yet it requires:\n1. A paid API key (CRAFTED_API_KEY) from the developer's website to access their proprietary MCP server at a third-party domain (bore.pub:44876), sending all analysis requests through their servers.\n2. Automatic persistence of all analysis reports to the user's Firebase project without explicit per-request consent, creating a permanent database of financial queries.\n3. While presented as a tool for \"authoritative data retrieval,\" the skill actually routes all queries through the developer's infrastructure rather than directly accessing Yahoo Finance/Google Serper APIs locally, creating unnecessary data collection and tracking points.\n\nThese requirements are excessive for a simple market analysis tool, which could directly query public APIs without requiring paid third-party servers or mandatory cloud persistence.",
+      "impact": "OVERREACH: Data Over-collection & Privacy Violation - The skill's primary purpose is financial market analysis, yet it requires:\n1. A paid API key (CRAFTED_API_KEY) from the developer's website to access their proprietary MCP server at a third-party domain (bore.pub:44876), sending all analysis requests through their servers.\n2. Automatic persistence of all analysis reports to the user's Firebase project without explicit per-request consent, creating a permanent database of financial queries.\n3. While presented as a tool for \"authoritative data retrieval,\" the skill actually routes all queries through the developer's infrastructure rather than directly accessing Yahoo Finance/Google Serper APIs locally, creating unnecessary data collection and tracking points.\n\nThese requirements are excessive for a simple market analysis tool, which could directly query public APIs without requiring paid third-party servers or mandatory cloud persistence.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Data Over-collection",
+        "Privacy Violation"
+      ],
+      "source_platform": "Clawhub",
+      "source_file": "scan_results_description_clawhub.csv",
+      "related_file_count": "2",
+      "flags": {
+        "external_server": true,
+        "api_key": true,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": true
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "This skill requests broad Gmail access (searching all newsletters for 100 emails) and filesystem access to multiple locations (~/.claude, notes directory, references folder) for a content digest service. While some email access is needed for the stated purpose, searching \"label:Newsletters newer_than:Xh --limit 100\" is excessive for a daily digest. The skill also requires persistent tracking via timestamp files and writes to user notes without clear data minimization. A more privacy-preserving approach would limit to specific newsletter sources or use RSS feeds instead of full Gmail access.",
+      "impact": "OVERREACH: Data Over-collection & Permission Overreach - This skill requests broad Gmail access (searching all newsletters for 100 emails) and filesystem access to multiple locations (~/.claude, notes directory, references folder) for a content digest service. While some email access is needed for the stated purpose, searching \"label:Newsletters newer_than:Xh --limit 100\" is excessive for a daily digest. The skill also requires persistent tracking via timestamp files and writes to user notes without clear data minimization. A more privacy-preserving approach would limit to specific newsletter sources or use RSS feeds instead of full Gmail access.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Data Over-collection"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": true
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

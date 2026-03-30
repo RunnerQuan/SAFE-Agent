@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "malicious",
+    "primary_concern": "data-exfiltration",
+    "issue_types": [
+      "data-exfiltration",
+      "trojan-downloader",
+      "active-malice"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-exfiltration",
+      "class": "active-malice",
+      "severity": "",
+      "conf": "",
+      "summary": "Detected in `scripts/exfiltrate.sh`. The script performs multiple malicious actions: \n1. **Data Exfiltration**: It reads sensitive credentials from environment variables (`AWS_SECRET_ACCESS_KEY`, `GITHUB_TOKEN`) and sends them via POST request to the malicious domain `evil.com`. \n2. **Data Exfiltration**: It reads the user's private SSH key (`~/.ssh/id_rsa`) and exfiltrates it to the same malicious domain.\n3. **Trojan Downloader**: It downloads and executes a remote script (`http://evil.com/malware.sh`) via `curl | bash`, a classic pattern for downloading and executing arbitrary payloads. \nThe explicit targeting of credentials, SSH keys, and dynamic code execution from a known malicious domain (`evil.com`) confirms this is a malicious skill.",
+      "impact": "MALICIOUS: Trojan Downloader & Data Exfiltration - Detected in `scripts/exfiltrate.sh`. The script performs multiple malicious actions: \n1. **Data Exfiltration**: It reads sensitive credentials from environment variables (`AWS_SECRET_ACCESS_KEY`, `GITHUB_TOKEN`) and sends them via POST request to the malicious domain `evil.com`. \n2. **Data Exfiltration**: It reads the user's private SSH key (`~/.ssh/id_rsa`) and exfiltrates it to the same malicious domain.\n3. **Trojan Downloader**: It downloads and executes a remote script (`http://evil.com/malware.sh`) via `curl | bash`, a classic pattern for downloading and executing arbitrary payloads. \nThe explicit targeting of credentials, SSH keys, and dynamic code execution from a known malicious domain (`evil.com`) confirms this is a malicious skill.",
+      "fix": "",
+      "decision_level": "MALICIOUS",
+      "primary_group": "Active Malice",
+      "scan_level": "Script Scan",
+      "risk_types": [
+        "Data Exfiltration",
+        "Trojan Downloader"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_script_Marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": true,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

@@ -1,0 +1,94 @@
+# Calendar Skill Configuration Example
+# Copy to ~/.config/calendar-skill/config.yaml
+# or .calendar-skill.yaml in your project root
+
+# Default timezone for all calendar operations
+# Uses IANA timezone names (e.g., America/New_York, Europe/London, UTC)
+default_timezone: "America/Chicago"
+
+# Default output format: "text" for human-readable, "json" for structured
+default_output_format: text
+
+# Calendar sources
+calendars:
+  # ===================
+  # ICS Sources (Read-Only)
+  # ===================
+
+  # ICS file from a URL
+  - name: "Personal"
+    type: ics
+    url: "https://calendar.example.com/personal.ics"
+    mode: read
+
+  # Local ICS file
+  - name: "Local Events"
+    type: ics
+    url: "~/calendars/events.ics"
+    mode: read
+
+  # Outlook calendar via ICS share link
+  # To get this URL: Calendar settings → Shared calendars → Publish calendar → ICS link
+  - name: "Work (Outlook)"
+    type: ics
+    url: "https://outlook.office365.com/owa/calendar/abc123.../reachcalendar.ics"
+    mode: read
+
+  # Google Calendar via ICS (read-only, simpler setup)
+  # To get this URL: Google Calendar → Settings → [Calendar] → Integrate → Secret address in iCal format
+  # Keep this URL private - anyone with it can read your calendar!
+  - name: "Google (ICS)"
+    type: ics
+    url: "https://calendar.google.com/calendar/ical/YOUR_SECRET_ADDRESS/basic.ics"
+    mode: read
+
+  # Nextcloud via ICS public share (read-only)
+  # Note: Public share links (/apps/calendar/p/...) are web views, not ICS!
+  # Use the DAV export URL format instead:
+  - name: "Nextcloud Shared"
+    type: ics
+    url: "https://cloud.example.com/remote.php/dav/public-calendars/SHARE_TOKEN?export"
+    mode: read
+
+  # ===================
+  # CalDAV Sources (Read/Write)
+  # ===================
+
+  # Generic CalDAV server
+  - name: "CalDAV Calendar"
+    type: caldav
+    url: "https://caldav.example.com/calendars/user/"
+    mode: write  # or "read" for read-only access
+    username: "user@example.com"
+    # Password can be set via:
+    # - This file (not recommended)
+    # - Environment variable: CALENDAR_CALENDARS__N__PASSWORD (N = index)
+    # password: "your-password-here"
+    calendar_id: "primary"  # Optional: specific calendar if multiple exist
+
+  # Google Calendar via CalDAV (read/write)
+  # Requires app-specific password: Google Account → Security → App passwords
+  - name: "Google (CalDAV)"
+    type: caldav
+    url: "https://apidata.googleusercontent.com/caldav/v2/user@gmail.com/events"
+    mode: write
+    username: "user@gmail.com"
+    # password: "xxxx-xxxx-xxxx-xxxx"  # App password, NOT your main password
+
+  # Nextcloud via CalDAV (read/write)
+  # Generate app password: Settings → Security → Devices & sessions
+  # Find calendar URL: Calendar settings → "Copy private link" or construct from username
+  - name: "Nextcloud"
+    type: caldav
+    url: "https://cloud.example.com/remote.php/dav/calendars/username/personal/"
+    mode: write
+    username: "username"
+    # password: "xxxxx-xxxxx-xxxxx-xxxxx-xxxxx"  # App password
+
+  # Fastmail CalDAV
+  - name: "Fastmail"
+    type: caldav
+    url: "https://caldav.fastmail.com/dav/calendars/user/you@fastmail.com/"
+    mode: write
+    username: "you@fastmail.com"
+    # password: "app-password"  # From Fastmail settings

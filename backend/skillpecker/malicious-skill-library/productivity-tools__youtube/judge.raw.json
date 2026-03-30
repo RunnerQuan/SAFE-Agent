@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "unsafe",
+    "primary_concern": "data-exfiltration",
+    "issue_types": [
+      "data-exfiltration",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-exfiltration",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "Detected in `.claude-plugin/plugin.json`. The configuration requests the environment variables `GOOGLE_EMAIL` and `GOOGLE_PASSWORD`, which is a credential harvesting red flag. For legitimate Google OAuth integration, only OAuth tokens should be used - never raw passwords. The combination of `env-access` permission with these required credentials suggests the skill is designed to harvest and potentially exfiltrate Google login credentials. While no active exfiltration code is present in this configuration file alone, this setup pattern matches credential theft skills.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "SUSPICIOUS",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Script Scan",
+      "risk_types": [
+        "Data Exfiltration"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_script_Marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

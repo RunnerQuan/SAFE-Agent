@@ -1,0 +1,230 @@
+{
+  "preprocess": {
+    "skill": {
+      "root": "C:\\Files\\Study\\Codes\\Skill-Scan\\malicious-skill-library\\Unknown__Odoo_ashrf-in",
+      "claims": [
+        "The skill requires a Google API key and explicitly uses Gemini AI for anomaly detection and natural language queries, which likely involves transmitting sensitive financial data (e.g., invoices, expenses, bank logs) to external Google servers. This poses a significant privacy risk as the description does not disclose data handling practices, offer local processing alternatives, or ensure data minimization for confidential financial information, even though the primary purpose of financial intelligence could be achieved with more secure or local methods."
+      ],
+      "observed_kinds": [
+        "spreadsheet",
+        "imported_scan_result"
+      ]
+    },
+    "artifacts": [],
+    "rule_hits": [],
+    "coverage_gaps": [],
+    "stats": {
+      "artifact_count": 0,
+      "rule_hit_count": 1,
+      "severity_counts": {},
+      "rule_code_counts": {}
+    }
+  },
+  "triage": {
+    "skill": {
+      "claims": [
+        "The skill requires a Google API key and explicitly uses Gemini AI for anomaly detection and natural language queries, which likely involves transmitting sensitive financial data (e.g., invoices, expenses, bank logs) to external Google servers. This poses a significant privacy risk as the description does not disclose data handling practices, offer local processing alternatives, or ensure data minimization for confidential financial information, even though the primary purpose of financial intelligence could be achieved with more secure or local methods."
+      ],
+      "obs": [
+        "Description Scan"
+      ],
+      "high_risk_features": [
+        "api_key",
+        "credential_request",
+        "filesystem_access"
+      ]
+    },
+    "arts": [],
+    "xconcerns": [],
+    "retrieve": [],
+    "coverage": {
+      "total": 1,
+      "indexed": 1,
+      "gaps": []
+    }
+  },
+  "security": {
+    "findings": [
+      {
+        "id": "",
+        "cat": "privacy-violation",
+        "class": "data-governance-risk",
+        "severity": "",
+        "conf": "",
+        "summary": "The skill requires a Google API key and explicitly uses Gemini AI for anomaly detection and natural language queries, which likely involves transmitting sensitive financial data (e.g., invoices, expenses, bank logs) to external Google servers. This poses a significant privacy risk as the description does not disclose data handling practices, offer local processing alternatives, or ensure data minimization for confidential financial information, even though the primary purpose of financial intelligence could be achieved with more secure or local methods.",
+        "arts": [],
+        "spans": [],
+        "impact": "",
+        "fix": "",
+        "decision_level": "OVERREACH",
+        "primary_group": "Data Governance Risk",
+        "scan_level": "Description Scan",
+        "risk_types": [
+          "Privacy Violation"
+        ],
+        "source_platform": "Clawhub",
+        "source_file": "scan_results_description_clawhub.csv",
+        "related_file_count": "2",
+        "flags": {
+          "external_server": false,
+          "api_key": true,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": true,
+          "shell_or_command_execution": false,
+          "driver_or_installer": false,
+          "credential_request": true,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": false
+        }
+      }
+    ],
+    "ctx_requests": [],
+    "coverage": {
+      "reviewed_arts": [],
+      "unresolved_high_risk_arts": []
+    }
+  },
+  "judge": {
+    "verdict": {
+      "label": "mixed_risk",
+      "primary_concern": "privacy-violation",
+      "issue_types": [
+        "privacy-violation",
+        "data-governance-risk"
+      ]
+    },
+    "top_findings": [
+      {
+        "id": "",
+        "cat": "privacy-violation",
+        "class": "data-governance-risk",
+        "severity": "",
+        "conf": "",
+        "summary": "The skill requires a Google API key and explicitly uses Gemini AI for anomaly detection and natural language queries, which likely involves transmitting sensitive financial data (e.g., invoices, expenses, bank logs) to external Google servers. This poses a significant privacy risk as the description does not disclose data handling practices, offer local processing alternatives, or ensure data minimization for confidential financial information, even though the primary purpose of financial intelligence could be achieved with more secure or local methods.",
+        "impact": "",
+        "fix": "",
+        "decision_level": "OVERREACH",
+        "primary_group": "Data Governance Risk",
+        "scan_level": "Description Scan",
+        "risk_types": [
+          "Privacy Violation"
+        ],
+        "source_platform": "Clawhub",
+        "source_file": "scan_results_description_clawhub.csv",
+        "related_file_count": "2",
+        "flags": {
+          "external_server": false,
+          "api_key": true,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": true,
+          "shell_or_command_execution": false,
+          "driver_or_installer": false,
+          "credential_request": true,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": false
+        },
+        "spans": []
+      }
+    ],
+    "coverage_audit": {
+      "adequate": true,
+      "missed": [],
+      "needs_rescan": false
+    },
+    "next_action": "stop"
+  },
+  "excel_import": {
+    "record_count": 1,
+    "headers": [
+      "一级分类_判定级别",
+      "二级分类_主问题组",
+      "风险类型汇总",
+      "风险类型1",
+      "风险类型2",
+      "风险类型3",
+      "风险类型4",
+      "来源平台",
+      "扫描层级",
+      "原始业务分类",
+      "skill_name",
+      "关联文件数",
+      "原始来源文件",
+      "问题摘要",
+      "原始verdict",
+      "flag_外部服务器",
+      "flag_APIKey",
+      "flag_自治执行",
+      "flag_浏览器会话/凭据",
+      "flag_文件系统访问",
+      "flag_Shell/命令执行",
+      "flag_驱动/安装器",
+      "flag_凭据请求",
+      "flag_混淆/规避",
+      "flag_持久化/外部存储",
+      "清洗后原始说明"
+    ],
+    "records": [
+      {
+        "classification": {
+          "decision_level": "OVERREACH",
+          "primary_group": "Data Governance Risk",
+          "risk_summary": "Privacy Violation",
+          "risk_types": [
+            "Privacy Violation"
+          ],
+          "platform": "Clawhub",
+          "scan_level": "Description Scan",
+          "business_category": "Unknown",
+          "skill_name": "Odoo_ashrf-in",
+          "related_file_count": "2",
+          "source_file": "scan_results_description_clawhub.csv",
+          "problem_summary": "The skill requires a Google API key and explicitly uses Gemini AI for anomaly detection and natural language queries, which likely involves transmitting sensitive financial data (e.g., invoices, expenses, bank logs) to external Google servers. This poses a significant privacy risk as the description does not disclose data handling practices, offer local processing alternatives, or ensure data minimization for confidential financial information, even though the primary purpose of financial intelligence could be achieved with more secure or local methods.",
+          "raw_verdict": "OVERREACH: Privacy Violation - The skill requires a Google API key and explicitly uses Gemini AI for anomaly detection and natural language queries, which likely involves transmitting sensitive financial data (e.g., invoices, expenses, bank logs) to external Google servers. This poses a significant privacy risk as the description does not disclose data handling practices, offer local processing alternatives, or ensure data minimization for confidential financial information, even though the primary purpose of financial intelligence could be achieved with more secure or local methods.",
+          "cleaned_description": "",
+          "flags": {
+            "external_server": false,
+            "api_key": true,
+            "autonomous_execution": false,
+            "browser_session_or_credentials": false,
+            "filesystem_access": true,
+            "shell_or_command_execution": false,
+            "driver_or_installer": false,
+            "credential_request": true,
+            "obfuscation_or_evasion": false,
+            "persistence_or_external_storage": false
+          }
+        },
+        "raw_values": {
+          "一级分类_判定级别": "OVERREACH",
+          "二级分类_主问题组": "Data Governance Risk",
+          "风险类型汇总": "Privacy Violation",
+          "风险类型1": "Privacy Violation",
+          "风险类型2": "",
+          "风险类型3": "",
+          "风险类型4": "",
+          "来源平台": "Clawhub",
+          "扫描层级": "Description Scan",
+          "原始业务分类": "Unknown",
+          "skill_name": "Odoo_ashrf-in",
+          "关联文件数": 2,
+          "原始来源文件": "scan_results_description_clawhub.csv",
+          "问题摘要": "The skill requires a Google API key and explicitly uses Gemini AI for anomaly detection and natural language queries, which likely involves transmitting sensitive financial data (e.g., invoices, expenses, bank logs) to external Google servers. This poses a significant privacy risk as the description does not disclose data handling practices, offer local processing alternatives, or ensure data minimization for confidential financial information, even though the primary purpose of financial intelligence could be achieved with more secure or local methods.",
+          "原始verdict": "OVERREACH: Privacy Violation - The skill requires a Google API key and explicitly uses Gemini AI for anomaly detection and natural language queries, which likely involves transmitting sensitive financial data (e.g., invoices, expenses, bank logs) to external Google servers. This poses a significant privacy risk as the description does not disclose data handling practices, offer local processing alternatives, or ensure data minimization for confidential financial information, even though the primary purpose of financial intelligence could be achieved with more secure or local methods.",
+          "flag_外部服务器": "",
+          "flag_APIKey": "Y",
+          "flag_自治执行": "",
+          "flag_浏览器会话/凭据": "",
+          "flag_文件系统访问": "Y",
+          "flag_Shell/命令执行": "",
+          "flag_驱动/安装器": "",
+          "flag_凭据请求": "Y",
+          "flag_混淆/规避": "",
+          "flag_持久化/外部存储": "",
+          "清洗后原始说明": "OVERREACH: Privacy Violation - The skill requires a Google API key and explicitly uses Gemini AI for anomaly detection and natural language queries, which likely involves transmitting sensitive financial data (e.g., invoices, expenses, bank logs) to external Google servers. This poses a significant privacy risk as the description does not disclose data handling practices, offer local processing alternatives, or ensure data minimization for confidential financial information, even though the primary purpose of financial intelligence could be achieved with more secure or local methods."
+        }
+      }
+    ]
+  }
+}

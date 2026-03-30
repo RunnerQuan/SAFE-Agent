@@ -1,0 +1,34 @@
+{
+  "name": "adobe-express",
+  "displayName": "Adobe Express",
+  "version": "1.0.0",
+  "description": "Create quick graphics and content with Adobe Express - design social media posts, flyers, logos, and short videos",
+  "author": "Canifi LifeOS",
+  "category": "Design & Creative",
+  "authentication": {
+    "type": "browser",
+    "loginUrl": "https://express.adobe.com",
+    "loggedInIndicator": "[data-testid='user-profile']"
+  },
+  "capabilities": [
+    "create-graphics",
+    "design-social-posts",
+    "create-videos",
+    "remove-backgrounds",
+    "resize-designs",
+    "access-stock"
+  ],
+  "requiredEnvVars": [
+    "ADOBE_EMAIL",
+    "ADOBE_PASSWORD"
+  ],
+  "endpoints": {
+    "base": "https://express.adobe.com",
+    "projects": "https://express.adobe.com/projects",
+    "templates": "https://express.adobe.com/templates"
+  },
+  "rateLimit": {
+    "requests": 30,
+    "period": "minute"
+  }
+}

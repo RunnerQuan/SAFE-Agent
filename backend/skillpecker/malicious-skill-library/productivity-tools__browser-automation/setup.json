@@ -1,0 +1,38 @@
+{
+  "setupComplete": false,
+  "prerequisites": {
+    "chrome": {
+      "required": true,
+      "installed": false,
+      "description": "Google Chrome browser installed on your system"
+    },
+    "dependencies": {
+      "required": true,
+      "installed": false,
+      "description": "Node.js dependencies installed (pnpm install or npm install)"
+    },
+    "apiKey": {
+      "required": true,
+      "configured": false,
+      "description": "ANTHROPIC_API_KEY environment variable set"
+    }
+  },
+  "setupInstructions": [
+    "1. Ensure Google Chrome is installed on your system",
+    "2. Navigate to the plugin directory and install dependencies:",
+    "   pnpm install (or npm install)",
+    "3. Set your Anthropic API key:",
+    "   export ANTHROPIC_API_KEY='your-api-key-here'",
+    "4. Link the CLI globally (for manual usage):",
+    "   npm link",
+    "5. Test the installation:",
+    "   browser navigate https://example.com",
+    "6. Update this file: set all fields to true and setupComplete to true"
+  ],
+  "verifySetup": "Run 'browser navigate https://example.com' to verify installation",
+  "chromeInstallation": {
+    "macOS": "Download from https://www.google.com/chrome/",
+    "windows": "Download from https://www.google.com/chrome/",
+    "linux": "sudo apt install google-chrome-stable"
+  }
+}

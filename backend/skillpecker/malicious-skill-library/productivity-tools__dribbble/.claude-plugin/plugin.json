@@ -1,0 +1,34 @@
+{
+  "name": "dribbble",
+  "displayName": "Dribbble",
+  "version": "1.0.0",
+  "description": "Discover and share design work on Dribbble - browse design inspiration, manage portfolio, and find designers",
+  "author": "Canifi LifeOS",
+  "category": "Design & Creative",
+  "authentication": {
+    "type": "browser",
+    "loginUrl": "https://dribbble.com/session/new",
+    "loggedInIndicator": "[data-testid='user-menu']"
+  },
+  "capabilities": [
+    "browse-shots",
+    "save-collections",
+    "view-profiles",
+    "manage-uploads",
+    "follow-designers",
+    "search-jobs"
+  ],
+  "requiredEnvVars": [
+    "DRIBBBLE_EMAIL",
+    "DRIBBBLE_PASSWORD"
+  ],
+  "endpoints": {
+    "base": "https://dribbble.com",
+    "shots": "https://dribbble.com/shots",
+    "designers": "https://dribbble.com/designers"
+  },
+  "rateLimit": {
+    "requests": 60,
+    "period": "minute"
+  }
+}

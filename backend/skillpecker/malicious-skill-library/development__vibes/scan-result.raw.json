@@ -1,0 +1,229 @@
+{
+  "preprocess": {
+    "skill": {
+      "root": "C:\\Files\\Study\\Codes\\Skill-Scan\\malicious-skill-library\\development__vibes",
+      "claims": [
+        "The skill requests excessive system access and performs actions unrelated to code generation. While generating React apps with Fireproof is the stated purpose, the skill demands:\n1. **Bash command execution** with broad system access (checking/grep-ing .env files, cloning repositories, running Docker)\n2. **Access to sensitive authentication keys** (Clerk publishable/secret keys) that should be handled by the user's development environment, not collected by the skill\n3. **Execution of external scripts** (setup-connect.js) with unknown security implications\n4. **Docker container management** (starting/stopping services) which is infrastructure management, not code generation\n\nThe skill's primary function is generating React code, but it overreaches by demanding infrastructure setup, credential collection, and system-level operations that should be separate concerns. A code generation tool should not require or manage authentication keys, Docker services, or run arbitrary bash scripts on the user's system."
+      ],
+      "observed_kinds": [
+        "spreadsheet",
+        "imported_scan_result"
+      ]
+    },
+    "artifacts": [],
+    "rule_hits": [],
+    "coverage_gaps": [],
+    "stats": {
+      "artifact_count": 0,
+      "rule_hit_count": 1,
+      "severity_counts": {},
+      "rule_code_counts": {}
+    }
+  },
+  "triage": {
+    "skill": {
+      "claims": [
+        "The skill requests excessive system access and performs actions unrelated to code generation. While generating React apps with Fireproof is the stated purpose, the skill demands:\n1. **Bash command execution** with broad system access (checking/grep-ing .env files, cloning repositories, running Docker)\n2. **Access to sensitive authentication keys** (Clerk publishable/secret keys) that should be handled by the user's development environment, not collected by the skill\n3. **Execution of external scripts** (setup-connect.js) with unknown security implications\n4. **Docker container management** (starting/stopping services) which is infrastructure management, not code generation\n\nThe skill's primary function is generating React code, but it overreaches by demanding infrastructure setup, credential collection, and system-level operations that should be separate concerns. A code generation tool should not require or manage authentication keys, Docker services, or run arbitrary bash scripts on the user's system."
+      ],
+      "obs": [
+        "Description Scan"
+      ],
+      "high_risk_features": [
+        "filesystem_access",
+        "shell_or_command_execution"
+      ]
+    },
+    "arts": [],
+    "xconcerns": [],
+    "retrieve": [],
+    "coverage": {
+      "total": 1,
+      "indexed": 1,
+      "gaps": []
+    }
+  },
+  "security": {
+    "findings": [
+      {
+        "id": "",
+        "cat": "permission-overreach",
+        "class": "access-boundary-risk",
+        "severity": "",
+        "conf": "",
+        "summary": "The skill requests excessive system access and performs actions unrelated to code generation. While generating React apps with Fireproof is the stated purpose, the skill demands:\n1. **Bash command execution** with broad system access (checking/grep-ing .env files, cloning repositories, running Docker)\n2. **Access to sensitive authentication keys** (Clerk publishable/secret keys) that should be handled by the user's development environment, not collected by the skill\n3. **Execution of external scripts** (setup-connect.js) with unknown security implications\n4. **Docker container management** (starting/stopping services) which is infrastructure management, not code generation\n\nThe skill's primary function is generating React code, but it overreaches by demanding infrastructure setup, credential collection, and system-level operations that should be separate concerns. A code generation tool should not require or manage authentication keys, Docker services, or run arbitrary bash scripts on the user's system.",
+        "arts": [],
+        "spans": [],
+        "impact": "OVERREACH: Permission Overreach - The skill requests excessive system access and performs actions unrelated to code generation. While generating React apps with Fireproof is the stated purpose, the skill demands:\n1. **Bash command execution** with broad system access (checking/grep-ing .env files, cloning repositories, running Docker)\n2. **Access to sensitive authentication keys** (Clerk publishable/secret keys) that should be handled by the user's development environment, not collected by the skill\n3. **Execution of external scripts** (setup-connect.js) with unknown security implications\n4. **Docker container management** (starting/stopping services) which is infrastructure management, not code generation\n\nThe skill's primary function is generating React code, but it overreaches by demanding infrastructure setup, credential collection, and system-level operations that should be separate concerns. A code generation tool should not require or manage authentication keys, Docker services, or run arbitrary bash scripts on the user's system.",
+        "fix": "",
+        "decision_level": "OVERREACH",
+        "primary_group": "Access Boundary Risk",
+        "scan_level": "Description Scan",
+        "risk_types": [
+          "Permission Overreach"
+        ],
+        "source_platform": "Marketplace",
+        "source_file": "scan_results_description_marketplace.csv",
+        "related_file_count": "4",
+        "flags": {
+          "external_server": false,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": true,
+          "shell_or_command_execution": true,
+          "driver_or_installer": false,
+          "credential_request": false,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": false
+        }
+      }
+    ],
+    "ctx_requests": [],
+    "coverage": {
+      "reviewed_arts": [],
+      "unresolved_high_risk_arts": []
+    }
+  },
+  "judge": {
+    "verdict": {
+      "label": "mixed_risk",
+      "primary_concern": "permission-overreach",
+      "issue_types": [
+        "permission-overreach",
+        "access-boundary-risk"
+      ]
+    },
+    "top_findings": [
+      {
+        "id": "",
+        "cat": "permission-overreach",
+        "class": "access-boundary-risk",
+        "severity": "",
+        "conf": "",
+        "summary": "The skill requests excessive system access and performs actions unrelated to code generation. While generating React apps with Fireproof is the stated purpose, the skill demands:\n1. **Bash command execution** with broad system access (checking/grep-ing .env files, cloning repositories, running Docker)\n2. **Access to sensitive authentication keys** (Clerk publishable/secret keys) that should be handled by the user's development environment, not collected by the skill\n3. **Execution of external scripts** (setup-connect.js) with unknown security implications\n4. **Docker container management** (starting/stopping services) which is infrastructure management, not code generation\n\nThe skill's primary function is generating React code, but it overreaches by demanding infrastructure setup, credential collection, and system-level operations that should be separate concerns. A code generation tool should not require or manage authentication keys, Docker services, or run arbitrary bash scripts on the user's system.",
+        "impact": "OVERREACH: Permission Overreach - The skill requests excessive system access and performs actions unrelated to code generation. While generating React apps with Fireproof is the stated purpose, the skill demands:\n1. **Bash command execution** with broad system access (checking/grep-ing .env files, cloning repositories, running Docker)\n2. **Access to sensitive authentication keys** (Clerk publishable/secret keys) that should be handled by the user's development environment, not collected by the skill\n3. **Execution of external scripts** (setup-connect.js) with unknown security implications\n4. **Docker container management** (starting/stopping services) which is infrastructure management, not code generation\n\nThe skill's primary function is generating React code, but it overreaches by demanding infrastructure setup, credential collection, and system-level operations that should be separate concerns. A code generation tool should not require or manage authentication keys, Docker services, or run arbitrary bash scripts on the user's system.",
+        "fix": "",
+        "decision_level": "OVERREACH",
+        "primary_group": "Access Boundary Risk",
+        "scan_level": "Description Scan",
+        "risk_types": [
+          "Permission Overreach"
+        ],
+        "source_platform": "Marketplace",
+        "source_file": "scan_results_description_marketplace.csv",
+        "related_file_count": "4",
+        "flags": {
+          "external_server": false,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": true,
+          "shell_or_command_execution": true,
+          "driver_or_installer": false,
+          "credential_request": false,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": false
+        },
+        "spans": []
+      }
+    ],
+    "coverage_audit": {
+      "adequate": true,
+      "missed": [],
+      "needs_rescan": false
+    },
+    "next_action": "stop"
+  },
+  "excel_import": {
+    "record_count": 1,
+    "headers": [
+      "一级分类_判定级别",
+      "二级分类_主问题组",
+      "风险类型汇总",
+      "风险类型1",
+      "风险类型2",
+      "风险类型3",
+      "风险类型4",
+      "来源平台",
+      "扫描层级",
+      "原始业务分类",
+      "skill_name",
+      "关联文件数",
+      "原始来源文件",
+      "问题摘要",
+      "原始verdict",
+      "flag_外部服务器",
+      "flag_APIKey",
+      "flag_自治执行",
+      "flag_浏览器会话/凭据",
+      "flag_文件系统访问",
+      "flag_Shell/命令执行",
+      "flag_驱动/安装器",
+      "flag_凭据请求",
+      "flag_混淆/规避",
+      "flag_持久化/外部存储",
+      "清洗后原始说明"
+    ],
+    "records": [
+      {
+        "classification": {
+          "decision_level": "OVERREACH",
+          "primary_group": "Access Boundary Risk",
+          "risk_summary": "Permission Overreach",
+          "risk_types": [
+            "Permission Overreach"
+          ],
+          "platform": "Marketplace",
+          "scan_level": "Description Scan",
+          "business_category": "development",
+          "skill_name": "vibes",
+          "related_file_count": "4",
+          "source_file": "scan_results_description_marketplace.csv",
+          "problem_summary": "The skill requests excessive system access and performs actions unrelated to code generation. While generating React apps with Fireproof is the stated purpose, the skill demands:\n1. **Bash command execution** with broad system access (checking/grep-ing .env files, cloning repositories, running Docker)\n2. **Access to sensitive authentication keys** (Clerk publishable/secret keys) that should be handled by the user's development environment, not collected by the skill\n3. **Execution of external scripts** (setup-connect.js) with unknown security implications\n4. **Docker container management** (starting/stopping services) which is infrastructure management, not code generation\n\nThe skill's primary function is generating React code, but it overreaches by demanding infrastructure setup, credential collection, and system-level operations that should be separate concerns. A code generation tool should not require or manage authentication keys, Docker services, or run arbitrary bash scripts on the user's system.",
+          "raw_verdict": "OVERREACH: Permission Overreach - The skill requests excessive system access and performs actions unrelated to code generation. While generating React apps with Fireproof is the stated purpose, the skill demands:\n1. **Bash command execution** with broad system access (checking/grep-ing .env files, cloning repositories, running Docker)\n2. **Access to sensitive authentication keys** (Clerk publishable/secret keys) that should be handled by the user's development environment, not collected by the skill\n3. **Execution of external scripts** (setup-connect.js) with unknown security implications\n4. **Docker container management** (starting/stopping services) which is infrastructure management, not code generation\n\nThe skill's primary function is generating React code, but it overreaches by demanding infrastructure setup, credential collection, and system-level operations that should be separate concerns. A code generation tool should not require or manage authentication keys, Docker services, or run arbitrary bash scripts on the user's system.",
+          "cleaned_description": "",
+          "flags": {
+            "external_server": false,
+            "api_key": false,
+            "autonomous_execution": false,
+            "browser_session_or_credentials": false,
+            "filesystem_access": true,
+            "shell_or_command_execution": true,
+            "driver_or_installer": false,
+            "credential_request": false,
+            "obfuscation_or_evasion": false,
+            "persistence_or_external_storage": false
+          }
+        },
+        "raw_values": {
+          "一级分类_判定级别": "OVERREACH",
+          "二级分类_主问题组": "Access Boundary Risk",
+          "风险类型汇总": "Permission Overreach",
+          "风险类型1": "Permission Overreach",
+          "风险类型2": "",
+          "风险类型3": "",
+          "风险类型4": "",
+          "来源平台": "Marketplace",
+          "扫描层级": "Description Scan",
+          "原始业务分类": "development",
+          "skill_name": "vibes",
+          "关联文件数": 4,
+          "原始来源文件": "scan_results_description_marketplace.csv",
+          "问题摘要": "The skill requests excessive system access and performs actions unrelated to code generation. While generating React apps with Fireproof is the stated purpose, the skill demands:\n1. **Bash command execution** with broad system access (checking/grep-ing .env files, cloning repositories, running Docker)\n2. **Access to sensitive authentication keys** (Clerk publishable/secret keys) that should be handled by the user's development environment, not collected by the skill\n3. **Execution of external scripts** (setup-connect.js) with unknown security implications\n4. **Docker container management** (starting/stopping services) which is infrastructure management, not code generation\n\nThe skill's primary function is generating React code, but it overreaches by demanding infrastructure setup, credential collection, and system-level operations that should be separate concerns. A code generation tool should not require or manage authentication keys, Docker services, or run arbitrary bash scripts on the user's system.",
+          "原始verdict": "OVERREACH: Permission Overreach - The skill requests excessive system access and performs actions unrelated to code generation. While generating React apps with Fireproof is the stated purpose, the skill demands:\n1. **Bash command execution** with broad system access (checking/grep-ing .env files, cloning repositories, running Docker)\n2. **Access to sensitive authentication keys** (Clerk publishable/secret keys) that should be handled by the user's development environment, not collected by the skill\n3. **Execution of external scripts** (setup-connect.js) with unknown security implications\n4. **Docker container management** (starting/stopping services) which is infrastructure management, not code generation\n\nThe skill's primary function is generating React code, but it overreaches by demanding infrastructure setup, credential collection, and system-level operations that should be separate concerns. A code generation tool should not require or manage authentication keys, Docker services, or run arbitrary bash scripts on the user's system.",
+          "flag_外部服务器": "",
+          "flag_APIKey": "",
+          "flag_自治执行": "",
+          "flag_浏览器会话/凭据": "",
+          "flag_文件系统访问": "Y",
+          "flag_Shell/命令执行": "Y",
+          "flag_驱动/安装器": "",
+          "flag_凭据请求": "",
+          "flag_混淆/规避": "",
+          "flag_持久化/外部存储": "",
+          "清洗后原始说明": "OVERREACH: Permission Overreach - The skill requests excessive system access and performs actions unrelated to code generation. While generating React apps with Fireproof is the stated purpose, the skill demands:\n1. **Bash command execution** with broad system access (checking/grep-ing .env files, cloning repositories, running Docker)\n2. **Access to sensitive authentication keys** (Clerk publishable/secret keys) that should be handled by the user's development environment, not collected by the skill\n3. **Execution of external scripts** (setup-connect.js) with unknown security implications\n4. **Docker container management** (starting/stopping services) which is infrastructure management, not code generation\n\nThe skill's primary function is generating React code, but it overreaches by demanding infrastructure setup, credential collection, and system-level operations that should be separate concerns. A code generation tool should not require or manage authentication keys, Docker services, or run arbitrary bash scripts on the user's system."
+        }
+      }
+    ]
+  }
+}

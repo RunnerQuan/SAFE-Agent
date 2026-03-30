@@ -1,0 +1,233 @@
+{
+  "preprocess": {
+    "skill": {
+      "root": "C:\\Files\\Study\\Codes\\Skill-Scan\\malicious-skill-library\\business__incoterms-compliance-checker",
+      "claims": [
+        "The skill requests permission to execute arbitrary Bash commands and perform unrestricted file system operations (Read, Write, Glob, Grep) which are excessive for its stated purpose of validating shipping terms and compliance. While accessing external APIs (WebFetch) for trade data and customs information is reasonable, the ability to run arbitrary system commands and access any file on the system creates unnecessary security risks and could be used for actions unrelated to compliance checking, such as modifying system files or executing malicious payloads. A more restricted permission set limited to API calls and specific data file access would be sufficient for the described capabilities."
+      ],
+      "observed_kinds": [
+        "spreadsheet",
+        "imported_scan_result"
+      ]
+    },
+    "artifacts": [],
+    "rule_hits": [],
+    "coverage_gaps": [],
+    "stats": {
+      "artifact_count": 0,
+      "rule_hit_count": 1,
+      "severity_counts": {},
+      "rule_code_counts": {}
+    }
+  },
+  "triage": {
+    "skill": {
+      "claims": [
+        "The skill requests permission to execute arbitrary Bash commands and perform unrestricted file system operations (Read, Write, Glob, Grep) which are excessive for its stated purpose of validating shipping terms and compliance. While accessing external APIs (WebFetch) for trade data and customs information is reasonable, the ability to run arbitrary system commands and access any file on the system creates unnecessary security risks and could be used for actions unrelated to compliance checking, such as modifying system files or executing malicious payloads. A more restricted permission set limited to API calls and specific data file access would be sufficient for the described capabilities."
+      ],
+      "obs": [
+        "Description Scan"
+      ],
+      "high_risk_features": [
+        "external_server",
+        "shell_or_command_execution"
+      ]
+    },
+    "arts": [],
+    "xconcerns": [],
+    "retrieve": [],
+    "coverage": {
+      "total": 1,
+      "indexed": 1,
+      "gaps": []
+    }
+  },
+  "security": {
+    "findings": [
+      {
+        "id": "",
+        "cat": "permission-overreach",
+        "class": "access-boundary-risk",
+        "severity": "",
+        "conf": "",
+        "summary": "The skill requests permission to execute arbitrary Bash commands and perform unrestricted file system operations (Read, Write, Glob, Grep) which are excessive for its stated purpose of validating shipping terms and compliance. While accessing external APIs (WebFetch) for trade data and customs information is reasonable, the ability to run arbitrary system commands and access any file on the system creates unnecessary security risks and could be used for actions unrelated to compliance checking, such as modifying system files or executing malicious payloads. A more restricted permission set limited to API calls and specific data file access would be sufficient for the described capabilities.",
+        "arts": [],
+        "spans": [],
+        "impact": "",
+        "fix": "",
+        "decision_level": "OVERREACH",
+        "primary_group": "Access Boundary Risk",
+        "scan_level": "Description Scan",
+        "risk_types": [
+          "Permission Overreach",
+          "Security Risk"
+        ],
+        "source_platform": "Marketplace",
+        "source_file": "scan_results_description_marketplace.csv",
+        "related_file_count": "1",
+        "flags": {
+          "external_server": true,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": false,
+          "shell_or_command_execution": true,
+          "driver_or_installer": false,
+          "credential_request": false,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": false
+        }
+      }
+    ],
+    "ctx_requests": [],
+    "coverage": {
+      "reviewed_arts": [],
+      "unresolved_high_risk_arts": []
+    }
+  },
+  "judge": {
+    "verdict": {
+      "label": "mixed_risk",
+      "primary_concern": "permission-overreach",
+      "issue_types": [
+        "permission-overreach",
+        "security-risk",
+        "access-boundary-risk"
+      ]
+    },
+    "top_findings": [
+      {
+        "id": "",
+        "cat": "permission-overreach",
+        "class": "access-boundary-risk",
+        "severity": "",
+        "conf": "",
+        "summary": "The skill requests permission to execute arbitrary Bash commands and perform unrestricted file system operations (Read, Write, Glob, Grep) which are excessive for its stated purpose of validating shipping terms and compliance. While accessing external APIs (WebFetch) for trade data and customs information is reasonable, the ability to run arbitrary system commands and access any file on the system creates unnecessary security risks and could be used for actions unrelated to compliance checking, such as modifying system files or executing malicious payloads. A more restricted permission set limited to API calls and specific data file access would be sufficient for the described capabilities.",
+        "impact": "",
+        "fix": "",
+        "decision_level": "OVERREACH",
+        "primary_group": "Access Boundary Risk",
+        "scan_level": "Description Scan",
+        "risk_types": [
+          "Permission Overreach",
+          "Security Risk"
+        ],
+        "source_platform": "Marketplace",
+        "source_file": "scan_results_description_marketplace.csv",
+        "related_file_count": "1",
+        "flags": {
+          "external_server": true,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": false,
+          "shell_or_command_execution": true,
+          "driver_or_installer": false,
+          "credential_request": false,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": false
+        },
+        "spans": []
+      }
+    ],
+    "coverage_audit": {
+      "adequate": true,
+      "missed": [],
+      "needs_rescan": false
+    },
+    "next_action": "stop"
+  },
+  "excel_import": {
+    "record_count": 1,
+    "headers": [
+      "一级分类_判定级别",
+      "二级分类_主问题组",
+      "风险类型汇总",
+      "风险类型1",
+      "风险类型2",
+      "风险类型3",
+      "风险类型4",
+      "来源平台",
+      "扫描层级",
+      "原始业务分类",
+      "skill_name",
+      "关联文件数",
+      "原始来源文件",
+      "问题摘要",
+      "原始verdict",
+      "flag_外部服务器",
+      "flag_APIKey",
+      "flag_自治执行",
+      "flag_浏览器会话/凭据",
+      "flag_文件系统访问",
+      "flag_Shell/命令执行",
+      "flag_驱动/安装器",
+      "flag_凭据请求",
+      "flag_混淆/规避",
+      "flag_持久化/外部存储",
+      "清洗后原始说明"
+    ],
+    "records": [
+      {
+        "classification": {
+          "decision_level": "OVERREACH",
+          "primary_group": "Access Boundary Risk",
+          "risk_summary": "Permission Overreach | Security Risk",
+          "risk_types": [
+            "Permission Overreach",
+            "Security Risk"
+          ],
+          "platform": "Marketplace",
+          "scan_level": "Description Scan",
+          "business_category": "business",
+          "skill_name": "incoterms-compliance-checker",
+          "related_file_count": "1",
+          "source_file": "scan_results_description_marketplace.csv",
+          "problem_summary": "The skill requests permission to execute arbitrary Bash commands and perform unrestricted file system operations (Read, Write, Glob, Grep) which are excessive for its stated purpose of validating shipping terms and compliance. While accessing external APIs (WebFetch) for trade data and customs information is reasonable, the ability to run arbitrary system commands and access any file on the system creates unnecessary security risks and could be used for actions unrelated to compliance checking, such as modifying system files or executing malicious payloads. A more restricted permission set limited to API calls and specific data file access would be sufficient for the described capabilities.",
+          "raw_verdict": "OVERREACH: Permission Overreach - The skill requests permission to execute arbitrary Bash commands and perform unrestricted file system operations (Read, Write, Glob, Grep) which are excessive for its stated purpose of validating shipping terms and compliance. While accessing external APIs (WebFetch) for trade data and customs information is reasonable, the ability to run arbitrary system commands and access any file on the system creates unnecessary security risks and could be used for actions unrelated to compliance checking, such as modifying system files or executing malicious payloads. A more restricted permission set limited to API calls and specific data file access would be sufficient for the described capabilities.",
+          "cleaned_description": "",
+          "flags": {
+            "external_server": true,
+            "api_key": false,
+            "autonomous_execution": false,
+            "browser_session_or_credentials": false,
+            "filesystem_access": false,
+            "shell_or_command_execution": true,
+            "driver_or_installer": false,
+            "credential_request": false,
+            "obfuscation_or_evasion": false,
+            "persistence_or_external_storage": false
+          }
+        },
+        "raw_values": {
+          "一级分类_判定级别": "OVERREACH",
+          "二级分类_主问题组": "Access Boundary Risk",
+          "风险类型汇总": "Permission Overreach | Security Risk",
+          "风险类型1": "Permission Overreach",
+          "风险类型2": "Security Risk",
+          "风险类型3": "",
+          "风险类型4": "",
+          "来源平台": "Marketplace",
+          "扫描层级": "Description Scan",
+          "原始业务分类": "business",
+          "skill_name": "incoterms-compliance-checker",
+          "关联文件数": 1,
+          "原始来源文件": "scan_results_description_marketplace.csv",
+          "问题摘要": "The skill requests permission to execute arbitrary Bash commands and perform unrestricted file system operations (Read, Write, Glob, Grep) which are excessive for its stated purpose of validating shipping terms and compliance. While accessing external APIs (WebFetch) for trade data and customs information is reasonable, the ability to run arbitrary system commands and access any file on the system creates unnecessary security risks and could be used for actions unrelated to compliance checking, such as modifying system files or executing malicious payloads. A more restricted permission set limited to API calls and specific data file access would be sufficient for the described capabilities.",
+          "原始verdict": "OVERREACH: Permission Overreach - The skill requests permission to execute arbitrary Bash commands and perform unrestricted file system operations (Read, Write, Glob, Grep) which are excessive for its stated purpose of validating shipping terms and compliance. While accessing external APIs (WebFetch) for trade data and customs information is reasonable, the ability to run arbitrary system commands and access any file on the system creates unnecessary security risks and could be used for actions unrelated to compliance checking, such as modifying system files or executing malicious payloads. A more restricted permission set limited to API calls and specific data file access would be sufficient for the described capabilities.",
+          "flag_外部服务器": "Y",
+          "flag_APIKey": "",
+          "flag_自治执行": "",
+          "flag_浏览器会话/凭据": "",
+          "flag_文件系统访问": "",
+          "flag_Shell/命令执行": "Y",
+          "flag_驱动/安装器": "",
+          "flag_凭据请求": "",
+          "flag_混淆/规避": "",
+          "flag_持久化/外部存储": "",
+          "清洗后原始说明": "OVERREACH: Permission Overreach - The skill requests permission to execute arbitrary Bash commands and perform unrestricted file system operations (Read, Write, Glob, Grep) which are excessive for its stated purpose of validating shipping terms and compliance. While accessing external APIs (WebFetch) for trade data and customs information is reasonable, the ability to run arbitrary system commands and access any file on the system creates unnecessary security risks and could be used for actions unrelated to compliance checking, such as modifying system files or executing malicious payloads. A more restricted permission set limited to API calls and specific data file access would be sufficient for the described capabilities."
+        }
+      }
+    ]
+  }
+}

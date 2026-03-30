@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "data-over-collection",
+    "issue_types": [
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-over-collection",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill description in SKILL.md describes creating software project templates with local file operations (Bash, Read, Write), but the references/guide.md and references/mcp-tools.md documents reveal this skill is actually designed to collect and store precise GPS coordinates (latitude/longitude) for trip logging purposes. This represents significant overcollection: a \"project template creation\" skill should not require or process real-time GPS location data, route calculations, or personal/business trip patterns. The GPS data collection is completely unrelated to the stated purpose of creating code project templates with CI/CD integrations.",
+      "impact": "OVERREACH: Data Over-collection - The skill description in SKILL.md describes creating software project templates with local file operations (Bash, Read, Write), but the references/guide.md and references/mcp-tools.md documents reveal this skill is actually designed to collect and store precise GPS coordinates (latitude/longitude) for trip logging purposes. This represents significant overcollection: a \"project template creation\" skill should not require or process real-time GPS location data, route calculations, or personal/business trip patterns. The GPS data collection is completely unrelated to the stated purpose of creating code project templates with CI/CD integrations.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Data Over-collection"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "3",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": true
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

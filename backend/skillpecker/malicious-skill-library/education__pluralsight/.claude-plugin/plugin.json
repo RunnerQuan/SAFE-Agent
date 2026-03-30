@@ -1,0 +1,35 @@
+{
+  "name": "pluralsight",
+  "version": "1.0.0",
+  "description": "Access Pluralsight tech and creative courses for professionals",
+  "author": "Canifi LifeOS",
+  "homepage": "https://www.pluralsight.com",
+  "categories": ["education", "learning", "technology"],
+  "capabilities": [
+    "course-browsing",
+    "skill-assessment",
+    "progress-tracking",
+    "learning-paths"
+  ],
+  "authentication": {
+    "type": "credentials",
+    "provider": "pluralsight",
+    "required": true
+  },
+  "environmentVariables": [
+    {
+      "name": "PLURALSIGHT_EMAIL",
+      "description": "Pluralsight account email address",
+      "required": true
+    }
+  ],
+  "triggers": [
+    "pluralsight",
+    "tech course",
+    "skill iq",
+    "developer training"
+  ],
+  "dependencies": {
+    "mcp": ["playwright"]
+  }
+}

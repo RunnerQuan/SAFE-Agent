@@ -1,0 +1,54 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "data-over-collection",
+      "privilege-escalation",
+      "execution-system-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "execution-system-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "While the skill's stated purpose is \"test migrations, integrity, and query performance,\" its requirements are broad and excessive for a testing tool. It demands:\n1. **Access to \"system context (repos, infra, environments)\"** - far broader than necessary for database testing (which should be confined to database systems).\n2. **\"Credentials or access tokens for required environments\"** - a testing tool should operate with scoped, test-environment credentials, not broad production access tokens.\n3. **Responsibilities spanning design, architecture selection, compliance controls, and rollback procedures** - this skill's description conflates database testing with full-scale system design, deployment, and operations, which is a significant scope overreach and could lead to privilege escalation if implemented as described.",
+      "impact": "OVERREACH: Permission Overreach & Data Over-collection - While the skill's stated purpose is \"test migrations, integrity, and query performance,\" its requirements are broad and excessive for a testing tool. It demands:\n1. **Access to \"system context (repos, infra, environments)\"** - far broader than necessary for database testing (which should be confined to database systems).\n2. **\"Credentials or access tokens for required environments\"** - a testing tool should operate with scoped, test-environment credentials, not broad production access tokens.\n3. **Responsibilities spanning design, architecture selection, compliance controls, and rollback procedures** - this skill's description conflates database testing with full-scale system design, deployment, and operations, which is a significant scope overreach and could lead to privilege escalation if implemented as described.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Execution / System Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Data Over-collection",
+        "Privilege Escalation"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

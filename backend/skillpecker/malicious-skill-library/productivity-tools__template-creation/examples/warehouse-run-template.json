@@ -1,0 +1,27 @@
+{
+  "template_id": "tpl-123-warehouse",
+  "name": "Warehouse Run",
+  "from_coords": {
+    "lat": 48.1486,
+    "lng": 17.1077
+  },
+  "from_address": "Hlavná 45, Bratislava",
+  "from_label": "Bratislava Office",
+  "to_coords": {
+    "lat": 48.7164,
+    "lng": 21.2611
+  },
+  "to_address": "Mlynská 45, Košice",
+  "to_label": "Košice Warehouse",
+  "distance_km": 410,
+  "is_round_trip": true,
+  "typical_days": [
+    "Monday",
+    "Thursday"
+  ],
+  "purpose": "business",
+  "business_description": "Weekly warehouse pickup and delivery",
+  "completeness_score": 0.95,
+  "created_at": "2025-11-15T09:30:00Z",
+  "notes": "Complete template with 95% completeness. GPS coordinates mandatory (70% matching weight), addresses optional (30% matching weight). Round trip doubles distance to 820km total."
+}

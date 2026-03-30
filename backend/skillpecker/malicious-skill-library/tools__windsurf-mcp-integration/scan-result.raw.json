@@ -1,0 +1,244 @@
+{
+  "preprocess": {
+    "skill": {
+      "root": "C:\\Files\\Study\\Codes\\Skill-Scan\\malicious-skill-library\\tools__windsurf-mcp-integration",
+      "claims": [
+        "The skill requests unrestricted permission to execute any Bash command via \"Bash(cmd:*)\", which is excessive for its primary purpose of managing MCP server configuration and integration. While some command execution might be necessary for tasks like installing packages or starting servers, granting blanket access to all Bash commands could enable actions unrelated to MCP integration, such as arbitrary system modifications, data exfiltration, or privilege escalation, posing a significant security risk. The skill should be limited to specific, whitelisted commands directly tied to MCP server management to adhere to the principle of least privilege."
+      ],
+      "observed_kinds": [
+        "spreadsheet",
+        "imported_scan_result"
+      ]
+    },
+    "artifacts": [],
+    "rule_hits": [],
+    "coverage_gaps": [],
+    "stats": {
+      "artifact_count": 0,
+      "rule_hit_count": 1,
+      "severity_counts": {},
+      "rule_code_counts": {}
+    }
+  },
+  "triage": {
+    "skill": {
+      "claims": [
+        "The skill requests unrestricted permission to execute any Bash command via \"Bash(cmd:*)\", which is excessive for its primary purpose of managing MCP server configuration and integration. While some command execution might be necessary for tasks like installing packages or starting servers, granting blanket access to all Bash commands could enable actions unrelated to MCP integration, such as arbitrary system modifications, data exfiltration, or privilege escalation, posing a significant security risk. The skill should be limited to specific, whitelisted commands directly tied to MCP server management to adhere to the principle of least privilege."
+      ],
+      "obs": [
+        "Description Scan"
+      ],
+      "high_risk_features": [
+        "shell_or_command_execution"
+      ]
+    },
+    "arts": [],
+    "xconcerns": [],
+    "retrieve": [],
+    "coverage": {
+      "total": 1,
+      "indexed": 1,
+      "gaps": []
+    }
+  },
+  "security": {
+    "findings": [
+      {
+        "id": "",
+        "cat": "permission-overreach-action",
+        "class": "execution-system-risk",
+        "severity": "",
+        "conf": "",
+        "summary": "The skill requests unrestricted permission to execute any Bash command via \"Bash(cmd:*)\", which is excessive for its primary purpose of managing MCP server configuration and integration. While some command execution might be necessary for tasks like installing packages or starting servers, granting blanket access to all Bash commands could enable actions unrelated to MCP integration, such as arbitrary system modifications, data exfiltration, or privilege escalation, posing a significant security risk. The skill should be limited to specific, whitelisted commands directly tied to MCP server management to adhere to the principle of least privilege.",
+        "arts": [],
+        "spans": [],
+        "impact": "",
+        "fix": "",
+        "decision_level": "OVERREACH",
+        "primary_group": "Execution / System Risk",
+        "scan_level": "Description Scan",
+        "risk_types": [
+          "Permission Overreach (Action)",
+          "Permission Overreach",
+          "Privilege Escalation",
+          "Data Exfiltration",
+          "Security Risk"
+        ],
+        "source_platform": "Marketplace",
+        "source_file": "scan_results_description_marketplace.csv",
+        "related_file_count": "5",
+        "flags": {
+          "external_server": false,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": false,
+          "shell_or_command_execution": true,
+          "driver_or_installer": false,
+          "credential_request": false,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": false
+        }
+      }
+    ],
+    "ctx_requests": [],
+    "coverage": {
+      "reviewed_arts": [],
+      "unresolved_high_risk_arts": []
+    }
+  },
+  "judge": {
+    "verdict": {
+      "label": "mixed_risk",
+      "primary_concern": "permission-overreach-action",
+      "issue_types": [
+        "permission-overreach-action",
+        "permission-overreach",
+        "privilege-escalation",
+        "data-exfiltration",
+        "security-risk",
+        "execution-system-risk"
+      ]
+    },
+    "top_findings": [
+      {
+        "id": "",
+        "cat": "permission-overreach-action",
+        "class": "execution-system-risk",
+        "severity": "",
+        "conf": "",
+        "summary": "The skill requests unrestricted permission to execute any Bash command via \"Bash(cmd:*)\", which is excessive for its primary purpose of managing MCP server configuration and integration. While some command execution might be necessary for tasks like installing packages or starting servers, granting blanket access to all Bash commands could enable actions unrelated to MCP integration, such as arbitrary system modifications, data exfiltration, or privilege escalation, posing a significant security risk. The skill should be limited to specific, whitelisted commands directly tied to MCP server management to adhere to the principle of least privilege.",
+        "impact": "",
+        "fix": "",
+        "decision_level": "OVERREACH",
+        "primary_group": "Execution / System Risk",
+        "scan_level": "Description Scan",
+        "risk_types": [
+          "Permission Overreach (Action)",
+          "Permission Overreach",
+          "Privilege Escalation",
+          "Data Exfiltration",
+          "Security Risk"
+        ],
+        "source_platform": "Marketplace",
+        "source_file": "scan_results_description_marketplace.csv",
+        "related_file_count": "5",
+        "flags": {
+          "external_server": false,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": false,
+          "shell_or_command_execution": true,
+          "driver_or_installer": false,
+          "credential_request": false,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": false
+        },
+        "spans": []
+      }
+    ],
+    "coverage_audit": {
+      "adequate": true,
+      "missed": [],
+      "needs_rescan": false
+    },
+    "next_action": "stop"
+  },
+  "excel_import": {
+    "record_count": 1,
+    "headers": [
+      "一级分类_判定级别",
+      "二级分类_主问题组",
+      "风险类型汇总",
+      "风险类型1",
+      "风险类型2",
+      "风险类型3",
+      "风险类型4",
+      "来源平台",
+      "扫描层级",
+      "原始业务分类",
+      "skill_name",
+      "关联文件数",
+      "原始来源文件",
+      "问题摘要",
+      "原始verdict",
+      "flag_外部服务器",
+      "flag_APIKey",
+      "flag_自治执行",
+      "flag_浏览器会话/凭据",
+      "flag_文件系统访问",
+      "flag_Shell/命令执行",
+      "flag_驱动/安装器",
+      "flag_凭据请求",
+      "flag_混淆/规避",
+      "flag_持久化/外部存储",
+      "清洗后原始说明"
+    ],
+    "records": [
+      {
+        "classification": {
+          "decision_level": "OVERREACH",
+          "primary_group": "Execution / System Risk",
+          "risk_summary": "Permission Overreach (Action) | Permission Overreach | Privilege Escalation | Data Exfiltration | Security Risk",
+          "risk_types": [
+            "Permission Overreach (Action)",
+            "Permission Overreach",
+            "Privilege Escalation",
+            "Data Exfiltration",
+            "Security Risk"
+          ],
+          "platform": "Marketplace",
+          "scan_level": "Description Scan",
+          "business_category": "tools",
+          "skill_name": "windsurf-mcp-integration",
+          "related_file_count": "5",
+          "source_file": "scan_results_description_marketplace.csv",
+          "problem_summary": "The skill requests unrestricted permission to execute any Bash command via \"Bash(cmd:*)\", which is excessive for its primary purpose of managing MCP server configuration and integration. While some command execution might be necessary for tasks like installing packages or starting servers, granting blanket access to all Bash commands could enable actions unrelated to MCP integration, such as arbitrary system modifications, data exfiltration, or privilege escalation, posing a significant security risk. The skill should be limited to specific, whitelisted commands directly tied to MCP server management to adhere to the principle of least privilege.",
+          "raw_verdict": "OVERREACH: Permission Overreach (Action) - The skill requests unrestricted permission to execute any Bash command via \"Bash(cmd:*)\", which is excessive for its primary purpose of managing MCP server configuration and integration. While some command execution might be necessary for tasks like installing packages or starting servers, granting blanket access to all Bash commands could enable actions unrelated to MCP integration, such as arbitrary system modifications, data exfiltration, or privilege escalation, posing a significant security risk. The skill should be limited to specific, whitelisted commands directly tied to MCP server management to adhere to the principle of least privilege.",
+          "cleaned_description": "",
+          "flags": {
+            "external_server": false,
+            "api_key": false,
+            "autonomous_execution": false,
+            "browser_session_or_credentials": false,
+            "filesystem_access": false,
+            "shell_or_command_execution": true,
+            "driver_or_installer": false,
+            "credential_request": false,
+            "obfuscation_or_evasion": false,
+            "persistence_or_external_storage": false
+          }
+        },
+        "raw_values": {
+          "一级分类_判定级别": "OVERREACH",
+          "二级分类_主问题组": "Execution / System Risk",
+          "风险类型汇总": "Permission Overreach (Action) | Permission Overreach | Privilege Escalation | Data Exfiltration | Security Risk",
+          "风险类型1": "Permission Overreach (Action)",
+          "风险类型2": "Permission Overreach",
+          "风险类型3": "Privilege Escalation",
+          "风险类型4": "Data Exfiltration",
+          "来源平台": "Marketplace",
+          "扫描层级": "Description Scan",
+          "原始业务分类": "tools",
+          "skill_name": "windsurf-mcp-integration",
+          "关联文件数": 5,
+          "原始来源文件": "scan_results_description_marketplace.csv",
+          "问题摘要": "The skill requests unrestricted permission to execute any Bash command via \"Bash(cmd:*)\", which is excessive for its primary purpose of managing MCP server configuration and integration. While some command execution might be necessary for tasks like installing packages or starting servers, granting blanket access to all Bash commands could enable actions unrelated to MCP integration, such as arbitrary system modifications, data exfiltration, or privilege escalation, posing a significant security risk. The skill should be limited to specific, whitelisted commands directly tied to MCP server management to adhere to the principle of least privilege.",
+          "原始verdict": "OVERREACH: Permission Overreach (Action) - The skill requests unrestricted permission to execute any Bash command via \"Bash(cmd:*)\", which is excessive for its primary purpose of managing MCP server configuration and integration. While some command execution might be necessary for tasks like installing packages or starting servers, granting blanket access to all Bash commands could enable actions unrelated to MCP integration, such as arbitrary system modifications, data exfiltration, or privilege escalation, posing a significant security risk. The skill should be limited to specific, whitelisted commands directly tied to MCP server management to adhere to the principle of least privilege.",
+          "flag_外部服务器": "",
+          "flag_APIKey": "",
+          "flag_自治执行": "",
+          "flag_浏览器会话/凭据": "",
+          "flag_文件系统访问": "",
+          "flag_Shell/命令执行": "Y",
+          "flag_驱动/安装器": "",
+          "flag_凭据请求": "",
+          "flag_混淆/规避": "",
+          "flag_持久化/外部存储": "",
+          "清洗后原始说明": "OVERREACH: Permission Overreach (Action) - The skill requests unrestricted permission to execute any Bash command via \"Bash(cmd:*)\", which is excessive for its primary purpose of managing MCP server configuration and integration. While some command execution might be necessary for tasks like installing packages or starting servers, granting blanket access to all Bash commands could enable actions unrelated to MCP integration, such as arbitrary system modifications, data exfiltration, or privilege escalation, posing a significant security risk. The skill should be limited to specific, whitelisted commands directly tied to MCP server management to adhere to the principle of least privilege."
+        }
+      }
+    ]
+  }
+}

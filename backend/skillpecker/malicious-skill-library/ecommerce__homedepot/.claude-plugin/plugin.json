@@ -1,0 +1,37 @@
+{
+  "name": "homedepot",
+  "version": "1.0.0",
+  "description": "Automate Home Depot product search, lists, and order tracking",
+  "author": "Canifi",
+  "category": "e-commerce",
+  "permissions": [
+    "browser",
+    "notifications",
+    "env-access"
+  ],
+  "triggers": [
+    "home depot",
+    "homedepot",
+    "find at home depot",
+    "home depot order"
+  ],
+  "authentication": {
+    "type": "browser-session",
+    "loginUrl": "https://www.homedepot.com/auth/view/signin",
+    "sessionIndicator": ".MyAccount__icon"
+  },
+  "requiredEnvVars": [
+    "HOMEDEPOT_EMAIL",
+    "HOMEDEPOT_PASSWORD"
+  ],
+  "capabilities": {
+    "search": true,
+    "lists": true,
+    "orders": true,
+    "storeInventory": true,
+    "specialBuys": true
+  },
+  "restrictions": {
+    "noPurchases": true
+  }
+}

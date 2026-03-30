@@ -1,0 +1,39 @@
+{
+  "name": "cornershop",
+  "version": "1.0.0",
+  "description": "Automate Cornershop grocery browsing and delivery tracking",
+  "author": "Canifi",
+  "category": "food-delivery",
+  "permissions": [
+    "browser",
+    "notifications",
+    "env-access"
+  ],
+  "triggers": [
+    "cornershop",
+    "corner shop",
+    "cornershop delivery"
+  ],
+  "authentication": {
+    "type": "browser-session",
+    "loginUrl": "https://cornershopapp.com/login",
+    "sessionIndicator": ".account-menu"
+  },
+  "requiredEnvVars": [
+    "CORNERSHOP_EMAIL",
+    "CORNERSHOP_PASSWORD"
+  ],
+  "capabilities": {
+    "browse": true,
+    "search": true,
+    "lists": true,
+    "tracking": true,
+    "scheduling": true
+  },
+  "restrictions": {
+    "noOrdering": true
+  },
+  "notes": {
+    "ownedBy": "Uber"
+  }
+}

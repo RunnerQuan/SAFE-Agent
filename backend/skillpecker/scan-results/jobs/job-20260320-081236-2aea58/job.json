@@ -1,0 +1,28 @@
+{
+  "id": "job-20260320-081236-2aea58",
+  "status": "completed",
+  "created_at": "2026-03-20T08:12:36.641184+00:00",
+  "started_at": "2026-03-20T08:12:36.670581+00:00",
+  "finished_at": "2026-03-20T08:13:33.634417+00:00",
+  "scan_mode": "full-scan",
+  "skills_root": "C:\\Files\\Study\\Codes\\Skill-Scan\\scan-results\\jobs\\job-20260320-081236-2aea58\\skills",
+  "output_root": "C:\\Files\\Study\\Codes\\Skill-Scan\\scan-results\\jobs\\job-20260320-081236-2aea58\\output",
+  "skill_count": 1,
+  "skill_names": [
+    "autoupdater-live"
+  ],
+  "error": null,
+  "log_file": "C:\\Files\\Study\\Codes\\Skill-Scan\\scan-results\\jobs\\job-20260320-081236-2aea58\\output\\run.log",
+  "summary_excerpt": {
+    "skillCount": 1,
+    "scannedCount": 1,
+    "failedCount": 0,
+    "labelCounts": {
+      "insufficient_evidence": 1
+    }
+  },
+  "upload_summary": {
+    "archiveCount": 0,
+    "directoryCount": 1
+  }
+}

@@ -1,0 +1,233 @@
+{
+  "preprocess": {
+    "skill": {
+      "root": "C:\\Files\\Study\\Codes\\Skill-Scan\\malicious-skill-library\\media__source-compare",
+      "claims": [
+        "This skill description instructs users to upload potentially copyrighted video frames to a third-party service (SlowPics) without any disclosure about data handling, retention, or privacy practices. While the stated purpose is comparing video quality, the workflow requires uploading user media content to an external server without clear necessity (local comparison tools like mpv or vs-preview could achieve similar results locally). The skill also implies accessing local filesystem paths (like `~/.ssh` via `${CLAUDE_PLUGIN_ROOT}` references) which is excessive for video analysis. Additionally, there's no mention of obtaining user consent before uploading potentially sensitive media content to third-party servers."
+      ],
+      "observed_kinds": [
+        "spreadsheet",
+        "imported_scan_result"
+      ]
+    },
+    "artifacts": [],
+    "rule_hits": [],
+    "coverage_gaps": [],
+    "stats": {
+      "artifact_count": 0,
+      "rule_hit_count": 1,
+      "severity_counts": {},
+      "rule_code_counts": {}
+    }
+  },
+  "triage": {
+    "skill": {
+      "claims": [
+        "This skill description instructs users to upload potentially copyrighted video frames to a third-party service (SlowPics) without any disclosure about data handling, retention, or privacy practices. While the stated purpose is comparing video quality, the workflow requires uploading user media content to an external server without clear necessity (local comparison tools like mpv or vs-preview could achieve similar results locally). The skill also implies accessing local filesystem paths (like `~/.ssh` via `${CLAUDE_PLUGIN_ROOT}` references) which is excessive for video analysis. Additionally, there's no mention of obtaining user consent before uploading potentially sensitive media content to third-party servers."
+      ],
+      "obs": [
+        "Description Scan"
+      ],
+      "high_risk_features": [
+        "external_server",
+        "filesystem_access"
+      ]
+    },
+    "arts": [],
+    "xconcerns": [],
+    "retrieve": [],
+    "coverage": {
+      "total": 1,
+      "indexed": 1,
+      "gaps": []
+    }
+  },
+  "security": {
+    "findings": [
+      {
+        "id": "",
+        "cat": "permission-overreach",
+        "class": "data-governance-risk",
+        "severity": "",
+        "conf": "",
+        "summary": "This skill description instructs users to upload potentially copyrighted video frames to a third-party service (SlowPics) without any disclosure about data handling, retention, or privacy practices. While the stated purpose is comparing video quality, the workflow requires uploading user media content to an external server without clear necessity (local comparison tools like mpv or vs-preview could achieve similar results locally). The skill also implies accessing local filesystem paths (like `~/.ssh` via `${CLAUDE_PLUGIN_ROOT}` references) which is excessive for video analysis. Additionally, there's no mention of obtaining user consent before uploading potentially sensitive media content to third-party servers.",
+        "arts": [],
+        "spans": [],
+        "impact": "",
+        "fix": "",
+        "decision_level": "OVERREACH",
+        "primary_group": "Data Governance Risk",
+        "scan_level": "Description Scan",
+        "risk_types": [
+          "Permission Overreach",
+          "Privacy Violation"
+        ],
+        "source_platform": "Marketplace",
+        "source_file": "scan_results_description_marketplace.csv",
+        "related_file_count": "1",
+        "flags": {
+          "external_server": true,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": true,
+          "shell_or_command_execution": false,
+          "driver_or_installer": false,
+          "credential_request": false,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": false
+        }
+      }
+    ],
+    "ctx_requests": [],
+    "coverage": {
+      "reviewed_arts": [],
+      "unresolved_high_risk_arts": []
+    }
+  },
+  "judge": {
+    "verdict": {
+      "label": "mixed_risk",
+      "primary_concern": "permission-overreach",
+      "issue_types": [
+        "permission-overreach",
+        "privacy-violation",
+        "data-governance-risk"
+      ]
+    },
+    "top_findings": [
+      {
+        "id": "",
+        "cat": "permission-overreach",
+        "class": "data-governance-risk",
+        "severity": "",
+        "conf": "",
+        "summary": "This skill description instructs users to upload potentially copyrighted video frames to a third-party service (SlowPics) without any disclosure about data handling, retention, or privacy practices. While the stated purpose is comparing video quality, the workflow requires uploading user media content to an external server without clear necessity (local comparison tools like mpv or vs-preview could achieve similar results locally). The skill also implies accessing local filesystem paths (like `~/.ssh` via `${CLAUDE_PLUGIN_ROOT}` references) which is excessive for video analysis. Additionally, there's no mention of obtaining user consent before uploading potentially sensitive media content to third-party servers.",
+        "impact": "",
+        "fix": "",
+        "decision_level": "OVERREACH",
+        "primary_group": "Data Governance Risk",
+        "scan_level": "Description Scan",
+        "risk_types": [
+          "Permission Overreach",
+          "Privacy Violation"
+        ],
+        "source_platform": "Marketplace",
+        "source_file": "scan_results_description_marketplace.csv",
+        "related_file_count": "1",
+        "flags": {
+          "external_server": true,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": true,
+          "shell_or_command_execution": false,
+          "driver_or_installer": false,
+          "credential_request": false,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": false
+        },
+        "spans": []
+      }
+    ],
+    "coverage_audit": {
+      "adequate": true,
+      "missed": [],
+      "needs_rescan": false
+    },
+    "next_action": "stop"
+  },
+  "excel_import": {
+    "record_count": 1,
+    "headers": [
+      "一级分类_判定级别",
+      "二级分类_主问题组",
+      "风险类型汇总",
+      "风险类型1",
+      "风险类型2",
+      "风险类型3",
+      "风险类型4",
+      "来源平台",
+      "扫描层级",
+      "原始业务分类",
+      "skill_name",
+      "关联文件数",
+      "原始来源文件",
+      "问题摘要",
+      "原始verdict",
+      "flag_外部服务器",
+      "flag_APIKey",
+      "flag_自治执行",
+      "flag_浏览器会话/凭据",
+      "flag_文件系统访问",
+      "flag_Shell/命令执行",
+      "flag_驱动/安装器",
+      "flag_凭据请求",
+      "flag_混淆/规避",
+      "flag_持久化/外部存储",
+      "清洗后原始说明"
+    ],
+    "records": [
+      {
+        "classification": {
+          "decision_level": "OVERREACH",
+          "primary_group": "Data Governance Risk",
+          "risk_summary": "Permission Overreach | Privacy Violation",
+          "risk_types": [
+            "Permission Overreach",
+            "Privacy Violation"
+          ],
+          "platform": "Marketplace",
+          "scan_level": "Description Scan",
+          "business_category": "media",
+          "skill_name": "source-compare",
+          "related_file_count": "1",
+          "source_file": "scan_results_description_marketplace.csv",
+          "problem_summary": "This skill description instructs users to upload potentially copyrighted video frames to a third-party service (SlowPics) without any disclosure about data handling, retention, or privacy practices. While the stated purpose is comparing video quality, the workflow requires uploading user media content to an external server without clear necessity (local comparison tools like mpv or vs-preview could achieve similar results locally). The skill also implies accessing local filesystem paths (like `~/.ssh` via `${CLAUDE_PLUGIN_ROOT}` references) which is excessive for video analysis. Additionally, there's no mention of obtaining user consent before uploading potentially sensitive media content to third-party servers.",
+          "raw_verdict": "OVERREACH: Permission Overreach & Privacy Violation - This skill description instructs users to upload potentially copyrighted video frames to a third-party service (SlowPics) without any disclosure about data handling, retention, or privacy practices. While the stated purpose is comparing video quality, the workflow requires uploading user media content to an external server without clear necessity (local comparison tools like mpv or vs-preview could achieve similar results locally). The skill also implies accessing local filesystem paths (like `~/.ssh` via `${CLAUDE_PLUGIN_ROOT}` references) which is excessive for video analysis. Additionally, there's no mention of obtaining user consent before uploading potentially sensitive media content to third-party servers.",
+          "cleaned_description": "",
+          "flags": {
+            "external_server": true,
+            "api_key": false,
+            "autonomous_execution": false,
+            "browser_session_or_credentials": false,
+            "filesystem_access": true,
+            "shell_or_command_execution": false,
+            "driver_or_installer": false,
+            "credential_request": false,
+            "obfuscation_or_evasion": false,
+            "persistence_or_external_storage": false
+          }
+        },
+        "raw_values": {
+          "一级分类_判定级别": "OVERREACH",
+          "二级分类_主问题组": "Data Governance Risk",
+          "风险类型汇总": "Permission Overreach | Privacy Violation",
+          "风险类型1": "Permission Overreach",
+          "风险类型2": "Privacy Violation",
+          "风险类型3": "",
+          "风险类型4": "",
+          "来源平台": "Marketplace",
+          "扫描层级": "Description Scan",
+          "原始业务分类": "media",
+          "skill_name": "source-compare",
+          "关联文件数": 1,
+          "原始来源文件": "scan_results_description_marketplace.csv",
+          "问题摘要": "This skill description instructs users to upload potentially copyrighted video frames to a third-party service (SlowPics) without any disclosure about data handling, retention, or privacy practices. While the stated purpose is comparing video quality, the workflow requires uploading user media content to an external server without clear necessity (local comparison tools like mpv or vs-preview could achieve similar results locally). The skill also implies accessing local filesystem paths (like `~/.ssh` via `${CLAUDE_PLUGIN_ROOT}` references) which is excessive for video analysis. Additionally, there's no mention of obtaining user consent before uploading potentially sensitive media content to third-party servers.",
+          "原始verdict": "OVERREACH: Permission Overreach & Privacy Violation - This skill description instructs users to upload potentially copyrighted video frames to a third-party service (SlowPics) without any disclosure about data handling, retention, or privacy practices. While the stated purpose is comparing video quality, the workflow requires uploading user media content to an external server without clear necessity (local comparison tools like mpv or vs-preview could achieve similar results locally). The skill also implies accessing local filesystem paths (like `~/.ssh` via `${CLAUDE_PLUGIN_ROOT}` references) which is excessive for video analysis. Additionally, there's no mention of obtaining user consent before uploading potentially sensitive media content to third-party servers.",
+          "flag_外部服务器": "Y",
+          "flag_APIKey": "",
+          "flag_自治执行": "",
+          "flag_浏览器会话/凭据": "",
+          "flag_文件系统访问": "Y",
+          "flag_Shell/命令执行": "",
+          "flag_驱动/安装器": "",
+          "flag_凭据请求": "",
+          "flag_混淆/规避": "",
+          "flag_持久化/外部存储": "",
+          "清洗后原始说明": "OVERREACH: Permission Overreach & Privacy Violation - This skill description instructs users to upload potentially copyrighted video frames to a third-party service (SlowPics) without any disclosure about data handling, retention, or privacy practices. While the stated purpose is comparing video quality, the workflow requires uploading user media content to an external server without clear necessity (local comparison tools like mpv or vs-preview could achieve similar results locally). The skill also implies accessing local filesystem paths (like `~/.ssh` via `${CLAUDE_PLUGIN_ROOT}` references) which is excessive for video analysis. Additionally, there's no mention of obtaining user consent before uploading potentially sensitive media content to third-party servers."
+        }
+      }
+    ]
+  }
+}

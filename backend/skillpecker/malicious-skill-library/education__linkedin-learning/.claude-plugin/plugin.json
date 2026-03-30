@@ -1,0 +1,35 @@
+{
+  "name": "linkedin-learning",
+  "version": "1.0.0",
+  "description": "Access LinkedIn Learning courses and track professional development",
+  "author": "Canifi LifeOS",
+  "homepage": "https://www.linkedin.com/learning",
+  "categories": ["education", "learning", "professional"],
+  "capabilities": [
+    "course-browsing",
+    "progress-tracking",
+    "certificates",
+    "learning-paths"
+  ],
+  "authentication": {
+    "type": "credentials",
+    "provider": "linkedin",
+    "required": true
+  },
+  "environmentVariables": [
+    {
+      "name": "LINKEDIN_EMAIL",
+      "description": "LinkedIn account email address",
+      "required": true
+    }
+  ],
+  "triggers": [
+    "linkedin learning",
+    "professional development",
+    "business course",
+    "linkedin course"
+  ],
+  "dependencies": {
+    "mcp": ["playwright"]
+  }
+}

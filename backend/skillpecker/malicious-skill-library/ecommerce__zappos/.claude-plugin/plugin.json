@@ -1,0 +1,37 @@
+{
+  "name": "zappos",
+  "version": "1.0.0",
+  "description": "Automate Zappos shoe search, favorites, and order tracking",
+  "author": "Canifi",
+  "category": "e-commerce",
+  "permissions": [
+    "browser",
+    "notifications",
+    "env-access"
+  ],
+  "triggers": [
+    "zappos",
+    "find on zappos",
+    "zappos shoes",
+    "zappos order"
+  ],
+  "authentication": {
+    "type": "browser-session",
+    "loginUrl": "https://www.zappos.com/login",
+    "sessionIndicator": ".account-dropdown"
+  },
+  "requiredEnvVars": [
+    "ZAPPOS_EMAIL",
+    "ZAPPOS_PASSWORD"
+  ],
+  "capabilities": {
+    "search": true,
+    "favorites": true,
+    "orders": true,
+    "compare": true,
+    "reviews": true
+  },
+  "restrictions": {
+    "noPurchases": true
+  }
+}

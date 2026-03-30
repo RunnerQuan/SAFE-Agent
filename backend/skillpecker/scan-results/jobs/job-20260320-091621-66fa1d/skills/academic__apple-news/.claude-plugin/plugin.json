@@ -1,0 +1,45 @@
+{
+  "name": "apple-news",
+  "displayName": "Apple News",
+  "version": "1.0.0",
+  "description": "Access personalized news through Apple's native news aggregator",
+  "author": "Canifi",
+  "repository": "https://github.com/canifi/life-os-skills",
+  "category": "news-reading",
+  "keywords": ["news", "apple", "magazines", "premium", "aggregator"],
+  "capabilities": [
+    "personalized_feed",
+    "channel_following",
+    "news_plus_access",
+    "offline_reading",
+    "audio_stories"
+  ],
+  "authentication": {
+    "type": "apple_id",
+    "provider": "apple",
+    "method": "system_authentication"
+  },
+  "endpoints": {
+    "baseUrl": "apple-news://",
+    "app": "com.apple.news"
+  },
+  "rateLimit": {
+    "requests": 0,
+    "period": "unlimited"
+  },
+  "environmentVariables": [
+    {
+      "name": "APPLE_ID",
+      "description": "Apple ID email address",
+      "required": true
+    },
+    {
+      "name": "APPLE_PASSWORD",
+      "description": "Apple ID password",
+      "required": true
+    }
+  ],
+  "dependencies": [],
+  "platforms": ["macos", "ios", "ipados"],
+  "documentationUrl": "https://support.apple.com/apple-news"
+}

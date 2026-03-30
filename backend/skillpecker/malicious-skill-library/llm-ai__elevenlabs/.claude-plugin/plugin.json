@@ -1,0 +1,33 @@
+{
+  "name": "elevenlabs",
+  "displayName": "ElevenLabs",
+  "version": "1.0.0",
+  "description": "Generate realistic AI voices with ElevenLabs - create speech, clone voices, and manage audio projects",
+  "author": "Canifi LifeOS",
+  "category": "Video & Audio Production",
+  "authentication": {
+    "type": "browser",
+    "loginUrl": "https://elevenlabs.io/sign-in",
+    "loggedInIndicator": "[data-testid='user-menu']"
+  },
+  "capabilities": [
+    "text-to-speech",
+    "manage-voices",
+    "voice-cloning",
+    "download-audio",
+    "view-usage",
+    "voice-settings"
+  ],
+  "requiredEnvVars": [
+    "ELEVENLABS_EMAIL",
+    "ELEVENLABS_PASSWORD"
+  ],
+  "endpoints": {
+    "base": "https://elevenlabs.io",
+    "app": "https://elevenlabs.io/app"
+  },
+  "rateLimit": {
+    "requests": 30,
+    "period": "minute"
+  }
+}

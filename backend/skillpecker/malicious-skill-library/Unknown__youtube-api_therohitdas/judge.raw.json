@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "insufficient_evidence",
+    "primary_concern": "data-exfiltration",
+    "issue_types": [
+      "data-exfiltration",
+      "supply-chain-attack",
+      "execution-system-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-exfiltration",
+      "class": "execution-system-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "Detected in `scripts/tapi-auth.js`. The code targets and modifies sensitive OpenClaw/Moltbot configuration files (`~/.clawdbot/moltbot.json`, `~/.openclaw/openclaw.json`) to inject API keys. This pattern matches credential harvesting techniques where malicious skills access agent configurations to intercept or modify credentials. The code also writes to multiple persistence locations (shell configs, systemd, etc.), which could facilitate credential collection across sessions. While no explicit exfiltration is present, accessing and modifying agent configs is a known initial step in supply chain attacks.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "",
+      "primary_group": "Execution / System Risk",
+      "scan_level": "Script Scan",
+      "risk_types": [
+        "Data Exfiltration",
+        "Supply Chain Attack"
+      ],
+      "source_platform": "Clawhub",
+      "source_file": "scan_results_script_clawhub.csv",
+      "related_file_count": "2",
+      "flags": {
+        "external_server": true,
+        "api_key": true,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": true,
+        "filesystem_access": false,
+        "shell_or_command_execution": true,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": true
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

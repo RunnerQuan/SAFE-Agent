@@ -1,0 +1,109 @@
+{
+  "findings": [
+    {
+      "id": "malicious-download-execute",
+      "cat": "installation",
+      "class": "malicious",
+      "severity": "critical",
+      "conf": "high",
+      "summary": "Skill instructs users to download and execute unverified scripts from external domain canifi.com, creating potential for credential harvesting or malware installation.",
+      "arts": [
+        "art-0e95f5a36660"
+      ],
+      "spans": [
+        {
+          "path": "SKILL.md",
+          "s": 13,
+          "e": 13,
+          "why": "Direct instruction: 'curl -sSL https://canifi.com/skills/apple-news/install.sh | bash' - downloads and executes script without verification"
+        },
+        {
+          "path": "SKILL.md",
+          "s": 27,
+          "e": 27,
+          "why": "Commented but present pattern: '# curl -sSL https://canifi.com/install.sh | bash' - reinforces download-execute behavior"
+        }
+      ],
+      "impact": "Users executing these commands give arbitrary code execution to canifi.com domain, which could install malware, steal credentials, or compromise the system.",
+      "fix": "Remove curl|bash installation instructions. Provide manual installation steps with hash verification or use package managers."
+    },
+    {
+      "id": "unsafe-credential-storage",
+      "cat": "authentication",
+      "class": "unsafe",
+      "severity": "high",
+      "conf": "high",
+      "summary": "Skill instructs users to store Apple ID passwords in environment variables via canifi-env tool, which is insecure credential storage practice.",
+      "arts": [
+        "art-0e95f5a36660"
+      ],
+      "spans": [
+        {
+          "path": "SKILL.md",
+          "s": 29,
+          "e": 30,
+          "why": "Instructions: 'canifi-env set APPLE_ID \"your_apple_id\"' and 'canifi-env set APPLE_PASSWORD \"your_password\"' - stores sensitive credentials"
+        },
+        {
+          "path": "SKILL.md",
+          "s": 46,
+          "e": 47,
+          "why": "Additional credential storage: 'canifi-env set SERVICE_EMAIL \"your-email\"' and 'canifi-env set SERVICE_PASSWORD \"your-password\"'"
+        }
+      ],
+      "impact": "Apple ID credentials stored in environment variables are vulnerable to process inspection, log exposure, and insecure storage. Compromise could lead to Apple account takeover.",
+      "fix": "Use secure credential storage like system keychain or OAuth flows. Remove instructions for storing passwords in environment variables."
+    },
+    {
+      "id": "description-mismatch-auth",
+      "cat": "authentication",
+      "class": "description",
+      "severity": "med",
+      "conf": "high",
+      "summary": "Manifest claims 'system_authentication' method but implementation requires raw credential collection, creating misleading privacy expectations.",
+      "arts": [
+        "art-037fda535255"
+      ],
+      "spans": [
+        {
+          "path": ".claude-plugin/plugin.json",
+          "s": 17,
+          "e": 21,
+          "why": "Claims: 'authentication': {'method': 'system_authentication'} but requires APPLE_ID and APPLE_PASSWORD environment variables"
+        },
+        {
+          "path": ".claude-plugin/plugin.json",
+          "s": 30,
+          "e": 40,
+          "why": "Requires APPLE_ID and APPLE_PASSWORD environment variables, contradicting system_authentication claim"
+        }
+      ],
+      "impact": "Users expect system-level authentication (like keychain or SSO) but are instructed to provide raw passwords, creating false sense of security.",
+      "fix": "Update manifest to accurately describe credential-based authentication or implement actual system authentication."
+    }
+  ],
+  "ctx_requests": [
+    {
+      "path": "install.sh",
+      "s": 0,
+      "e": 0,
+      "reason": "Critical missing file referenced in SKILL.md line 13. Needed to analyze actual download-execute behavior and verify if it performs credential collection or other malicious actions."
+    },
+    {
+      "path": "src/",
+      "s": 0,
+      "e": 0,
+      "reason": "Missing source code directory. Needed to understand how credentials are used, what network calls are made to canifi.com or Apple services, and verify implementation matches claims."
+    }
+  ],
+  "coverage": {
+    "reviewed_arts": [
+      "SKILL.md",
+      ".claude-plugin/plugin.json"
+    ],
+    "unresolved_high_risk_arts": [
+      "install.sh",
+      "src/"
+    ]
+  }
+}

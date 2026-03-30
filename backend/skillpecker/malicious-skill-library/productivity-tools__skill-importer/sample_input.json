@@ -1,0 +1,35 @@
+{
+  "skill_path": "generated-skills/issue-analysis",
+  "existing_files": {
+    "SKILL.md": {
+      "has_yaml_frontmatter": true,
+      "name": "issue-analysis",
+      "description": "Analyze GitHub issues for project health, milestone progress, and backlog insights.",
+      "structure": "non-standard",
+      "sections_found": ["When to Use", "Step 1", "Step 2", "Output Location", "Available Analyses", "Future Enhancements"],
+      "sections_missing": ["Capabilities", "Input Requirements", "Output Formats", "How to Use", "Best Practices", "Limitations"]
+    },
+    "analyze.py": {
+      "exists": true,
+      "lines": 104,
+      "functions": ["load_data", "milestone_progress", "board_status", "get_by_status", "print_report"],
+      "classes": [],
+      "has_docstrings": true
+    }
+  },
+  "missing_files": [
+    "HOW_TO_USE.md",
+    "README.md",
+    "sample_input.json",
+    "expected_output.json"
+  ],
+  "compliance_score": {
+    "yaml_frontmatter": true,
+    "kebab_case_name": true,
+    "description_present": true,
+    "skill_md_structure": false,
+    "how_to_use_present": false,
+    "sample_data_present": false,
+    "readme_present": false
+  }
+}

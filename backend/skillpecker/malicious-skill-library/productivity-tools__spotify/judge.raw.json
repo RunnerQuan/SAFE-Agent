@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill requires access to iMessage for handling 2FA codes automatically. While this is a convenience feature, it is not strictly necessary for the primary purpose of controlling Spotify (the user could manually enter the 2FA code). Access to iMessage is a sensitive permission that goes beyond what is needed for the stated functionality and could expose the user's private messages. Additionally, the browser automation (Playwright) could potentially be used to access other data in the browser session, though the documentation limits it to the Spotify web player. The skill also stores user credentials locally, which is necessary for automation but could be a risk if not properly secured. However, the documentation emphasizes local storage and no transmission, which is good. The main overreach is the iMessage access for 2FA.",
+      "impact": "OVERREACH: Permission Overreach and Data Over-collection - The skill requires access to iMessage for handling 2FA codes automatically. While this is a convenience feature, it is not strictly necessary for the primary purpose of controlling Spotify (the user could manually enter the 2FA code). Access to iMessage is a sensitive permission that goes beyond what is needed for the stated functionality and could expose the user's private messages. Additionally, the browser automation (Playwright) could potentially be used to access other data in the browser session, though the documentation limits it to the Spotify web player. The skill also stores user credentials locally, which is necessary for automation but could be a risk if not properly secured. However, the documentation emphasizes local storage and no transmission, which is good. The main overreach is the iMessage access for 2FA.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Data Over-collection"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": true,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": true
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

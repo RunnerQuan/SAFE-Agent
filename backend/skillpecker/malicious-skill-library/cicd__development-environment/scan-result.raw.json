@@ -1,0 +1,232 @@
+{
+  "preprocess": {
+    "skill": {
+      "root": "C:\\Files\\Study\\Codes\\Skill-Scan\\malicious-skill-library\\cicd__development-environment",
+      "claims": [
+        "The skill's dev container configuration automatically mounts the user's entire local `~/.ssh` directory into the container. While SSH keys may be useful for Git operations within a development environment, accessing the entire `.ssh` directory (which contains private keys, known_hosts, and other sensitive authentication data) is excessive and not strictly necessary for the core purpose of setting up IDE configurations, extensions, or container environments. This poses a significant security risk if the container is compromised or if the keys are accessed unnecessarily. A more minimal approach would be to make this an optional or user-explicit step, or to use agent forwarding or dedicated project-specific keys instead."
+      ],
+      "observed_kinds": [
+        "spreadsheet",
+        "imported_scan_result"
+      ]
+    },
+    "artifacts": [],
+    "rule_hits": [],
+    "coverage_gaps": [],
+    "stats": {
+      "artifact_count": 0,
+      "rule_hit_count": 1,
+      "severity_counts": {},
+      "rule_code_counts": {}
+    }
+  },
+  "triage": {
+    "skill": {
+      "claims": [
+        "The skill's dev container configuration automatically mounts the user's entire local `~/.ssh` directory into the container. While SSH keys may be useful for Git operations within a development environment, accessing the entire `.ssh` directory (which contains private keys, known_hosts, and other sensitive authentication data) is excessive and not strictly necessary for the core purpose of setting up IDE configurations, extensions, or container environments. This poses a significant security risk if the container is compromised or if the keys are accessed unnecessarily. A more minimal approach would be to make this an optional or user-explicit step, or to use agent forwarding or dedicated project-specific keys instead."
+      ],
+      "obs": [
+        "Description Scan"
+      ],
+      "high_risk_features": [
+        "credential_request"
+      ]
+    },
+    "arts": [],
+    "xconcerns": [],
+    "retrieve": [],
+    "coverage": {
+      "total": 1,
+      "indexed": 1,
+      "gaps": []
+    }
+  },
+  "security": {
+    "findings": [
+      {
+        "id": "",
+        "cat": "permission-overreach",
+        "class": "access-boundary-risk",
+        "severity": "",
+        "conf": "",
+        "summary": "The skill's dev container configuration automatically mounts the user's entire local `~/.ssh` directory into the container. While SSH keys may be useful for Git operations within a development environment, accessing the entire `.ssh` directory (which contains private keys, known_hosts, and other sensitive authentication data) is excessive and not strictly necessary for the core purpose of setting up IDE configurations, extensions, or container environments. This poses a significant security risk if the container is compromised or if the keys are accessed unnecessarily. A more minimal approach would be to make this an optional or user-explicit step, or to use agent forwarding or dedicated project-specific keys instead.",
+        "arts": [],
+        "spans": [],
+        "impact": "",
+        "fix": "",
+        "decision_level": "OVERREACH",
+        "primary_group": "Access Boundary Risk",
+        "scan_level": "Description Scan",
+        "risk_types": [
+          "Permission Overreach",
+          "Security Risk"
+        ],
+        "source_platform": "Marketplace",
+        "source_file": "scan_results_description_marketplace.csv",
+        "related_file_count": "2",
+        "flags": {
+          "external_server": false,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": false,
+          "shell_or_command_execution": false,
+          "driver_or_installer": false,
+          "credential_request": true,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": false
+        }
+      }
+    ],
+    "ctx_requests": [],
+    "coverage": {
+      "reviewed_arts": [],
+      "unresolved_high_risk_arts": []
+    }
+  },
+  "judge": {
+    "verdict": {
+      "label": "mixed_risk",
+      "primary_concern": "permission-overreach",
+      "issue_types": [
+        "permission-overreach",
+        "security-risk",
+        "access-boundary-risk"
+      ]
+    },
+    "top_findings": [
+      {
+        "id": "",
+        "cat": "permission-overreach",
+        "class": "access-boundary-risk",
+        "severity": "",
+        "conf": "",
+        "summary": "The skill's dev container configuration automatically mounts the user's entire local `~/.ssh` directory into the container. While SSH keys may be useful for Git operations within a development environment, accessing the entire `.ssh` directory (which contains private keys, known_hosts, and other sensitive authentication data) is excessive and not strictly necessary for the core purpose of setting up IDE configurations, extensions, or container environments. This poses a significant security risk if the container is compromised or if the keys are accessed unnecessarily. A more minimal approach would be to make this an optional or user-explicit step, or to use agent forwarding or dedicated project-specific keys instead.",
+        "impact": "",
+        "fix": "",
+        "decision_level": "OVERREACH",
+        "primary_group": "Access Boundary Risk",
+        "scan_level": "Description Scan",
+        "risk_types": [
+          "Permission Overreach",
+          "Security Risk"
+        ],
+        "source_platform": "Marketplace",
+        "source_file": "scan_results_description_marketplace.csv",
+        "related_file_count": "2",
+        "flags": {
+          "external_server": false,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": false,
+          "shell_or_command_execution": false,
+          "driver_or_installer": false,
+          "credential_request": true,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": false
+        },
+        "spans": []
+      }
+    ],
+    "coverage_audit": {
+      "adequate": true,
+      "missed": [],
+      "needs_rescan": false
+    },
+    "next_action": "stop"
+  },
+  "excel_import": {
+    "record_count": 1,
+    "headers": [
+      "一级分类_判定级别",
+      "二级分类_主问题组",
+      "风险类型汇总",
+      "风险类型1",
+      "风险类型2",
+      "风险类型3",
+      "风险类型4",
+      "来源平台",
+      "扫描层级",
+      "原始业务分类",
+      "skill_name",
+      "关联文件数",
+      "原始来源文件",
+      "问题摘要",
+      "原始verdict",
+      "flag_外部服务器",
+      "flag_APIKey",
+      "flag_自治执行",
+      "flag_浏览器会话/凭据",
+      "flag_文件系统访问",
+      "flag_Shell/命令执行",
+      "flag_驱动/安装器",
+      "flag_凭据请求",
+      "flag_混淆/规避",
+      "flag_持久化/外部存储",
+      "清洗后原始说明"
+    ],
+    "records": [
+      {
+        "classification": {
+          "decision_level": "OVERREACH",
+          "primary_group": "Access Boundary Risk",
+          "risk_summary": "Permission Overreach | Security Risk",
+          "risk_types": [
+            "Permission Overreach",
+            "Security Risk"
+          ],
+          "platform": "Marketplace",
+          "scan_level": "Description Scan",
+          "business_category": "cicd",
+          "skill_name": "development-environment",
+          "related_file_count": "2",
+          "source_file": "scan_results_description_marketplace.csv",
+          "problem_summary": "The skill's dev container configuration automatically mounts the user's entire local `~/.ssh` directory into the container. While SSH keys may be useful for Git operations within a development environment, accessing the entire `.ssh` directory (which contains private keys, known_hosts, and other sensitive authentication data) is excessive and not strictly necessary for the core purpose of setting up IDE configurations, extensions, or container environments. This poses a significant security risk if the container is compromised or if the keys are accessed unnecessarily. A more minimal approach would be to make this an optional or user-explicit step, or to use agent forwarding or dedicated project-specific keys instead.",
+          "raw_verdict": "OVERREACH: Permission Overreach - The skill's dev container configuration automatically mounts the user's entire local `~/.ssh` directory into the container. While SSH keys may be useful for Git operations within a development environment, accessing the entire `.ssh` directory (which contains private keys, known_hosts, and other sensitive authentication data) is excessive and not strictly necessary for the core purpose of setting up IDE configurations, extensions, or container environments. This poses a significant security risk if the container is compromised or if the keys are accessed unnecessarily. A more minimal approach would be to make this an optional or user-explicit step, or to use agent forwarding or dedicated project-specific keys instead.",
+          "cleaned_description": "",
+          "flags": {
+            "external_server": false,
+            "api_key": false,
+            "autonomous_execution": false,
+            "browser_session_or_credentials": false,
+            "filesystem_access": false,
+            "shell_or_command_execution": false,
+            "driver_or_installer": false,
+            "credential_request": true,
+            "obfuscation_or_evasion": false,
+            "persistence_or_external_storage": false
+          }
+        },
+        "raw_values": {
+          "一级分类_判定级别": "OVERREACH",
+          "二级分类_主问题组": "Access Boundary Risk",
+          "风险类型汇总": "Permission Overreach | Security Risk",
+          "风险类型1": "Permission Overreach",
+          "风险类型2": "Security Risk",
+          "风险类型3": "",
+          "风险类型4": "",
+          "来源平台": "Marketplace",
+          "扫描层级": "Description Scan",
+          "原始业务分类": "cicd",
+          "skill_name": "development-environment",
+          "关联文件数": 2,
+          "原始来源文件": "scan_results_description_marketplace.csv",
+          "问题摘要": "The skill's dev container configuration automatically mounts the user's entire local `~/.ssh` directory into the container. While SSH keys may be useful for Git operations within a development environment, accessing the entire `.ssh` directory (which contains private keys, known_hosts, and other sensitive authentication data) is excessive and not strictly necessary for the core purpose of setting up IDE configurations, extensions, or container environments. This poses a significant security risk if the container is compromised or if the keys are accessed unnecessarily. A more minimal approach would be to make this an optional or user-explicit step, or to use agent forwarding or dedicated project-specific keys instead.",
+          "原始verdict": "OVERREACH: Permission Overreach - The skill's dev container configuration automatically mounts the user's entire local `~/.ssh` directory into the container. While SSH keys may be useful for Git operations within a development environment, accessing the entire `.ssh` directory (which contains private keys, known_hosts, and other sensitive authentication data) is excessive and not strictly necessary for the core purpose of setting up IDE configurations, extensions, or container environments. This poses a significant security risk if the container is compromised or if the keys are accessed unnecessarily. A more minimal approach would be to make this an optional or user-explicit step, or to use agent forwarding or dedicated project-specific keys instead.",
+          "flag_外部服务器": "",
+          "flag_APIKey": "",
+          "flag_自治执行": "",
+          "flag_浏览器会话/凭据": "",
+          "flag_文件系统访问": "",
+          "flag_Shell/命令执行": "",
+          "flag_驱动/安装器": "",
+          "flag_凭据请求": "Y",
+          "flag_混淆/规避": "",
+          "flag_持久化/外部存储": "",
+          "清洗后原始说明": "OVERREACH: Permission Overreach - The skill's dev container configuration automatically mounts the user's entire local `~/.ssh` directory into the container. While SSH keys may be useful for Git operations within a development environment, accessing the entire `.ssh` directory (which contains private keys, known_hosts, and other sensitive authentication data) is excessive and not strictly necessary for the core purpose of setting up IDE configurations, extensions, or container environments. This poses a significant security risk if the container is compromised or if the keys are accessed unnecessarily. A more minimal approach would be to make this an optional or user-explicit step, or to use agent forwarding or dedicated project-specific keys instead."
+        }
+      }
+    ]
+  }
+}

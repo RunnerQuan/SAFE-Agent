@@ -1,0 +1,232 @@
+{
+  "preprocess": {
+    "skill": {
+      "root": "C:\\Files\\Study\\Codes\\Skill-Scan\\malicious-skill-library\\productivity-tools__ask-claude",
+      "claims": [
+        "The skill description shows significant permission overreach by automatically collecting and sending user data to third-party services without explicit consent:\n\n1. **Excessive File Access**: In \"Change review\" mode, the skill automatically reads ALL untracked files in the git repository (not just modified files) without user consent, scanning through `git ls-files --others`. This goes beyond what's needed for a consultation tool.\n\n2. **Automatic Data Collection**: The skill auto-invokes itself on various events (plan mode exit, task completion with code changes) and automatically collects user data (git diffs, untracked files, plan files) without explicit user request for consultation.\n\n3. **Privacy Violation**: The skill sends collected user data (including potentially sensitive code, configurations, and untracked files) to an external Claude service via the `claude` command, which likely transmits data to third-party servers.\n\n4. **No User Control**: While there's a note about honoring explicit user requests to skip consultation, the default behavior is automatic collection and transmission of data. The skill accesses `~/.codex/plans/` directory without clear user authorization for data storage.\n\nFor a consultation tool, the appropriate design would be: 1) Explicit user initiation for each consultation, 2) User selection of specific files/content to share, 3) Clear disclosure of what data will be sent to external services."
+      ],
+      "observed_kinds": [
+        "spreadsheet",
+        "imported_scan_result"
+      ]
+    },
+    "artifacts": [],
+    "rule_hits": [],
+    "coverage_gaps": [],
+    "stats": {
+      "artifact_count": 0,
+      "rule_hit_count": 1,
+      "severity_counts": {},
+      "rule_code_counts": {}
+    }
+  },
+  "triage": {
+    "skill": {
+      "claims": [
+        "The skill description shows significant permission overreach by automatically collecting and sending user data to third-party services without explicit consent:\n\n1. **Excessive File Access**: In \"Change review\" mode, the skill automatically reads ALL untracked files in the git repository (not just modified files) without user consent, scanning through `git ls-files --others`. This goes beyond what's needed for a consultation tool.\n\n2. **Automatic Data Collection**: The skill auto-invokes itself on various events (plan mode exit, task completion with code changes) and automatically collects user data (git diffs, untracked files, plan files) without explicit user request for consultation.\n\n3. **Privacy Violation**: The skill sends collected user data (including potentially sensitive code, configurations, and untracked files) to an external Claude service via the `claude` command, which likely transmits data to third-party servers.\n\n4. **No User Control**: While there's a note about honoring explicit user requests to skip consultation, the default behavior is automatic collection and transmission of data. The skill accesses `~/.codex/plans/` directory without clear user authorization for data storage.\n\nFor a consultation tool, the appropriate design would be: 1) Explicit user initiation for each consultation, 2) User selection of specific files/content to share, 3) Clear disclosure of what data will be sent to external services."
+      ],
+      "obs": [
+        "Description Scan"
+      ],
+      "high_risk_features": [
+        "external_server"
+      ]
+    },
+    "arts": [],
+    "xconcerns": [],
+    "retrieve": [],
+    "coverage": {
+      "total": 1,
+      "indexed": 1,
+      "gaps": []
+    }
+  },
+  "security": {
+    "findings": [
+      {
+        "id": "",
+        "cat": "permission-overreach",
+        "class": "data-governance-risk",
+        "severity": "",
+        "conf": "",
+        "summary": "The skill description shows significant permission overreach by automatically collecting and sending user data to third-party services without explicit consent:\n\n1. **Excessive File Access**: In \"Change review\" mode, the skill automatically reads ALL untracked files in the git repository (not just modified files) without user consent, scanning through `git ls-files --others`. This goes beyond what's needed for a consultation tool.\n\n2. **Automatic Data Collection**: The skill auto-invokes itself on various events (plan mode exit, task completion with code changes) and automatically collects user data (git diffs, untracked files, plan files) without explicit user request for consultation.\n\n3. **Privacy Violation**: The skill sends collected user data (including potentially sensitive code, configurations, and untracked files) to an external Claude service via the `claude` command, which likely transmits data to third-party servers.\n\n4. **No User Control**: While there's a note about honoring explicit user requests to skip consultation, the default behavior is automatic collection and transmission of data. The skill accesses `~/.codex/plans/` directory without clear user authorization for data storage.\n\nFor a consultation tool, the appropriate design would be: 1) Explicit user initiation for each consultation, 2) User selection of specific files/content to share, 3) Clear disclosure of what data will be sent to external services.",
+        "arts": [],
+        "spans": [],
+        "impact": "OVERREACH: Permission Overreach & Privacy Violation - The skill description shows significant permission overreach by automatically collecting and sending user data to third-party services without explicit consent:\n\n1. **Excessive File Access**: In \"Change review\" mode, the skill automatically reads ALL untracked files in the git repository (not just modified files) without user consent, scanning through `git ls-files --others`. This goes beyond what's needed for a consultation tool.\n\n2. **Automatic Data Collection**: The skill auto-invokes itself on various events (plan mode exit, task completion with code changes) and automatically collects user data (git diffs, untracked files, plan files) without explicit user request for consultation.\n\n3. **Privacy Violation**: The skill sends collected user data (including potentially sensitive code, configurations, and untracked files) to an external Claude service via the `claude` command, which likely transmits data to third-party servers.\n\n4. **No User Control**: While there's a note about honoring explicit user requests to skip consultation, the default behavior is automatic collection and transmission of data. The skill accesses `~/.codex/plans/` directory without clear user authorization for data storage.\n\nFor a consultation tool, the appropriate design would be: 1) Explicit user initiation for each consultation, 2) User selection of specific files/content to share, 3) Clear disclosure of what data will be sent to external services.",
+        "fix": "",
+        "decision_level": "OVERREACH",
+        "primary_group": "Data Governance Risk",
+        "scan_level": "Description Scan",
+        "risk_types": [
+          "Permission Overreach",
+          "Privacy Violation"
+        ],
+        "source_platform": "Marketplace",
+        "source_file": "scan_results_description_marketplace.csv",
+        "related_file_count": "1",
+        "flags": {
+          "external_server": true,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": false,
+          "shell_or_command_execution": false,
+          "driver_or_installer": false,
+          "credential_request": false,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": false
+        }
+      }
+    ],
+    "ctx_requests": [],
+    "coverage": {
+      "reviewed_arts": [],
+      "unresolved_high_risk_arts": []
+    }
+  },
+  "judge": {
+    "verdict": {
+      "label": "mixed_risk",
+      "primary_concern": "permission-overreach",
+      "issue_types": [
+        "permission-overreach",
+        "privacy-violation",
+        "data-governance-risk"
+      ]
+    },
+    "top_findings": [
+      {
+        "id": "",
+        "cat": "permission-overreach",
+        "class": "data-governance-risk",
+        "severity": "",
+        "conf": "",
+        "summary": "The skill description shows significant permission overreach by automatically collecting and sending user data to third-party services without explicit consent:\n\n1. **Excessive File Access**: In \"Change review\" mode, the skill automatically reads ALL untracked files in the git repository (not just modified files) without user consent, scanning through `git ls-files --others`. This goes beyond what's needed for a consultation tool.\n\n2. **Automatic Data Collection**: The skill auto-invokes itself on various events (plan mode exit, task completion with code changes) and automatically collects user data (git diffs, untracked files, plan files) without explicit user request for consultation.\n\n3. **Privacy Violation**: The skill sends collected user data (including potentially sensitive code, configurations, and untracked files) to an external Claude service via the `claude` command, which likely transmits data to third-party servers.\n\n4. **No User Control**: While there's a note about honoring explicit user requests to skip consultation, the default behavior is automatic collection and transmission of data. The skill accesses `~/.codex/plans/` directory without clear user authorization for data storage.\n\nFor a consultation tool, the appropriate design would be: 1) Explicit user initiation for each consultation, 2) User selection of specific files/content to share, 3) Clear disclosure of what data will be sent to external services.",
+        "impact": "OVERREACH: Permission Overreach & Privacy Violation - The skill description shows significant permission overreach by automatically collecting and sending user data to third-party services without explicit consent:\n\n1. **Excessive File Access**: In \"Change review\" mode, the skill automatically reads ALL untracked files in the git repository (not just modified files) without user consent, scanning through `git ls-files --others`. This goes beyond what's needed for a consultation tool.\n\n2. **Automatic Data Collection**: The skill auto-invokes itself on various events (plan mode exit, task completion with code changes) and automatically collects user data (git diffs, untracked files, plan files) without explicit user request for consultation.\n\n3. **Privacy Violation**: The skill sends collected user data (including potentially sensitive code, configurations, and untracked files) to an external Claude service via the `claude` command, which likely transmits data to third-party servers.\n\n4. **No User Control**: While there's a note about honoring explicit user requests to skip consultation, the default behavior is automatic collection and transmission of data. The skill accesses `~/.codex/plans/` directory without clear user authorization for data storage.\n\nFor a consultation tool, the appropriate design would be: 1) Explicit user initiation for each consultation, 2) User selection of specific files/content to share, 3) Clear disclosure of what data will be sent to external services.",
+        "fix": "",
+        "decision_level": "OVERREACH",
+        "primary_group": "Data Governance Risk",
+        "scan_level": "Description Scan",
+        "risk_types": [
+          "Permission Overreach",
+          "Privacy Violation"
+        ],
+        "source_platform": "Marketplace",
+        "source_file": "scan_results_description_marketplace.csv",
+        "related_file_count": "1",
+        "flags": {
+          "external_server": true,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": false,
+          "shell_or_command_execution": false,
+          "driver_or_installer": false,
+          "credential_request": false,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": false
+        },
+        "spans": []
+      }
+    ],
+    "coverage_audit": {
+      "adequate": true,
+      "missed": [],
+      "needs_rescan": false
+    },
+    "next_action": "stop"
+  },
+  "excel_import": {
+    "record_count": 1,
+    "headers": [
+      "一级分类_判定级别",
+      "二级分类_主问题组",
+      "风险类型汇总",
+      "风险类型1",
+      "风险类型2",
+      "风险类型3",
+      "风险类型4",
+      "来源平台",
+      "扫描层级",
+      "原始业务分类",
+      "skill_name",
+      "关联文件数",
+      "原始来源文件",
+      "问题摘要",
+      "原始verdict",
+      "flag_外部服务器",
+      "flag_APIKey",
+      "flag_自治执行",
+      "flag_浏览器会话/凭据",
+      "flag_文件系统访问",
+      "flag_Shell/命令执行",
+      "flag_驱动/安装器",
+      "flag_凭据请求",
+      "flag_混淆/规避",
+      "flag_持久化/外部存储",
+      "清洗后原始说明"
+    ],
+    "records": [
+      {
+        "classification": {
+          "decision_level": "OVERREACH",
+          "primary_group": "Data Governance Risk",
+          "risk_summary": "Permission Overreach | Privacy Violation",
+          "risk_types": [
+            "Permission Overreach",
+            "Privacy Violation"
+          ],
+          "platform": "Marketplace",
+          "scan_level": "Description Scan",
+          "business_category": "productivity-tools",
+          "skill_name": "ask-claude",
+          "related_file_count": "1",
+          "source_file": "scan_results_description_marketplace.csv",
+          "problem_summary": "The skill description shows significant permission overreach by automatically collecting and sending user data to third-party services without explicit consent:\n\n1. **Excessive File Access**: In \"Change review\" mode, the skill automatically reads ALL untracked files in the git repository (not just modified files) without user consent, scanning through `git ls-files --others`. This goes beyond what's needed for a consultation tool.\n\n2. **Automatic Data Collection**: The skill auto-invokes itself on various events (plan mode exit, task completion with code changes) and automatically collects user data (git diffs, untracked files, plan files) without explicit user request for consultation.\n\n3. **Privacy Violation**: The skill sends collected user data (including potentially sensitive code, configurations, and untracked files) to an external Claude service via the `claude` command, which likely transmits data to third-party servers.\n\n4. **No User Control**: While there's a note about honoring explicit user requests to skip consultation, the default behavior is automatic collection and transmission of data. The skill accesses `~/.codex/plans/` directory without clear user authorization for data storage.\n\nFor a consultation tool, the appropriate design would be: 1) Explicit user initiation for each consultation, 2) User selection of specific files/content to share, 3) Clear disclosure of what data will be sent to external services.",
+          "raw_verdict": "OVERREACH: Permission Overreach & Privacy Violation - The skill description shows significant permission overreach by automatically collecting and sending user data to third-party services without explicit consent:\n\n1. **Excessive File Access**: In \"Change review\" mode, the skill automatically reads ALL untracked files in the git repository (not just modified files) without user consent, scanning through `git ls-files --others`. This goes beyond what's needed for a consultation tool.\n\n2. **Automatic Data Collection**: The skill auto-invokes itself on various events (plan mode exit, task completion with code changes) and automatically collects user data (git diffs, untracked files, plan files) without explicit user request for consultation.\n\n3. **Privacy Violation**: The skill sends collected user data (including potentially sensitive code, configurations, and untracked files) to an external Claude service via the `claude` command, which likely transmits data to third-party servers.\n\n4. **No User Control**: While there's a note about honoring explicit user requests to skip consultation, the default behavior is automatic collection and transmission of data. The skill accesses `~/.codex/plans/` directory without clear user authorization for data storage.\n\nFor a consultation tool, the appropriate design would be: 1) Explicit user initiation for each consultation, 2) User selection of specific files/content to share, 3) Clear disclosure of what data will be sent to external services.",
+          "cleaned_description": "",
+          "flags": {
+            "external_server": true,
+            "api_key": false,
+            "autonomous_execution": false,
+            "browser_session_or_credentials": false,
+            "filesystem_access": false,
+            "shell_or_command_execution": false,
+            "driver_or_installer": false,
+            "credential_request": false,
+            "obfuscation_or_evasion": false,
+            "persistence_or_external_storage": false
+          }
+        },
+        "raw_values": {
+          "一级分类_判定级别": "OVERREACH",
+          "二级分类_主问题组": "Data Governance Risk",
+          "风险类型汇总": "Permission Overreach | Privacy Violation",
+          "风险类型1": "Permission Overreach",
+          "风险类型2": "Privacy Violation",
+          "风险类型3": "",
+          "风险类型4": "",
+          "来源平台": "Marketplace",
+          "扫描层级": "Description Scan",
+          "原始业务分类": "productivity-tools",
+          "skill_name": "ask-claude",
+          "关联文件数": 1,
+          "原始来源文件": "scan_results_description_marketplace.csv",
+          "问题摘要": "The skill description shows significant permission overreach by automatically collecting and sending user data to third-party services without explicit consent:\n\n1. **Excessive File Access**: In \"Change review\" mode, the skill automatically reads ALL untracked files in the git repository (not just modified files) without user consent, scanning through `git ls-files --others`. This goes beyond what's needed for a consultation tool.\n\n2. **Automatic Data Collection**: The skill auto-invokes itself on various events (plan mode exit, task completion with code changes) and automatically collects user data (git diffs, untracked files, plan files) without explicit user request for consultation.\n\n3. **Privacy Violation**: The skill sends collected user data (including potentially sensitive code, configurations, and untracked files) to an external Claude service via the `claude` command, which likely transmits data to third-party servers.\n\n4. **No User Control**: While there's a note about honoring explicit user requests to skip consultation, the default behavior is automatic collection and transmission of data. The skill accesses `~/.codex/plans/` directory without clear user authorization for data storage.\n\nFor a consultation tool, the appropriate design would be: 1) Explicit user initiation for each consultation, 2) User selection of specific files/content to share, 3) Clear disclosure of what data will be sent to external services.",
+          "原始verdict": "OVERREACH: Permission Overreach & Privacy Violation - The skill description shows significant permission overreach by automatically collecting and sending user data to third-party services without explicit consent:\n\n1. **Excessive File Access**: In \"Change review\" mode, the skill automatically reads ALL untracked files in the git repository (not just modified files) without user consent, scanning through `git ls-files --others`. This goes beyond what's needed for a consultation tool.\n\n2. **Automatic Data Collection**: The skill auto-invokes itself on various events (plan mode exit, task completion with code changes) and automatically collects user data (git diffs, untracked files, plan files) without explicit user request for consultation.\n\n3. **Privacy Violation**: The skill sends collected user data (including potentially sensitive code, configurations, and untracked files) to an external Claude service via the `claude` command, which likely transmits data to third-party servers.\n\n4. **No User Control**: While there's a note about honoring explicit user requests to skip consultation, the default behavior is automatic collection and transmission of data. The skill accesses `~/.codex/plans/` directory without clear user authorization for data storage.\n\nFor a consultation tool, the appropriate design would be: 1) Explicit user initiation for each consultation, 2) User selection of specific files/content to share, 3) Clear disclosure of what data will be sent to external services.",
+          "flag_外部服务器": "Y",
+          "flag_APIKey": "",
+          "flag_自治执行": "",
+          "flag_浏览器会话/凭据": "",
+          "flag_文件系统访问": "",
+          "flag_Shell/命令执行": "",
+          "flag_驱动/安装器": "",
+          "flag_凭据请求": "",
+          "flag_混淆/规避": "",
+          "flag_持久化/外部存储": "",
+          "清洗后原始说明": "OVERREACH: Permission Overreach & Privacy Violation - The skill description shows significant permission overreach by automatically collecting and sending user data to third-party services without explicit consent:\n\n1. **Excessive File Access**: In \"Change review\" mode, the skill automatically reads ALL untracked files in the git repository (not just modified files) without user consent, scanning through `git ls-files --others`. This goes beyond what's needed for a consultation tool.\n\n2. **Automatic Data Collection**: The skill auto-invokes itself on various events (plan mode exit, task completion with code changes) and automatically collects user data (git diffs, untracked files, plan files) without explicit user request for consultation.\n\n3. **Privacy Violation**: The skill sends collected user data (including potentially sensitive code, configurations, and untracked files) to an external Claude service via the `claude` command, which likely transmits data to third-party servers.\n\n4. **No User Control**: While there's a note about honoring explicit user requests to skip consultation, the default behavior is automatic collection and transmission of data. The skill accesses `~/.codex/plans/` directory without clear user authorization for data storage.\n\nFor a consultation tool, the appropriate design would be: 1) Explicit user initiation for each consultation, 2) User selection of specific files/content to share, 3) Clear disclosure of what data will be sent to external services."
+        }
+      }
+    ]
+  }
+}

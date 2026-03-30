@@ -1,0 +1,20 @@
+# Microsoft Agent Framework (preview packages)
+agent-framework --pre
+agent-framework-core --pre
+agent-framework-azure-ai --pre
+
+# Azure AI Foundry SDK
+azure-ai-agents
+azure-ai-projects>=2.0.0b1
+
+# Azure Authentication
+azure-identity
+
+# Async HTTP client
+aiohttp
+
+# Data validation
+pydantic
+
+# Environment variables
+python-dotenv

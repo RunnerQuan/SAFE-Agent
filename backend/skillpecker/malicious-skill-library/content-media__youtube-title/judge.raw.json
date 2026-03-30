@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "data-over-collection",
+    "issue_types": [
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-over-collection",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill's \"Gather Context\" step instructs accessing the user's local filesystem and YouTube data to collect video context (topic, audience, etc.) without specifying what files or data are acceptable. While the information is relevant to title generation, this broad, unrestricted approach could lead to accessing sensitive or unrelated personal files (e.g., documents, browsing history) or private YouTube account data beyond what is necessary. The skill should either explicitly limit data collection to user-provided inputs or define strict boundaries for file access (e.g., only designated project files).",
+      "impact": "OVERREACH: Data Over-collection - The skill's \"Gather Context\" step instructs accessing the user's local filesystem and YouTube data to collect video context (topic, audience, etc.) without specifying what files or data are acceptable. While the information is relevant to title generation, this broad, unrestricted approach could lead to accessing sensitive or unrelated personal files (e.g., documents, browsing history) or private YouTube account data beyond what is necessary. The skill should either explicitly limit data collection to user-provided inputs or define strict boundaries for file access (e.g., only designated project files).",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Data Over-collection"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "2",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

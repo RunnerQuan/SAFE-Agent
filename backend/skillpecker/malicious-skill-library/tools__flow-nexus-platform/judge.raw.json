@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "unsafe",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "privacy-violation",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill includes pre and post hooks that attempt to run an external Node.js script from a fixed path (`/workspaces/ruvector/.claude/intelligence`) that is unrelated to the Flow Nexus platform management. These hooks execute code that modifies files (`pre-edit \"$FILE\"` and `post-edit \"$FILE\"`) without clear disclosure of what this external \"intelligence\" system does, potentially accessing or modifying user files beyond the scope of platform management. Additionally, the skill requests extensive personal data (full contact details, payment information) and system access (sandbox execution with arbitrary code, file system operations) that could be excessive for the stated purpose of \"platform management,\" though some of this is expected for a cloud platform service. The integration with an external Q-learning system at a fixed path raises concerns about unauthorized code execution and data collection.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "SUSPICIOUS",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Privacy Violation"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": true,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

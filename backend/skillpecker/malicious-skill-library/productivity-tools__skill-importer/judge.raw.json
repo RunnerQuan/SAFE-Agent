@@ -1,0 +1,54 @@
+{
+  "verdict": {
+    "label": "insufficient_evidence",
+    "primary_concern": "data-exfiltration",
+    "issue_types": [
+      "data-exfiltration",
+      "supply-chain-attack",
+      "reverse-shell",
+      "execution-system-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-exfiltration",
+      "class": "execution-system-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "Detected in `scripts/import_skills.py` and `assets/skill-sources.yaml`. The skill implements an automated import system that clones and executes code from external GitHub repositories (all from user `kehwar`, branch `custom`). While not directly malicious, this creates a significant supply chain risk where compromised or malicious repositories could inject malware. The script lacks security controls like code signing verification, integrity checks, or sandboxing for imported skills. This pattern matches known attack vectors where benign tools are used to distribute malicious payloads through trusted update mechanisms.",
+      "impact": "",
+      "fix": "",
+      "decision_level": "",
+      "primary_group": "Execution / System Risk",
+      "scan_level": "Script Scan",
+      "risk_types": [
+        "Data Exfiltration",
+        "Supply Chain Attack",
+        "Reverse Shell"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_script_Marketplace.csv",
+      "related_file_count": "4",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": true,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": true,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

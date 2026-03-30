@@ -1,0 +1,50 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "data-over-collection",
+    "issue_types": [
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-over-collection",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill's primary purpose is to implement Linear issues, which primarily requires access to Linear (for issue details) and Git/GitHub (for code changes and PR creation). However, the skill unconditionally searches the user's Obsidian vault (personal notes/knowledge base) and conditionally accesses Sentry (error tracking) and GitHub discussions, which are not strictly necessary for all implementations. While gathering context can be beneficial, these actions collect data from multiple external systems beyond the core requirement, especially accessing personal notes without explicit user consent or relevance to every issue. This violates data minimization principles by over-collecting potentially sensitive or unrelated information.",
+      "impact": "OVERREACH: Data Over-collection - The skill's primary purpose is to implement Linear issues, which primarily requires access to Linear (for issue details) and Git/GitHub (for code changes and PR creation). However, the skill unconditionally searches the user's Obsidian vault (personal notes/knowledge base) and conditionally accesses Sentry (error tracking) and GitHub discussions, which are not strictly necessary for all implementations. While gathering context can be beneficial, these actions collect data from multiple external systems beyond the core requirement, especially accessing personal notes without explicit user consent or relevance to every issue. This violates data minimization principles by over-collecting potentially sensitive or unrelated information.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Data Over-collection"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

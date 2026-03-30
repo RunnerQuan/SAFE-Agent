@@ -1,0 +1,37 @@
+{
+  "name": "nordstrom",
+  "version": "1.0.0",
+  "description": "Automate Nordstrom product search, wishlists, and order tracking",
+  "author": "Canifi",
+  "category": "e-commerce",
+  "permissions": [
+    "browser",
+    "notifications",
+    "env-access"
+  ],
+  "triggers": [
+    "nordstrom",
+    "find at nordstrom",
+    "nordstrom order",
+    "nordstrom rack"
+  ],
+  "authentication": {
+    "type": "browser-session",
+    "loginUrl": "https://www.nordstrom.com/signin",
+    "sessionIndicator": ".account-nav"
+  },
+  "requiredEnvVars": [
+    "NORDSTROM_EMAIL",
+    "NORDSTROM_PASSWORD"
+  ],
+  "capabilities": {
+    "search": true,
+    "wishlist": true,
+    "orders": true,
+    "sales": true,
+    "brands": true
+  },
+  "restrictions": {
+    "noPurchases": true
+  }
+}

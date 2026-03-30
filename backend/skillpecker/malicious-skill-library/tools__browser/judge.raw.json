@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill requests extensive access to browser history, bookmarks, cookies, sessions, terminal profiles, and installed plugins, which are unrelated to its stated primary purpose of browser automation (navigating websites, taking screenshots, form filling). These capabilities enable reading and modifying sensitive user browsing data, personal organization tools, and system configurations far beyond what is needed for automating web interactions.",
+      "impact": "OVERREACH: Permission Overreach, Data Over-collection - The skill requests extensive access to browser history, bookmarks, cookies, sessions, terminal profiles, and installed plugins, which are unrelated to its stated primary purpose of browser automation (navigating websites, taking screenshots, form filling). These capabilities enable reading and modifying sensitive user browsing data, personal organization tools, and system configurations far beyond what is needed for automating web interactions.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Data Over-collection"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "26",
+      "flags": {
+        "external_server": false,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": true,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": false,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

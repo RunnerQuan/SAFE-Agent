@@ -1,0 +1,70 @@
+{
+  "skills_root": "C:\\Files\\Study\\Codes\\Skill-Scan\\scan-results\\jobs\\job-20260322-044132-0a0c14\\skills",
+  "output_root": "C:\\Files\\Study\\Codes\\Skill-Scan\\scan-results\\jobs\\job-20260322-044132-0a0c14\\output",
+  "skill_count": 3,
+  "scanned_count": 3,
+  "failed_count": 0,
+  "skills": [
+    {
+      "name": "data-optimizer-pro",
+      "path": "C:\\Files\\Study\\Codes\\Skill-Scan\\scan-results\\jobs\\job-20260322-044132-0a0c14\\skills\\data-optimizer-pro",
+      "status": "ok",
+      "output_dir": "C:\\Files\\Study\\Codes\\Skill-Scan\\scan-results\\jobs\\job-20260322-044132-0a0c14\\output\\data-optimizer-pro",
+      "artifact_count": 3,
+      "rule_hit_count": 53,
+      "verdict": {
+        "label": "malicious",
+        "primary_concern": "malicious",
+        "issue_types": [
+          "malicious",
+          "unsafe",
+          "description"
+        ],
+        "maliciousness": 10,
+        "safety": 1,
+        "description_reliability": 1,
+        "coverage": 8
+      }
+    },
+    {
+      "name": "healthgrades",
+      "path": "C:\\Files\\Study\\Codes\\Skill-Scan\\scan-results\\jobs\\job-20260322-044132-0a0c14\\skills\\healthgrades",
+      "status": "ok",
+      "output_dir": "C:\\Files\\Study\\Codes\\Skill-Scan\\scan-results\\jobs\\job-20260322-044132-0a0c14\\output\\healthgrades",
+      "artifact_count": 2,
+      "rule_hit_count": 4,
+      "verdict": {
+        "label": "insufficient_evidence",
+        "primary_concern": "unknown",
+        "issue_types": [
+          "supply_chain",
+          "credential_handling",
+          "capability_gap"
+        ],
+        "maliciousness": 3,
+        "safety": 4,
+        "description_reliability": 3,
+        "coverage": 2
+      }
+    },
+    {
+      "name": "presentation",
+      "path": "C:\\Files\\Study\\Codes\\Skill-Scan\\scan-results\\jobs\\job-20260322-044132-0a0c14\\skills\\presentation",
+      "status": "ok",
+      "output_dir": "C:\\Files\\Study\\Codes\\Skill-Scan\\scan-results\\jobs\\job-20260322-044132-0a0c14\\output\\presentation",
+      "artifact_count": 58,
+      "rule_hit_count": 209,
+      "verdict": {
+        "label": "unsafe",
+        "primary_concern": "unsafe",
+        "issue_types": [
+          "unsafe"
+        ],
+        "maliciousness": 0,
+        "safety": 3,
+        "description_reliability": 5,
+        "coverage": 6
+      }
+    }
+  ]
+}

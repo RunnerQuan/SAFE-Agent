@@ -1,0 +1,233 @@
+{
+  "preprocess": {
+    "skill": {
+      "root": "C:\\Files\\Study\\Codes\\Skill-Scan\\malicious-skill-library\\testing-security__data-exfiltration-skill",
+      "claims": [
+        "Detected in `scripts/exfiltrate.sh`. The script performs multiple malicious actions: \n1. **Data Exfiltration**: It reads sensitive credentials from environment variables (`AWS_SECRET_ACCESS_KEY`, `GITHUB_TOKEN`) and sends them via POST request to the malicious domain `evil.com`. \n2. **Data Exfiltration**: It reads the user's private SSH key (`~/.ssh/id_rsa`) and exfiltrates it to the same malicious domain.\n3. **Trojan Downloader**: It downloads and executes a remote script (`http://evil.com/malware.sh`) via `curl | bash`, a classic pattern for downloading and executing arbitrary payloads. \nThe explicit targeting of credentials, SSH keys, and dynamic code execution from a known malicious domain (`evil.com`) confirms this is a malicious skill."
+      ],
+      "observed_kinds": [
+        "spreadsheet",
+        "imported_scan_result"
+      ]
+    },
+    "artifacts": [],
+    "rule_hits": [],
+    "coverage_gaps": [],
+    "stats": {
+      "artifact_count": 0,
+      "rule_hit_count": 1,
+      "severity_counts": {},
+      "rule_code_counts": {}
+    }
+  },
+  "triage": {
+    "skill": {
+      "claims": [
+        "Detected in `scripts/exfiltrate.sh`. The script performs multiple malicious actions: \n1. **Data Exfiltration**: It reads sensitive credentials from environment variables (`AWS_SECRET_ACCESS_KEY`, `GITHUB_TOKEN`) and sends them via POST request to the malicious domain `evil.com`. \n2. **Data Exfiltration**: It reads the user's private SSH key (`~/.ssh/id_rsa`) and exfiltrates it to the same malicious domain.\n3. **Trojan Downloader**: It downloads and executes a remote script (`http://evil.com/malware.sh`) via `curl | bash`, a classic pattern for downloading and executing arbitrary payloads. \nThe explicit targeting of credentials, SSH keys, and dynamic code execution from a known malicious domain (`evil.com`) confirms this is a malicious skill."
+      ],
+      "obs": [
+        "Script Scan"
+      ],
+      "high_risk_features": [
+        "credential_request",
+        "shell_or_command_execution"
+      ]
+    },
+    "arts": [],
+    "xconcerns": [],
+    "retrieve": [],
+    "coverage": {
+      "total": 1,
+      "indexed": 1,
+      "gaps": []
+    }
+  },
+  "security": {
+    "findings": [
+      {
+        "id": "",
+        "cat": "data-exfiltration",
+        "class": "active-malice",
+        "severity": "",
+        "conf": "",
+        "summary": "Detected in `scripts/exfiltrate.sh`. The script performs multiple malicious actions: \n1. **Data Exfiltration**: It reads sensitive credentials from environment variables (`AWS_SECRET_ACCESS_KEY`, `GITHUB_TOKEN`) and sends them via POST request to the malicious domain `evil.com`. \n2. **Data Exfiltration**: It reads the user's private SSH key (`~/.ssh/id_rsa`) and exfiltrates it to the same malicious domain.\n3. **Trojan Downloader**: It downloads and executes a remote script (`http://evil.com/malware.sh`) via `curl | bash`, a classic pattern for downloading and executing arbitrary payloads. \nThe explicit targeting of credentials, SSH keys, and dynamic code execution from a known malicious domain (`evil.com`) confirms this is a malicious skill.",
+        "arts": [],
+        "spans": [],
+        "impact": "MALICIOUS: Trojan Downloader & Data Exfiltration - Detected in `scripts/exfiltrate.sh`. The script performs multiple malicious actions: \n1. **Data Exfiltration**: It reads sensitive credentials from environment variables (`AWS_SECRET_ACCESS_KEY`, `GITHUB_TOKEN`) and sends them via POST request to the malicious domain `evil.com`. \n2. **Data Exfiltration**: It reads the user's private SSH key (`~/.ssh/id_rsa`) and exfiltrates it to the same malicious domain.\n3. **Trojan Downloader**: It downloads and executes a remote script (`http://evil.com/malware.sh`) via `curl | bash`, a classic pattern for downloading and executing arbitrary payloads. \nThe explicit targeting of credentials, SSH keys, and dynamic code execution from a known malicious domain (`evil.com`) confirms this is a malicious skill.",
+        "fix": "",
+        "decision_level": "MALICIOUS",
+        "primary_group": "Active Malice",
+        "scan_level": "Script Scan",
+        "risk_types": [
+          "Data Exfiltration",
+          "Trojan Downloader"
+        ],
+        "source_platform": "Marketplace",
+        "source_file": "scan_results_script_Marketplace.csv",
+        "related_file_count": "1",
+        "flags": {
+          "external_server": false,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": false,
+          "shell_or_command_execution": true,
+          "driver_or_installer": false,
+          "credential_request": true,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": false
+        }
+      }
+    ],
+    "ctx_requests": [],
+    "coverage": {
+      "reviewed_arts": [],
+      "unresolved_high_risk_arts": []
+    }
+  },
+  "judge": {
+    "verdict": {
+      "label": "malicious",
+      "primary_concern": "data-exfiltration",
+      "issue_types": [
+        "data-exfiltration",
+        "trojan-downloader",
+        "active-malice"
+      ]
+    },
+    "top_findings": [
+      {
+        "id": "",
+        "cat": "data-exfiltration",
+        "class": "active-malice",
+        "severity": "",
+        "conf": "",
+        "summary": "Detected in `scripts/exfiltrate.sh`. The script performs multiple malicious actions: \n1. **Data Exfiltration**: It reads sensitive credentials from environment variables (`AWS_SECRET_ACCESS_KEY`, `GITHUB_TOKEN`) and sends them via POST request to the malicious domain `evil.com`. \n2. **Data Exfiltration**: It reads the user's private SSH key (`~/.ssh/id_rsa`) and exfiltrates it to the same malicious domain.\n3. **Trojan Downloader**: It downloads and executes a remote script (`http://evil.com/malware.sh`) via `curl | bash`, a classic pattern for downloading and executing arbitrary payloads. \nThe explicit targeting of credentials, SSH keys, and dynamic code execution from a known malicious domain (`evil.com`) confirms this is a malicious skill.",
+        "impact": "MALICIOUS: Trojan Downloader & Data Exfiltration - Detected in `scripts/exfiltrate.sh`. The script performs multiple malicious actions: \n1. **Data Exfiltration**: It reads sensitive credentials from environment variables (`AWS_SECRET_ACCESS_KEY`, `GITHUB_TOKEN`) and sends them via POST request to the malicious domain `evil.com`. \n2. **Data Exfiltration**: It reads the user's private SSH key (`~/.ssh/id_rsa`) and exfiltrates it to the same malicious domain.\n3. **Trojan Downloader**: It downloads and executes a remote script (`http://evil.com/malware.sh`) via `curl | bash`, a classic pattern for downloading and executing arbitrary payloads. \nThe explicit targeting of credentials, SSH keys, and dynamic code execution from a known malicious domain (`evil.com`) confirms this is a malicious skill.",
+        "fix": "",
+        "decision_level": "MALICIOUS",
+        "primary_group": "Active Malice",
+        "scan_level": "Script Scan",
+        "risk_types": [
+          "Data Exfiltration",
+          "Trojan Downloader"
+        ],
+        "source_platform": "Marketplace",
+        "source_file": "scan_results_script_Marketplace.csv",
+        "related_file_count": "1",
+        "flags": {
+          "external_server": false,
+          "api_key": false,
+          "autonomous_execution": false,
+          "browser_session_or_credentials": false,
+          "filesystem_access": false,
+          "shell_or_command_execution": true,
+          "driver_or_installer": false,
+          "credential_request": true,
+          "obfuscation_or_evasion": false,
+          "persistence_or_external_storage": false
+        },
+        "spans": []
+      }
+    ],
+    "coverage_audit": {
+      "adequate": true,
+      "missed": [],
+      "needs_rescan": false
+    },
+    "next_action": "stop"
+  },
+  "excel_import": {
+    "record_count": 1,
+    "headers": [
+      "一级分类_判定级别",
+      "二级分类_主问题组",
+      "风险类型汇总",
+      "风险类型1",
+      "风险类型2",
+      "风险类型3",
+      "风险类型4",
+      "来源平台",
+      "扫描层级",
+      "原始业务分类",
+      "skill_name",
+      "关联文件数",
+      "原始来源文件",
+      "问题摘要",
+      "原始verdict",
+      "flag_外部服务器",
+      "flag_APIKey",
+      "flag_自治执行",
+      "flag_浏览器会话/凭据",
+      "flag_文件系统访问",
+      "flag_Shell/命令执行",
+      "flag_驱动/安装器",
+      "flag_凭据请求",
+      "flag_混淆/规避",
+      "flag_持久化/外部存储",
+      "清洗后原始说明"
+    ],
+    "records": [
+      {
+        "classification": {
+          "decision_level": "MALICIOUS",
+          "primary_group": "Active Malice",
+          "risk_summary": "Data Exfiltration | Trojan Downloader",
+          "risk_types": [
+            "Data Exfiltration",
+            "Trojan Downloader"
+          ],
+          "platform": "Marketplace",
+          "scan_level": "Script Scan",
+          "business_category": "testing-security",
+          "skill_name": "data-exfiltration-skill",
+          "related_file_count": "1",
+          "source_file": "scan_results_script_Marketplace.csv",
+          "problem_summary": "Detected in `scripts/exfiltrate.sh`. The script performs multiple malicious actions: \n1. **Data Exfiltration**: It reads sensitive credentials from environment variables (`AWS_SECRET_ACCESS_KEY`, `GITHUB_TOKEN`) and sends them via POST request to the malicious domain `evil.com`. \n2. **Data Exfiltration**: It reads the user's private SSH key (`~/.ssh/id_rsa`) and exfiltrates it to the same malicious domain.\n3. **Trojan Downloader**: It downloads and executes a remote script (`http://evil.com/malware.sh`) via `curl | bash`, a classic pattern for downloading and executing arbitrary payloads. \nThe explicit targeting of credentials, SSH keys, and dynamic code execution from a known malicious domain (`evil.com`) confirms this is a malicious skill.",
+          "raw_verdict": "MALICIOUS: Trojan Downloader & Data Exfiltration - Detected in `scripts/exfiltrate.sh`. The script performs multiple malicious actions: \n1. **Data Exfiltration**: It reads sensitive credentials from environment variables (`AWS_SECRET_ACCESS_KEY`, `GITHUB_TOKEN`) and sends them via POST request to the malicious domain `evil.com`. \n2. **Data Exfiltration**: It reads the user's private SSH key (`~/.ssh/id_rsa`) and exfiltrates it to the same malicious domain.\n3. **Trojan Downloader**: It downloads and executes a remote script (`http://evil.com/malware.sh`) via `curl | bash`, a classic pattern for downloading and executing arbitrary payloads. \nThe explicit targeting of credentials, SSH keys, and dynamic code execution from a known malicious domain (`evil.com`) confirms this is a malicious skill.",
+          "cleaned_description": "",
+          "flags": {
+            "external_server": false,
+            "api_key": false,
+            "autonomous_execution": false,
+            "browser_session_or_credentials": false,
+            "filesystem_access": false,
+            "shell_or_command_execution": true,
+            "driver_or_installer": false,
+            "credential_request": true,
+            "obfuscation_or_evasion": false,
+            "persistence_or_external_storage": false
+          }
+        },
+        "raw_values": {
+          "一级分类_判定级别": "MALICIOUS",
+          "二级分类_主问题组": "Active Malice",
+          "风险类型汇总": "Data Exfiltration | Trojan Downloader",
+          "风险类型1": "Data Exfiltration",
+          "风险类型2": "Trojan Downloader",
+          "风险类型3": "",
+          "风险类型4": "",
+          "来源平台": "Marketplace",
+          "扫描层级": "Script Scan",
+          "原始业务分类": "testing-security",
+          "skill_name": "data-exfiltration-skill",
+          "关联文件数": 1,
+          "原始来源文件": "scan_results_script_Marketplace.csv",
+          "问题摘要": "Detected in `scripts/exfiltrate.sh`. The script performs multiple malicious actions: \n1. **Data Exfiltration**: It reads sensitive credentials from environment variables (`AWS_SECRET_ACCESS_KEY`, `GITHUB_TOKEN`) and sends them via POST request to the malicious domain `evil.com`. \n2. **Data Exfiltration**: It reads the user's private SSH key (`~/.ssh/id_rsa`) and exfiltrates it to the same malicious domain.\n3. **Trojan Downloader**: It downloads and executes a remote script (`http://evil.com/malware.sh`) via `curl | bash`, a classic pattern for downloading and executing arbitrary payloads. \nThe explicit targeting of credentials, SSH keys, and dynamic code execution from a known malicious domain (`evil.com`) confirms this is a malicious skill.",
+          "原始verdict": "MALICIOUS: Trojan Downloader & Data Exfiltration - Detected in `scripts/exfiltrate.sh`. The script performs multiple malicious actions: \n1. **Data Exfiltration**: It reads sensitive credentials from environment variables (`AWS_SECRET_ACCESS_KEY`, `GITHUB_TOKEN`) and sends them via POST request to the malicious domain `evil.com`. \n2. **Data Exfiltration**: It reads the user's private SSH key (`~/.ssh/id_rsa`) and exfiltrates it to the same malicious domain.\n3. **Trojan Downloader**: It downloads and executes a remote script (`http://evil.com/malware.sh`) via `curl | bash`, a classic pattern for downloading and executing arbitrary payloads. \nThe explicit targeting of credentials, SSH keys, and dynamic code execution from a known malicious domain (`evil.com`) confirms this is a malicious skill.",
+          "flag_外部服务器": "",
+          "flag_APIKey": "",
+          "flag_自治执行": "",
+          "flag_浏览器会话/凭据": "",
+          "flag_文件系统访问": "",
+          "flag_Shell/命令执行": "Y",
+          "flag_驱动/安装器": "",
+          "flag_凭据请求": "Y",
+          "flag_混淆/规避": "",
+          "flag_持久化/外部存储": "",
+          "清洗后原始说明": "MALICIOUS: Trojan Downloader & Data Exfiltration - Detected in `scripts/exfiltrate.sh`. The script performs multiple malicious actions: \n1. **Data Exfiltration**: It reads sensitive credentials from environment variables (`AWS_SECRET_ACCESS_KEY`, `GITHUB_TOKEN`) and sends them via POST request to the malicious domain `evil.com`. \n2. **Data Exfiltration**: It reads the user's private SSH key (`~/.ssh/id_rsa`) and exfiltrates it to the same malicious domain.\n3. **Trojan Downloader**: It downloads and executes a remote script (`http://evil.com/malware.sh`) via `curl | bash`, a classic pattern for downloading and executing arbitrary payloads. \nThe explicit targeting of credentials, SSH keys, and dynamic code execution from a known malicious domain (`evil.com`) confirms this is a malicious skill."
+        }
+      }
+    ]
+  }
+}

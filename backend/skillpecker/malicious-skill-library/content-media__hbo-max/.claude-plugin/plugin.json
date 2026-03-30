@@ -1,0 +1,36 @@
+{
+  "name": "hbo-max",
+  "version": "1.0.0",
+  "description": "Stream HBO Max content including HBO originals, Warner Bros films, and Max exclusives",
+  "author": "Canifi LifeOS",
+  "homepage": "https://www.max.com",
+  "categories": ["entertainment", "streaming", "video"],
+  "capabilities": [
+    "content-streaming",
+    "watchlist-management",
+    "hbo-originals",
+    "warner-bros-films"
+  ],
+  "authentication": {
+    "type": "credentials",
+    "provider": "max",
+    "required": true
+  },
+  "environmentVariables": [
+    {
+      "name": "HBO_MAX_EMAIL",
+      "description": "Max (HBO Max) account email address",
+      "required": true
+    }
+  ],
+  "triggers": [
+    "hbo max",
+    "max",
+    "hbo",
+    "warner bros",
+    "dc movies"
+  ],
+  "dependencies": {
+    "mcp": ["playwright"]
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "data-over-collection",
+    "issue_types": [
+      "data-over-collection",
+      "security-risk",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "data-over-collection",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "This deployment skill documentation contains multiple hardcoded secrets and sensitive credentials (Zoho OAuth client secret, refresh token, Upstash Redis token, NextAuth secret, Resend API key, and domain verification TXT records) that should not be embedded in skill documentation. For a deployment assistance skill, the proper approach would be to request temporary access to environment management tools or prompt the user for specific credentials as needed, rather than storing them permanently in the skill definition. This creates significant security risks if the skill definition is shared or accessed by unauthorized parties.",
+      "impact": "OVERREACH: Data Over-collection - This deployment skill documentation contains multiple hardcoded secrets and sensitive credentials (Zoho OAuth client secret, refresh token, Upstash Redis token, NextAuth secret, Resend API key, and domain verification TXT records) that should not be embedded in skill documentation. For a deployment assistance skill, the proper approach would be to request temporary access to environment management tools or prompt the user for specific credentials as needed, rather than storing them permanently in the skill definition. This creates significant security risks if the skill definition is shared or accessed by unauthorized parties.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Data Over-collection",
+        "Security Risk"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "1",
+      "flags": {
+        "external_server": false,
+        "api_key": true,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": false,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

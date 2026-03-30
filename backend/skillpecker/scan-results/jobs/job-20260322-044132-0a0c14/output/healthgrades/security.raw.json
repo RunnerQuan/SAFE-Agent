@@ -1,0 +1,97 @@
+{
+  "findings": [
+    {
+      "id": "mal-download-exec-1",
+      "cat": "supply_chain",
+      "class": "malicious",
+      "severity": "critical",
+      "conf": "high",
+      "summary": "Skill instructs users to download and execute a remote script via curl-to-bash without verification, creating supply chain attack risk",
+      "arts": [
+        "art-0e95f5a36660"
+      ],
+      "spans": [
+        {
+          "path": "SKILL.md",
+          "s": 15,
+          "e": 15,
+          "why": "Direct instruction: 'curl -sSL https://canifi.com/skills/healthgrades/install.sh | bash' - classic supply chain attack pattern"
+        }
+      ],
+      "impact": "Remote code execution with full user privileges; script content is unknown and could contain malicious payloads",
+      "fix": "Provide script content for review, use cryptographic verification (checksums, signatures), or offer manual installation only"
+    },
+    {
+      "id": "unsafe-cred-example",
+      "cat": "credential_handling",
+      "class": "unsafe",
+      "severity": "med",
+      "conf": "high",
+      "summary": "Examples show credential storage in environment variables without security context, potentially normalizing unsafe practices",
+      "arts": [
+        "art-0e95f5a36660"
+      ],
+      "spans": [
+        {
+          "path": "SKILL.md",
+          "s": 31,
+          "e": 32,
+          "why": "Example: 'canifi-env set HEALTHGRADES_EMAIL \"your-email@example.com\"' and password storage"
+        },
+        {
+          "path": "SKILL.md",
+          "s": 48,
+          "e": 49,
+          "why": "Alternative example with different variable names: 'canifi-env set SERVICE_EMAIL \"your-email\"'"
+        }
+      ],
+      "impact": "Users may store sensitive credentials insecurely; examples lack warnings about credential protection, encryption, or secure storage practices",
+      "fix": "Add security warnings, recommend credential managers, explain encryption status, and clarify access controls"
+    },
+    {
+      "id": "desc-missing-impl",
+      "cat": "capability_gap",
+      "class": "description",
+      "severity": "med",
+      "conf": "high",
+      "summary": "Skill claims capabilities (search doctors, read reviews, check credentials) but no implementation files are present to support these claims",
+      "arts": [
+        "art-0e95f5a36660",
+        "art-037fda535255"
+      ],
+      "spans": [
+        {
+          "path": ".claude-plugin/plugin.json",
+          "s": 27,
+          "e": 30,
+          "why": "Network endpoints defined but no implementation shown for advertised capabilities"
+        }
+      ],
+      "impact": "Users cannot verify if skill actually performs claimed functions; may be misleading about capabilities",
+      "fix": "Include implementation files or clarify that capabilities require external scripts/APIs not shown"
+    }
+  ],
+  "ctx_requests": [
+    {
+      "path": "skills/healthgrades/install.sh",
+      "s": 0,
+      "e": 0,
+      "reason": "Critical to examine the downloaded script for actual behavior - needed to assess maliciousness of download-execute pattern"
+    },
+    {
+      "path": "skills/healthgrades/",
+      "s": 0,
+      "e": 0,
+      "reason": "Need to see actual implementation files for advertised capabilities (search, reviews, credentials)"
+    }
+  ],
+  "coverage": {
+    "reviewed_arts": [
+      "art-0e95f5a36660",
+      "art-037fda535255"
+    ],
+    "unresolved_high_risk_arts": [
+      "art-0e95f5a36660"
+    ]
+  }
+}

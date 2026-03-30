@@ -1,0 +1,204 @@
+{
+  "技能概览 (skill_overview)": {
+    "技能声明列表 (skill_claims)": [
+      "Access personalized news and premium content through Apple's native news aggregator.",
+      "Apple News Skill",
+      "Quick Install",
+      "Setup",
+      "First, ensure canifi-env is installed:",
+      "curl -sSL https://canifi.com/install.sh | bash",
+      "Privacy & Authentication",
+      "*Your credentials, your choice.** Canifi LifeOS respects your privacy.",
+      "Option 1: Manual Browser Login (Recommended)",
+      "Option 2: Environment Variables"
+    ],
+    "观察到的行为 (observed_behaviors)": [
+      "manifest claims Apple News integration via apple-news:// protocol",
+      "requires APPLE_ID and APPLE_PASSWORD environment variables",
+      "offers credential storage via canifi-env tool",
+      "provides alternative browser-based authentication option",
+      "installation involves downloading and executing shell scripts from canifi.com"
+    ],
+    "高风险特征 (high_risk_features)": [
+      "credential_collection",
+      "download_execute"
+    ]
+  },
+  "文件分析列表 (artifact_reviews)": [
+    {
+      "制品ID (artifact_id)": "art-0e95f5a36660",
+      "文件路径 (path)": "SKILL.md",
+      "文件类型 (kind)": "Markdown 文档 (markdown)",
+      "文件角色 (role)": "Skill 定义文件 (skill_definition)",
+      "观察结果 (observations)": [
+        "contains installation instructions with curl|bash patterns",
+        "shows two credential storage methods",
+        "mentions privacy claims about local-only credential storage"
+      ],
+      "风险信号 (risk_signals)": [
+        "download_execute",
+        "credential_collection",
+        "network_call"
+      ],
+      "证据位置 (evidence_spans)": [
+        {
+          "文件路径 (path)": "SKILL.md",
+          "起始行 (start_line)": 13,
+          "结束行 (end_line)": 13,
+          "说明 (why)": "curl -sSL https://canifi.com/skills/apple-news/install.sh | bash - direct download and execute"
+        },
+        {
+          "文件路径 (path)": "SKILL.md",
+          "起始行 (start_line)": 27,
+          "结束行 (end_line)": 27,
+          "说明 (why)": "# curl -sSL https://canifi.com/install.sh | bash - commented but present download-execute pattern"
+        },
+        {
+          "文件路径 (path)": "SKILL.md",
+          "起始行 (start_line)": 26,
+          "结束行 (end_line)": 30,
+          "说明 (why)": "canifi-env set APPLE_ID and APPLE_PASSWORD - credential collection instructions"
+        },
+        {
+          "文件路径 (path)": "SKILL.md",
+          "起始行 (start_line)": 46,
+          "结束行 (end_line)": 47,
+          "说明 (why)": "canifi-env set SERVICE_EMAIL and SERVICE_PASSWORD - additional credential storage"
+        }
+      ],
+      "优先级 (priority)": "高 (high)",
+      "是否需要回源查看原文 (needs_raw_review)": true
+    },
+    {
+      "制品ID (artifact_id)": "art-037fda535255",
+      "文件路径 (path)": ".claude-plugin/plugin.json",
+      "文件类型 (kind)": "JSON 配置 (json)",
+      "文件角色 (role)": "配置 (configuration)",
+      "观察结果 (observations)": [
+        "declares Apple News integration with apple-news:// baseUrl",
+        "requires APPLE_ID and APPLE_PASSWORD environment variables",
+        "claims system_authentication method but collects raw credentials",
+        "specifies repository https://github.com/canifi/life-os-skills",
+        "lists capabilities: personalized_feed, channel_following, news_plus_access"
+      ],
+      "风险信号 (risk_signals)": [
+        "credential_collection",
+        "description_gap"
+      ],
+      "证据位置 (evidence_spans)": [
+        {
+          "文件路径 (path)": ".claude-plugin/plugin.json",
+          "起始行 (start_line)": 0,
+          "结束行 (end_line)": 45,
+          "说明 (why)": "entire manifest shows mismatch between claimed system_authentication and actual credential collection"
+        }
+      ],
+      "优先级 (priority)": "高 (high)",
+      "是否需要回源查看原文 (needs_raw_review)": true
+    }
+  ],
+  "跨文件关注点 (cross_artifact_concerns)": [
+    {
+      "关注点类型 (concern_type)": "恶意候选 (malicious_candidate)",
+      "关联制品IDs (artifact_ids)": [
+        "art-0e95f5a36660",
+        "art-037fda535255"
+      ],
+      "证据位置 (evidence_spans)": [
+        {
+          "文件路径 (path)": "SKILL.md",
+          "起始行 (start_line)": 13,
+          "结束行 (end_line)": 13,
+          "说明 (why)": "download-and-execute from external domain canifi.com"
+        },
+        {
+          "文件路径 (path)": ".claude-plugin/plugin.json",
+          "起始行 (start_line)": 0,
+          "结束行 (end_line)": 45,
+          "说明 (why)": "credential collection pattern atypical for Apple News; claims system auth but collects raw credentials"
+        }
+      ],
+      "原因说明 (why)": "Combination of download-execute installation from external domain with collection of sensitive Apple ID credentials creates potential for credential harvesting. The authentication method mismatch (claims system_authentication but collects raw passwords) suggests possible deception."
+    },
+    {
+      "关注点类型 (concern_type)": "不安全候选 (unsafe_candidate)",
+      "关联制品IDs (artifact_ids)": [
+        "art-0e95f5a36660"
+      ],
+      "证据位置 (evidence_spans)": [
+        {
+          "文件路径 (path)": "SKILL.md",
+          "起始行 (start_line)": 13,
+          "结束行 (end_line)": 13,
+          "说明 (why)": "curl | bash pattern without verification or hash checking"
+        },
+        {
+          "文件路径 (path)": "SKILL.md",
+          "起始行 (start_line)": 26,
+          "结束行 (end_line)": 30,
+          "说明 (why)": "instructions to store Apple ID password in environment variable"
+        }
+      ],
+      "原因说明 (why)": "Unsafe installation pattern (download and execute without verification) combined with credential storage in environment variables (potentially insecure storage)."
+    },
+    {
+      "关注点类型 (concern_type)": "描述缺口 (description_gap)",
+      "关联制品IDs (artifact_ids)": [
+        "art-037fda535255"
+      ],
+      "证据位置 (evidence_spans)": [
+        {
+          "文件路径 (path)": ".claude-plugin/plugin.json",
+          "起始行 (start_line)": 0,
+          "结束行 (end_line)": 45,
+          "说明 (why)": "authentication.type: apple_id with method: system_authentication but requires raw password collection"
+        }
+      ],
+      "原因说明 (why)": "Manifest claims system authentication but implementation requires raw credential collection - mismatch between claimed and actual authentication method."
+    }
+  ],
+  "建议回源片段 (retrieval_requests)": [
+    {
+      "文件路径 (path)": "SKILL.md",
+      "起始行 (start_line)": 0,
+      "结束行 (end_line)": 109,
+      "请求原因 (reason)": "Complete documentation needed to understand full installation, authentication flow, and privacy claims"
+    },
+    {
+      "文件路径 (path)": ".claude-plugin/plugin.json",
+      "起始行 (start_line)": 0,
+      "结束行 (end_line)": 45,
+      "请求原因 (reason)": "Full manifest needed to verify authentication configuration and capability claims"
+    },
+    {
+      "文件路径 (path)": "install.sh",
+      "起始行 (start_line)": 0,
+      "结束行 (end_line)": 0,
+      "请求原因 (reason)": "Missing installation script referenced in SKILL.md - critical for understanding download-execute behavior"
+    },
+    {
+      "文件路径 (path)": "src/",
+      "起始行 (start_line)": 0,
+      "结束行 (end_line)": 0,
+      "请求原因 (reason)": "Missing source code directory - needed to verify how credentials are used and what network calls are made"
+    }
+  ],
+  "覆盖情况 (coverage)": {
+    "文件总数 (total_artifacts)": 4,
+    "已索引文件数 (indexed_artifacts)": 2,
+    "覆盖缺口列表 (coverage_gaps)": [
+      {
+        "文件路径 (path)": "install.sh",
+        "原因 (why)": "Referenced in SKILL.md but not present in artifacts - contains download-execute logic"
+      },
+      {
+        "文件路径 (path)": "src/",
+        "原因 (why)": "Source code directory missing - needed to understand credential usage and Apple News integration implementation"
+      },
+      {
+        "文件路径 (path)": "~/.canifi/skills/apple-news/",
+        "原因 (why)": "Installation target directory referenced but not available for analysis"
+      }
+    ]
+  }
+}

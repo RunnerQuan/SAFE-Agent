@@ -1,0 +1,52 @@
+{
+  "verdict": {
+    "label": "mixed_risk",
+    "primary_concern": "permission-overreach",
+    "issue_types": [
+      "permission-overreach",
+      "data-over-collection",
+      "data-governance-risk"
+    ]
+  },
+  "top_findings": [
+    {
+      "id": "",
+      "cat": "permission-overreach",
+      "class": "data-governance-risk",
+      "severity": "",
+      "conf": "",
+      "summary": "The skill's purpose is advanced troubleshooting of Vercel issues, but the documented evidence collection framework requests highly sensitive actions and data that go far beyond what is necessary for debugging a deployment platform. It requires unrestricted `kubectl` access (including reading secrets), system-level journal logs, network packet captures of all HTTPS traffic (port 443) via `tcpdump`, and fetching internal monitoring data. While troubleshooting may require some logs or metrics, capturing raw network traffic and accessing Kubernetes secrets is excessive and poses significant security and privacy risks for the stated goal of debugging a third-party service like Vercel. Such broad access could expose unrelated internal services, credentials, and user data.",
+      "impact": "OVERREACH: Permission Overreach and Data Over-collection - The skill's purpose is advanced troubleshooting of Vercel issues, but the documented evidence collection framework requests highly sensitive actions and data that go far beyond what is necessary for debugging a deployment platform. It requires unrestricted `kubectl` access (including reading secrets), system-level journal logs, network packet captures of all HTTPS traffic (port 443) via `tcpdump`, and fetching internal monitoring data. While troubleshooting may require some logs or metrics, capturing raw network traffic and accessing Kubernetes secrets is excessive and poses significant security and privacy risks for the stated goal of debugging a third-party service like Vercel. Such broad access could expose unrelated internal services, credentials, and user data.",
+      "fix": "",
+      "decision_level": "OVERREACH",
+      "primary_group": "Data Governance Risk",
+      "scan_level": "Description Scan",
+      "risk_types": [
+        "Permission Overreach",
+        "Data Over-collection"
+      ],
+      "source_platform": "Marketplace",
+      "source_file": "scan_results_description_marketplace.csv",
+      "related_file_count": "6",
+      "flags": {
+        "external_server": true,
+        "api_key": false,
+        "autonomous_execution": false,
+        "browser_session_or_credentials": false,
+        "filesystem_access": true,
+        "shell_or_command_execution": false,
+        "driver_or_installer": false,
+        "credential_request": true,
+        "obfuscation_or_evasion": false,
+        "persistence_or_external_storage": false
+      },
+      "spans": []
+    }
+  ],
+  "coverage_audit": {
+    "adequate": true,
+    "missed": [],
+    "needs_rescan": false
+  },
+  "next_action": "stop"
+}

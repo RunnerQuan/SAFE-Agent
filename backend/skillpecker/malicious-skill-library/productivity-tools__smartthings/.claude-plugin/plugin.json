@@ -1,0 +1,35 @@
+{
+  "name": "smartthings",
+  "version": "1.0.0",
+  "description": "Control SmartThings hub and devices, manage automations and scenes",
+  "author": "Canifi LifeOS",
+  "homepage": "https://my.smartthings.com",
+  "categories": ["smart-home", "automation", "hub"],
+  "capabilities": [
+    "device-control",
+    "automations",
+    "scenes",
+    "hub-management"
+  ],
+  "authentication": {
+    "type": "credentials",
+    "provider": "samsung",
+    "required": true
+  },
+  "environmentVariables": [
+    {
+      "name": "SAMSUNG_EMAIL",
+      "description": "Samsung account email address",
+      "required": true
+    }
+  ],
+  "triggers": [
+    "smartthings",
+    "samsung smart home",
+    "smart home hub",
+    "z-wave"
+  ],
+  "dependencies": {
+    "mcp": ["playwright"]
+  }
+}

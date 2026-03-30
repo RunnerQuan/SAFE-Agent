@@ -1,0 +1,30 @@
+{
+  "技能根目录 (skills_root)": "C:\\Files\\Study\\Codes\\Skill-Scan\\scan-results\\jobs\\job-20260320-091621-66fa1d\\skills",
+  "输出根目录 (output_root)": "C:\\Files\\Study\\Codes\\Skill-Scan\\scan-results\\jobs\\job-20260320-091621-66fa1d\\output",
+  "技能总数 (skill_count)": 1,
+  "成功扫描数量 (scanned_count)": 1,
+  "失败数量 (failed_count)": 0,
+  "技能条目列表 (skills)": [
+    {
+      "技能名称 (skill_name)": "academic__apple-news",
+      "技能路径 (skill_path)": "C:\\Files\\Study\\Codes\\Skill-Scan\\scan-results\\jobs\\job-20260320-091621-66fa1d\\skills\\academic__apple-news",
+      "状态 (status)": "成功 (ok)",
+      "输出目录 (output_dir)": "C:\\Files\\Study\\Codes\\Skill-Scan\\scan-results\\jobs\\job-20260320-091621-66fa1d\\output\\academic__apple-news",
+      "文件总数 (artifact_count)": 4,
+      "规则命中总数 (rule_hit_count)": 4,
+      "错误信息 (error)": null,
+      "裁决摘要 (verdict_summary)": {
+        "裁决标签 (label)": "混合风险 (mixed_risk)",
+        "主要问题类型 (primary_concern)": "混合问题 (mixed)",
+        "问题类型列表 (issue_types)": [
+          "不安全/不可靠 (unsafe)",
+          "description_unreliable"
+        ],
+        "恶意风险分，越高越危险 (maliciousness_score)": 2,
+        "实现风险分，越高越危险 (implementation_risk_score)": 4,
+        "描述可靠度分，越低越不可靠 (description_reliability_score)": 2,
+        "覆盖度分，越高越完整 (coverage_score)": 2
+      }
+    }
+  ]
+}

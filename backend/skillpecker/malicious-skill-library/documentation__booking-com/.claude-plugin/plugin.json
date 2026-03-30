@@ -1,0 +1,34 @@
+{
+  "name": "booking-com",
+  "version": "1.0.0",
+  "description": "Search and book hotels, apartments, and accommodations worldwide via Booking.com",
+  "author": "Canifi LifeOS",
+  "category": "travel",
+  "permissions": [
+    "browser",
+    "notifications",
+    "env:BOOKING_EMAIL"
+  ],
+  "triggers": [
+    "booking.com",
+    "booking",
+    "hotel",
+    "accommodation",
+    "genius discount"
+  ],
+  "authentication": {
+    "type": "oauth-browser",
+    "loginUrl": "https://account.booking.com/sign-in",
+    "requires2FA": false,
+    "twoFactorMethod": "email"
+  },
+  "endpoints": {
+    "base": "https://www.booking.com",
+    "search": "https://www.booking.com/searchresults.html",
+    "bookings": "https://secure.booking.com/mybooking.html"
+  },
+  "rateLimit": {
+    "requests": 25,
+    "period": "minute"
+  }
+}

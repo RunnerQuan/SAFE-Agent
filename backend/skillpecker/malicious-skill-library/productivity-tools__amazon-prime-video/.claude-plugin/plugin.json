@@ -1,0 +1,35 @@
+{
+  "name": "amazon-prime-video",
+  "version": "1.0.0",
+  "description": "Stream Amazon Prime Video content, manage watchlist, and access Prime channels",
+  "author": "Canifi LifeOS",
+  "homepage": "https://www.primevideo.com",
+  "categories": ["entertainment", "streaming", "video"],
+  "capabilities": [
+    "content-streaming",
+    "watchlist-management",
+    "prime-channels",
+    "content-discovery"
+  ],
+  "authentication": {
+    "type": "credentials",
+    "provider": "amazon",
+    "required": true
+  },
+  "environmentVariables": [
+    {
+      "name": "AMAZON_EMAIL",
+      "description": "Amazon account email address",
+      "required": true
+    }
+  ],
+  "triggers": [
+    "prime video",
+    "amazon video",
+    "amazon prime",
+    "prime movies"
+  ],
+  "dependencies": {
+    "mcp": ["playwright"]
+  }
+}
