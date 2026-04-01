@@ -47,7 +47,6 @@ export function PageHeader({ title, description, breadcrumbs, actions }: PageHea
 
       <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
         <div className="max-w-3xl">
-          <span className="section-tag">页面</span>
           <h1 className="mt-4 font-display text-3xl font-medium tracking-tight text-slate-900 dark:text-slate-50 sm:text-4xl">
             {title}
           </h1>
