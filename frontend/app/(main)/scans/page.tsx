@@ -4,7 +4,7 @@ import { Suspense, useMemo, useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { Clock, Eye, Filter, Plus, RotateCcw, StopCircle } from 'lucide-react'
+import { Clock, Eye, Filter, Plus, RotateCcw, Search, StopCircle } from 'lucide-react'
 import { toast } from 'sonner'
 
 import { ConfirmDialog } from '@/components/dialogs/confirm-dialog'
@@ -16,6 +16,7 @@ import { StatusBadge } from '@/components/badges/status-badge'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
 import { cancelScan, listScans } from '@/lib/api'
 import { Scan, ScanType } from '@/lib/types'
 import { formatDate, formatDuration, scanTypeLabels, shortId } from '@/lib/utils'
@@ -36,6 +37,10 @@ function hasReadableResult(scan: Scan) {
   return Boolean(scan.detail) || scan.status === 'succeeded' || scan.status === 'partial'
 }
 
+function normalizeKeyword(value: string) {
+  return value.trim().toLowerCase()
+}
+
 function ScansContent() {
   const queryClient = useQueryClient()
   const [cancelDialog, setCancelDialog] = useState<{ open: boolean; scan: Scan | null }>({
@@ -43,6 +48,7 @@ function ScansContent() {
     scan: null,
   })
   const [activeFilter, setActiveFilter] = useState<ScanType | null>(null)
+  const [searchTerm, setSearchTerm] = useState('')
 
   const { data: scans, isLoading, error, refetch } = useQuery({
     queryKey: ['scans'],
@@ -55,12 +61,14 @@ function ScansContent() {
 
   const filteredScans = useMemo(() => {
     const list = scans || []
-    if (!activeFilter) {
-      return list
-    }
+    const keyword = normalizeKeyword(searchTerm)
 
-    return list.filter((scan) => getSelectedChecks(scan).includes(activeFilter))
-  }, [activeFilter, scans])
+    return list.filter((scan) => {
+      const matchesType = !activeFilter || getSelectedChecks(scan).includes(activeFilter)
+      const matchesKeyword = !keyword || normalizeKeyword(getTaskTitle(scan)).includes(keyword)
+      return matchesType && matchesKeyword
+    })
+  }, [activeFilter, scans, searchTerm])
 
   const summary = useMemo(() => {
     const list = filteredScans
@@ -103,43 +111,45 @@ function ScansContent() {
         }
       />
 
-      <section className="flex flex-wrap items-center gap-3 rounded-[1.8rem] border border-white/60 bg-white/65 p-4 shadow-[0_18px_40px_rgba(15,23,42,0.06)] dark:border-slate-800 dark:bg-slate-950/35">
-        <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-3 py-2 text-sm text-slate-600 dark:border-slate-700 dark:bg-slate-900/60 dark:text-slate-300">
-          <Filter className="h-4 w-4" />
-          <span>按检测类型筛选</span>
+      <section className="flex flex-col gap-4 rounded-[1.8rem] border border-white/60 bg-white/65 p-4 shadow-[0_18px_40px_rgba(15,23,42,0.06)] dark:border-slate-800 dark:bg-slate-950/35 lg:flex-row lg:items-center lg:justify-between">
+        <div className="flex flex-wrap items-center gap-3">
+          <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-3 py-2 text-sm text-slate-600 dark:border-slate-700 dark:bg-slate-900/60 dark:text-slate-300">
+            <Filter className="h-4 w-4" />
+            <span>按检测类型筛选</span>
+          </div>
+
+          {(['exposure', 'fuzzing'] as ScanType[]).map((type) => {
+            const active = activeFilter === type
+            return (
+              <Button
+                key={type}
+                type="button"
+                variant={active ? 'default' : 'outline'}
+                className="rounded-full"
+                onClick={() => setActiveFilter((current) => (current === type ? null : type))}
+              >
+                {scanTypeLabels[type]}
+              </Button>
+            )
+          })}
         </div>
 
-        {(['exposure', 'fuzzing'] as ScanType[]).map((type) => {
-          const active = activeFilter === type
-          return (
-            <Button
-              key={type}
-              type="button"
-              variant={active ? 'default' : 'outline'}
-              className="rounded-full"
-              onClick={() => setActiveFilter((current) => (current === type ? null : type))}
-            >
-              {scanTypeLabels[type]}
-            </Button>
-          )
-        })}
-
-        {activeFilter && (
-          <button
-            type="button"
-            className="text-sm font-medium text-slate-500 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-50"
-            onClick={() => setActiveFilter(null)}
-          >
-            清除筛选
-          </button>
-        )}
+        <div className="relative w-full max-w-md">
+          <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+          <Input
+            value={searchTerm}
+            onChange={(event) => setSearchTerm(event.target.value)}
+            placeholder="搜索任务名称"
+            className="pl-11"
+          />
+        </div>
       </section>
 
       <section className="grid gap-4 md:grid-cols-3">
         {[
-          { label: '任务总数', value: summary.total },
-          { label: '运行中', value: summary.running },
-          { label: '可读结果', value: summary.reports },
+          { label: '分析任务数', value: summary.total },
+          { label: '执行中的风险分析', value: summary.running },
+          { label: '已产出风险结果', value: summary.reports },
         ].map((item) => (
           <Card key={item.label} className="rounded-[1.8rem]">
             <div className="p-6">
@@ -225,8 +235,8 @@ function ScansContent() {
       ) : (
         <Card className="glass-card">
           <EmptyState
-            title={activeFilter ? '当前筛选下暂无任务' : '暂无任务'}
-            description={activeFilter ? '切换筛选条件或新建分析后，任务会出现在这里。' : '提交一次联合检测后，任务会出现在这里。'}
+            title={activeFilter || searchTerm ? '当前条件下暂无任务' : '暂无任务'}
+            description={activeFilter || searchTerm ? '调整筛选条件或搜索关键词后再试。' : '提交一次联合检测后，任务会出现在这里。'}
             action={{ label: '新建分析', href: '/scans/new' }}
           />
         </Card>
