@@ -1,1 +1,0 @@
-{"version":1,"functions":{"/api/doe-library":{},"/api/dashboard/stats":{},"/api/agents":{},"/api/reports":{},"/api/agents/[id]":{},"/api/reports/[id]":{},"/api/scans/[id]/cancel":{},"/api/scans/[id]/logs":{},"/api/reports/[id]/download":{},"/api/scans/[id]":{},"/api/scans":{},"/api/utils/test-connection":{},"/api/skillpecker/[...path]":{}}}
