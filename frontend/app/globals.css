@@ -801,6 +801,7 @@
   display: inline-grid;
   place-items: center;
   margin: 0;
+  overflow: visible;
   font-family:
     var(--font-body),
     var(--font-cjk),
@@ -808,8 +809,8 @@
     'Noto Sans SC',
     sans-serif;
   font-size: clamp(3.6rem, 7.4vw, 6.15rem);
-  line-height: 1.02;
-  padding-bottom: 0.12em;
+  line-height: 1.14;
+  padding: 0.03em 0.03em 0.3em;
   letter-spacing: -0.07em;
   font-weight: 900;
   filter: drop-shadow(0 22px 36px rgba(15, 23, 42, 0.08));
@@ -1830,6 +1831,8 @@
 
   .safe-home-title {
     font-size: clamp(3.1rem, 16vw, 4.8rem);
+    line-height: 1.12;
+    padding: 0.04em 0.03em 0.28em;
   }
 
   .safe-home-subtitle {
