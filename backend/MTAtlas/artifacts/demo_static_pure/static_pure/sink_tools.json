@@ -1,0 +1,25 @@
+{
+  "sink_tools": [
+    {
+      "tool_name": "run_terminal",
+      "sink_types": [
+        "CMDi"
+      ],
+      "effects": [
+        "CMDi"
+      ],
+      "evidence": [
+        "run_terminal:subprocess.getoutput:path:f'cat {path}':line4"
+      ],
+      "sink_sites": [
+        {
+          "tool_name": "run_terminal",
+          "sink_type": "CMDi",
+          "api": "subprocess.getoutput",
+          "sink_argument": "f'cat {path}'",
+          "evidence": "run_terminal:subprocess.getoutput:path:line4"
+        }
+      ]
+    }
+  ]
+}

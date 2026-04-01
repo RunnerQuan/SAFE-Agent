@@ -10,8 +10,8 @@ LLM_PROVIDER_CONFIG = {
         "base_url": "xx"
     },
     "qwen": {
-        "api_key": "sk-b9ecb34d78454fefae629fe97df3fd5d",
-        "base_url": "https://api.deepseek.com/v1"
+        "api_key": "sk-xxx",
+        "base_url": "xxx"
     }
 }
 

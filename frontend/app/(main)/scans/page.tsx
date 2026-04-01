@@ -1,10 +1,10 @@
-'use client'
+﻿'use client'
 
 import { Suspense, useMemo, useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { Clock, Eye, FileText, Plus, RotateCcw, StopCircle } from 'lucide-react'
+import { Clock, Eye, Filter, Plus, RotateCcw, StopCircle } from 'lucide-react'
 import { toast } from 'sonner'
 
 import { ConfirmDialog } from '@/components/dialogs/confirm-dialog'
@@ -17,27 +17,32 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { cancelScan, listScans } from '@/lib/api'
-import { Scan as ScanType } from '@/lib/types'
+import { Scan, ScanType } from '@/lib/types'
 import { formatDate, formatDuration, scanTypeLabels, shortId } from '@/lib/utils'
 
-function getTaskTitle(scan: ScanType) {
+function getTaskTitle(scan: Scan) {
   return typeof scan.params?.taskName === 'string' ? scan.params.taskName : scan.title || scan.agentName || shortId(scan.id)
 }
 
-function getToolCount(scan: ScanType) {
+function getToolCount(scan: Scan) {
   return typeof scan.params?.toolCount === 'number' ? scan.params.toolCount : 0
 }
 
-function getSelectedChecks(scan: ScanType) {
+function getSelectedChecks(scan: Scan) {
   return Array.isArray(scan.params?.selectedChecks) ? (scan.params.selectedChecks as string[]) : scan.types
+}
+
+function hasReadableResult(scan: Scan) {
+  return Boolean(scan.detail) || scan.status === 'succeeded' || scan.status === 'partial'
 }
 
 function ScansContent() {
   const queryClient = useQueryClient()
-  const [cancelDialog, setCancelDialog] = useState<{ open: boolean; scan: ScanType | null }>({
+  const [cancelDialog, setCancelDialog] = useState<{ open: boolean; scan: Scan | null }>({
     open: false,
     scan: null,
   })
+  const [activeFilter, setActiveFilter] = useState<ScanType | null>(null)
 
   const { data: scans, isLoading, error, refetch } = useQuery({
     queryKey: ['scans'],
@@ -48,24 +53,33 @@ function ScansContent() {
     },
   })
 
-  const summary = useMemo(() => {
+  const filteredScans = useMemo(() => {
     const list = scans || []
+    if (!activeFilter) {
+      return list
+    }
+
+    return list.filter((scan) => getSelectedChecks(scan).includes(activeFilter))
+  }, [activeFilter, scans])
+
+  const summary = useMemo(() => {
+    const list = filteredScans
     return {
       total: list.length,
-      running: list.filter((item) => item.status === 'running').length,
-      reports: list.filter((item) => item.reportId).length,
+      running: list.filter((item) => item.status === 'running' || item.status === 'queued').length,
+      reports: list.filter((item) => hasReadableResult(item)).length,
     }
-  }, [scans])
+  }, [filteredScans])
 
   const cancelMutation = useMutation({
     mutationFn: cancelScan,
     onSuccess: () => {
-      toast.success('任务已取消')
+      toast.success('任务已取消。')
       queryClient.invalidateQueries({ queryKey: ['scans'] })
       setCancelDialog({ open: false, scan: null })
     },
     onError: () => {
-      toast.error('取消失败，请稍后重试')
+      toast.error('取消失败，请稍后重试。')
     },
   })
 
@@ -76,23 +90,56 @@ function ScansContent() {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="任务"
-        description="统一查看工具 metadata 批次任务，追踪双检测执行状态与报告产出。"
+        title="工具链风险分析"
+        description="统一查看工具链联合检测任务，跟踪执行进度，并在详情页直接阅读 DOE 与组合式漏洞结果。"
+        breadcrumbs={[{ title: '工具链风险分析' }]}
         actions={
           <Link href="/scans/new">
             <Button>
               <Plus className="mr-1.5 h-4 w-4" />
-              新建任务
+              新建分析
             </Button>
           </Link>
         }
       />
 
+      <section className="flex flex-wrap items-center gap-3 rounded-[1.8rem] border border-white/60 bg-white/65 p-4 shadow-[0_18px_40px_rgba(15,23,42,0.06)] dark:border-slate-800 dark:bg-slate-950/35">
+        <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-3 py-2 text-sm text-slate-600 dark:border-slate-700 dark:bg-slate-900/60 dark:text-slate-300">
+          <Filter className="h-4 w-4" />
+          <span>按检测类型筛选</span>
+        </div>
+
+        {(['exposure', 'fuzzing'] as ScanType[]).map((type) => {
+          const active = activeFilter === type
+          return (
+            <Button
+              key={type}
+              type="button"
+              variant={active ? 'default' : 'outline'}
+              className="rounded-full"
+              onClick={() => setActiveFilter((current) => (current === type ? null : type))}
+            >
+              {scanTypeLabels[type]}
+            </Button>
+          )
+        })}
+
+        {activeFilter && (
+          <button
+            type="button"
+            className="text-sm font-medium text-slate-500 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-50"
+            onClick={() => setActiveFilter(null)}
+          >
+            清除筛选
+          </button>
+        )}
+      </section>
+
       <section className="grid gap-4 md:grid-cols-3">
         {[
-          { label: '总任务数', value: summary.total },
-          { label: '进行中', value: summary.running },
-          { label: '已生成报告', value: summary.reports },
+          { label: '任务总数', value: summary.total },
+          { label: '运行中', value: summary.running },
+          { label: '可读结果', value: summary.reports },
         ].map((item) => (
           <Card key={item.label} className="rounded-[1.8rem]">
             <div className="p-6">
@@ -105,11 +152,10 @@ function ScansContent() {
 
       {isLoading ? (
         <LoadingSkeleton type="table" count={5} />
-      ) : scans && scans.length > 0 ? (
+      ) : filteredScans.length > 0 ? (
         <div className="space-y-3">
-          {scans.map((scan, index) => {
+          {filteredScans.map((scan, index) => {
             const canCancel = scan.status === 'queued' || scan.status === 'running'
-            const canOpenReport = scan.status === 'succeeded' && Boolean(scan.reportId)
 
             return (
               <motion.div
@@ -138,11 +184,17 @@ function ScansContent() {
 
                       <div className="flex flex-wrap gap-2">
                         {getSelectedChecks(scan).map((type) => (
-                          <Badge key={type} variant="outline">
+                          <Badge key={type} variant={type === 'exposure' ? 'medium' : 'running'}>
                             {scanTypeLabels[type] || type}
                           </Badge>
                         ))}
                       </div>
+
+                      {scan.summary && (
+                        <p className="text-sm text-slate-500 dark:text-slate-400">
+                          当前结果：DOE {scan.summary.exposureFindings} 条，组合式漏洞 {scan.summary.fuzzingFindings} 条。
+                        </p>
+                      )}
                     </div>
 
                     <div className="flex items-center gap-2">
@@ -151,14 +203,6 @@ function ScansContent() {
                           <Eye className="h-4 w-4" />
                         </Button>
                       </Link>
-
-                      {canOpenReport && (
-                        <Link href={`/reports/${scan.reportId}`}>
-                          <Button variant="ghost" size="icon">
-                            <FileText className="h-4 w-4" />
-                          </Button>
-                        </Link>
-                      )}
 
                       <Link href={`/scans/new?copyFrom=${scan.id}`}>
                         <Button variant="ghost" size="icon">
@@ -181,9 +225,9 @@ function ScansContent() {
       ) : (
         <Card className="glass-card">
           <EmptyState
-            title="暂无任务"
-            description="输入工具 metadata 后，任务会出现在这里。"
-            action={{ label: '新建任务', href: '/scans/new' }}
+            title={activeFilter ? '当前筛选下暂无任务' : '暂无任务'}
+            description={activeFilter ? '切换筛选条件或新建分析后，任务会出现在这里。' : '提交一次联合检测后，任务会出现在这里。'}
+            action={{ label: '新建分析', href: '/scans/new' }}
           />
         </Card>
       )}
@@ -192,7 +236,7 @@ function ScansContent() {
         open={cancelDialog.open}
         onOpenChange={(open) => setCancelDialog({ open, scan: cancelDialog.scan })}
         title="取消任务"
-        description="确认取消当前任务？"
+        description="确认取消当前联合检测任务吗？"
         confirmLabel="确认取消"
         variant="destructive"
         loading={cancelMutation.isPending}

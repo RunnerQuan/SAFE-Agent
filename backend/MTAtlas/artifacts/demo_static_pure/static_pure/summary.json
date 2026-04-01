@@ -1,0 +1,15 @@
+{
+  "mode": "static-pure",
+  "framework": "demo_static_pure",
+  "input_path": "MTAtlas/inputs/static_pure/demo_tools.json",
+  "tool_count": 3,
+  "sink_tools": 1,
+  "dependency_edges": 8,
+  "candidate_chain_count": 1,
+  "accepted_chain_count": 1,
+  "rejected_chain_count": 0,
+  "chains": [
+    "get_email_content -> write_file -> run_terminal"
+  ],
+  "wall_time_seconds": 0.0018398761749267578
+}

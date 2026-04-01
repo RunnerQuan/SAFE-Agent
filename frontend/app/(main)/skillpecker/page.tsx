@@ -39,6 +39,8 @@ export default function SkillPeckerPage() {
   const observerCleanupRefs = useRef<Partial<Record<ModuleViewKey, () => void>>>({})
   const wheelCleanupRefs = useRef<Partial<Record<ModuleViewKey, () => void>>>({})
   const modalFrameKeyRef = useRef<ModuleViewKey | null>(null)
+  const wheelRafRef = useRef<number | null>(null)
+  const wheelDeltaRef = useRef(0)
 
   const [activeTab, setActiveTab] = useState<ModuleViewKey>('intro')
   const [frameHeights, setFrameHeights] = useState<Record<ModuleViewKey, number>>(initialHeights)
@@ -48,6 +50,14 @@ export default function SkillPeckerPage() {
   useEffect(() => {
     modalFrameKeyRef.current = modalFrameKey
   }, [modalFrameKey])
+
+  useEffect(() => {
+    return () => {
+      if (wheelRafRef.current) {
+        window.cancelAnimationFrame(wheelRafRef.current)
+      }
+    }
+  }, [])
 
   useEffect(() => {
     const syncViewportHeight = () => setViewportHeight(window.innerHeight)
@@ -120,6 +130,21 @@ export default function SkillPeckerPage() {
     iframeRefs.current[key] = iframe
   }
 
+  const flushWheelScroll = () => {
+    const delta = wheelDeltaRef.current
+    wheelDeltaRef.current = 0
+    wheelRafRef.current = null
+
+    if (Math.abs(delta) < 0.5) {
+      return
+    }
+
+    window.scrollBy({
+      top: delta,
+      behavior: 'auto',
+    })
+  }
+
   const normalizeWheelDelta = (event: WheelEvent) => {
     if (event.deltaMode === WheelEvent.DOM_DELTA_LINE) {
       return event.deltaY * 18
@@ -177,12 +202,10 @@ export default function SkillPeckerPage() {
       }
 
       event.preventDefault()
-      const nextDeltaY = normalizeWheelDelta(event) * 1.18
-      window.scrollBy({
-        top: nextDeltaY,
-        left: event.deltaX,
-        behavior: 'auto',
-      })
+      wheelDeltaRef.current += normalizeWheelDelta(event) * 1.32
+      if (!wheelRafRef.current) {
+        wheelRafRef.current = window.requestAnimationFrame(flushWheelScroll)
+      }
     }
 
     doc.addEventListener('wheel', onWheel, { passive: false })
@@ -226,14 +249,18 @@ export default function SkillPeckerPage() {
     const nextTab = value as ModuleViewKey
     setActiveTab(nextTab)
 
+    const alignTabsBarToTop = () => {
+      const targetTop = tabsBarRef.current?.getBoundingClientRect().top ?? 0
+      window.scrollBy({
+        top: targetTop,
+        behavior: 'auto',
+      })
+    }
+
     window.requestAnimationFrame(() => {
       window.requestAnimationFrame(() => {
-        const targetTop = tabsBarRef.current?.getBoundingClientRect().top ?? 0
-        const nextScrollTop = window.scrollY + targetTop
-        window.scrollTo({
-          top: Math.max(0, nextScrollTop),
-          behavior: 'smooth',
-        })
+        alignTabsBarToTop()
+        window.setTimeout(alignTabsBarToTop, 90)
       })
     })
   }
