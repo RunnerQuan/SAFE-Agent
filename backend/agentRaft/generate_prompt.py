@@ -140,7 +140,6 @@ def findCode(path, mcpList):
         if p == "__entry__":
             continue
         returnCode.append(code[p])
-    return returnCode
 
 
 def writeRes2File(promptPath, toWriteData):

@@ -1,6 +1,7 @@
 import {
   Agent,
   DashboardStats,
+  DoeLibraryCase,
   ExposureFinding,
   FuzzingFinding,
   LogEntry,
@@ -497,6 +498,15 @@ export async function getDashboardStats(): Promise<DashboardStats> {
     }
   }
   return fetchApi<DashboardStats>('/dashboard/stats')
+}
+
+export async function listDoeLibraryCases(): Promise<DoeLibraryCase[]> {
+  if (USE_MOCK) {
+    await sleep(120)
+    return []
+  }
+
+  return fetchApi<DoeLibraryCase[]>('/doe-library')
 }
 
 export async function testConnection(url: string, authType: string, apiKey?: string): Promise<boolean> {

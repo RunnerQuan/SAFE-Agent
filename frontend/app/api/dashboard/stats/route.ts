@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 
-import { getDashboardStats } from '@/lib/server/agentraft-service'
+import { getDashboardStats } from '@/lib/server/scan-service'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'

@@ -1,4 +1,4 @@
-export type AgentInputType = 'spec_upload' | 'endpoint'
+﻿export type AgentInputType = 'spec_upload' | 'endpoint'
 
 export interface Agent {
   id: string
@@ -18,12 +18,26 @@ export interface Agent {
 }
 
 export type ScanType = 'exposure' | 'fuzzing'
-export type ScanStatus = 'queued' | 'running' | 'succeeded' | 'failed' | 'canceled'
+export type ScanStatus = 'queued' | 'running' | 'succeeded' | 'failed' | 'canceled' | 'partial'
 
 export interface ScanProgress {
   stage: 'parse' | 'precheck' | 'run' | 'aggregate' | 'done'
   percent: number
   message?: string
+}
+
+export interface ScanCheckState {
+  type: ScanType
+  enabled: boolean
+  status: ScanStatus | 'skipped'
+  label: string
+  scanId?: string
+  reportId?: string
+  progress?: ScanProgress
+  findingCount?: number
+  risk?: RiskLevel
+  error?: string
+  updatedAt?: string
 }
 
 export interface ToolMetadataItem {
@@ -32,6 +46,17 @@ export interface ToolMetadataItem {
   description?: string
   mcp?: string
   code?: string
+}
+
+export interface ScanSummary {
+  totalFindings: number
+  exposureFindings: number
+  fuzzingFindings: number
+  doeToolCount: number
+  chainToolCount: number
+  highRiskExposureCount: number
+  highRiskChainCount: number
+  topRisks: string[]
 }
 
 export interface Scan {
@@ -48,6 +73,9 @@ export interface Scan {
   params?: Record<string, unknown>
   progress?: ScanProgress
   reportId?: string
+  checks?: Partial<Record<ScanType, ScanCheckState>>
+  summary?: ScanSummary
+  detail?: IntegratedScanDetail
 }
 
 export type RiskLevel = 'high' | 'medium' | 'low' | 'unknown'
@@ -98,6 +126,28 @@ export interface FuzzingFinding extends FindingBase {
   trace?: string[]
 }
 
+export interface IntegratedScanDetail {
+  risk: RiskLevel
+  overviewText?: string[]
+  executiveSummary?: string[]
+  exposure?: {
+    findings: ExposureFinding[]
+    flowGraph?: unknown
+    overviewText?: string[]
+    recommendations?: string[]
+    raw?: unknown
+  }
+  fuzzing?: {
+    findings: FuzzingFinding[]
+    stats?: Record<string, number>
+    overviewText?: string[]
+    recommendations?: string[]
+    raw?: unknown
+  }
+  recommendations?: string[]
+  raw?: unknown
+}
+
 export interface ReportDetail extends Report {
   overviewText?: string[]
   exposure?: {
@@ -130,4 +180,37 @@ export interface DashboardStats {
   recentScanCount: number
   failedScanCount: number
   highRiskReportCount: number
+}
+
+export interface DoeLibraryTranscriptItem {
+  role: string
+  text: string
+}
+
+export interface DoeLibraryCase {
+  id: string
+  folderName: string
+  pipelineName: string
+  suiteName: string
+  scenarioName: string
+  userTaskId: string
+  hasJudgeResult: boolean
+  verdict?: boolean
+  utility?: boolean | null
+  security?: boolean | null
+  durationSeconds?: number | null
+  messageCount: number
+  toolSequence: string[]
+  uniqueTools: string[]
+  userPrompt: string
+  finalAction?: string
+  lastToolOutput?: string
+  analysisReason?: string
+  allowedFields: string[]
+  leakedFields: string[]
+  transcriptPreview: DoeLibraryTranscriptItem[]
+  raw?: {
+    evaluation?: unknown
+    judgeResult?: unknown
+  }
 }

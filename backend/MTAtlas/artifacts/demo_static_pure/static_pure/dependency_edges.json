@@ -1,0 +1,108 @@
+{
+  "edges": [
+    {
+      "source_tool": "write_file",
+      "target_tool": "run_terminal",
+      "dependency_kind": "direct",
+      "carrier": "file_path",
+      "source_field": "file_path",
+      "target_param": "path",
+      "match_kind": "equivalence",
+      "criteria": [
+        "field_equivalence"
+      ],
+      "evidence": "write_file.file_path has a equivalence match with run_terminal.path"
+    },
+    {
+      "source_tool": "write_file",
+      "target_tool": "run_terminal",
+      "dependency_kind": "direct",
+      "carrier": "file_path",
+      "source_field": "path",
+      "target_param": "path",
+      "match_kind": "equivalence",
+      "criteria": [
+        "field_equivalence"
+      ],
+      "evidence": "write_file.path has a equivalence match with run_terminal.path"
+    },
+    {
+      "source_tool": "write_file",
+      "target_tool": "run_terminal",
+      "dependency_kind": "indirect",
+      "carrier": "file",
+      "source_field": "persisted_file",
+      "target_param": "path",
+      "match_kind": "persist-read",
+      "criteria": [
+        "persistent_file_dependency"
+      ],
+      "evidence": "write_file can persist file-backed content that run_terminal can later read or execute."
+    },
+    {
+      "source_tool": "get_email_content",
+      "target_tool": "write_file",
+      "dependency_kind": "direct",
+      "carrier": "content",
+      "source_field": "body",
+      "target_param": "content",
+      "match_kind": "equivalence",
+      "criteria": [
+        "field_equivalence"
+      ],
+      "evidence": "get_email_content.body has a equivalence match with write_file.content"
+    },
+    {
+      "source_tool": "get_email_content",
+      "target_tool": "write_file",
+      "dependency_kind": "direct",
+      "carrier": "content",
+      "source_field": "content",
+      "target_param": "content",
+      "match_kind": "equivalence",
+      "criteria": [
+        "field_equivalence"
+      ],
+      "evidence": "get_email_content.content has a equivalence match with write_file.content"
+    },
+    {
+      "source_tool": "get_email_content",
+      "target_tool": "write_file",
+      "dependency_kind": "direct",
+      "carrier": "content",
+      "source_field": "text",
+      "target_param": "content",
+      "match_kind": "equivalence",
+      "criteria": [
+        "field_equivalence"
+      ],
+      "evidence": "get_email_content.text has a equivalence match with write_file.content"
+    },
+    {
+      "source_tool": "run_terminal",
+      "target_tool": "write_file",
+      "dependency_kind": "direct",
+      "carrier": "file_path",
+      "source_field": "file_path",
+      "target_param": "path",
+      "match_kind": "equivalence",
+      "criteria": [
+        "field_equivalence"
+      ],
+      "evidence": "run_terminal.file_path has a equivalence match with write_file.path"
+    },
+    {
+      "source_tool": "run_terminal",
+      "target_tool": "write_file",
+      "dependency_kind": "direct",
+      "carrier": "file_path",
+      "source_field": "path",
+      "target_param": "path",
+      "match_kind": "equivalence",
+      "criteria": [
+        "field_equivalence"
+      ],
+      "evidence": "run_terminal.path has a equivalence match with write_file.path"
+    }
+  ]
+}

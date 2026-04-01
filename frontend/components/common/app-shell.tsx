@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { FileText, Home, ScanLine, ShieldCheck, Sparkles } from 'lucide-react'
+import { Home, ScanLine, ShieldCheck, Sparkles } from 'lucide-react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 
 import { Button } from '@/components/ui/button'
@@ -19,16 +19,15 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { title: '首页', href: '/', icon: Home, description: '平台简介与双检测能力概览。' },
+  { title: '首页', href: '/', icon: Home, description: '平台概览与三类检测能力入口。' },
   { title: 'Skill 可信安全检测', href: '/skillpecker', icon: ShieldCheck, description: 'Skill 可信安全检测工作台与恶意 Skill 样本库。' },
-  { title: '任务', href: '/scans', icon: ScanLine, description: '提交工具 metadata 批次并追踪检测进度。' },
-  { title: '报告', href: '/reports', icon: FileText, description: '查看 DOE 与组合式漏洞的工具级结果。' },
+  { title: '工具链风险分析', href: '/scans', icon: ScanLine, description: '统一发起工具链联合检测，跟踪执行状态并查看 DOE 与组合式漏洞结果。' },
 ]
 
 function SectionIntro({ pathname }: { pathname: string }) {
   const current = navItems.find((item) => pathname === item.href || pathname.startsWith(`${item.href}/`))
 
-  if (pathname === '/') {
+  if (pathname === '/' || pathname.startsWith('/scans')) {
     return null
   }
 
@@ -41,12 +40,12 @@ function SectionIntro({ pathname }: { pathname: string }) {
             {current?.title ?? '平台'}
           </h1>
           <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
-            {current?.description ?? '统一处理工具 metadata 输入、检测任务执行与报告查看。'}
+            {current?.description ?? '统一处理工具 metadata 输入、检测任务执行与联合结果查看。'}
           </p>
         </div>
 
         <Link href="/scans/new">
-          <Button size="sm">新建任务</Button>
+          <Button size="sm">新建分析</Button>
         </Link>
       </div>
     </section>
@@ -89,7 +88,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
       setScrolled(currentY > 8)
 
-       if (isSkillPecker) {
+      if (isSkillPecker) {
         setHidden(currentY > 8)
         return
       }
@@ -163,14 +162,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <div className="topbar-brand">
               <Link href="/" className="brandmark" aria-label="返回 SAFE-Agent 首页" title="返回首页">
                 <span className="brandmark-tool-badge">
-                  <Image
-                    className="brandmark-tool-logo"
-                    src="/web_logo.png"
-                    alt="SAFE-Agent 标志"
-                    width={72}
-                    height={72}
-                    priority
-                  />
+                  <Image className="brandmark-tool-logo" src="/web_logo.png" alt="SAFE-Agent 标志" width={72} height={72} priority />
                 </span>
                 <span className="brandmark-copy">
                   <span className="brandmark-text">SAFE-Agent</span>

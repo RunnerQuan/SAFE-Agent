@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-import { getScan } from '@/lib/server/agentraft-service'
+import { getScan } from '@/lib/server/scan-service'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'

@@ -1,0 +1,62 @@
+{
+  "accepted": [
+    {
+      "chain_id": "chain_001",
+      "tools": [
+        "get_email_content",
+        "write_file",
+        "run_terminal"
+      ],
+      "chain_display": "get_email_content -> write_file -> run_terminal",
+      "mcp_sequence": [
+        "Claude Post",
+        "Filesystem MCP",
+        "Shell MCP"
+      ],
+      "chain_display_with_mcp": "[Claude Post] get_email_content -> [Filesystem MCP] write_file -> [Shell MCP] run_terminal",
+      "sink_tool": "run_terminal",
+      "sink_type": "CMDi",
+      "dependency_summary": [
+        "get_email_content.body has a equivalence match with write_file.content",
+        "write_file.file_path has a equivalence match with run_terminal.path"
+      ],
+      "dependency_kinds": [
+        "direct",
+        "direct"
+      ],
+      "dependency_sites": [
+        {
+          "source_tool": "get_email_content",
+          "source_field": "body",
+          "target_tool": "write_file",
+          "target_param": "content",
+          "dependency_kind": "direct",
+          "carrier": "content",
+          "match_kind": "equivalence",
+          "evidence": "get_email_content.body has a equivalence match with write_file.content"
+        },
+        {
+          "source_tool": "write_file",
+          "source_field": "file_path",
+          "target_tool": "run_terminal",
+          "target_param": "path",
+          "dependency_kind": "direct",
+          "carrier": "file_path",
+          "match_kind": "equivalence",
+          "evidence": "write_file.file_path has a equivalence match with run_terminal.path"
+        }
+      ],
+      "key_dependency_site": {
+        "source_tool": "write_file",
+        "source_field": "file_path",
+        "target_tool": "run_terminal",
+        "target_param": "path",
+        "dependency_kind": "direct",
+        "carrier": "file_path",
+        "match_kind": "equivalence",
+        "evidence": "write_file.file_path has a equivalence match with run_terminal.path"
+      }
+    }
+  ],
+  "rejected": []
+}

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-import { deleteAgentEntry, getAgent, updateAgentEntry } from '@/lib/server/agentraft-service'
+import { deleteAgentEntry, getAgent, updateAgentEntry } from '@/lib/server/scan-service'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'

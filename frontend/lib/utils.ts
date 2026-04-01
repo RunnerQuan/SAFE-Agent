@@ -1,4 +1,4 @@
-import { clsx, type ClassValue } from 'clsx'
+﻿import { clsx, type ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
 export function cn(...inputs: ClassValue[]) {
@@ -42,7 +42,7 @@ export function sleep(ms: number): Promise<void> {
 export const stageLabels: Record<string, string> = {
   parse: '解析输入',
   precheck: '预检查',
-  run: '执行双检测',
+  run: '执行检测',
   aggregate: '聚合结果',
   done: '完成',
 }
@@ -65,4 +65,5 @@ export const statusLabels: Record<string, string> = {
   succeeded: '已完成',
   failed: '失败',
   canceled: '已取消',
+  partial: '部分完成',
 }
