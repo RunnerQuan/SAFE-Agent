@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation'
 
-export default function SkillPeckerPage() {
+export default function SkillPeckerIntroPage() {
   redirect('/skillpecker/overview')
 }
