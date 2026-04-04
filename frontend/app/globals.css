@@ -3165,10 +3165,15 @@
   --skillpecker-shell-max: 1280px;
   --skillpecker-shell-gutter: 52px;
   --skillpecker-feature-title-size: 1.6rem;
+  --skillpecker-top-gap: 7.75rem;
 }
 
 .skillpecker-page-shell {
   width: min(var(--skillpecker-shell-max), calc(100vw - var(--skillpecker-shell-gutter)));
+}
+
+.skillpecker-main {
+  padding-top: var(--skillpecker-top-gap);
 }
 
 .skillpecker-overview-stack {
@@ -4217,9 +4222,603 @@
   }
 }
 
+.skillpecker-module-hero {
+  position: relative;
+  padding: clamp(1.6rem, 3vw, 2.3rem);
+  border-radius: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  background:
+    radial-gradient(circle at 14% 22%, rgba(255, 255, 255, 0.9), transparent 32%),
+    linear-gradient(115deg, rgba(255, 255, 255, 0.94) 0%, rgba(247, 251, 255, 0.94) 36%, rgba(226, 244, 255, 0.86) 70%, rgba(235, 248, 241, 0.84) 100%);
+  box-shadow:
+    0 26px 60px rgba(148, 163, 184, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.72);
+}
+
+.skillpecker-module-hero::before,
+.skillpecker-module-hero::after {
+  content: '';
+  position: absolute;
+  inset: auto;
+  pointer-events: none;
+}
+
+.skillpecker-module-hero::before {
+  top: 1.1rem;
+  right: 18%;
+  width: 9rem;
+  height: 4.8rem;
+  border-radius: 1.6rem;
+  background: linear-gradient(90deg, rgba(125, 211, 252, 0), rgba(125, 211, 252, 0.32), rgba(187, 247, 208, 0.18), rgba(125, 211, 252, 0));
+  filter: blur(4px);
+  opacity: 0.8;
+}
+
+.skillpecker-module-hero::after {
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(110deg, rgba(255, 255, 255, 0) 22%, rgba(255, 255, 255, 0.34) 46%, rgba(255, 255, 255, 0) 68%);
+  transform: translateX(-38%);
+  animation: skillpecker-hero-sheen 8.5s ease-in-out infinite;
+}
+
+.skillpecker-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(18rem, 0.9fr);
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.skillpecker-hero-copy {
+  display: grid;
+  gap: 1rem;
+  max-width: 42rem;
+  position: relative;
+  z-index: 1;
+}
+
+.skillpecker-hero-copy > h1 {
+  margin: 0;
+}
+
+.skillpecker-hero-copy > p {
+  margin: 0;
+}
+
+.skillpecker-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding-top: 0.15rem;
+}
+
+.skillpecker-hero-aside {
+  display: grid;
+  gap: 1rem;
+  justify-items: stretch;
+  position: relative;
+  z-index: 1;
+}
+
+.skillpecker-hero-visual {
+  position: relative;
+  min-height: 9.2rem;
+  overflow: hidden;
+  border-radius: 1.8rem;
+  border: 1px solid rgba(191, 225, 255, 0.76);
+  background:
+    radial-gradient(circle at 18% 24%, rgba(191, 225, 255, 0.52), transparent 34%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(221, 241, 255, 0.82) 54%, rgba(237, 252, 245, 0.7));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    0 18px 42px rgba(125, 211, 252, 0.12);
+}
+
+.skillpecker-hero-orbit {
+  position: absolute;
+  left: 1rem;
+  top: 0.15rem;
+  width: 8rem;
+  height: 8rem;
+}
+
+.skillpecker-hero-orbit-ring {
+  position: absolute;
+  border-radius: 999px;
+  border: 1px solid rgba(125, 211, 252, 0.52);
+}
+
+.skillpecker-hero-orbit-ring-lg {
+  inset: 0.15rem;
+  animation: skillpecker-hero-orbit-spin 16s linear infinite;
+}
+
+.skillpecker-hero-orbit-ring-sm {
+  inset: 1.15rem;
+  opacity: 0.7;
+  animation: skillpecker-hero-orbit-spin 10s linear infinite reverse;
+}
+
+.skillpecker-hero-orbit-node {
+  position: absolute;
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #38bdf8, #60a5fa);
+  box-shadow: 0 0 0 0.45rem rgba(56, 189, 248, 0.12);
+}
+
+.skillpecker-hero-orbit-node-a {
+  left: 0.7rem;
+  top: 0.2rem;
+  animation: skillpecker-hero-node-float 5.4s ease-in-out infinite;
+}
+
+.skillpecker-hero-orbit-node-b {
+  right: 0.8rem;
+  top: 1.2rem;
+  animation: skillpecker-hero-node-float 4.8s ease-in-out infinite 0.9s;
+}
+
+.skillpecker-hero-orbit-node-c {
+  left: 1.9rem;
+  bottom: 0.75rem;
+  animation: skillpecker-hero-node-float 5.9s ease-in-out infinite 1.6s;
+}
+
+.skillpecker-hero-tracks {
+  position: absolute;
+  left: 7.3rem;
+  right: 4.6rem;
+  top: 2.45rem;
+  display: grid;
+  gap: 0.95rem;
+}
+
+.skillpecker-hero-tracks span {
+  height: 1px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(56, 189, 248, 0.32), rgba(125, 211, 252, 0.72), rgba(56, 189, 248, 0));
+  transform-origin: left center;
+  animation: skillpecker-hero-track-flow 6.8s ease-in-out infinite;
+}
+
+.skillpecker-hero-tracks span:nth-child(2) {
+  animation-delay: 0.9s;
+}
+
+.skillpecker-hero-tracks span:nth-child(3) {
+  animation-delay: 1.8s;
+}
+
+.skillpecker-hero-bars {
+  position: absolute;
+  right: 1.2rem;
+  bottom: 1rem;
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5rem;
+  height: 3.9rem;
+}
+
+.skillpecker-hero-bars span {
+  width: 0.52rem;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(125, 211, 252, 0.22), rgba(56, 189, 248, 0.96));
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.18);
+  animation: skillpecker-hero-bar-bounce 2.4s ease-in-out infinite;
+}
+
+.skillpecker-hero-bars span:nth-child(1) {
+  height: 1.2rem;
+}
+
+.skillpecker-hero-bars span:nth-child(2) {
+  height: 2rem;
+  animation-delay: 0.18s;
+}
+
+.skillpecker-hero-bars span:nth-child(3) {
+  height: 3rem;
+  animation-delay: 0.36s;
+}
+
+.skillpecker-hero-bars span:nth-child(4) {
+  height: 2.45rem;
+  animation-delay: 0.54s;
+}
+
+.skillpecker-hero-scanline {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(14, 165, 233, 0) 0%, rgba(255, 255, 255, 0.24) 44%, rgba(14, 165, 233, 0) 100%);
+  transform: translateX(-55%);
+  opacity: 0.6;
+  animation: skillpecker-hero-scanline 7.8s ease-in-out infinite;
+}
+
+.skillpecker-module-hero-overview .skillpecker-hero-visual::before {
+  content: '';
+  position: absolute;
+  inset: 1rem auto 1rem 46%;
+  width: 9rem;
+  border-radius: 999px;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0));
+  filter: blur(8px);
+}
+
+.skillpecker-module-hero-console .skillpecker-hero-visual::before,
+.skillpecker-module-hero-console .skillpecker-hero-visual::after {
+  content: '';
+  position: absolute;
+  inset: auto;
+}
+
+.skillpecker-module-hero-console .skillpecker-hero-visual::before {
+  left: 6.7rem;
+  right: 3.5rem;
+  top: 2rem;
+  height: 3.9rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(125, 211, 252, 0.32);
+  background:
+    repeating-linear-gradient(180deg, rgba(14, 165, 233, 0.08) 0 1px, transparent 1px 12px),
+    linear-gradient(90deg, rgba(56, 189, 248, 0.08), rgba(255, 255, 255, 0));
+}
+
+.skillpecker-module-hero-console .skillpecker-hero-visual::after {
+  left: 8rem;
+  top: 3.5rem;
+  width: 7.4rem;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(14, 165, 233, 0), rgba(14, 165, 233, 0.88), rgba(14, 165, 233, 0));
+  box-shadow: 0 0 18px rgba(14, 165, 233, 0.24);
+  animation: skillpecker-console-beam 3.8s ease-in-out infinite;
+}
+
+.skillpecker-module-hero-console .skillpecker-hero-scanline {
+  animation-duration: 5.4s;
+}
+
+.skillpecker-module-hero-library .skillpecker-hero-visual::before,
+.skillpecker-module-hero-library .skillpecker-hero-visual::after {
+  content: '';
+  position: absolute;
+  border-radius: 999px;
+}
+
+.skillpecker-module-hero-library .skillpecker-hero-visual::before {
+  left: 1.7rem;
+  top: 1.6rem;
+  width: 3.8rem;
+  height: 3.8rem;
+  border: 1px solid rgba(125, 211, 252, 0.48);
+  animation: skillpecker-library-pulse-ring 4.8s ease-in-out infinite;
+}
+
+.skillpecker-module-hero-library .skillpecker-hero-visual::after {
+  left: 3.45rem;
+  top: 3.35rem;
+  width: 0.55rem;
+  height: 0.55rem;
+  background: #38bdf8;
+  box-shadow: 0 0 0 0.55rem rgba(56, 189, 248, 0.14);
+}
+
+.skillpecker-module-hero-library .skillpecker-hero-tracks span {
+  background: linear-gradient(90deg, rgba(56, 189, 248, 0.18), rgba(191, 225, 255, 0.8), rgba(56, 189, 248, 0));
+}
+
+.skillpecker-library-doc-panel {
+  border-radius: 1.6rem;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(249, 251, 255, 0.96)),
+    radial-gradient(circle at top right, rgba(191, 225, 255, 0.18), transparent 34%);
+}
+
+.skillpecker-library-doc-code {
+  gap: 1.25rem;
+  padding-right: 0.4rem;
+}
+
+.skillpecker-library-doc-code::-webkit-scrollbar,
+.skillpecker-markdown-codeblock::-webkit-scrollbar,
+.skillpecker-markdown-table-wrap::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.skillpecker-library-doc-code::-webkit-scrollbar-track,
+.skillpecker-markdown-codeblock::-webkit-scrollbar-track,
+.skillpecker-markdown-table-wrap::-webkit-scrollbar-track {
+  background: rgba(226, 232, 240, 0.36);
+  border-radius: 999px;
+}
+
+.skillpecker-library-doc-code::-webkit-scrollbar-thumb,
+.skillpecker-markdown-codeblock::-webkit-scrollbar-thumb,
+.skillpecker-markdown-table-wrap::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.9);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.skillpecker-library-doc-summary {
+  gap: 1.15rem;
+  padding: 1.2rem 1.25rem;
+  border-radius: 1.3rem;
+  background:
+    linear-gradient(180deg, rgba(249, 250, 251, 0.98), rgba(243, 246, 250, 0.98)),
+    radial-gradient(circle at top left, rgba(191, 225, 255, 0.1), transparent 38%);
+}
+
+.skillpecker-library-doc-summary-item {
+  gap: 0.55rem;
+}
+
+.skillpecker-library-doc-summary-item span {
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.skillpecker-library-doc-summary-item strong {
+  font-size: 1.04rem;
+  line-height: 1.82;
+}
+
+.skillpecker-markdown-doc {
+  padding: 0.1rem 0.12rem 0.8rem;
+  font-size: 1.06rem;
+  line-height: 2;
+  color: #334155;
+}
+
+.skillpecker-markdown-doc > * + * {
+  margin-top: 1.7rem;
+}
+
+.skillpecker-markdown-heading-1 {
+  font-size: 2.05rem;
+  line-height: 1.16;
+  margin-bottom: 0.4rem;
+}
+
+.skillpecker-markdown-heading-2 {
+  font-size: 1.58rem;
+  line-height: 1.24;
+  margin-bottom: 0.3rem;
+}
+
+.skillpecker-markdown-heading-3,
+.skillpecker-markdown-heading-4,
+.skillpecker-markdown-heading-5,
+.skillpecker-markdown-heading-6 {
+  font-size: 1.16rem;
+  line-height: 1.42;
+}
+
+.skillpecker-markdown-paragraph {
+  line-height: 1.96;
+  color: #334155;
+}
+
+.skillpecker-markdown-list {
+  gap: 0.8rem;
+  padding-left: 1.5rem;
+}
+
+.skillpecker-markdown-list li {
+  line-height: 1.9;
+}
+
+.skillpecker-markdown-table-wrap {
+  border-radius: 1.2rem;
+  background: rgba(248, 250, 252, 0.98);
+}
+
+.skillpecker-markdown-table {
+  min-width: 36rem;
+}
+
+.skillpecker-markdown-table th,
+.skillpecker-markdown-table td {
+  padding: 0.95rem 1rem;
+}
+
+.skillpecker-markdown-inline-code {
+  padding: 0.14rem 0.42rem;
+  border-radius: 0.55rem;
+}
+
+.skillpecker-markdown-codeblock {
+  padding: 1rem 1.05rem 1.1rem;
+  border-radius: 1.25rem;
+  background:
+    linear-gradient(180deg, rgba(248, 250, 252, 0.98), rgba(242, 245, 249, 0.96)),
+    radial-gradient(circle at top left, rgba(226, 232, 240, 0.28), transparent 42%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
+}
+
+.skillpecker-markdown-codeblock code {
+  min-width: max-content;
+  padding-bottom: 0.2rem;
+  font-size: 0.96rem;
+  line-height: 1.82;
+}
+
+.skillpecker-markdown-divider {
+  margin-top: 2rem;
+  border-top-color: rgba(203, 213, 225, 0.88);
+}
+
+.dark .skillpecker-module-hero {
+  border-color: rgba(148, 163, 184, 0.18);
+  background:
+    radial-gradient(circle at 16% 18%, rgba(30, 41, 59, 0.6), transparent 30%),
+    linear-gradient(115deg, rgba(15, 23, 42, 0.9) 0%, rgba(17, 24, 39, 0.88) 38%, rgba(15, 23, 42, 0.82) 100%);
+  box-shadow:
+    0 26px 60px rgba(2, 6, 23, 0.42),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.dark .skillpecker-module-hero::before {
+  opacity: 0.5;
+}
+
+.dark .skillpecker-hero-visual,
+.dark .skillpecker-library-doc-panel,
+.dark .skillpecker-library-doc-summary,
+.dark .skillpecker-markdown-codeblock,
+.dark .skillpecker-markdown-table-wrap {
+  border-color: rgba(148, 163, 184, 0.16);
+  background: rgba(15, 23, 42, 0.76);
+}
+
+.dark .skillpecker-markdown-doc,
+.dark .skillpecker-markdown-paragraph {
+  color: #cbd5e1;
+}
+
+.dark .skillpecker-markdown-table thead th {
+  background: rgba(30, 41, 59, 0.86);
+}
+
+.dark .skillpecker-library-doc-code::-webkit-scrollbar-track,
+.dark .skillpecker-markdown-codeblock::-webkit-scrollbar-track,
+.dark .skillpecker-markdown-table-wrap::-webkit-scrollbar-track {
+  background: rgba(51, 65, 85, 0.5);
+}
+
+.dark .skillpecker-library-doc-code::-webkit-scrollbar-thumb,
+.dark .skillpecker-markdown-codeblock::-webkit-scrollbar-thumb,
+.dark .skillpecker-markdown-table-wrap::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.78);
+}
+
+@keyframes skillpecker-hero-sheen {
+  0%,
+  100% {
+    transform: translateX(-42%);
+    opacity: 0;
+  }
+  18% {
+    opacity: 0.4;
+  }
+  52% {
+    transform: translateX(34%);
+    opacity: 0.12;
+  }
+}
+
+@keyframes skillpecker-hero-orbit-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes skillpecker-hero-node-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0.12rem, -0.35rem, 0);
+  }
+}
+
+@keyframes skillpecker-hero-track-flow {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scaleX(0.72);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes skillpecker-hero-bar-bounce {
+  0%,
+  100% {
+    transform: scaleY(0.68);
+    opacity: 0.62;
+  }
+  50% {
+    transform: scaleY(1.08);
+    opacity: 1;
+  }
+}
+
+@keyframes skillpecker-hero-scanline {
+  0%,
+  100% {
+    transform: translateX(-55%);
+    opacity: 0;
+  }
+  24% {
+    opacity: 0.5;
+  }
+  60% {
+    transform: translateX(55%);
+    opacity: 0.2;
+  }
+}
+
+@keyframes skillpecker-console-beam {
+  0%,
+  100% {
+    transform: translateX(0);
+    opacity: 0.18;
+  }
+  50% {
+    transform: translateX(8rem);
+    opacity: 1;
+  }
+}
+
+@keyframes skillpecker-library-pulse-ring {
+  0%,
+  100% {
+    transform: scale(0.92);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 0.92;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skillpecker-module-hero::after,
+  .skillpecker-hero-orbit-ring-lg,
+  .skillpecker-hero-orbit-ring-sm,
+  .skillpecker-hero-orbit-node,
+  .skillpecker-hero-tracks span,
+  .skillpecker-hero-bars span,
+  .skillpecker-hero-scanline,
+  .skillpecker-module-hero-console .skillpecker-hero-visual::after,
+  .skillpecker-module-hero-library .skillpecker-hero-visual::before {
+    animation: none !important;
+  }
+}
+
 @media (max-width: 980px) {
   :root {
     --skillpecker-shell-gutter: 30px;
+  }
+
+  .skillpecker-hero-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .skillpecker-hero-aside {
+    justify-items: start;
   }
 
   .skillpecker-library-search-bar,
@@ -4233,6 +4832,41 @@
 }
 
 @media (max-width: 768px) {
+  .skillpecker-module-hero {
+    padding: 1.35rem;
+  }
+
+  .skillpecker-hero-visual {
+    min-height: 8.4rem;
+  }
+
+  .skillpecker-hero-orbit {
+    transform: scale(0.9);
+    transform-origin: left top;
+  }
+
+  .skillpecker-hero-tracks {
+    left: 6.4rem;
+    right: 4rem;
+  }
+
+  .skillpecker-hero-bars {
+    right: 1rem;
+    gap: 0.38rem;
+  }
+
+  .skillpecker-markdown-doc {
+    font-size: 1rem;
+  }
+
+  .skillpecker-markdown-heading-1 {
+    font-size: 1.72rem;
+  }
+
+  .skillpecker-markdown-heading-2 {
+    font-size: 1.38rem;
+  }
+
   .skillpecker-library-card-trigger,
   .skillpecker-library-record-head,
   .skillpecker-library-pagination {

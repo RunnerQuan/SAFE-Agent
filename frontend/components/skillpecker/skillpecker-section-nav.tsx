@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils'
 const sectionItems = [
   { href: '/skillpecker/overview', label: '工具总览', icon: LayoutPanelTop },
   { href: '/skillpecker/console', label: '扫描控制台', icon: ScanSearch },
-  { href: '/skillpecker/library', label: '恶意 Skill 库', icon: Database },
+  { href: '/skillpecker/library', label: '恶意技能库', icon: Database },
 ]
 
 export function SkillPeckerSectionNav() {

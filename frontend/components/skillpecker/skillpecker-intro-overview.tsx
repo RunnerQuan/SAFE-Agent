@@ -17,13 +17,13 @@ const capabilityCards: Array<{
 }> = [
   {
     title: '异步任务队列',
-    copy: '支持批量提交 Skill 扫描任务，自动排队执行，后台持续处理，无需等待，结果实时返回。',
+    copy: '支持批量提交技能扫描任务，自动排队执行，后台持续处理，无需等待，结果实时返回。',
     icon: Workflow,
     iconTone: 'queue',
   },
   {
     title: '意图驱动检测',
-    copy: '从用户原始意图图谱出发，识别 Skill 的偏离行为；捕捉隐式执行、越权访问与异常调用路径。',
+    copy: '从用户原始意图图谱出发，识别技能的偏离行为；捕捉隐式执行、越权访问与异常调用路径。',
     icon: ScanSearch,
     iconTone: 'drill',
   },
@@ -189,7 +189,7 @@ export function SkillPeckerIntroOverview() {
 
           <Card className="skillpecker-chart-card skillpecker-chart-card-wide">
             <div className="skillpecker-chart-head">
-              <h3 className="skillpecker-chart-title">问题Skill业务分类TOP10</h3>
+              <h3 className="skillpecker-chart-title">问题技能业务分类TOP10</h3>
             </div>
             <div className="skillpecker-chart-canvas skillpecker-chart-canvas-wide">
               <ResponsiveContainer width="100%" height="100%">

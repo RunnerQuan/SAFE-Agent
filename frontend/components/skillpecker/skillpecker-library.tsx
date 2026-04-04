@@ -811,7 +811,7 @@ function LibraryScanRecord({ record }: { record: LibraryRecord }) {
           <strong>{formatDecisionLevel(info.decision_level)}</strong>
         </div>
         <div className="skillpecker-library-audit-item">
-          <span>主风险组</span>
+          <span>主问题组</span>
           <strong>{translateKnownLabel(info.primary_group)}</strong>
         </div>
         <div className="skillpecker-library-audit-item">
@@ -876,7 +876,7 @@ function LibraryFindingCard({ finding }: { finding: LibraryJudgeFinding }) {
 
       <div className="skillpecker-library-chip-row">
         {finding.primaryGroup ? (
-          <span className="skillpecker-detail-chip skillpecker-library-meta-chip">主风险组 {translateKnownLabel(finding.primaryGroup)}</span>
+          <span className="skillpecker-detail-chip skillpecker-library-meta-chip">主问题组 {translateKnownLabel(finding.primaryGroup)}</span>
         ) : null}
         {finding.sourcePlatform ? (
           <span className="skillpecker-detail-chip skillpecker-library-meta-chip">来源 {translateKnownLabel(finding.sourcePlatform)}</span>
@@ -955,7 +955,7 @@ export function SkillPeckerLibrary() {
   }
 
   if (libraryQuery.error) {
-    return <ErrorState title="恶意 Skill 库加载失败" message="请稍后重试或联系管理员。" onRetry={() => libraryQuery.refetch()} />
+    return <ErrorState title="恶意技能库加载失败" message="请稍后重试或联系管理员。" onRetry={() => libraryQuery.refetch()} />
   }
 
   const detail = libraryDetailQuery.data
@@ -1060,7 +1060,7 @@ export function SkillPeckerLibrary() {
       </Card>
 
       {libraryQuery.isLoading ? (
-        <Card className="rounded-[2rem] p-6 text-sm text-slate-500 dark:text-slate-400">正在加载恶意 Skill 库...</Card>
+        <Card className="rounded-[2rem] p-6 text-sm text-slate-500 dark:text-slate-400">正在加载恶意技能库...</Card>
       ) : libraryQuery.data?.items.length ? (
         <div className="skillpecker-library-results">
           {libraryQuery.data.items.map((item, index) => {
@@ -1206,7 +1206,7 @@ export function SkillPeckerLibrary() {
           description={
             submittedQuery || submittedDecisionLevels.length
               ? '调整关键词或判定级别筛选后再试。'
-              : '当前恶意 Skill 库中还没有可展示的数据。'
+              : '当前恶意技能库中还没有可展示的数据。'
           }
         />
       )}

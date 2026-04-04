@@ -6,8 +6,8 @@ import { Card, CardContent } from '@/components/ui/card'
 
 const capabilityCards = [
   {
-    title: '智能体 Skill 可信安全检测',
-    description: '针对可疑 Skill 的描述、能力边界与潜在行为进行审查，辅助识别高风险恶意能力包。',
+    title: '技能可信安全检测',
+    description: '针对可疑技能的描述、能力边界与潜在行为进行审查，辅助识别高风险恶意技能包',
     icon: Bug,
     href: '/skillpecker',
     cta: '打开模块',
@@ -16,7 +16,7 @@ const capabilityCards = [
   },
   {
     title: '数据过度暴露检测',
-    description: '围绕 source、sink 与调用链识别超出任务必要范围的敏感数据读取、拼接与传递。',
+    description: '围绕 source、sink 函数与调用链识别超出任务必要范围的敏感数据读取、拼接与传递',
     icon: ShieldAlert,
     href: '/scans/new',
     cta: '发起检测',
@@ -25,7 +25,7 @@ const capabilityCards = [
   },
   {
     title: '组合式漏洞检测',
-    description: '分析多工具在同一执行链上的组合风险，定位越权调用、外发扩散和链路放大问题。',
+    description: '分析多工具在同一执行链上的组合风险，定位越权调用、外发扩散和链路放大问题',
     icon: Workflow,
     href: '/scans/new',
     cta: '发起检测',
@@ -55,13 +55,13 @@ export default function HomePage() {
           </div>
 
           <p className="hero-subtitle safe-home-copy">
-            聚焦三类智能体安全能力：数据过度暴露检测、组合式漏洞检测与智能体 Skill 可信安全检测。
+            聚焦三类智能体安全能力：数据过度暴露检测、组合式漏洞检测与智能体技能可信安全检测。
           </p>
 
           <div className="safe-home-actions">
             <Link href="/skillpecker">
               <Button size="lg">
-                Skill安全检测
+                技能可信安全检测
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>
