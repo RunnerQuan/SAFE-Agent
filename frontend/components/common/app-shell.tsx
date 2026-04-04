@@ -20,7 +20,7 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { title: '首页', href: '/', icon: Home, description: '平台概览与三类检测能力入口。' },
-  { title: 'Skill 可信安全检测', href: '/skillpecker', icon: ShieldCheck, description: 'Skill 可信安全检测工作台与恶意 Skill 样本库。' },
+  { title: '技能可信安全检测', href: '/skillpecker', icon: ShieldCheck, description: '技能可信安全检测工作台与恶意技能样本库。' },
   { title: '工具链风险分析', href: '/scans', icon: ScanLine, description: '统一发起工具链联合检测，跟踪执行状态并查看 DOE 与组合式漏洞结果。' },
 ]
 
@@ -200,7 +200,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <div className="animate-page-enter">{children}</div>
         </main>
       ) : isSkillPecker ? (
-        <main className="relative z-10 px-3 pb-6 pt-24 sm:px-4 lg:px-5">
+        <main className="skillpecker-main relative z-10 px-3 pb-6 sm:px-4 lg:px-5">
           <div className="skillpecker-page-shell animate-page-enter">{children}</div>
         </main>
       ) : (

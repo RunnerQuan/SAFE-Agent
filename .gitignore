@@ -26,6 +26,8 @@ venv/
 .cursor/
 .worktrees/
 
+docs/superpowers/
+
 frontend/.data/
 frontend/.next/
 frontend/.next-build-verify/
@@ -35,4 +37,3 @@ frontend/*.tsbuildinfo
 
 backend/skillpecker/scan-results/
 
-前端设计文档.md
