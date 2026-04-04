@@ -1854,6 +1854,715 @@
   }
 }
 
+.skillpecker-module-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.skillpecker-module-hero {
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(circle at top right, rgba(56, 189, 248, 0.18), transparent 24%),
+    radial-gradient(circle at bottom left, rgba(251, 113, 133, 0.14), transparent 22%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.68));
+}
+
+.dark .skillpecker-module-hero {
+  background:
+    radial-gradient(circle at top right, rgba(56, 189, 248, 0.18), transparent 24%),
+    radial-gradient(circle at bottom left, rgba(251, 113, 133, 0.12), transparent 24%),
+    linear-gradient(180deg, rgba(2, 6, 23, 0.76), rgba(2, 6, 23, 0.68));
+}
+
+.skillpecker-route-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.skillpecker-route-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.7);
+  padding: 0.72rem 1rem;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #475569;
+  transition: all 180ms ease;
+}
+
+.skillpecker-route-link:hover,
+.skillpecker-route-link.is-active {
+  transform: translateY(-1px);
+  color: #0f172a;
+  border-color: rgba(125, 211, 252, 0.8);
+  box-shadow: 0 14px 28px rgba(14, 165, 233, 0.12);
+}
+
+.dark .skillpecker-route-link {
+  border-color: rgba(51, 65, 85, 0.9);
+  background: rgba(2, 6, 23, 0.66);
+  color: #cbd5e1;
+}
+
+.dark .skillpecker-route-link:hover,
+.dark .skillpecker-route-link.is-active {
+  color: #f8fafc;
+  border-color: rgba(56, 189, 248, 0.66);
+}
+
+.skillpecker-preview-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.skillpecker-stat-card-scan {
+  background: linear-gradient(180deg, rgba(59, 130, 246, 0.16), rgba(59, 130, 246, 0.08));
+}
+
+.skillpecker-stat-card-scan .font-display {
+  color: #3b82f6;
+}
+
+.skillpecker-stat-card-issue {
+  background: linear-gradient(180deg, rgba(245, 158, 11, 0.18), rgba(245, 158, 11, 0.08));
+}
+
+.skillpecker-stat-card-issue .font-display {
+  color: #f59e0b;
+}
+
+.skillpecker-stat-card-overreach {
+  background: linear-gradient(180deg, rgba(251, 113, 133, 0.18), rgba(251, 113, 133, 0.08));
+}
+
+.skillpecker-stat-card-overreach .font-display {
+  color: #ef4444;
+}
+
+.skillpecker-overview-stack {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.skillpecker-overview-hero {
+  position: relative;
+  overflow: hidden;
+  border-radius: 2rem;
+  padding: 2.4rem 2.2rem 0.8rem;
+  background:
+    radial-gradient(circle at 18% 22%, rgba(255, 205, 168, 0.18), transparent 24%),
+    radial-gradient(circle at 82% 18%, rgba(191, 225, 255, 0.22), transparent 24%);
+}
+
+.skillpecker-overview-copy {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 0.75rem;
+  text-align: center;
+}
+
+.skillpecker-overview-title {
+  position: relative;
+  display: inline-block;
+  margin: 0;
+  font-family: var(--font-display), var(--font-body), sans-serif;
+  font-size: clamp(4rem, 8vw, 6.1rem);
+  font-weight: 700;
+  letter-spacing: -0.07em;
+  line-height: 0.98;
+  background: linear-gradient(120deg, #0f172a 0%, #0369a1 42%, #0f172a 100%);
+  background-size: 220% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-shift 8s ease infinite;
+}
+
+.skillpecker-overview-title::before {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  color: rgba(15, 23, 42, 0.08);
+  filter: blur(18px);
+}
+
+.skillpecker-overview-subtitle {
+  margin: 0;
+  font-family: var(--font-display), var(--font-body), sans-serif;
+  font-size: clamp(1.6rem, 2.3vw, 2.2rem);
+  line-height: 1.25;
+  color: #0f172a;
+}
+
+.skillpecker-overview-description {
+  margin: 0;
+  max-width: 58rem;
+  font-size: 1.05rem;
+  line-height: 1.9;
+  color: #526171;
+}
+
+.skillpecker-overview-capability-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.skillpecker-capability-card {
+  min-height: 16rem;
+  text-align: center;
+}
+
+.skillpecker-capability-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 1.15rem;
+  border: 1px solid rgba(255, 255, 255, 0.76);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 18px 34px rgba(15, 23, 42, 0.08);
+}
+
+.skillpecker-capability-icon-queue {
+  color: #b45309;
+  background:
+    linear-gradient(180deg, rgba(255, 247, 237, 0.98), rgba(255, 237, 213, 0.9)),
+    radial-gradient(circle at top left, rgba(251, 191, 36, 0.22), transparent 56%);
+}
+
+.skillpecker-capability-icon-drill {
+  color: #0284c7;
+  background:
+    linear-gradient(180deg, rgba(239, 246, 255, 0.98), rgba(224, 242, 254, 0.9)),
+    radial-gradient(circle at top left, rgba(56, 189, 248, 0.22), transparent 56%);
+}
+
+.skillpecker-capability-icon-library {
+  color: #059669;
+  background:
+    linear-gradient(180deg, rgba(236, 253, 245, 0.98), rgba(209, 250, 229, 0.9)),
+    radial-gradient(circle at top left, rgba(52, 211, 153, 0.2), transparent 56%);
+}
+
+.skillpecker-analytics-stack {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.skillpecker-overview-stat {
+  min-height: 9.5rem;
+}
+
+.skillpecker-analytics-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.skillpecker-chart-card {
+  padding: 1.25rem;
+}
+
+.skillpecker-chart-card-wide {
+  grid-column: 1 / -1;
+}
+
+.skillpecker-chart-head {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.7rem 0.9rem;
+}
+
+.skillpecker-chart-title {
+  margin: 0;
+  font-family: var(--font-display), var(--font-body), sans-serif;
+  font-size: 2rem;
+  color: #0f172a;
+}
+
+.skillpecker-chart-canvas {
+  height: 22rem;
+}
+
+.skillpecker-chart-canvas-donut {
+  height: 24rem;
+}
+
+.skillpecker-chart-canvas-wide {
+  height: 26rem;
+}
+
+.skillpecker-chart-tooltip {
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.92);
+  padding: 0.7rem 0.9rem;
+  box-shadow: 0 18px 38px rgba(15, 23, 42, 0.12);
+}
+
+.skillpecker-console-stack {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.skillpecker-console-launchpad {
+  overflow: hidden;
+}
+
+.skillpecker-console-launchpad-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: minmax(0, 1.08fr) minmax(22rem, 0.92fr);
+}
+
+.skillpecker-console-copy {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.skillpecker-console-title {
+  margin: 0.75rem 0 0;
+  display: inline-grid;
+  gap: 0.08em;
+  font-family: "Fira Sans", var(--font-display), sans-serif;
+  font-size: clamp(3rem, 5vw, 4.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.05em;
+  color: #0f172a;
+}
+
+.skillpecker-console-title span:nth-child(2) {
+  color: #0ea5e9;
+}
+
+.skillpecker-console-description {
+  margin: 0.9rem 0 0;
+  font-size: 1.1rem;
+  color: #64748b;
+}
+
+.skillpecker-console-status-strip {
+  display: grid;
+  gap: 0.9rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.skillpecker-console-status-tile {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 6rem;
+  padding: 1.1rem 1.2rem 1.1rem 2rem;
+  border-radius: 1.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.94)),
+    radial-gradient(circle at top right, rgba(125, 211, 252, 0.14), transparent 36%);
+}
+
+.skillpecker-console-status-tile::before {
+  content: '';
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  width: 0.78rem;
+  height: 0.78rem;
+  margin-top: -0.39rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(255, 176, 102, 0.96), rgba(56, 189, 248, 0.96));
+  box-shadow: 0 0 0 10px rgba(125, 211, 252, 0.08);
+}
+
+.skillpecker-console-status-label {
+  color: #47607f;
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.skillpecker-console-status-tile strong {
+  font-family: "Fira Code", var(--font-mono), monospace;
+  font-size: 2.1rem;
+  letter-spacing: -0.05em;
+}
+
+.skillpecker-console-step-grid {
+  display: grid;
+  gap: 0.9rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.skillpecker-console-step-card {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  gap: 0.65rem;
+  min-height: 10rem;
+  padding: 1.2rem;
+  border-radius: 1.65rem;
+  border: 1px solid rgba(191, 225, 255, 0.7);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(240, 249, 255, 0.9)),
+    radial-gradient(circle at top left, rgba(255, 205, 168, 0.16), transparent 36%);
+}
+
+.skillpecker-console-step-index {
+  color: #64748b;
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.skillpecker-console-step-card strong {
+  font-size: 1.8rem;
+  line-height: 1.1;
+  color: #0f172a;
+}
+
+.skillpecker-console-step-card p {
+  margin: 0;
+  color: #64748b;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.skillpecker-console-form {
+  display: grid;
+  gap: 1.25rem;
+  align-content: start;
+  padding: 1.4rem;
+  border-radius: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(248, 250, 252, 0.96));
+}
+
+.skillpecker-upload-mode-switch {
+  display: inline-flex;
+  gap: 0.5rem;
+  width: fit-content;
+  padding: 0.35rem;
+  border-radius: 999px;
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  background: rgba(248, 250, 252, 0.9);
+}
+
+.skillpecker-upload-mode-button {
+  min-height: 2.8rem;
+  padding: 0 1.2rem;
+  border-radius: 999px;
+  color: #64748b;
+  font-weight: 700;
+  transition: all 180ms ease;
+}
+
+.skillpecker-upload-mode-button.is-active {
+  color: #0f172a;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.08);
+}
+
+.skillpecker-upload-tile {
+  border-color: rgba(191, 225, 255, 0.9) !important;
+}
+
+.skillpecker-upload-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 1rem;
+  color: #0284c7;
+  background: linear-gradient(180deg, rgba(224, 242, 254, 0.98), rgba(186, 230, 253, 0.9));
+}
+
+.skillpecker-console-submit-row {
+  display: grid;
+  justify-items: start;
+  padding-top: 0.75rem;
+}
+
+.skillpecker-console-submit-button {
+  min-width: 10rem;
+  border-radius: 999px !important;
+  background: linear-gradient(135deg, #0369a1, #0ea5e9 48%, #22c55e) !important;
+  box-shadow: 0 18px 36px rgba(14, 165, 233, 0.24);
+}
+
+.skillpecker-console-queue {
+  display: grid;
+}
+
+.skillpecker-queue-card {
+  transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+}
+
+.skillpecker-queue-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(56, 189, 248, 0.32);
+  box-shadow: 0 24px 44px rgba(14, 165, 233, 0.1);
+}
+
+.skillpecker-result-dialog {
+  padding: 1rem;
+}
+
+.skillpecker-result-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.4rem 1.4rem 0;
+}
+
+.skillpecker-result-workspace {
+  display: grid;
+  grid-template-columns: minmax(25rem, 32rem) minmax(0, 1fr);
+  gap: 1rem;
+  min-height: min(78vh, 60rem);
+  padding: 1rem 1.4rem 1.4rem;
+}
+
+.skillpecker-result-sidebar,
+.skillpecker-result-detail {
+  min-height: 0;
+  border-radius: 1.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.68);
+  padding: 1.2rem;
+}
+
+.skillpecker-result-detail {
+  background: rgba(248, 250, 252, 0.72);
+}
+
+.skillpecker-result-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.skillpecker-result-section-head h4 {
+  margin: 0;
+  font-family: var(--font-display), var(--font-body), sans-serif;
+  font-size: 2rem;
+  color: #0f172a;
+}
+
+.skillpecker-result-mini-stat {
+  display: grid;
+  gap: 0.4rem;
+  padding: 0.9rem 1rem;
+  border-radius: 1.2rem;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  background: rgba(255, 255, 255, 0.76);
+}
+
+.skillpecker-result-mini-stat span {
+  font-size: 0.92rem;
+  color: #64748b;
+}
+
+.skillpecker-result-mini-stat strong {
+  font-family: "Fira Code", var(--font-mono), monospace;
+  font-size: 1.3rem;
+  color: #0f172a;
+}
+
+.skillpecker-result-skill-list {
+  display: grid;
+  gap: 0.9rem;
+  max-height: calc(78vh - 12rem);
+  overflow-y: auto;
+  padding-right: 0.25rem;
+}
+
+.skillpecker-result-skill-card {
+  width: 100%;
+  padding: 1.2rem;
+  border-radius: 1.55rem;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  background: rgba(255, 255, 255, 0.82);
+  text-align: left;
+  transition: all 180ms ease;
+}
+
+.skillpecker-result-skill-card:hover,
+.skillpecker-result-skill-card.is-active {
+  border-color: rgba(125, 211, 252, 0.9);
+  background: linear-gradient(180deg, rgba(240, 249, 255, 0.98), rgba(236, 253, 245, 0.92));
+  box-shadow: 0 18px 34px rgba(14, 165, 233, 0.12);
+}
+
+.skillpecker-result-detail-scroll {
+  display: grid;
+  gap: 1rem;
+  max-height: calc(78vh - 11rem);
+  overflow-y: auto;
+  padding-right: 0.25rem;
+}
+
+.skillpecker-score-chip {
+  display: grid;
+  gap: 0.35rem;
+  padding: 0.95rem 1rem;
+  border-radius: 1.2rem;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  background: rgba(255, 255, 255, 0.76);
+}
+
+.skillpecker-score-chip span {
+  font-size: 0.92rem;
+  color: #64748b;
+}
+
+.skillpecker-score-chip strong {
+  font-family: "Fira Code", var(--font-mono), monospace;
+  font-size: 1.35rem;
+  color: #0f172a;
+}
+
+.skillpecker-finding-card {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(248, 250, 252, 0.92)),
+    radial-gradient(circle at top right, rgba(251, 113, 133, 0.1), transparent 34%);
+}
+
+.skillpecker-finding-record {
+  display: grid;
+  gap: 0.7rem;
+  padding: 1rem;
+  border-radius: 1.2rem;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.skillpecker-finding-record p,
+.skillpecker-evidence-copy {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #526171;
+}
+
+.skillpecker-finding-record-label {
+  font-size: 0.84rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.skillpecker-evidence-row {
+  display: grid;
+  gap: 0.45rem;
+  padding: 1rem;
+  border-radius: 1.15rem;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.skillpecker-evidence-path {
+  margin: 0;
+  font-family: "Fira Code", var(--font-mono), monospace;
+  font-size: 0.95rem;
+  color: #0f172a;
+}
+
+.dark .skillpecker-overview-title {
+  background: linear-gradient(120deg, #f8fafc 0%, #7dd3fc 42%, #f8fafc 100%);
+  background-size: 220% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.dark .skillpecker-overview-subtitle,
+.dark .skillpecker-chart-title,
+.dark .skillpecker-console-title,
+.dark .skillpecker-result-section-head h4,
+.dark .skillpecker-result-mini-stat strong,
+.dark .skillpecker-score-chip strong,
+.dark .skillpecker-evidence-path {
+  color: #f8fafc;
+}
+
+.dark .skillpecker-overview-description,
+.dark .skillpecker-console-description,
+.dark .skillpecker-console-step-card p,
+.dark .skillpecker-finding-record p,
+.dark .skillpecker-evidence-copy {
+  color: #cbd5e1;
+}
+
+.dark .skillpecker-chart-tooltip,
+.dark .skillpecker-console-form,
+.dark .skillpecker-result-sidebar,
+.dark .skillpecker-result-detail,
+.dark .skillpecker-result-mini-stat,
+.dark .skillpecker-score-chip,
+.dark .skillpecker-finding-record,
+.dark .skillpecker-evidence-row,
+.dark .skillpecker-console-status-tile,
+.dark .skillpecker-console-step-card,
+.dark .skillpecker-result-skill-card {
+  border-color: rgba(148, 163, 184, 0.18);
+  background: rgba(15, 23, 42, 0.76);
+}
+
+@media (max-width: 768px) {
+  .skillpecker-route-nav {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .skillpecker-overview-capability-grid,
+  .skillpecker-analytics-grid,
+  .skillpecker-console-launchpad-grid,
+  .skillpecker-console-step-grid,
+  .skillpecker-result-workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .skillpecker-chart-card-wide {
+    grid-column: auto;
+  }
+
+  .skillpecker-chart-canvas,
+  .skillpecker-chart-canvas-donut,
+  .skillpecker-chart-canvas-wide {
+    height: 20rem;
+  }
+
+  .skillpecker-result-header {
+    flex-direction: column;
+  }
+
+  .skillpecker-result-skill-list,
+  .skillpecker-result-detail-scroll {
+    max-height: none;
+  }
+}
+
+@media (min-width: 1080px) {
+  .skillpecker-preview-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   ::before,
@@ -1862,5 +2571,1678 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* SkillPecker refinement overrides */
+.skillpecker-module-hero {
+  padding: 1.8rem 1.9rem;
+  background:
+    radial-gradient(circle at top right, rgba(56, 189, 248, 0.16), transparent 24%),
+    radial-gradient(circle at bottom left, rgba(251, 113, 133, 0.1), transparent 22%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.84), rgba(255, 255, 255, 0.72));
+}
+
+.skillpecker-overview-stack,
+.skillpecker-analytics-stack,
+.skillpecker-console-stack {
+  gap: 1.35rem;
+}
+
+.skillpecker-overview-capability-grid {
+  display: grid;
+  gap: 1.3rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.skillpecker-capability-card {
+  min-height: 15rem;
+  border-radius: 2rem;
+  text-align: center;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.95)),
+    radial-gradient(circle at top center, rgba(191, 225, 255, 0.14), transparent 34%);
+}
+
+.skillpecker-capability-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.75rem;
+  height: 3.75rem;
+  margin-inline: auto;
+  border-radius: 1rem;
+}
+
+.skillpecker-capability-icon svg {
+  display: block;
+}
+
+.skillpecker-overview-stat {
+  min-height: auto;
+}
+
+.skillpecker-chart-card {
+  border-radius: 2rem;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.95)),
+    radial-gradient(circle at top right, rgba(191, 225, 255, 0.12), transparent 32%);
+}
+
+.skillpecker-chart-head {
+  justify-content: center;
+  margin-bottom: 0.4rem;
+  padding: 0.8rem 0.95rem;
+  border-radius: 1rem;
+}
+
+.skillpecker-chart-head-blue {
+  background: rgba(37, 99, 235, 0.12);
+  border: 1px solid rgba(37, 99, 235, 0.16);
+}
+
+.skillpecker-chart-head-red {
+  background: rgba(220, 38, 38, 0.1);
+  border: 1px solid rgba(220, 38, 38, 0.16);
+}
+
+.skillpecker-chart-title {
+  font-size: 1.95rem;
+  font-weight: 800;
+}
+
+.skillpecker-chart-tooltip {
+  color: #0f172a;
+}
+
+.skillpecker-console-launchpad {
+  border-radius: 2rem;
+}
+
+.skillpecker-console-launchpad-grid {
+  align-items: start;
+  grid-template-columns: minmax(0, 1.02fr) minmax(25rem, 0.98fr);
+}
+
+.skillpecker-console-copy {
+  gap: 1.1rem;
+}
+
+.skillpecker-console-copy-head {
+  display: grid;
+  gap: 1rem;
+}
+
+.skillpecker-console-title {
+  font-size: clamp(2.6rem, 4.5vw, 4.1rem);
+}
+
+.skillpecker-console-description {
+  margin-top: 0.7rem;
+}
+
+.skillpecker-console-status-strip {
+  gap: 0.8rem;
+}
+
+.skillpecker-console-status-tile {
+  min-height: 5.5rem;
+  padding: 1rem 1.15rem 1rem 1.85rem;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.82),
+    0 16px 32px rgba(15, 23, 42, 0.06);
+}
+
+.skillpecker-console-status-tile::before {
+  animation: skillpecker-status-pulse 2.2s ease-in-out infinite;
+}
+
+.skillpecker-console-status-tile.is-running::before {
+  background: linear-gradient(135deg, #f59e0b, #fb923c);
+}
+
+.skillpecker-console-status-tile.is-queued::before {
+  background: linear-gradient(135deg, #38bdf8, #2563eb);
+}
+
+.skillpecker-console-status-tile.is-completed::before {
+  background: linear-gradient(135deg, #22c55e, #10b981);
+}
+
+.skillpecker-console-status-tile strong {
+  color: #0f172a;
+}
+
+.skillpecker-console-step-grid {
+  gap: 0.8rem;
+}
+
+.skillpecker-console-step-card {
+  min-height: 8.4rem;
+  animation: skillpecker-step-float 4.8s ease-in-out infinite;
+  animation-delay: var(--step-delay, 0ms);
+}
+
+.skillpecker-console-step-card::after {
+  content: '';
+  position: absolute;
+  inset: auto 1rem 1rem;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(56, 189, 248, 0), rgba(56, 189, 248, 0.8), rgba(16, 185, 129, 0));
+  opacity: 0;
+  transform: scaleX(0.3);
+  transform-origin: center;
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.skillpecker-console-step-card.is-active::after,
+.skillpecker-console-step-card:hover::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.skillpecker-console-step-card strong {
+  font-size: 1.55rem;
+}
+
+.skillpecker-console-form {
+  padding: 1.2rem;
+  border-radius: 1.8rem;
+}
+
+.skillpecker-upload-mode-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.skillpecker-upload-mode-button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+
+.skillpecker-upload-mode-archive::before {
+  background: linear-gradient(180deg, rgba(224, 242, 254, 0.9), rgba(186, 230, 253, 0.68));
+}
+
+.skillpecker-upload-mode-directory::before {
+  background: linear-gradient(180deg, rgba(254, 249, 195, 0.84), rgba(254, 240, 138, 0.58));
+}
+
+.skillpecker-upload-mode-button.is-active::before {
+  opacity: 1;
+}
+
+.skillpecker-upload-mode-button span,
+.skillpecker-upload-mode-button {
+  z-index: 1;
+}
+
+.skillpecker-upload-tile {
+  border-radius: 1.75rem;
+  transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+.skillpecker-upload-tile.is-archive {
+  border-color: rgba(125, 211, 252, 0.85) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(240, 249, 255, 0.95)),
+    radial-gradient(circle at top left, rgba(186, 230, 253, 0.2), transparent 34%);
+}
+
+.skillpecker-upload-tile.is-directory {
+  border-color: rgba(253, 224, 71, 0.52) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(254, 252, 232, 0.95)),
+    radial-gradient(circle at top left, rgba(253, 224, 71, 0.16), transparent 34%);
+}
+
+.skillpecker-upload-icon.is-archive {
+  color: #0284c7;
+  background: linear-gradient(180deg, rgba(224, 242, 254, 0.98), rgba(186, 230, 253, 0.9));
+}
+
+.skillpecker-upload-icon.is-directory {
+  color: #ca8a04;
+  background: linear-gradient(180deg, rgba(254, 249, 195, 0.96), rgba(254, 240, 138, 0.82));
+}
+
+.skillpecker-console-submit-row {
+  padding-top: 0.35rem;
+}
+
+.skillpecker-console-submit-button {
+  min-width: 11rem;
+}
+
+.skillpecker-queue-card {
+  border-radius: 1.6rem;
+}
+
+.skillpecker-result-dialog {
+  padding: 1.25rem;
+  border-radius: 2rem;
+}
+
+.skillpecker-result-workspace {
+  grid-template-columns: minmax(21rem, 30rem) minmax(0, 1fr);
+  min-height: min(82vh, 66rem);
+}
+
+.skillpecker-result-sidebar,
+.skillpecker-result-detail {
+  padding: 1rem;
+}
+
+.skillpecker-result-skill-list,
+.skillpecker-result-detail-scroll {
+  max-height: calc(82vh - 10rem);
+}
+
+.skillpecker-result-skill-card {
+  animation: skillpecker-card-rise 320ms ease both;
+  animation-delay: var(--skill-stagger, 0ms);
+}
+
+.skillpecker-result-skill-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.skillpecker-result-skill-name {
+  margin: 0.7rem 0 0;
+  font-size: 1.9rem;
+  font-weight: 800;
+  line-height: 1.08;
+  color: #0f172a;
+  word-break: break-word;
+}
+
+.skillpecker-result-skill-subtitle {
+  margin: 0.7rem 0 0;
+  color: #64748b;
+  line-height: 1.65;
+}
+
+.skillpecker-result-skill-side {
+  display: grid;
+  justify-items: end;
+  gap: 0.75rem;
+}
+
+.skillpecker-result-expand-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 2.2rem;
+  padding: 0 0.85rem;
+  border-radius: 999px;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  background: rgba(248, 250, 252, 0.9);
+  color: #0f172a;
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.skillpecker-result-expand-indicator.is-expanded {
+  background: rgba(226, 232, 240, 0.92);
+}
+
+.skillpecker-result-empty {
+  display: flex;
+  min-height: 16rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1.5rem;
+  border: 1px dashed rgba(148, 163, 184, 0.42);
+  background: rgba(255, 255, 255, 0.6);
+  padding: 1.5rem;
+  text-align: center;
+  color: #64748b;
+}
+
+.skillpecker-result-error-card {
+  border-radius: 1.5rem;
+  border: 1px solid rgba(244, 63, 94, 0.18);
+  background: rgba(255, 241, 242, 0.86);
+  padding: 1rem 1.1rem;
+}
+
+.skillpecker-skill-detail-card {
+  display: grid;
+  gap: 1rem;
+}
+
+.skillpecker-skill-detail-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.skillpecker-skill-detail-top h5 {
+  margin: 0.5rem 0 0;
+  font-size: 2rem;
+  line-height: 1.08;
+  color: #0f172a;
+  word-break: break-word;
+}
+
+.skillpecker-skill-detail-side {
+  display: grid;
+  justify-items: end;
+  gap: 0.65rem;
+}
+
+.skillpecker-score-line {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.skillpecker-finding-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.skillpecker-finding-card {
+  display: grid;
+  gap: 0.85rem;
+  padding: 1.15rem;
+  border-radius: 1.6rem;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(248, 250, 252, 0.96)),
+    radial-gradient(circle at top right, rgba(251, 113, 133, 0.1), transparent 28%);
+  animation: skillpecker-card-rise 320ms ease both;
+  animation-delay: var(--finding-stagger, 0ms);
+}
+
+.skillpecker-finding-card-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.skillpecker-finding-kicker {
+  margin: 0;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #94a3b8;
+}
+
+.skillpecker-finding-card h5 {
+  margin: 0.5rem 0 0;
+  font-size: 1.8rem;
+  line-height: 1.14;
+  color: #0f172a;
+}
+
+.skillpecker-finding-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.45rem;
+}
+
+.skillpecker-finding-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.skillpecker-detail-chip,
+.skillpecker-severity-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  padding: 0 0.78rem;
+  border-radius: 999px;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  background: rgba(248, 250, 252, 0.92);
+  color: #0f172a;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.skillpecker-detail-chip-neutral {
+  color: #475569;
+}
+
+.skillpecker-detail-chip-warn {
+  border-color: rgba(250, 204, 21, 0.26);
+  background: rgba(254, 249, 195, 0.72);
+  color: #a16207;
+}
+
+.skillpecker-severity-chip.is-critical,
+.skillpecker-severity-chip.is-high {
+  border-color: rgba(239, 68, 68, 0.2);
+  background: rgba(254, 226, 226, 0.82);
+  color: #b91c1c;
+}
+
+.skillpecker-severity-chip.is-medium {
+  border-color: rgba(245, 158, 11, 0.2);
+  background: rgba(254, 243, 199, 0.82);
+  color: #b45309;
+}
+
+.skillpecker-severity-chip.is-low {
+  border-color: rgba(34, 197, 94, 0.2);
+  background: rgba(220, 252, 231, 0.82);
+  color: #047857;
+}
+
+.skillpecker-finding-detail-group {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.skillpecker-finding-detail-copy {
+  margin: 0;
+  line-height: 1.8;
+  color: #526171;
+}
+
+.skillpecker-evidence-list {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.skillpecker-evidence-row {
+  gap: 0.5rem;
+  padding: 0.9rem 1rem;
+}
+
+.skillpecker-evidence-copy {
+  margin: 0;
+}
+
+.dark .skillpecker-module-hero,
+.dark .skillpecker-chart-card,
+.dark .skillpecker-capability-card,
+.dark .skillpecker-result-empty,
+.dark .skillpecker-result-error-card,
+.dark .skillpecker-finding-card,
+.dark .skillpecker-detail-chip,
+.dark .skillpecker-severity-chip {
+  color: #e2e8f0;
+}
+
+.dark .skillpecker-result-skill-name,
+.dark .skillpecker-skill-detail-top h5,
+.dark .skillpecker-finding-card h5,
+.dark .skillpecker-console-status-tile strong {
+  color: #f8fafc;
+}
+
+.dark .skillpecker-result-empty {
+  background: rgba(15, 23, 42, 0.62);
+}
+
+@keyframes skillpecker-status-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.18);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(56, 189, 248, 0);
+    transform: scale(1.05);
+  }
+}
+
+@keyframes skillpecker-step-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes skillpecker-card-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 1080px) {
+  .skillpecker-overview-capability-grid,
+  .skillpecker-analytics-grid,
+  .skillpecker-console-launchpad-grid,
+  .skillpecker-result-workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .skillpecker-console-step-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .skillpecker-overview-capability-grid,
+  .skillpecker-console-step-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .skillpecker-result-skill-card-top,
+  .skillpecker-skill-detail-top,
+  .skillpecker-finding-card-head {
+    flex-direction: column;
+  }
+
+  .skillpecker-result-skill-side,
+  .skillpecker-skill-detail-side,
+  .skillpecker-finding-badges {
+    justify-items: flex-start;
+    justify-content: flex-start;
+  }
+}
+
+.skillpecker-module-grid {
+  gap: 1.85rem;
+}
+
+:root {
+  --skillpecker-shell-max: 1280px;
+  --skillpecker-shell-gutter: 52px;
+  --skillpecker-feature-title-size: 1.6rem;
+}
+
+.skillpecker-page-shell {
+  width: min(var(--skillpecker-shell-max), calc(100vw - var(--skillpecker-shell-gutter)));
+}
+
+.skillpecker-overview-stack {
+  margin-top: 0.35rem;
+  gap: 1.6rem;
+}
+
+.skillpecker-overview-shell-title {
+  position: relative;
+  display: inline-block;
+  font-weight: 900 !important;
+  letter-spacing: -0.05em;
+  background: linear-gradient(120deg, #0f172a 0%, #0369a1 26%, #2563eb 52%, #0ea5e9 72%, #0f172a 100%);
+  background-size: 240% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: skillpecker-overview-title-flow 9s ease-in-out infinite;
+}
+
+.skillpecker-overview-shell-title::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.92) 42%, transparent 68%);
+  mix-blend-mode: screen;
+  opacity: 0.18;
+  transform: translateX(-34%);
+  filter: blur(12px);
+  animation: skillpecker-overview-title-sheen 5.8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.skillpecker-overview-shell-description {
+  font-size: 1.2rem !important;
+  line-height: 1.95 !important;
+  color: #526171 !important;
+}
+
+.skillpecker-capability-card h3 {
+  font-size: var(--skillpecker-feature-title-size) !important;
+  font-weight: 900;
+  line-height: 1.15;
+}
+
+.skillpecker-overview-stat {
+  min-height: 8.2rem;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.52), rgba(255, 255, 255, 0.18)),
+    radial-gradient(circle at 50% 30%, rgba(191, 225, 255, 0.22), transparent 48%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.82),
+    0 16px 28px rgba(15, 23, 42, 0.05);
+}
+
+.skillpecker-overview-stat .text-xs {
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: none;
+}
+
+.skillpecker-overview-stat .font-display {
+  font-size: clamp(3.1rem, 5vw, 3.0rem);
+  font-weight: 900;
+  letter-spacing: -0.06em;
+}
+
+.skillpecker-overview-stat.skillpecker-stat-card-scan {
+  background:
+    linear-gradient(135deg, rgba(59, 130, 246, 0.14), rgba(191, 225, 255, 0.26) 42%, rgba(255, 255, 255, 0.08)),
+    rgba(255, 255, 255, 0.18);
+}
+
+.skillpecker-overview-stat.skillpecker-stat-card-issue {
+  background:
+    linear-gradient(135deg, rgba(245, 158, 11, 0.14), rgba(254, 243, 199, 0.28) 42%, rgba(255, 255, 255, 0.08)),
+    rgba(255, 255, 255, 0.18);
+}
+
+.skillpecker-overview-stat.skillpecker-stat-card-overreach {
+  background:
+    linear-gradient(135deg, rgba(251, 113, 133, 0.14), rgba(255, 228, 230, 0.28) 42%, rgba(255, 255, 255, 0.08)),
+    rgba(255, 255, 255, 0.18);
+}
+
+.skillpecker-chart-card {
+  padding: 1.2rem 1.3rem 0.5rem;
+}
+
+.skillpecker-chart-head {
+  margin-bottom: 0.15rem;
+  padding: 0.25rem 0 0.45rem;
+  border: 0;
+  background: transparent;
+}
+
+.skillpecker-chart-title {
+  font-size: 1.55rem;
+  font-weight: 900;
+}
+
+.skillpecker-chart-card .recharts-layer text,
+.skillpecker-chart-card .recharts-cartesian-axis-tick-value tspan {
+  font-size: 16px;
+}
+
+.skillpecker-library-stack {
+  display: grid;
+  gap: 1.3rem;
+}
+
+.skillpecker-library-search-shell {
+  padding: 1.15rem;
+  border-radius: 2rem;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.94)),
+    radial-gradient(circle at top right, rgba(56, 189, 248, 0.1), transparent 32%);
+}
+
+.skillpecker-library-search-bar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: center;
+}
+
+.skillpecker-library-search-main {
+  display: grid;
+  gap: 0.85rem;
+  min-width: 0;
+}
+
+.skillpecker-library-search-input-row {
+  min-width: 0;
+}
+
+.skillpecker-library-search-input {
+  height: 3.9rem !important;
+  border-radius: 1.25rem !important;
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+}
+
+.skillpecker-library-search-clear {
+  position: absolute;
+  right: 0.9rem;
+  top: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  border: 1px solid rgba(203, 213, 225, 0.88);
+  background: rgba(248, 250, 252, 0.96);
+  color: #64748b;
+  transform: translateY(-50%);
+  transition:
+    background 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.skillpecker-library-search-clear:hover {
+  transform: translateY(-50%) scale(1.04);
+  color: #0f172a;
+  border-color: rgba(148, 163, 184, 0.82);
+  background: rgba(255, 255, 255, 1);
+}
+
+.skillpecker-library-search-filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.skillpecker-library-filter-label {
+  font-size: 0.9rem;
+  font-weight: 900;
+  color: #0f172a;
+  white-space: nowrap;
+}
+
+.skillpecker-library-filter-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+.skillpecker-library-search-actions {
+  display: flex;
+  align-items: stretch;
+  justify-content: flex-end;
+}
+
+.skillpecker-library-search-button {
+  min-width: 8.75rem;
+  min-height: 3.5rem;
+  padding-inline: 1.5rem !important;
+  border-radius: 999px !important;
+  font-size: 1rem !important;
+  font-weight: 900 !important;
+}
+
+.skillpecker-library-search-loading {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.skillpecker-library-search-equalizer {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 0.22rem;
+  min-width: 1.3rem;
+  height: 1rem;
+}
+
+.skillpecker-library-search-equalizer span {
+  width: 0.22rem;
+  border-radius: 999px;
+  background: currentColor;
+  animation: skillpecker-search-pulse 0.9s ease-in-out infinite;
+}
+
+.skillpecker-library-search-equalizer span:nth-child(1) {
+  height: 0.42rem;
+}
+
+.skillpecker-library-search-equalizer span:nth-child(2) {
+  height: 0.9rem;
+  animation-delay: 0.12s;
+}
+
+.skillpecker-library-search-equalizer span:nth-child(3) {
+  height: 0.58rem;
+  animation-delay: 0.24s;
+}
+
+.skillpecker-library-search-hint {
+  margin: 0.8rem 0 0;
+  font-size: 0.92rem;
+  color: #64748b;
+}
+
+.skillpecker-library-filter-chip {
+  min-height: 2.65rem;
+  padding: 0 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: rgba(255, 255, 255, 0.9);
+  color: #334155;
+  font-size: 0.88rem;
+  font-weight: 800;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease,
+    color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.skillpecker-library-filter-chip:hover {
+  transform: translateY(-1px);
+  border-color: rgba(37, 99, 235, 0.22);
+}
+
+.skillpecker-library-filter-chip.is-active {
+  background: rgba(37, 99, 235, 0.12);
+  border-color: rgba(37, 99, 235, 0.28);
+  color: #1d4ed8;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.82);
+}
+
+.skillpecker-library-results {
+  display: grid;
+  gap: 1rem;
+}
+
+.skillpecker-library-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 2rem;
+  background: rgba(255, 255, 255, 0.72);
+  animation: skillpecker-library-card-rise 480ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--library-stagger, 0) * 60ms);
+}
+
+.skillpecker-library-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(120deg, transparent 0%, rgba(56, 189, 248, 0.16) 22%, transparent 42%, rgba(34, 197, 94, 0.12) 68%, transparent 100%);
+  opacity: 0.58;
+  transform: translateX(-36%);
+  transition: transform 420ms ease, opacity 320ms ease;
+  pointer-events: none;
+}
+
+.skillpecker-library-card:hover::before,
+.skillpecker-library-card.is-active::before {
+  transform: translateX(0);
+  opacity: 0.92;
+}
+
+.skillpecker-library-card-trigger {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.6rem 1.45rem;
+}
+
+.skillpecker-library-expand-button {
+  min-width: 7.5rem;
+  border-color: rgba(203, 213, 225, 0.86) !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(241, 245, 249, 0.92)) !important;
+  color: #0f172a !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.92),
+    0 10px 22px rgba(15, 23, 42, 0.06) !important;
+}
+
+.skillpecker-library-expand-button:hover {
+  border-color: rgba(148, 163, 184, 0.72) !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(226, 232, 240, 0.9)) !important;
+}
+
+.skillpecker-library-expand-button.is-active {
+  border-color: rgba(15, 23, 42, 0.14) !important;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.96), rgba(30, 41, 59, 0.96)) !important;
+  color: #f8fafc !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 12px 26px rgba(15, 23, 42, 0.14) !important;
+}
+
+.skillpecker-library-card-main {
+  min-width: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.skillpecker-library-title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.skillpecker-library-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.65rem;
+}
+
+.skillpecker-library-pill-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  align-items: center;
+}
+
+.skillpecker-library-title {
+  margin: 0;
+  font-size: 1.7rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: #0f172a;
+  word-break: break-word;
+}
+
+.skillpecker-library-description {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #526171;
+}
+
+.skillpecker-library-link {
+  display: inline-flex;
+  color: #0284c7;
+  word-break: break-all;
+}
+
+.skillpecker-library-link:hover {
+  text-decoration: underline;
+}
+
+.skillpecker-library-decision-pill,
+.skillpecker-library-category-chip,
+.skillpecker-library-finding-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  padding: 0 0.88rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 900;
+  letter-spacing: 0.03em;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.skillpecker-library-category-chip {
+  background: rgba(219, 234, 254, 0.92);
+  border-color: rgba(96, 165, 250, 0.28);
+  color: #2563eb;
+}
+
+.skillpecker-library-finding-chip {
+  background: rgba(255, 247, 237, 0.9);
+  border-color: rgba(251, 146, 60, 0.18);
+  color: #c2410c;
+}
+
+.skillpecker-library-decision-pill.is-malicious {
+  background: rgba(254, 226, 226, 0.9);
+  border-color: rgba(239, 68, 68, 0.16);
+  color: #dc2626;
+}
+
+.skillpecker-library-decision-pill.is-overreach {
+  background: rgba(255, 237, 213, 0.92);
+  border-color: rgba(249, 115, 22, 0.18);
+  color: #ea580c;
+}
+
+.skillpecker-library-decision-pill.is-suspicious {
+  background: rgba(254, 243, 199, 0.92);
+  border-color: rgba(245, 158, 11, 0.2);
+  color: #ca8a04;
+}
+
+.skillpecker-library-card-body {
+  position: relative;
+  z-index: 1;
+  padding: 0 1.45rem 1.45rem;
+}
+
+.skillpecker-library-card-body::before {
+  content: '';
+  display: block;
+  height: 1px;
+  margin: 0 0 1rem;
+  background: linear-gradient(90deg, rgba(148, 163, 184, 0), rgba(148, 163, 184, 0.24), rgba(14, 165, 233, 0.18), rgba(148, 163, 184, 0));
+}
+
+.skillpecker-library-expanded-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(320px, 1fr);
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(15, 23, 42, 0.08);
+  align-items: stretch;
+}
+
+.skillpecker-library-expanded-grid > * {
+  min-height: 0;
+}
+
+.skillpecker-library-expanded-grid.is-single-column {
+  grid-template-columns: 1fr;
+}
+
+.skillpecker-library-expanded-main,
+.skillpecker-library-expanded-side {
+  display: grid;
+  gap: 1rem;
+  align-content: stretch;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.skillpecker-library-detail-block {
+  padding: 1.2rem;
+  border-radius: 1.55rem;
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(248, 250, 252, 0.95)),
+    radial-gradient(circle at top right, rgba(191, 225, 255, 0.12), transparent 36%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.92),
+    0 14px 28px rgba(15, 23, 42, 0.05);
+  height: 100%;
+}
+
+.skillpecker-library-panel-head {
+  margin-bottom: 0.35rem;
+}
+
+.skillpecker-library-panel-head h4 {
+  font-size: 1.42rem;
+  font-weight: 900;
+}
+
+.skillpecker-library-record-list {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.skillpecker-library-record-card {
+  display: grid;
+  gap: 0.95rem;
+  padding: 1.15rem;
+  border-radius: 1.35rem;
+  border: 1px solid rgba(191, 219, 254, 0.58);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.95)),
+    radial-gradient(circle at top left, rgba(220, 252, 231, 0.22), transparent 34%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.94),
+    0 14px 22px rgba(15, 23, 42, 0.04);
+}
+
+.skillpecker-library-record-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.8rem;
+  align-items: flex-start;
+}
+
+.skillpecker-library-record-head h5 {
+  margin: 0;
+  font-size: 1.28rem;
+  font-weight: 900;
+  color: #0f172a;
+}
+
+.skillpecker-library-audit-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.7rem;
+}
+
+.skillpecker-library-audit-item {
+  display: grid;
+  gap: 0.35rem;
+  padding: 0.95rem 1rem;
+  border-radius: 1rem;
+  background: rgba(248, 250, 252, 0.92);
+  border: 1px solid rgba(191, 219, 254, 0.62);
+}
+
+.skillpecker-library-audit-item span {
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.skillpecker-library-audit-item strong {
+  font-size: 1rem;
+  line-height: 1.55;
+  color: #0f172a;
+  word-break: break-word;
+}
+
+.skillpecker-library-audit-section {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.skillpecker-library-audit-copy {
+  margin: 0;
+  line-height: 1.85;
+  color: #475569;
+}
+
+.skillpecker-library-summary-box {
+  border-radius: 1.2rem;
+  border: 1px solid rgba(96, 165, 250, 0.32);
+  background:
+    linear-gradient(180deg, rgba(239, 246, 255, 0.92), rgba(248, 250, 252, 0.96)),
+    radial-gradient(circle at top left, rgba(191, 225, 255, 0.22), transparent 42%);
+  box-shadow:
+    inset 4px 0 0 rgba(96, 165, 250, 0.9),
+    inset 0 1px 0 rgba(255, 255, 255, 0.92);
+  padding: 1.2rem 1.35rem;
+}
+
+.skillpecker-library-problem-doc {
+  padding: 0;
+  overflow: visible;
+  max-height: none;
+  font-size: 1.14rem;
+  line-height: 1.9;
+  color: #1e293b;
+  font-weight: 750;
+}
+
+.skillpecker-library-problem-doc > * + * {
+  margin-top: 1.1rem;
+}
+
+.skillpecker-library-summary-copy {
+  margin: 0;
+  font-size: 1.14rem;
+  line-height: 1.85;
+  font-weight: 650;
+  color: #1e293b;
+}
+
+.skillpecker-library-meta-chip {
+  min-height: 1.95rem;
+  border-radius: 999px;
+  border-color: rgba(191, 219, 254, 0.78);
+  background: rgba(239, 246, 255, 0.92);
+  color: #1e3a8a;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.skillpecker-detail-chip-warn.skillpecker-library-meta-chip {
+  border-color: rgba(250, 204, 21, 0.48);
+  background: rgba(254, 249, 195, 0.94);
+  color: #a16207;
+}
+
+.skillpecker-library-finding-badge {
+  min-height: 2rem;
+  padding-inline: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+}
+
+.skillpecker-library-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.skillpecker-library-doc-panel {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  min-height: 0;
+  overflow: hidden;
+}
+
+.skillpecker-library-doc-code {
+  min-height: 0;
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto auto;
+  gap: 1rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 0.2rem;
+}
+
+.skillpecker-library-doc-summary {
+  display: grid;
+  gap: 0.9rem;
+  padding: 1rem 1.05rem;
+  border-radius: 1.1rem;
+  border: 1px solid rgba(226, 232, 240, 0.92);
+  background:
+    linear-gradient(180deg, rgba(248, 250, 252, 0.98), rgba(244, 247, 251, 0.98)),
+    radial-gradient(circle at top left, rgba(191, 225, 255, 0.12), transparent 38%);
+}
+
+.skillpecker-library-doc-summary-item {
+  display: grid;
+  gap: 0.38rem;
+}
+
+.skillpecker-library-doc-summary-item span {
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #64748b;
+}
+
+.skillpecker-library-doc-summary-item strong {
+  font-size: 1.02rem;
+  line-height: 1.7;
+  font-weight: 800;
+  color: #0f172a;
+  word-break: break-word;
+}
+
+.skillpecker-library-doc-summary-line {
+  display: block;
+  font-size: 1rem;
+  line-height: 1.72;
+  color: #1e293b;
+  font-weight: 800;
+}
+
+.skillpecker-markdown-doc {
+  overflow: visible;
+  max-height: none;
+  min-height: 0;
+  padding: 0.35rem 0.05rem 0.3rem;
+  font-size: 1.045rem;
+  line-height: 1.82;
+  color: #334155;
+  width: 100%;
+  min-width: 0;
+  letter-spacing: -0.01em;
+}
+
+.skillpecker-markdown-doc > * + * {
+  margin-top: 1.15rem;
+}
+
+.skillpecker-markdown-heading {
+  margin: 0;
+  color: #0f172a;
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
+.skillpecker-markdown-heading-1 {
+  font-size: 1.9rem;
+  font-weight: 850;
+  line-height: 1.18;
+  letter-spacing: -0.04em;
+  margin-bottom: 0.15rem;
+}
+
+.skillpecker-markdown-heading-2 {
+  font-size: 1.28rem;
+  font-weight: 820;
+  line-height: 1.26;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.15rem;
+}
+
+.skillpecker-markdown-heading-3,
+.skillpecker-markdown-heading-4,
+.skillpecker-markdown-heading-5,
+.skillpecker-markdown-heading-6 {
+  font-size: 1.06rem;
+  font-weight: 800;
+  line-height: 1.32;
+  letter-spacing: -0.02em;
+}
+
+.skillpecker-markdown-paragraph {
+  margin: 0;
+  overflow-wrap: break-word;
+  word-break: normal;
+  color: #334155;
+}
+
+.skillpecker-markdown-list li {
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
+.skillpecker-markdown-list {
+  margin: 0;
+  padding-left: 1.35rem;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.skillpecker-markdown-ordered {
+  list-style: decimal;
+}
+
+.skillpecker-markdown-list:not(.skillpecker-markdown-ordered) {
+  list-style: disc;
+}
+
+.skillpecker-markdown-table-wrap {
+  overflow-x: auto;
+  overflow-y: hidden;
+  border-radius: 0.95rem;
+  border: 1px solid rgba(226, 232, 240, 0.96);
+  background: rgba(248, 250, 252, 0.98);
+}
+
+.skillpecker-markdown-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 32rem;
+}
+
+.skillpecker-markdown-table th,
+.skillpecker-markdown-table td {
+  padding: 0.82rem 0.9rem;
+  border-bottom: 1px solid rgba(203, 213, 225, 0.72);
+  border-right: 1px solid rgba(203, 213, 225, 0.52);
+  text-align: left;
+  vertical-align: top;
+  line-height: 1.7;
+}
+
+.skillpecker-markdown-table th:last-child,
+.skillpecker-markdown-table td:last-child {
+  border-right: 0;
+}
+
+.skillpecker-markdown-table thead th {
+  background: rgba(219, 234, 254, 0.72);
+  color: #0f172a;
+  font-size: 0.92rem;
+  font-weight: 900;
+}
+
+.skillpecker-markdown-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.skillpecker-markdown-inline-code {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 0.45rem;
+  background: rgba(241, 245, 249, 0.92);
+  border: 1px solid rgba(226, 232, 240, 0.92);
+  padding: 0.1rem 0.38rem;
+  margin-inline: 0.12rem;
+  font-size: 0.88em;
+  color: #0f172a;
+}
+
+.skillpecker-markdown-link {
+  color: #0284c7;
+  text-decoration: underline;
+  text-underline-offset: 0.14em;
+  overflow-wrap: anywhere;
+}
+
+.skillpecker-markdown-link:hover {
+  color: #0369a1;
+}
+
+.skillpecker-markdown-codeblock {
+  margin: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  border-radius: 1rem;
+  border: 1px solid rgba(226, 232, 240, 0.96);
+  background: rgba(248, 250, 252, 0.98);
+  padding: 0.95rem 1rem;
+  color: #0f172a;
+}
+
+.skillpecker-markdown-codeblock code {
+  display: block;
+  min-width: max-content;
+  white-space: pre;
+  font-size: 0.94rem;
+  line-height: 1.72;
+}
+
+.skillpecker-markdown-code-lang {
+  display: inline-flex;
+  margin-bottom: 0.65rem;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.skillpecker-markdown-divider {
+  border: 0;
+  border-top: 1px solid rgba(203, 213, 225, 0.72);
+}
+
+.skillpecker-library-empty {
+  display: flex;
+  min-height: 9rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1.2rem;
+  border: 1px dashed rgba(148, 163, 184, 0.38);
+  background: rgba(255, 255, 255, 0.62);
+  color: #64748b;
+  text-align: center;
+  padding: 1rem;
+}
+
+.skillpecker-library-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.15rem;
+  border-radius: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.skillpecker-library-pagination-status {
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.skillpecker-library-pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.skillpecker-library-page-list {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.skillpecker-library-page-button,
+.skillpecker-library-page-ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.85rem;
+  height: 2.85rem;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 900;
+}
+
+.skillpecker-library-page-button {
+  border: 1px solid rgba(226, 232, 240, 0.92);
+  background: rgba(255, 255, 255, 0.94);
+  color: #0f172a;
+  box-shadow: 0 10px 18px rgba(15, 23, 42, 0.06);
+  transition:
+    transform 180ms ease,
+    background 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease;
+}
+
+.skillpecker-library-page-button:hover {
+  transform: translateY(-1px);
+  border-color: rgba(96, 165, 250, 0.34);
+}
+
+.skillpecker-library-page-button.is-active {
+  background: linear-gradient(180deg, #3b82f6, #2563eb);
+  border-color: rgba(37, 99, 235, 0.6);
+  color: #fff;
+}
+
+.skillpecker-library-page-ellipsis {
+  min-width: auto;
+  padding-inline: 0.25rem;
+  color: #64748b;
+}
+
+.dark .skillpecker-overview-shell-title {
+  background: linear-gradient(120deg, #f8fafc 0%, #7dd3fc 30%, #93c5fd 56%, #67e8f9 76%, #f8fafc 100%);
+  background-size: 240% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.dark .skillpecker-library-title,
+.dark .skillpecker-library-record-head h5,
+.dark .skillpecker-library-audit-item strong {
+  color: #f8fafc;
+}
+
+.dark .skillpecker-library-card,
+.dark .skillpecker-library-search-shell,
+.dark .skillpecker-library-record-card,
+.dark .skillpecker-library-empty,
+.dark .skillpecker-library-pagination {
+  background: rgba(15, 23, 42, 0.76);
+}
+
+.dark .skillpecker-library-filter-label,
+.dark .skillpecker-markdown-heading,
+.dark .skillpecker-library-doc-summary-item strong,
+.dark .skillpecker-markdown-inline-code,
+.dark .skillpecker-markdown-codeblock {
+  color: #f8fafc;
+}
+
+.dark .skillpecker-library-search-hint,
+.dark .skillpecker-library-doc-summary-item span,
+.dark .skillpecker-markdown-code-lang,
+.dark .skillpecker-markdown-doc {
+  color: #cbd5e1;
+}
+
+@keyframes skillpecker-overview-title-flow {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes skillpecker-overview-title-sheen {
+  0% {
+    transform: translateX(-46%);
+    opacity: 0;
+  }
+  18% {
+    opacity: 0.22;
+  }
+  42% {
+    transform: translateX(36%);
+    opacity: 0.08;
+  }
+  100% {
+    transform: translateX(36%);
+    opacity: 0;
+  }
+}
+
+@keyframes skillpecker-library-card-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes skillpecker-search-pulse {
+  0%,
+  100% {
+    transform: scaleY(0.45);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 980px) {
+  :root {
+    --skillpecker-shell-gutter: 30px;
+  }
+
+  .skillpecker-library-search-bar,
+  .skillpecker-library-expanded-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .skillpecker-library-search-actions {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 768px) {
+  .skillpecker-library-card-trigger,
+  .skillpecker-library-record-head,
+  .skillpecker-library-pagination {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .skillpecker-library-audit-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .skillpecker-library-actions {
+    justify-content: flex-start;
   }
 }
