@@ -3832,8 +3832,8 @@
 
 .skillpecker-library-doc-summary {
   display: grid;
-  gap: 0.9rem;
-  padding: 1rem 1.05rem;
+  gap: 1.05rem;
+  padding: 1.08rem 1.12rem;
   border-radius: 1.1rem;
   border: 1px solid rgba(226, 232, 240, 0.92);
   background:
@@ -3843,7 +3843,7 @@
 
 .skillpecker-library-doc-summary-item {
   display: grid;
-  gap: 0.38rem;
+  gap: 0.46rem;
 }
 
 .skillpecker-library-doc-summary-item span {
@@ -3855,7 +3855,7 @@
 
 .skillpecker-library-doc-summary-item strong {
   font-size: 1.02rem;
-  line-height: 1.7;
+  line-height: 1.78;
   font-weight: 800;
   color: #0f172a;
   word-break: break-word;
@@ -3864,7 +3864,7 @@
 .skillpecker-library-doc-summary-line {
   display: block;
   font-size: 1rem;
-  line-height: 1.72;
+  line-height: 1.82;
   color: #1e293b;
   font-weight: 800;
 }
@@ -3873,9 +3873,9 @@
   overflow: visible;
   max-height: none;
   min-height: 0;
-  padding: 0.35rem 0.05rem 0.3rem;
-  font-size: 1.045rem;
-  line-height: 1.82;
+  padding: 0.48rem 0.08rem 0.42rem;
+  font-size: 1.06rem;
+  line-height: 1.94;
   color: #334155;
   width: 100%;
   min-width: 0;
@@ -3883,7 +3883,7 @@
 }
 
 .skillpecker-markdown-doc > * + * {
-  margin-top: 1.15rem;
+  margin-top: 1.38rem;
 }
 
 .skillpecker-markdown-heading {
@@ -3896,17 +3896,17 @@
 .skillpecker-markdown-heading-1 {
   font-size: 1.9rem;
   font-weight: 850;
-  line-height: 1.18;
+  line-height: 1.2;
   letter-spacing: -0.04em;
-  margin-bottom: 0.15rem;
+  margin-bottom: 0.28rem;
 }
 
 .skillpecker-markdown-heading-2 {
   font-size: 1.28rem;
   font-weight: 820;
-  line-height: 1.26;
+  line-height: 1.32;
   letter-spacing: -0.03em;
-  margin-bottom: 0.15rem;
+  margin-bottom: 0.24rem;
 }
 
 .skillpecker-markdown-heading-3,
@@ -3915,7 +3915,7 @@
 .skillpecker-markdown-heading-6 {
   font-size: 1.06rem;
   font-weight: 800;
-  line-height: 1.32;
+  line-height: 1.4;
   letter-spacing: -0.02em;
 }
 
@@ -3924,11 +3924,13 @@
   overflow-wrap: break-word;
   word-break: normal;
   color: #334155;
+  line-height: 1.94;
 }
 
 .skillpecker-markdown-list li {
   overflow-wrap: break-word;
   word-break: normal;
+  line-height: 1.9;
 }
 
 .skillpecker-markdown-list {
