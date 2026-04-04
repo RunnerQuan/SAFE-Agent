@@ -1,6 +1,7 @@
 'use client'
 
 import { AlertCircle, RefreshCw } from 'lucide-react'
+
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
@@ -24,12 +25,12 @@ export function ErrorState({
       </div>
       <h3 className="text-lg font-medium text-slate-900">{title}</h3>
       <p className="mt-2 max-w-md text-sm text-slate-600">{message}</p>
-      {onRetry && (
+      {onRetry ? (
         <Button variant="outline" onClick={onRetry} className="mt-6">
           <RefreshCw className="mr-2 h-4 w-4" />
           重试
         </Button>
-      )}
+      ) : null}
     </div>
   )
 }
