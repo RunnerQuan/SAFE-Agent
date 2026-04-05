@@ -35,25 +35,25 @@ const directoryInputProps: DirectoryInputProps = {
 const scanSteps = [
   { index: '01', title: '选择输入', copy: '上传 ZIP 压缩包或本地文件夹。' },
   { index: '02', title: '加入队列', copy: '将技能包发送到扫描流程并异步执行。' },
-  { index: '03', title: '查看结果', copy: '在任务队列中打开发现详情与证据。' },
+  { index: '03', title: '查看结果', copy: '在任务队列中打开详细结论与证据。' },
 ]
 
 function getJobSummary(job: { skillCount: number; summaryExcerpt?: { labelCounts: Record<string, number> } | null }) {
   if (!job.summaryExcerpt) {
-    return `已收纳 ${job.skillCount} 个 Skill`
+    return `${job.skillCount} 个技能已提交`
   }
 
   const counts = job.summaryExcerpt.labelCounts ?? {}
   const malicious = (counts.malicious ?? 0) + (counts.mixed_risk ?? 0)
   const suspicious = (counts.unsafe ?? 0) + (counts.insufficient_evidence ?? 0) + (counts.description_unreliable ?? 0)
   const safe = counts.safe ?? 0
-  const parts = []
+  const parts: string[] = []
 
   if (malicious > 0) parts.push(`${malicious} 个恶意`)
   if (suspicious > 0) parts.push(`${suspicious} 个可疑`)
   if (safe > 0) parts.push(`${safe} 个安全`)
 
-  return parts.length ? parts.join(' · ') : `已扫描 ${job.skillCount} 个 Skill`
+  return parts.length ? parts.join(' · ') : `已扫描 ${job.skillCount} 个技能`
 }
 
 function getStatusLabel(status: string) {
@@ -128,7 +128,7 @@ export function SkillPeckerConsole() {
     }
 
     if (uploadMode === 'directory' && directoryFiles.length === 0) {
-      toast.error('请先选择包含 Skill 的文件夹。')
+      toast.error('请先选择包含技能的文件夹。')
       return
     }
 
@@ -144,7 +144,7 @@ export function SkillPeckerConsole() {
 
     try {
       const result = await createMutation.mutateAsync(formData)
-      toast.success('SkillPecker 扫描任务已创建。')
+      toast.success('扫描任务已创建。')
       setArchiveFiles([])
       setDirectoryFiles([])
       if (archiveInputRef.current) archiveInputRef.current.value = ''
@@ -174,12 +174,7 @@ export function SkillPeckerConsole() {
           <div className="skillpecker-console-copy">
             <div className="skillpecker-console-copy-head">
               <div>
-                <span className="section-tag">上传工作站</span>
-                <h2 className="skillpecker-console-title">
-                  <span>技能</span>
-                  <span>Skill</span>
-                  <span>扫描</span>
-                </h2>
+                <h2 className="skillpecker-console-title skillpecker-console-title-single">技能安全检测</h2>
                 <p className="skillpecker-console-description">上传 ZIP 压缩包或本地文件夹，发起异步检测任务。</p>
               </div>
             </div>
@@ -216,27 +211,37 @@ export function SkillPeckerConsole() {
                 )
               })}
             </div>
+
+            <div className="skillpecker-console-geometry-field" aria-hidden="true">
+              <span className="skillpecker-console-geometry-grid"></span>
+              <span className="skillpecker-console-geometry-orbit"></span>
+              <span className="skillpecker-console-geometry-node skillpecker-console-geometry-node-a"></span>
+              <span className="skillpecker-console-geometry-node skillpecker-console-geometry-node-b"></span>
+              <span className="skillpecker-console-geometry-node skillpecker-console-geometry-node-c"></span>
+              <span className="skillpecker-console-geometry-beam"></span>
+              <span className="skillpecker-console-geometry-card skillpecker-console-geometry-card-top"></span>
+              <span className="skillpecker-console-geometry-card skillpecker-console-geometry-card-bottom"></span>
+            </div>
           </div>
 
-          <div className="skillpecker-console-form">
+          <div className="skillpecker-console-form skillpecker-console-form-refined">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <p className="text-sm font-semibold tracking-[0.1em] text-sky-600">上传工作站</p>
-                <h3 className="mt-2 font-display text-3xl text-slate-950 dark:text-slate-50">新建扫描任务</h3>
+                <h3 className="skillpecker-console-form-title">新建扫描任务</h3>
               </div>
-              <Button variant="outline" size="sm" onClick={() => queueQuery.refetch()}>
+              <Button variant="outline" size="sm" className="skillpecker-console-refresh" onClick={() => queueQuery.refetch()}>
                 <RefreshCw className="mr-1.5 h-4 w-4" />
                 刷新
               </Button>
             </div>
 
-            <div className="skillpecker-upload-mode-switch" role="tablist" aria-label="上传模式">
+            <div className="skillpecker-upload-mode-switch skillpecker-upload-mode-switch-refined" role="tablist" aria-label="上传模式">
               <button
                 type="button"
                 className={cn('skillpecker-upload-mode-button skillpecker-upload-mode-archive', uploadMode === 'archive' && 'is-active')}
                 onClick={() => setUploadMode('archive')}
               >
-                压缩包输入
+                ZIP 压缩包
               </button>
               <button
                 type="button"
@@ -246,31 +251,36 @@ export function SkillPeckerConsole() {
                 )}
                 onClick={() => setUploadMode('directory')}
               >
-                文件夹上传
+                文件夹
               </button>
             </div>
 
-            <Card className={cn('skillpecker-upload-tile p-5', uploadMode === 'archive' ? 'is-archive' : 'is-directory')}>
+            <Card
+              className={cn(
+                'skillpecker-upload-tile skillpecker-upload-tile-refined p-5',
+                uploadMode === 'archive' ? 'is-archive' : 'is-directory'
+              )}
+            >
               <div className="flex items-start gap-4">
                 <div className={cn('skillpecker-upload-icon', uploadMode === 'archive' ? 'is-archive' : 'is-directory')}>
                   {uploadMode === 'archive' ? <FileArchive className="h-5 w-5" /> : <FolderTree className="h-5 w-5" />}
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-center gap-3">
-                    <Badge variant="outline">{uploadMode === 'archive' ? '压缩包输入' : '文件夹上传'}</Badge>
-                    <h4 className="font-display text-[2rem] leading-none text-slate-950 dark:text-slate-50">
-                      {uploadMode === 'archive' ? '上传 ZIP 包' : '上传文件夹'}
-                    </h4>
+                    <Badge variant="outline" className="skillpecker-upload-badge">
+                      {uploadMode === 'archive' ? '压缩包输入' : '文件夹上传'}
+                    </Badge>
+                    <h4 className="skillpecker-upload-heading">{uploadMode === 'archive' ? '上传 ZIP 包' : '上传文件夹'}</h4>
                   </div>
-                  <p className="mt-4 text-base leading-8 text-slate-600 dark:text-slate-300">
+                  <p className="skillpecker-upload-description">
                     {uploadMode === 'archive'
-                      ? '可提交一个或多个 ZIP 压缩包，适合批量扫描。'
-                      : '上传本地目录后，系统会按相对路径还原 Skill 内容。'}
+                      ? '可提交一个 ZIP 压缩包，包含一个或多个技能。'
+                      : '可提交一个本地文件夹，系统会按相对路径恢复技能内容。'}
                   </p>
                 </div>
               </div>
 
-              <div className="mt-6 rounded-[1.3rem] border border-white/75 bg-white/84 p-4 dark:border-slate-700/70 dark:bg-slate-950/56">
+              <div className="skillpecker-upload-picker">
                 {uploadMode === 'archive' ? (
                   <>
                     <input
@@ -281,9 +291,9 @@ export function SkillPeckerConsole() {
                       className="hidden"
                       onChange={handleArchiveChange}
                     />
-                    <Button variant="outline" onClick={() => archiveInputRef.current?.click()}>
+                    <button type="button" className="skillpecker-upload-picker-button" onClick={() => archiveInputRef.current?.click()}>
                       选择 ZIP 文件
-                    </Button>
+                    </button>
                   </>
                 ) : (
                   <>
@@ -295,40 +305,38 @@ export function SkillPeckerConsole() {
                       onChange={handleDirectoryChange}
                       {...directoryInputProps}
                     />
-                    <Button variant="outline" onClick={() => directoryInputRef.current?.click()}>
+                    <button type="button" className="skillpecker-upload-picker-button" onClick={() => directoryInputRef.current?.click()}>
                       选择文件夹
-                    </Button>
+                    </button>
                   </>
                 )}
 
-                <p className="mt-3 text-sm text-slate-500 dark:text-slate-400">
-                  {selectedFiles.length ? `已选 ${selectedFiles.length} 个输入项。` : '尚未选择文件。'}
-                </p>
+                <span className="skillpecker-upload-picker-status">
+                  {selectedFiles.length ? `已选择 ${selectedFiles.length} 个输入项` : '尚未选择文件'}
+                </span>
               </div>
             </Card>
 
-            <Card className="p-5">
+            <Card className="skillpecker-selected-packages p-5">
               <div className="flex items-center justify-between gap-4">
-                <h4 className="font-display text-2xl text-slate-950 dark:text-slate-50">已选包</h4>
-                <Badge variant="outline">{uploadMode === 'archive' ? 'ZIP 压缩包' : '文件夹'}</Badge>
+                <h4 className="skillpecker-selected-title">已选包</h4>
+                <span className="skillpecker-selected-meta">{uploadMode === 'archive' ? 'ZIP 压缩包' : '文件夹'}</span>
               </div>
 
-              <div className="mt-4 rounded-[1.2rem] border border-white/70 bg-white/78 p-4 dark:border-slate-700/70 dark:bg-slate-950/52">
+              <div className="skillpecker-selected-list">
                 {selectionSummary.length ? (
                   <div className="space-y-2">
                     {selectionSummary.map((item) => (
-                      <div key={item} className="text-sm leading-7 text-sky-700 dark:text-sky-300">
+                      <div key={item} className="skillpecker-selected-item">
                         {item}
                       </div>
                     ))}
                     {selectedFiles.length > selectionSummary.length ? (
-                      <p className="text-sm text-slate-500 dark:text-slate-400">
-                        另外还有 {selectedFiles.length - selectionSummary.length} 项未展开显示。
-                      </p>
+                      <p className="skillpecker-selected-overflow">另外还有 {selectedFiles.length - selectionSummary.length} 项未展开显示。</p>
                     ) : null}
                   </div>
                 ) : (
-                  <p className="text-sm text-slate-500 dark:text-slate-400">尚未选择任何包。</p>
+                  <p className="skillpecker-selected-empty">尚未选择任何包。</p>
                 )}
               </div>
             </Card>
@@ -343,13 +351,14 @@ export function SkillPeckerConsole() {
         </div>
       </Card>
 
-      <Card className="skillpecker-console-queue p-6 sm:p-8">
+      <Card className="skillpecker-console-queue skillpecker-console-queue-refined p-6 sm:p-8">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
-            <p className="text-sm font-semibold tracking-[0.1em] text-sky-600">实时队列</p>
-            <h3 className="mt-2 font-display text-4xl text-slate-950 dark:text-slate-50">任务队列</h3>
+            <h3 className="skillpecker-queue-title">任务队列</h3>
           </div>
-          <Badge variant="outline">{queueQuery.data?.jobs.length ?? 0} 个任务</Badge>
+          <Badge variant="outline" className="skillpecker-queue-count">
+            {queueQuery.data?.jobs.length ?? 0} 个任务
+          </Badge>
         </div>
 
         <div className="mt-6 space-y-4">
@@ -359,26 +368,28 @@ export function SkillPeckerConsole() {
             </div>
           ) : queueQuery.data?.jobs.length ? (
             queueQuery.data.jobs.map((job) => (
-              <Card key={job.id} className="skillpecker-queue-card p-5">
-                <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
+              <Card key={job.id} className="skillpecker-queue-card skillpecker-queue-card-refined p-5">
+                <div className="skillpecker-queue-card-grid">
                   <div className="min-w-0">
-                    <div className="flex flex-wrap items-center gap-3">
-                      <p className="text-sm font-semibold uppercase tracking-[0.12em] text-slate-400">任务</p>
-                      <span className="text-sm text-slate-500 dark:text-slate-400">
-                        {job.createdAt ? formatDate(job.createdAt) : '等待时间戳'}
-                      </span>
-                    </div>
-                    <p className="mt-3 break-all font-display text-3xl leading-tight text-slate-950 dark:text-slate-50">{job.id}</p>
-                    <p className="mt-4 text-lg leading-8 text-slate-600 dark:text-slate-300">{getJobSummary(job)}</p>
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      <Badge variant="outline">{job.skillCount} 个 Skill</Badge>
-                      {typeof job.queuePosition === 'number' ? <Badge variant="outline">队列位置 #{job.queuePosition}</Badge> : null}
+                    <p className="skillpecker-queue-kicker">任务</p>
+                    <p className="skillpecker-queue-job-id">{job.id}</p>
+                    <p className="skillpecker-queue-summary">{getJobSummary(job)}</p>
+                    <div className="skillpecker-queue-meta-row">
+                      <Badge variant="outline" className="skillpecker-queue-skill-badge">
+                        技能 {job.skillCount}
+                      </Badge>
+                      {typeof job.queuePosition === 'number' ? (
+                        <span className="skillpecker-queue-position">队列位置 #{job.queuePosition}</span>
+                      ) : null}
                     </div>
                   </div>
 
-                  <div className="flex min-w-[10rem] flex-col items-start gap-3 lg:items-end">
-                    <Badge variant={job.status === 'completed' ? 'succeeded' : job.status}>{getStatusLabel(job.status)}</Badge>
-                    <Button variant="outline" onClick={() => openResult(job.id)}>
+                  <div className="skillpecker-queue-side">
+                    <span className="skillpecker-queue-time">{job.createdAt ? formatDate(job.createdAt) : '等待时间戳'}</span>
+                    <Badge variant={job.status === 'completed' ? 'succeeded' : job.status} className="skillpecker-queue-status-badge">
+                      {getStatusLabel(job.status)}
+                    </Badge>
+                    <Button variant="outline" className="skillpecker-queue-result-button" onClick={() => openResult(job.id)}>
                       查看结果
                     </Button>
                   </div>
