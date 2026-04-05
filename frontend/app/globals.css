@@ -1208,6 +1208,94 @@
   color: #0284c7;
 }
 
+/* 任务详情页面字体调大 */
+.scan-detail-label {
+  font-size: 0.95rem;
+}
+
+.scan-detail-value {
+  font-size: 1.05rem;
+}
+
+.scan-detail-subtitle {
+  font-size: 1rem;
+}
+
+.scan-detail-chip-label {
+  font-size: 0.88rem;
+}
+
+.scan-detail-chip-value {
+  font-size: 1.65rem;
+}
+
+.scan-detail-section-title {
+  font-size: 1.15rem;
+}
+
+.scan-detail-section-desc {
+  font-size: 1rem;
+}
+
+.scan-detail-finding-title {
+  font-size: 1.05rem;
+}
+
+.scan-detail-finding-desc {
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.scan-detail-meta {
+  font-size: 0.95rem;
+}
+
+.scan-detail-log-message {
+  font-size: 0.98rem;
+}
+
+.scan-detail-log-time {
+  font-size: 0.88rem;
+}
+
+/* 新建任务页面字体调大（除步骤进度指示器外） */
+.scan-new-section-title {
+  font-size: 1.15rem;
+}
+
+.scan-new-section-desc {
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.scan-new-input-label {
+  font-size: 1rem;
+}
+
+.scan-new-table-header {
+  font-size: 0.95rem;
+}
+
+.scan-new-table-cell {
+  font-size: 1rem;
+}
+
+.scan-new-function-name {
+  font-size: 1.05rem;
+}
+
+.scan-new-summary-label {
+  font-size: 0.9rem;
+}
+
+.scan-new-summary-value {
+  font-size: 1.05rem;
+}
+
+.scan-new-subtitle {
+  font-size: 0.95rem;
+}
+
 .signal-bar {
   position: relative;
   overflow: hidden;
@@ -5987,6 +6075,310 @@
     radial-gradient(circle at top left, rgba(56, 189, 248, 0.12), transparent 50%);
 }
 
+/* ============================================================
+   PageHeader — 工具链风险分析页面顶部卡片动效样式
+   与 skillpecker-module-hero 保持视觉一致性
+   ============================================================ */
+
+/* 标题渐变动效，与 skillpecker-overview-shell-title 同风格 */
+.page-header-title {
+  position: relative;
+  display: inline-block;
+  font-size: 1.875rem; /* text-3xl */
+  font-weight: 900 !important;
+  letter-spacing: -0.04em;
+  background: linear-gradient(120deg, #0f172a 0%, #0369a1 28%, #2563eb 54%, #0ea5e9 74%, #0f172a 100%);
+  background-size: 240% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: page-header-title-flow 9s ease-in-out infinite;
+}
+
+@media (min-width: 640px) {
+  .page-header-title {
+    font-size: 2.25rem; /* sm:text-4xl */
+  }
+}
+
+.page-header-title::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.9) 42%, transparent 68%);
+  mix-blend-mode: screen;
+  opacity: 0.16;
+  transform: translateX(-34%);
+  filter: blur(12px);
+  animation: page-header-title-sheen 5.8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.dark .page-header-title {
+  background: linear-gradient(120deg, #f8fafc 0%, #7dd3fc 28%, #93c5fd 54%, #38bdf8 74%, #f8fafc 100%);
+  background-size: 240% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+/* PageHeader 面板的微光效果 */
+.page-header-panel {
+  position: relative;
+}
+
+.page-header-panel::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(110deg, rgba(255, 255, 255, 0) 22%, rgba(255, 255, 255, 0.28) 46%, rgba(255, 255, 255, 0) 68%);
+  transform: translateX(-38%);
+  animation: page-header-sheen 9s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* 主体网格：左侧内容 + 右侧装饰 */
+.page-header-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .page-header-hero-grid {
+    grid-template-columns: minmax(0, 1.1fr) minmax(14rem, 0.6fr);
+    align-items: center;
+  }
+}
+
+.page-header-hero-copy {
+  position: relative;
+  z-index: 1;
+}
+
+/* 右侧装饰区 */
+.page-header-hero-aside {
+  display: none;
+  position: relative;
+  z-index: 1;
+}
+
+@media (min-width: 1024px) {
+  .page-header-hero-aside {
+    display: grid;
+    gap: 1rem;
+    justify-items: stretch;
+  }
+}
+
+/* 可视化装饰容器 */
+.page-header-hero-visual {
+  position: relative;
+  min-height: 8.5rem;
+  overflow: hidden;
+  border-radius: 1.6rem;
+  border: 1px solid rgba(191, 225, 255, 0.72);
+  background:
+    radial-gradient(circle at 18% 24%, rgba(191, 225, 255, 0.48), transparent 34%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(224, 242, 254, 0.8) 54%, rgba(240, 249, 255, 0.68));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    0 16px 38px rgba(125, 211, 252, 0.1);
+}
+
+.dark .page-header-hero-visual {
+  border-color: rgba(56, 189, 248, 0.22);
+  background:
+    radial-gradient(circle at 18% 24%, rgba(56, 189, 248, 0.14), transparent 34%),
+    linear-gradient(135deg, rgba(15, 23, 42, 0.72), rgba(15, 23, 42, 0.58));
+}
+
+/* 轨道动效 */
+.page-header-hero-orbit {
+  position: absolute;
+  left: 1rem;
+  top: 0.15rem;
+  width: 7.6rem;
+  height: 7.6rem;
+}
+
+.page-header-orbit-ring {
+  position: absolute;
+  border-radius: 999px;
+  border: 1px solid rgba(125, 211, 252, 0.48);
+}
+
+.page-header-orbit-ring-lg {
+  inset: 0.15rem;
+  animation: skillpecker-hero-orbit-spin 18s linear infinite;
+}
+
+.page-header-orbit-ring-sm {
+  inset: 1.1rem;
+  opacity: 0.65;
+  animation: skillpecker-hero-orbit-spin 11s linear infinite reverse;
+}
+
+.page-header-orbit-node {
+  position: absolute;
+  width: 0.72rem;
+  height: 0.72rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #38bdf8, #818cf8);
+  box-shadow: 0 0 0 0.4rem rgba(56, 189, 248, 0.1);
+}
+
+.page-header-orbit-node-a {
+  left: 0.72rem;
+  top: 0.2rem;
+  animation: skillpecker-hero-node-float 5.2s ease-in-out infinite;
+}
+
+.page-header-orbit-node-b {
+  right: 0.82rem;
+  top: 1.1rem;
+  animation: skillpecker-hero-node-float 4.6s ease-in-out infinite 0.8s;
+}
+
+.page-header-orbit-node-c {
+  left: 1.8rem;
+  bottom: 0.7rem;
+  animation: skillpecker-hero-node-float 5.8s ease-in-out infinite 1.4s;
+}
+
+/* 流动轨迹线 */
+.page-header-hero-tracks {
+  position: absolute;
+  left: 7rem;
+  right: 4.4rem;
+  top: 2.35rem;
+  display: grid;
+  gap: 0.9rem;
+}
+
+.page-header-hero-tracks span {
+  height: 1px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(56, 189, 248, 0.28), rgba(129, 140, 248, 0.68), rgba(56, 189, 248, 0));
+  transform-origin: left center;
+  animation: skillpecker-hero-track-flow 6.8s ease-in-out infinite;
+}
+
+.page-header-hero-tracks span:nth-child(2) {
+  animation-delay: 0.9s;
+}
+
+.page-header-hero-tracks span:nth-child(3) {
+  animation-delay: 1.8s;
+}
+
+/* 柱状指示条 */
+.page-header-hero-bars {
+  position: absolute;
+  right: 1.1rem;
+  bottom: 0.9rem;
+  display: flex;
+  align-items: flex-end;
+  gap: 0.45rem;
+  height: 3.6rem;
+}
+
+.page-header-hero-bars span {
+  width: 0.48rem;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(129, 140, 248, 0.2), rgba(99, 102, 241, 0.92));
+  box-shadow: 0 0 12px rgba(99, 102, 241, 0.18);
+  animation: skillpecker-hero-bar-bounce 2.4s ease-in-out infinite;
+}
+
+.page-header-hero-bars span:nth-child(1) {
+  height: 1.1rem;
+}
+
+.page-header-hero-bars span:nth-child(2) {
+  height: 1.9rem;
+  animation-delay: 0.18s;
+}
+
+.page-header-hero-bars span:nth-child(3) {
+  height: 2.85rem;
+  animation-delay: 0.36s;
+}
+
+.page-header-hero-bars span:nth-child(4) {
+  height: 2.25rem;
+  animation-delay: 0.54s;
+}
+
+/* 扫描线 */
+.page-header-hero-scanline {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(99, 102, 241, 0) 0%, rgba(255, 255, 255, 0.22) 44%, rgba(99, 102, 241, 0) 100%);
+  transform: translateX(-55%);
+  opacity: 0.55;
+  animation: skillpecker-hero-scanline 8.2s ease-in-out infinite;
+}
+
+/* PageHeader 动效 keyframes */
+@keyframes page-header-title-flow {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes page-header-title-sheen {
+  0%, 100% {
+    transform: translateX(-34%);
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.22;
+  }
+  60% {
+    transform: translateX(42%);
+    opacity: 0;
+  }
+}
+
+@keyframes page-header-sheen {
+  0%, 100% {
+    transform: translateX(-38%);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.5;
+  }
+  55% {
+    transform: translateX(44%);
+    opacity: 0;
+  }
+}
+
+/* 减少动画 (prefers-reduced-motion) */
+@media (prefers-reduced-motion: reduce) {
+  .page-header-title,
+  .page-header-title::after,
+  .page-header-panel::after,
+  .page-header-orbit-ring-lg,
+  .page-header-orbit-ring-sm,
+  .page-header-orbit-node-a,
+  .page-header-orbit-node-b,
+  .page-header-orbit-node-c,
+  .page-header-hero-tracks span,
+  .page-header-hero-bars span,
+  .page-header-hero-scanline {
+    animation: none;
+  }
+}
+
 @media (max-width: 980px) {
   .skillpecker-queue-card-grid {
     grid-template-columns: 1fr;
@@ -6052,4 +6444,367 @@
   .skillpecker-console-geometry-field {
     min-height: 10rem;
   }
+}
+
+/* ============================================================
+   PageHeader — 描述文字大号样式（与 skillpecker-overview-shell-description 对齐）
+   ============================================================ */
+
+.page-header-description {
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.page-header-description-lg {
+  font-size: 1.2rem !important;
+  line-height: 1.95 !important;
+}
+
+/* ============================================================
+   Scans — 统计卡片增强样式
+   ============================================================ */
+
+.scan-stat-card {
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow:
+    0 4px 24px rgba(15, 23, 42, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.scan-stat-card:hover {
+  box-shadow:
+    0 8px 36px rgba(15, 23, 42, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  transform: translateY(-2px);
+}
+
+.dark .scan-stat-card {
+  background: rgba(15, 23, 42, 0.52);
+  border-color: rgba(51, 65, 85, 0.7);
+}
+
+.scan-stat-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* 标题标签 */
+.scan-stat-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #475569;
+}
+
+.dark .scan-stat-label {
+  color: #94a3b8;
+}
+
+/* 数值 */
+.scan-stat-value {
+  font-size: clamp(2.2rem, 4vw, 3rem);
+  font-weight: 900;
+  line-height: 1.1;
+  color: #0f172a;
+  letter-spacing: -0.03em;
+}
+
+.dark .scan-stat-value {
+  color: #f1f5f9;
+}
+
+/* 图标 */
+.scan-stat-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 0.9rem;
+  flex-shrink: 0;
+}
+
+.scan-stat-icon-blue {
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(99, 102, 241, 0.12));
+  color: #0284c7;
+}
+
+.scan-stat-icon-amber {
+  background: linear-gradient(135deg, rgba(251, 146, 60, 0.18), rgba(245, 158, 11, 0.12));
+  color: #b45309;
+}
+
+.scan-stat-icon-green {
+  background: linear-gradient(135deg, rgba(52, 211, 153, 0.18), rgba(16, 185, 129, 0.12));
+  color: #059669;
+}
+
+.dark .scan-stat-icon-blue { color: #38bdf8; }
+.dark .scan-stat-icon-amber { color: #fbbf24; }
+.dark .scan-stat-icon-green { color: #34d399; }
+
+/* 底部装饰线 */
+.scan-stat-bar {
+  position: absolute;
+  bottom: 0;
+  left: 1.5rem;
+  right: 1.5rem;
+  height: 3px;
+  border-radius: 999px 999px 0 0;
+  animation: scan-stat-bar-pulse 3.6s ease-in-out infinite;
+}
+
+.scan-stat-bar-blue {
+  background: linear-gradient(90deg, rgba(56, 189, 248, 0), #38bdf8, rgba(99, 102, 241, 0.6), rgba(56, 189, 248, 0));
+}
+
+.scan-stat-bar-amber {
+  background: linear-gradient(90deg, rgba(251, 146, 60, 0), #f97316, rgba(245, 158, 11, 0.7), rgba(251, 146, 60, 0));
+  animation-delay: 0.6s;
+}
+
+.scan-stat-bar-green {
+  background: linear-gradient(90deg, rgba(52, 211, 153, 0), #10b981, rgba(16, 185, 129, 0.7), rgba(52, 211, 153, 0));
+  animation-delay: 1.2s;
+}
+
+@keyframes scan-stat-bar-pulse {
+  0%, 100% { opacity: 0.5; transform: scaleX(0.85); }
+  50% { opacity: 1; transform: scaleX(1); }
+}
+
+/* ============================================================
+   Scans — 工具介绍卡片样式
+   ============================================================ */
+
+.scan-tool-card {
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.78);
+  box-shadow:
+    0 4px 24px rgba(15, 23, 42, 0.07),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  transition: box-shadow 0.25s ease, transform 0.22s ease;
+}
+
+.scan-tool-card:hover {
+  box-shadow:
+    0 10px 40px rgba(15, 23, 42, 0.11),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  transform: translateY(-2px);
+}
+
+.dark .scan-tool-card {
+  background: rgba(15, 23, 42, 0.52);
+  border-color: rgba(51, 65, 85, 0.7);
+}
+
+/* 卡片头部 */
+.scan-tool-card-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem 1.6rem 1.2rem;
+}
+
+.scan-tool-card-header-warm {
+  background: linear-gradient(135deg, rgba(254, 243, 199, 0.72), rgba(253, 230, 138, 0.38), rgba(255, 255, 255, 0));
+  border-bottom: 1px solid rgba(251, 191, 36, 0.18);
+}
+
+.scan-tool-card-header-cool {
+  background: linear-gradient(135deg, rgba(224, 242, 254, 0.72), rgba(186, 230, 253, 0.38), rgba(255, 255, 255, 0));
+  border-bottom: 1px solid rgba(56, 189, 248, 0.18);
+}
+
+.dark .scan-tool-card-header-warm {
+  background: linear-gradient(135deg, rgba(120, 53, 15, 0.22), rgba(120, 53, 15, 0.1), transparent);
+  border-bottom-color: rgba(251, 191, 36, 0.12);
+}
+
+.dark .scan-tool-card-header-cool {
+  background: linear-gradient(135deg, rgba(12, 74, 110, 0.28), rgba(12, 74, 110, 0.12), transparent);
+  border-bottom-color: rgba(56, 189, 248, 0.12);
+}
+
+/* 图标 */
+.scan-tool-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 1rem;
+  flex-shrink: 0;
+}
+
+.scan-tool-icon-warm {
+  background: linear-gradient(135deg, #fef3c7, #fde68a);
+  color: #b45309;
+  box-shadow: 0 4px 14px rgba(251, 146, 60, 0.22);
+}
+
+.scan-tool-icon-cool {
+  background: linear-gradient(135deg, #e0f2fe, #bae6fd);
+  color: #0284c7;
+  box-shadow: 0 4px 14px rgba(56, 189, 248, 0.22);
+}
+
+.dark .scan-tool-icon-warm {
+  background: linear-gradient(135deg, rgba(120, 53, 15, 0.5), rgba(120, 53, 15, 0.28));
+  color: #fbbf24;
+  box-shadow: 0 4px 14px rgba(251, 146, 60, 0.12);
+}
+
+.dark .scan-tool-icon-cool {
+  background: linear-gradient(135deg, rgba(12, 74, 110, 0.5), rgba(12, 74, 110, 0.28));
+  color: #38bdf8;
+  box-shadow: 0 4px 14px rgba(56, 189, 248, 0.12);
+}
+
+/* 标签和标题 */
+.scan-tool-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.dark .scan-tool-eyebrow {
+  color: #94a3b8;
+}
+
+.scan-tool-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #0f172a;
+  line-height: 1.3;
+}
+
+.dark .scan-tool-title {
+  color: #f1f5f9;
+}
+
+/* 正文区 */
+.scan-tool-body {
+  padding: 1.2rem 1.6rem 1.5rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.scan-tool-desc {
+  font-size: 0.92rem;
+  line-height: 1.75;
+  color: #475569;
+}
+
+.dark .scan-tool-desc {
+  color: #94a3b8;
+}
+
+/* 特性列表 */
+.scan-tool-features {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.scan-tool-feature {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #334155;
+}
+
+.dark .scan-tool-feature {
+  color: #cbd5e1;
+}
+
+/* 标签行 */
+.scan-tool-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.scan-tool-tag {
+  font-size: 0.72rem !important;
+}
+
+/* ============================================================
+   prefers-reduced-motion for scan components
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .scan-stat-bar,
+  .scan-stat-card {
+    animation: none;
+    transition: none;
+  }
+}
+
+/* ============================================================
+   Scans — 全局字体增大（筛选栏 / 任务列表 / 搜索框）
+   ============================================================ */
+
+/* 筛选栏文字 */
+.scan-filter-text {
+  font-size: 1rem;
+}
+
+/* 筛选按钮 */
+.scan-filter-btn {
+  font-size: 1rem;
+}
+
+/* 搜索框 */
+.scan-filter-input {
+  font-size: 1rem;
+}
+
+/* 工具介绍：描述文字 */
+.scan-tool-desc {
+  font-size: 1.05rem !important;
+  line-height: 1.78;
+}
+
+/* 工具介绍：特性条目 */
+.scan-tool-feature {
+  font-size: 0.98rem !important;
+}
+
+/* 工具介绍：tag 徽章 */
+.scan-tool-tag {
+  font-size: 0.85rem !important;
+}
+
+/* 任务列表：元信息（日期 / 工具数 / 耗时）*/
+.scan-list-meta {
+  font-size: 1rem;
+}
+
+/* 任务列表：综合结论行 */
+.scan-list-summary {
+  font-size: 1rem;
+}
+
+/* 任务列表：任务标题 */
+.scan-list-title {
+  font-size: 1.15rem;
+}
+
+/* 统计卡片：标签文字 */
+.scan-stat-label {
+  font-size: 1rem;
+}
+
+/* 统计卡片：数值 */
+.scan-stat-value {
+  font-size: 1.75rem;
 }
