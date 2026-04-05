@@ -9,9 +9,12 @@ const badgeVariants = cva(
       variant: {
         default: 'border-white/60 bg-white/52 text-slate-700 dark:border-slate-700/60 dark:bg-slate-900/52 dark:text-slate-200',
         outline: 'border-white/70 bg-white/42 text-slate-700 dark:border-slate-700/60 dark:bg-slate-950/34 dark:text-slate-200',
-        high: 'border-rose-300/30 bg-rose-500/10 text-rose-700 dark:text-rose-300',
-        medium: 'border-amber-300/30 bg-amber-500/10 text-amber-700 dark:text-amber-300',
-        low: 'border-emerald-300/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
+        high:
+          'border-rose-500/[0.6] bg-rose-500/[0.32] text-rose-900 shadow-[inset_0_1px_0_rgba(255,255,255,0.22)] dark:border-rose-300/[0.55] dark:bg-rose-500/[0.3] dark:text-rose-100',
+        medium:
+          'border-amber-500/[0.6] bg-amber-500/[0.32] text-amber-900 shadow-[inset_0_1px_0_rgba(255,255,255,0.22)] dark:border-amber-300/[0.55] dark:bg-amber-500/[0.3] dark:text-amber-100',
+        low:
+          'border-emerald-500/[0.6] bg-emerald-500/[0.32] text-emerald-900 shadow-[inset_0_1px_0_rgba(255,255,255,0.22)] dark:border-emerald-300/[0.55] dark:bg-emerald-500/[0.3] dark:text-emerald-100',
         unknown: 'border-slate-300/30 bg-slate-500/10 text-slate-700 dark:text-slate-300',
         queued: 'border-slate-300/30 bg-slate-500/10 text-slate-700 dark:text-slate-300',
         running: 'border-sky-300/30 bg-sky-500/10 text-sky-700 dark:text-sky-300',

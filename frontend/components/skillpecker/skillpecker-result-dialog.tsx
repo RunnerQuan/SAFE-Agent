@@ -40,7 +40,7 @@ const flagLabelMap: Record<string, string> = {
   browser_session_or_credentials: '浏览器会话/凭据',
   credential_request: '凭据请求',
   filesystem_access: '文件系统访问',
-  shell_or_command_execution: 'Shell/命令执行',
+  shell_or_command_execution: '命令执行',
   persistence_or_external_storage: '持久化/外部存储',
   api_key: 'API Key',
   external_server: '外部服务',
@@ -49,16 +49,126 @@ const flagLabelMap: Record<string, string> = {
   obfuscation_or_evasion: '混淆/规避',
 }
 
-function humanizeLabel(value?: string) {
-  if (!value) {
-    return ''
-  }
+const categoryLabelMap: Record<string, string> = {
+  description: '描述',
+  summary: '摘要',
+  metadata: '元数据',
+  documentation: '文档',
+  technical_docs: '技术文档',
+  active_malice: '主动恶意',
+  'active malice': '主动恶意',
+  access_boundary_risk: '访问边界风险',
+  'access boundary risk': '访问边界风险',
+  data_governance_risk: '数据治理风险',
+  'data governance risk': '数据治理风险',
+  execution_system_risk: '执行与系统风险',
+  'execution / system risk': '执行与系统风险',
+  marketplace: 'Marketplace',
+  clawhub: 'Clawhub',
+  description_scan: '说明扫描',
+  'description scan': '说明扫描',
+  script_scan: '脚本扫描',
+  'script scan': '脚本扫描',
+  input_validation: '输入校验',
+  'input validation': '输入校验',
+  subprocess: '子进程',
+  path_traversal: '路径穿越',
+  'path traversal': '路径穿越',
+  other: '其他',
+  explicit_malicious_behavior: '显式恶意行为',
+  trojan_downloader: '木马下载/投毒',
+  'trojan downloader': '木马下载/投毒',
+  data_exfiltration: '数据外传',
+  'data exfiltration': '数据外传',
+  data_over_collection: '数据过度收集',
+  'data over collection': '数据过度收集',
+  'data over-collection': '数据过度收集',
+  privacy_violation: '隐私侵犯',
+  'privacy violation': '隐私侵犯',
+  permission_overreach: '权限越界',
+  'permission overreach': '权限越界',
+  'permission overreach (action)': '权限越界（动作）',
+  privilege_escalation: '权限提升',
+  'privilege escalation': '权限提升',
+  security_risk: '安全风险',
+  'security risk': '安全风险',
+  supply_chain: '供应链',
+  'supply chain': '供应链',
+  supply_chain_attack: '供应链攻击',
+  'supply chain attack': '供应链攻击',
+  reverse_shell: '反向 Shell',
+  'reverse shell': '反向 Shell',
+  evasion_technique: '规避技术',
+  'evasion technique': '规避技术',
+  collection_of_web_shells: 'Web Shell 收集',
+  'collection of web shells': 'Web Shell 收集',
+  browser_automation: '浏览器自动化',
+  browser_session_or_credentials: '浏览器会话/凭据',
+  remote_command_execution: '远程命令执行',
+  'remote command execution': '远程命令执行',
+  external_communication: '外部通信',
+  obfuscated_execution: '混淆执行',
+  filesystem_access: '文件系统访问',
+  credential_access: '凭据访问',
+  env_access: '环境变量访问',
+  secret_access: '敏感信息访问',
+  shell_or_command_execution: '命令执行',
+  malicious: '恶意',
+  suspicious: '可疑',
+  overreach: '越界',
+  safe: '安全',
+}
 
-  return value
+function normalizeLabel(value?: string) {
+  return String(value || '')
     .replaceAll('_', ' ')
     .replaceAll('-', ' ')
     .replace(/\s+/g, ' ')
     .trim()
+}
+
+function normalizeVerdictLabel(value?: string) {
+  const normalized = normalizeLabel(value).toLowerCase().replace(/\s+/g, '')
+
+  if (!normalized) return ''
+  if (normalized === 'malicious') return 'malicious'
+  if (normalized === 'unsafe' || normalized === 'suspicious' || normalized === 'insufficientevidence') return 'unsafe'
+  if (normalized === 'mixedrisk') return 'mixed_risk'
+  if (normalized === 'descriptionunreliable') return 'description_unreliable'
+  if (normalized === 'cleanwithreservations' || normalized === 'safe') return 'safe'
+
+  return String(value || '').trim().toLowerCase()
+}
+
+function translateLabel(value?: string): string {
+  if (!value) return ''
+  const raw = String(value).trim()
+  if (raw.includes('|')) {
+    return raw
+      .split('|')
+      .map((item) => translateLabel(item))
+      .filter(Boolean)
+      .join('、')
+  }
+  const mapped = categoryLabelMap[raw] || categoryLabelMap[raw.toLowerCase()]
+  if (mapped) return mapped
+  return normalizeLabel(raw)
+    .split(' ')
+    .map((part) => categoryLabelMap[part.toLowerCase()] || part)
+    .join(' ')
+}
+
+function isUnknownLike(value?: string) {
+  const normalized = normalizeLabel(value).toLowerCase()
+  return !normalized || normalized === 'unknown'
+}
+
+function translateConfidence(value?: string) {
+  const normalized = normalizeLabel(value).toLowerCase()
+  if (normalized === 'high') return '高'
+  if (normalized === 'medium' || normalized === 'med') return '中'
+  if (normalized === 'low') return '低'
+  return value || ''
 }
 
 function formatDecisionLevel(level?: string) {
@@ -90,6 +200,7 @@ function formatScore(value?: number) {
 }
 
 function getStatusLabel(status?: string) {
+  if (isUnknownLike(status)) return ''
   if (status === 'completed') return '已完成'
   if (status === 'running') return '运行中'
   if (status === 'queued') return '队列中'
@@ -118,7 +229,11 @@ function getSeverityClass(value?: string) {
 function getEnabledFlags(flags: Record<string, boolean>) {
   return Object.entries(flags)
     .filter(([, enabled]) => enabled)
-    .map(([key]) => flagLabelMap[key] || humanizeLabel(key))
+    .map(([key]) => flagLabelMap[key] || translateLabel(key))
+}
+
+function getSummaryLine(count: number) {
+  return count ? `共有 ${count} 条发现可供审查。` : '当前技能没有可展示的发现。'
 }
 
 function FindingCard({ finding, index }: { finding: SkillPeckerFinding; index: number }) {
@@ -127,36 +242,46 @@ function FindingCard({ finding, index }: { finding: SkillPeckerFinding; index: n
   const hasImpact = Boolean(finding.impact && finding.impact !== finding.summary)
 
   return (
-    <article className="skillpecker-finding-card" style={{ ['--finding-stagger' as string]: `${index * 80}ms` }}>
+    <article className="skillpecker-finding-card skillpecker-finding-card-refined" style={{ ['--finding-stagger' as string]: `${index * 80}ms` }}>
       <div className="skillpecker-finding-card-head">
         <div className="min-w-0">
           {finding.id ? <p className="skillpecker-finding-kicker">{finding.id}</p> : null}
           <h5>{finding.summary}</h5>
         </div>
         <div className="skillpecker-finding-badges">
-          {finding.decisionLevel ? (
-            <Badge variant={decisionBadgeVariant(finding.decisionLevel)}>{formatDecisionLevel(finding.decisionLevel)}</Badge>
+          {finding.decisionLevel && !isUnknownLike(finding.decisionLevel) ? (
+            <Badge variant={decisionBadgeVariant(finding.decisionLevel)} className="skillpecker-finding-side-badge">
+              {formatDecisionLevel(finding.decisionLevel)}
+            </Badge>
           ) : null}
-          {finding.severity ? <span className={cn('skillpecker-severity-chip', getSeverityClass(finding.severity))}>{getSeverityLabel(finding.severity)}</span> : null}
-          {finding.confidence ? <span className="skillpecker-detail-chip skillpecker-detail-chip-neutral">置信度 {finding.confidence}</span> : null}
+          {finding.severity && !isUnknownLike(finding.severity) ? (
+            <span className={cn('skillpecker-severity-chip skillpecker-finding-side-badge', getSeverityClass(finding.severity))}>
+              {getSeverityLabel(finding.severity)}
+            </span>
+          ) : null}
+          {finding.confidence && !isUnknownLike(finding.confidence) ? (
+            <span className="skillpecker-detail-chip skillpecker-detail-chip-neutral skillpecker-finding-side-badge">
+              置信度 {translateConfidence(finding.confidence)}
+            </span>
+          ) : null}
         </div>
       </div>
 
       <div className="skillpecker-finding-chip-row">
-        {finding.scanLevel ? <span className="skillpecker-detail-chip">扫描层级 {humanizeLabel(finding.scanLevel)}</span> : null}
-        {finding.primaryGroup ? <span className="skillpecker-detail-chip">主问题组 {humanizeLabel(finding.primaryGroup)}</span> : null}
-        {finding.sourcePlatform ? <span className="skillpecker-detail-chip">来源 {humanizeLabel(finding.sourcePlatform)}</span> : null}
+        {finding.scanLevel && !isUnknownLike(finding.scanLevel) ? <span className="skillpecker-detail-chip">扫描层级 {translateLabel(finding.scanLevel)}</span> : null}
+        {finding.primaryGroup && !isUnknownLike(finding.primaryGroup) ? <span className="skillpecker-detail-chip">主问题组 {translateLabel(finding.primaryGroup)}</span> : null}
+        {finding.sourcePlatform && !isUnknownLike(finding.sourcePlatform) ? <span className="skillpecker-detail-chip">来源 {translateLabel(finding.sourcePlatform)}</span> : null}
         {finding.sourceFile ? <span className="skillpecker-detail-chip">来源文件 {finding.sourceFile}</span> : null}
-        {finding.relatedFileCount ? <span className="skillpecker-detail-chip">涉及文件 {finding.relatedFileCount}</span> : null}
-        {finding.category ? <span className="skillpecker-detail-chip">类别 {humanizeLabel(finding.category)}</span> : null}
-        {finding.findingClass ? <span className="skillpecker-detail-chip">分类 {humanizeLabel(finding.findingClass)}</span> : null}
+        {finding.relatedFileCount && !isUnknownLike(finding.relatedFileCount) ? <span className="skillpecker-detail-chip">涉及文件 {finding.relatedFileCount}</span> : null}
+        {finding.category && !isUnknownLike(finding.category) ? <span className="skillpecker-detail-chip">类别 {translateLabel(finding.category)}</span> : null}
+        {finding.findingClass && !isUnknownLike(finding.findingClass) ? <span className="skillpecker-detail-chip">分类 {translateLabel(finding.findingClass)}</span> : null}
       </div>
 
       {finding.riskTypes.length ? (
         <div className="skillpecker-finding-chip-row">
           {finding.riskTypes.map((item) => (
             <span key={item} className="skillpecker-detail-chip">
-              风险 {humanizeLabel(item)}
+              风险 {translateLabel(item)}
             </span>
           ))}
         </div>
@@ -219,16 +344,17 @@ export function SkillPeckerResultDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="w-[min(96vw,92rem)] max-w-none overflow-hidden border-none bg-transparent p-0 shadow-none">
+      <DialogContent
+        hideClose
+        className="skillpecker-result-content-shell w-[min(96vw,92rem)] h-[calc(100dvh-2rem)] max-h-[62rem] max-w-none overflow-hidden border-none bg-transparent p-0 shadow-none"
+      >
         <div className="skillpecker-result-dialog glass-panel">
           <div className="skillpecker-result-header">
             <div>
-              <p className="text-sm font-semibold tracking-[0.1em] text-sky-600">扫描结果</p>
-              <h3 className="mt-2 break-all font-display text-4xl text-slate-950 dark:text-slate-50">
-                {jobDetail?.job.id || '任务结果'}
-              </h3>
+              <p className="skillpecker-result-eyebrow">扫描结果</p>
+              <h3 className="mt-2 break-all font-display text-4xl text-slate-950 dark:text-slate-50">{jobDetail?.job.id || '任务结果'}</h3>
             </div>
-            <Button variant="outline" className="rounded-full px-6" onClick={() => onOpenChange(false)}>
+            <Button variant="outline" className="skillpecker-result-close-button" onClick={() => onOpenChange(false)}>
               关闭
             </Button>
           </div>
@@ -237,7 +363,9 @@ export function SkillPeckerResultDialog({
             <aside className="skillpecker-result-sidebar">
               <div className="skillpecker-result-section-head">
                 <h4>技能列表</h4>
-                <Badge variant="outline">技能 {jobDetail?.skills.length ?? 0}</Badge>
+                <Badge variant="outline" className="skillpecker-result-count-badge">
+                  技能 {jobDetail?.skills.length ?? 0}
+                </Badge>
               </div>
 
               {jobDetail ? (
@@ -247,7 +375,7 @@ export function SkillPeckerResultDialog({
                       <button
                         key={skill.name}
                         type="button"
-                        className={cn('skillpecker-result-skill-card', activeSkillName === skill.name && 'is-active')}
+                        className={cn('skillpecker-result-skill-card skillpecker-result-skill-card-refined', activeSkillName === skill.name && 'is-active')}
                         style={{ ['--skill-stagger' as string]: `${index * 70}ms` }}
                         onClick={() => onSelectSkill(skill.name)}
                       >
@@ -262,10 +390,10 @@ export function SkillPeckerResultDialog({
                             </p>
                           </div>
                           <div className="skillpecker-result-skill-side">
-                            {skill.status === 'failed' ? (
-                              <Badge variant="failed">失败</Badge>
-                            ) : skill.verdictLabel ? (
-                              <Badge variant={verdictBadgeVariant(skill.verdictLabel)}>{formatVerdictLabel(skill.verdictLabel)}</Badge>
+                            {skill.verdictLabel && !isUnknownLike(skill.verdictLabel) ? (
+                              <Badge variant={verdictBadgeVariant(normalizeVerdictLabel(skill.verdictLabel))}>
+                                {formatVerdictLabel(normalizeVerdictLabel(skill.verdictLabel))}
+                              </Badge>
                             ) : null}
                             <span className={cn('skillpecker-result-expand-indicator', activeSkillName === skill.name && 'is-expanded')}>
                               <span>{activeSkillName === skill.name ? '已选中' : '查看发现'}</span>
@@ -291,7 +419,7 @@ export function SkillPeckerResultDialog({
                 <div className="skillpecker-result-detail-scroll">
                   <div className="skillpecker-result-section-head">
                     <h4>扫描结果</h4>
-                    <span className="font-semibold text-slate-700 dark:text-slate-200">{skillResult.skillName}</span>
+                    <span className="skillpecker-result-skill-anchor">{skillResult.skillName}</span>
                   </div>
 
                   {skillResult.status === 'error' ? (
@@ -299,8 +427,8 @@ export function SkillPeckerResultDialog({
                       <div className="flex items-start gap-3">
                         <AlertTriangle className="mt-0.5 h-5 w-5 text-rose-500" />
                         <div>
-                          <p className="font-medium text-rose-700 dark:text-rose-300">技能结果读取失败</p>
-                          <p className="mt-2 text-sm leading-7 text-rose-700/85 dark:text-rose-200/85">
+                          <p className="font-semibold text-rose-700 dark:text-rose-300">技能结果读取失败</p>
+                          <p className="mt-2 text-base leading-8 text-rose-700/85 dark:text-rose-200/85">
                             {skillResult.errorMessage || '后端未返回详细错误信息。'}
                           </p>
                         </div>
@@ -312,28 +440,32 @@ export function SkillPeckerResultDialog({
                         <div className="min-w-0">
                           <p className="tree-node-kicker">技能发现</p>
                           <h5>{skillResult.skillName}</h5>
-                          <p className="tree-node-subtitle">
-                            {skillResult.findings.length ? `共有 ${skillResult.findings.length} 条发现可供审查。` : '当前技能没有可展示的问题发现。'}
-                          </p>
+                          <p className="skillpecker-result-summary-english">{getSummaryLine(skillResult.findings.length)}</p>
                         </div>
                         <div className="skillpecker-skill-detail-side">
-                          <Badge variant={verdictBadgeVariant(skillResult.verdictLabel)}>{formatVerdictLabel(skillResult.verdictLabel)}</Badge>
                           <div className="skillpecker-score-line">
                             <span className="metric-chip">恶意度 {formatScore(skillResult.scorecard?.maliciousness)}</span>
                             <span className="metric-chip">安全度 {formatScore(skillResult.scorecard?.safety)}</span>
                             <span className="metric-chip">描述可靠性 {formatScore(skillResult.scorecard?.descriptionReliability)}</span>
                             <span className="metric-chip">覆盖度 {formatScore(skillResult.scorecard?.coverage)}</span>
                           </div>
-                          {activeSkill?.decisionLevel ? (
-                            <Badge variant={decisionBadgeVariant(activeSkill.decisionLevel)}>{formatDecisionLevel(activeSkill.decisionLevel)}</Badge>
-                          ) : null}
-                          {activeSkill ? (
-                            <Badge variant={activeSkill.status === 'completed' ? 'succeeded' : activeSkill.status}>
-                              {getStatusLabel(activeSkill.status)}
-                            </Badge>
-                          ) : null}
+                          <div className="skillpecker-result-side-badges">
+                            {skillResult.verdictLabel && !isUnknownLike(skillResult.verdictLabel) ? (
+                              <Badge variant={verdictBadgeVariant(normalizeVerdictLabel(skillResult.verdictLabel))}>
+                                {formatVerdictLabel(normalizeVerdictLabel(skillResult.verdictLabel))}
+                              </Badge>
+                            ) : null}
+                            {activeSkill?.decisionLevel && !isUnknownLike(activeSkill.decisionLevel) ? (
+                              <Badge variant={decisionBadgeVariant(activeSkill.decisionLevel)}>{formatDecisionLevel(activeSkill.decisionLevel)}</Badge>
+                            ) : null}
+                            {activeSkill && !isUnknownLike(activeSkill.status) ? (
+                              <Badge variant={activeSkill.status === 'completed' ? 'succeeded' : activeSkill.status}>
+                                {getStatusLabel(activeSkill.status)}
+                              </Badge>
+                            ) : null}
+                          </div>
                           {jobDetail?.job.createdAt ? (
-                            <span className="text-sm text-slate-500 dark:text-slate-400">{formatDate(jobDetail.job.createdAt)}</span>
+                            <span className="skillpecker-result-time">{formatDate(jobDetail.job.createdAt)}</span>
                           ) : null}
                         </div>
                       </div>
@@ -350,13 +482,13 @@ export function SkillPeckerResultDialog({
                 </div>
               ) : (
                 <div className="skillpecker-result-empty">
-                  <p className="font-medium text-slate-900 dark:text-slate-50">选择一个 Skill 查看扫描详情</p>
-                  <p className="mt-2 max-w-md text-sm leading-7 text-slate-500 dark:text-slate-400">
-                    这里会展示裁决结果、风险分数、问题证据与处置建议。
+                  <p className="font-semibold text-slate-900 dark:text-slate-50">选择一个技能查看扫描详情</p>
+                  <p className="mt-2 max-w-md text-base leading-8 text-slate-500 dark:text-slate-400">
+                    这里会展示判定结果、风险评分、问题证据与处置建议。
                   </p>
                   {jobDetail?.skills[0] ? (
                     <Button className="mt-5" variant="outline" onClick={() => onSelectSkill(jobDetail.skills[0].name)}>
-                      打开第一个 Skill
+                      打开第一个技能
                     </Button>
                   ) : null}
                 </div>

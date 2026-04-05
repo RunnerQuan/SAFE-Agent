@@ -12,6 +12,7 @@ import {
   getSkillPeckerQueue,
   getSkillPeckerSkillResult,
 } from '@/lib/skillpecker/api'
+import { translateSkillPeckerJobDetail, translateSkillPeckerSkillResult } from '@/lib/skillpecker/display'
 import { SkillPeckerLibraryQuery } from '@/lib/skillpecker/types'
 
 export function useSkillPeckerHealth() {
@@ -47,6 +48,7 @@ export function useSkillPeckerJobDetail(jobId?: string) {
     queryFn: () => getSkillPeckerJobDetail(jobId!),
     enabled: Boolean(jobId),
     refetchInterval: 4000,
+    select: translateSkillPeckerJobDetail,
   })
 }
 
@@ -55,6 +57,7 @@ export function useSkillPeckerSkillResult(jobId?: string, skillName?: string) {
     queryKey: ['skillpecker', 'job', jobId, 'skill', skillName],
     queryFn: () => getSkillPeckerSkillResult(jobId!, skillName!),
     enabled: Boolean(jobId && skillName),
+    select: translateSkillPeckerSkillResult,
   })
 }
 
