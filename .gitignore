@@ -24,6 +24,7 @@ venv/
 .history/
 .codex/
 .cursor/
+.workbuddy/
 .worktrees/
 
 docs/superpowers/

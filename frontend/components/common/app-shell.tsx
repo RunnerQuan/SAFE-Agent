@@ -204,7 +204,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <div className="skillpecker-page-shell animate-page-enter">{children}</div>
         </main>
       ) : (
-        <main className="relative z-10 px-4 pb-20 pt-28 sm:px-6 lg:px-8">
+        <main className="relative z-10 px-4 pb-20 sm:px-6 lg:px-8" style={{ paddingTop: 'var(--skillpecker-top-gap)' }}>
           <div className="page-shell space-y-8">
             <SectionIntro pathname={pathname} />
             <div className="animate-page-enter">{children}</div>
