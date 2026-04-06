@@ -14,6 +14,8 @@ const badgeVariants = cva(
         medium:
           'border-amber-500/[0.6] bg-amber-500/[0.32] text-amber-900 shadow-[inset_0_1px_0_rgba(255,255,255,0.22)] dark:border-amber-300/[0.55] dark:bg-amber-500/[0.3] dark:text-amber-100',
         low:
+          'border-sky-400/[0.6] bg-sky-400/[0.32] text-sky-900 shadow-[inset_0_1px_0_rgba(255,255,255,0.22)] dark:border-sky-300/[0.55] dark:bg-sky-500/[0.3] dark:text-sky-100',
+        safe:
           'border-emerald-500/[0.6] bg-emerald-500/[0.32] text-emerald-900 shadow-[inset_0_1px_0_rgba(255,255,255,0.22)] dark:border-emerald-300/[0.55] dark:bg-emerald-500/[0.3] dark:text-emerald-100',
         unknown: 'border-slate-300/30 bg-slate-500/10 text-slate-700 dark:text-slate-300',
         queued: 'border-slate-300/30 bg-slate-500/10 text-slate-700 dark:text-slate-300',

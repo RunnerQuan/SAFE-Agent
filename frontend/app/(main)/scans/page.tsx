@@ -338,16 +338,16 @@ function ScansContent() {
                               variant={scan.detail.risk === 'high' ? 'high' : scan.detail.risk === 'medium' ? 'medium' : 'low'}
                               className="mr-2"
                             >
-                              {scan.detail.risk === 'high' ? '高风险' : scan.detail.risk === 'medium' ? '中风险' : '低风险'}
+                              {scan.detail.risk === 'high' ? '高风险' : scan.detail.risk === 'medium' ? '中风险' : '安全'}
                             </Badge>
                           )
                         }
                         
-                        // 如果检测完成且结果为0，显示低风险
+                        // 如果检测完成且结果为0，显示安全（绿色）
                         if (hasResult && totalCount === 0) {
                           return (
                             <Badge variant="low" className="mr-2">
-                              低风险
+                              安全
                             </Badge>
                           )
                         }
