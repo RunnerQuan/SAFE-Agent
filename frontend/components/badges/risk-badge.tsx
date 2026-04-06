@@ -27,7 +27,7 @@ export function RiskBadge({ risk, className, showIcon = true }: RiskBadgeProps) 
       variant={risk}
       className={cn('flex items-center gap-1.5', className)}
     >
-      {showIcon && <Icon className="h-3 w-3" />}
+      {showIcon && <Icon className="h-3.5 w-3.5" />}
       {riskLevelLabels[risk] || risk}
     </Badge>
   )

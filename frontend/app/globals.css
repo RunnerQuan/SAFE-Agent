@@ -1210,90 +1210,91 @@
 
 /* 任务详情页面字体调大 */
 .scan-detail-label {
-  font-size: 0.95rem;
+  font-size: 1rem;
 }
 
 .scan-detail-value {
-  font-size: 1.05rem;
+  font-size: 1.1rem;
 }
 
 .scan-detail-subtitle {
-  font-size: 1rem;
-}
-
-.scan-detail-chip-label {
-  font-size: 0.88rem;
-}
-
-.scan-detail-chip-value {
-  font-size: 1.65rem;
-}
-
-.scan-detail-section-title {
-  font-size: 1.15rem;
-}
-
-.scan-detail-section-desc {
-  font-size: 1rem;
-}
-
-.scan-detail-finding-title {
   font-size: 1.05rem;
 }
 
-.scan-detail-finding-desc {
-  font-size: 1rem;
-  line-height: 1.75;
-}
-
-.scan-detail-meta {
+.scan-detail-chip-label {
   font-size: 0.95rem;
 }
 
+.scan-detail-chip-value {
+  font-size: 1.8rem;
+}
+
+.scan-detail-section-title {
+  font-size: 1.25rem;
+}
+
+.scan-detail-section-desc {
+  font-size: 1.08rem;
+  line-height: 1.8;
+}
+
+.scan-detail-finding-title {
+  font-size: 1.12rem;
+}
+
+.scan-detail-finding-desc {
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.scan-detail-meta {
+  font-size: 1rem;
+}
+
 .scan-detail-log-message {
-  font-size: 0.98rem;
+  font-size: 1.02rem;
 }
 
 .scan-detail-log-time {
-  font-size: 0.88rem;
+  font-size: 0.92rem;
 }
 
 /* 新建任务页面字体调大（除步骤进度指示器外） */
 .scan-new-section-title {
-  font-size: 1.15rem;
+  font-size: 1.25rem;
 }
 
 .scan-new-section-desc {
-  font-size: 1rem;
-  line-height: 1.75;
+  font-size: 1.08rem;
+  line-height: 1.8;
 }
 
 .scan-new-input-label {
-  font-size: 1rem;
+  font-size: 1.05rem;
 }
 
 .scan-new-table-header {
-  font-size: 0.95rem;
-}
-
-.scan-new-table-cell {
   font-size: 1rem;
 }
 
-.scan-new-function-name {
+.scan-new-table-cell {
   font-size: 1.05rem;
+}
+
+.scan-new-function-name {
+  font-size: 1.12rem;
 }
 
 .scan-new-summary-label {
-  font-size: 0.9rem;
+  font-size: 0.98rem;
 }
 
 .scan-new-summary-value {
-  font-size: 1.05rem;
+  font-size: 1.12rem;
 }
 
 .scan-new-subtitle {
-  font-size: 0.95rem;
+  font-size: 1rem;
 }
 
 .signal-bar {
@@ -6786,17 +6787,17 @@
 
 /* 任务列表：元信息（日期 / 工具数 / 耗时）*/
 .scan-list-meta {
-  font-size: 1rem;
+  font-size: 1.05rem;
 }
 
 /* 任务列表：综合结论行 */
 .scan-list-summary {
-  font-size: 1rem;
+  font-size: 1.05rem;
 }
 
 /* 任务列表：任务标题 */
 .scan-list-title {
-  font-size: 1.15rem;
+  font-size: 1.2rem;
 }
 
 /* 统计卡片：标签文字 */

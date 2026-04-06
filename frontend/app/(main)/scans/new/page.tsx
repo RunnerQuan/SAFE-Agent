@@ -351,7 +351,7 @@ function NewScanContent() {
                     </div>
                     {idx < arr.length - 1 && <div className={`h-px flex-1 transition-colors ${item.done ? 'bg-sky-400' : 'bg-slate-200 dark:bg-slate-700'}`} />}
                   </div>
-                  <span className={`text-xs font-medium ${item.done ? 'text-sky-600 dark:text-sky-400' : 'text-slate-400 dark:text-slate-500'}`}>{item.label}</span>
+                  <span className={`text-sm font-medium ${item.done ? 'text-sky-600 dark:text-sky-400' : 'text-slate-400 dark:text-slate-500'}`}>{item.label}</span>
                 </div>
               ))}
             </div>

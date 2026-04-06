@@ -295,7 +295,7 @@ function ScansContent() {
                   <div className="flex flex-col gap-4 p-5 lg:flex-row lg:items-center lg:justify-between">
                     <div className="min-w-0 space-y-3">
                       <div className="flex flex-wrap items-center gap-2">
-                        <p className="scan-list-title font-display text-slate-950 dark:text-slate-50">{getTaskTitle(scan)}</p>
+                        <p className="scan-list-title font-display text-base font-semibold text-slate-950 dark:text-slate-50">{getTaskTitle(scan)}</p>
                         <StatusBadge status={scan.status} />
                       </div>
 
@@ -324,22 +324,22 @@ function ScansContent() {
                       )}
                     </div>
 
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 lg:pl-4">
                       <Link href={`/scans/${scan.id}`}>
                         <Button variant="ghost" size="icon" title="查看详情">
-                          <Eye className="h-4 w-4" />
+                          <Eye className="h-5 w-5" />
                         </Button>
                       </Link>
 
                       <Link href={`/scans/new?copyFrom=${scan.id}`}>
                         <Button variant="ghost" size="icon" title="重新运行">
-                          <RotateCcw className="h-4 w-4" />
+                          <RotateCcw className="h-5 w-5" />
                         </Button>
                       </Link>
 
                       {canCancel && (
                         <Button variant="ghost" size="icon" title="取消任务" onClick={() => setCancelDialog({ open: true, scan })}>
-                          <StopCircle className="h-4 w-4" />
+                          <StopCircle className="h-5 w-5" />
                         </Button>
                       )}
                     </div>

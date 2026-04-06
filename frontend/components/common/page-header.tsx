@@ -28,19 +28,19 @@ export function PageHeader({ title, description, breadcrumbs, actions, descripti
     >
       {/* 面包屑导航 */}
       {breadcrumbs && breadcrumbs.length > 0 && (
-        <nav className="mb-4 flex flex-wrap items-center gap-1 text-sm relative z-10">
+        <nav className="mb-4 flex flex-wrap items-center gap-1 text-base relative z-10">
           {breadcrumbs.map((item, index) => (
             <div key={`${item.title}-${index}`} className="flex items-center gap-1">
               {index > 0 && <ChevronRight className="h-4 w-4 text-slate-400" />}
               {item.href ? (
                 <Link
                   href={item.href}
-                  className="rounded-full px-2 py-1 text-slate-500 transition-colors hover:text-sky-600 dark:text-slate-400 dark:hover:text-sky-300"
+                  className="rounded-full px-2 py-1 text-slate-500 transition-colors hover:text-sky-600 dark:text-slate-400 dark:hover:text-sky-300 font-medium"
                 >
                   {item.title}
                 </Link>
               ) : (
-                <span className="rounded-full px-2 py-1 text-slate-700 dark:text-slate-200">{item.title}</span>
+                <span className="rounded-full px-2 py-1 text-slate-700 dark:text-slate-200 font-medium">{item.title}</span>
               )}
             </div>
           ))}
