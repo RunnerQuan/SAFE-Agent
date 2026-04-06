@@ -309,22 +309,51 @@ function ScansContent() {
                         {scan.durationMs && <span>耗时 {formatDuration(scan.durationMs)}</span>}
                       </div>
 
-                      <div className="flex flex-wrap gap-2">
+                      <div className="flex flex-wrap items-center gap-2">
                         {getSelectedChecks(scan).map((type) => (
                           <Badge key={type} variant={type === 'exposure' ? 'medium' : 'running'}>
                             {scanTypeLabels[type] || type}
                           </Badge>
                         ))}
+                        {scan.summary && (
+                          <span className="scan-list-summary text-slate-500 dark:text-slate-400 ml-2">
+                            DOE {scan.summary.exposureFindings} 条，组合式漏洞 {scan.summary.fuzzingFindings} 条
+                          </span>
+                        )}
                       </div>
-
-                      {scan.summary && (
-                        <p className="scan-list-summary text-slate-500 dark:text-slate-400">
-                          当前结果：DOE {scan.summary.exposureFindings} 条，组合式漏洞 {scan.summary.fuzzingFindings} 条。
-                        </p>
-                      )}
                     </div>
 
                     <div className="flex items-center gap-2 lg:pl-4">
+                      {/* 风险等级标签 */}
+                      {(() => {
+                        const exposureCount = scan.summary?.exposureFindings ?? 0
+                        const fuzzingCount = scan.summary?.fuzzingFindings ?? 0
+                        const totalCount = exposureCount + fuzzingCount
+                        const hasResult = scan.status === 'succeeded' || scan.status === 'partial'
+                        
+                        // 如果有明确的风险等级，使用它
+                        if (scan.detail?.risk && scan.detail.risk !== 'unknown') {
+                          return (
+                            <Badge 
+                              variant={scan.detail.risk === 'high' ? 'high' : scan.detail.risk === 'medium' ? 'medium' : 'low'}
+                              className="mr-2"
+                            >
+                              {scan.detail.risk === 'high' ? '高风险' : scan.detail.risk === 'medium' ? '中风险' : '低风险'}
+                            </Badge>
+                          )
+                        }
+                        
+                        // 如果检测完成且结果为0，显示低风险
+                        if (hasResult && totalCount === 0) {
+                          return (
+                            <Badge variant="low" className="mr-2">
+                              低风险
+                            </Badge>
+                          )
+                        }
+                        
+                        return null
+                      })()}
                       <Link href={`/scans/${scan.id}`}>
                         <Button variant="ghost" size="icon" title="查看详情">
                           <Eye className="h-5 w-5" />

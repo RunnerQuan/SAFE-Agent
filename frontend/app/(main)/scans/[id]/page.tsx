@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { jsPDF } from 'jspdf'
 import html2canvas from 'html2canvas'
+import ReactMarkdown from 'react-markdown'
 import {
   AlertTriangle,
   ArrowLeft,
@@ -124,14 +125,21 @@ export default function ScanDetailPage() {
 
       if (format === 'pdf') {
         // 使用html2canvas + jsPDF生成PDF，彻底解决中文乱码问题
-        // 创建一个临时的隐藏容器来渲染报告内容
-        const reportContainer = document.createElement('div')
-        reportContainer.style.cssText = `
-          position: fixed;
-          left: -9999px;
-          top: 0;
-          width: 794px;
-          padding: 40px;
+        // 采用逐元素渲染策略，避免内容被截断
+        const scanData = scan
+        const summary = scanData.summary
+        
+        // A4尺寸（mm）
+        const pdf = new jsPDF('p', 'mm', 'a4')
+        const pdfWidth = pdf.internal.pageSize.getWidth()
+        const pdfHeight = pdf.internal.pageSize.getHeight()
+        const margin = 20 // 页边距
+        const contentWidth = pdfWidth - margin * 2
+        
+        // 创建临时容器样式
+        const containerStyle = `
+          width: ${contentWidth * 3.78}px; /* mm to px approx */
+          padding: 0;
           background: white;
           font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
           font-size: 14px;
@@ -139,17 +147,86 @@ export default function ScanDetailPage() {
           color: #333;
         `
         
-        const scanData = scan
-        const summary = scanData.summary
+        let currentY = margin
+        let isFirstPage = true
         
-        // 构建报告HTML内容
-        let reportHTML = `
-          <div style="max-width: 714px;">
+        // 辅助函数：渲染单个元素到PDF
+        const renderElementToPDF = async (html: string, isNewSection = false) => {
+          const tempDiv = document.createElement('div')
+          tempDiv.style.cssText = containerStyle
+          tempDiv.innerHTML = html
+          document.body.appendChild(tempDiv)
+          
+          try {
+            const canvas = await html2canvas(tempDiv, {
+              scale: 2,
+              useCORS: true,
+              logging: false,
+              backgroundColor: '#ffffff',
+            })
+            
+            const imgData = canvas.toDataURL('image/png')
+            const imgHeight = (canvas.height * contentWidth) / canvas.width
+            
+            // 检查是否需要新页面
+            if (!isFirstPage && (currentY + imgHeight > pdfHeight - margin)) {
+              pdf.addPage()
+              currentY = margin
+            }
+            isFirstPage = false
+            
+            // 如果单个元素超过一页，需要特殊处理
+            if (imgHeight > pdfHeight - margin * 2) {
+              // 元素太高，需要分割
+              const scaleFactor = contentWidth / canvas.width
+              const availableHeight = pdfHeight - margin * 2
+              let remainingHeight = canvas.height
+              let sourceY = 0
+              
+              while (remainingHeight > 0) {
+                const sliceHeight = Math.min(remainingHeight, availableHeight / scaleFactor)
+                const sliceCanvas = document.createElement('canvas')
+                sliceCanvas.width = canvas.width
+                sliceCanvas.height = sliceHeight
+                const ctx = sliceCanvas.getContext('2d')
+                
+                if (ctx) {
+                  ctx.drawImage(
+                    canvas,
+                    0, sourceY, canvas.width, sliceHeight,
+                    0, 0, canvas.width, sliceHeight
+                  )
+                  
+                  const sliceImgData = sliceCanvas.toDataURL('image/png')
+                  const sliceHeightMm = sliceHeight * scaleFactor
+                  pdf.addImage(sliceImgData, 'PNG', margin, currentY, contentWidth, sliceHeightMm)
+                }
+                
+                remainingHeight -= sliceHeight
+                sourceY += sliceHeight
+                
+                if (remainingHeight > 0) {
+                  pdf.addPage()
+                  currentY = margin
+                }
+              }
+            } else {
+              pdf.addImage(imgData, 'PNG', margin, currentY, contentWidth, imgHeight)
+              currentY += imgHeight + 8 // 添加间距
+            }
+          } finally {
+            document.body.removeChild(tempDiv)
+          }
+        }
+        
+        // 渲染标题页
+        await renderElementToPDF(`
+          <div style="padding: 20px 0;">
             <h1 style="font-size: 24px; font-weight: bold; margin-bottom: 24px; color: #1a1a1a;">
               SAFE-Agent Toolchain Risk Analysis Report
             </h1>
             
-            <div style="margin-bottom: 32px;">
+            <div style="margin-bottom: 24px;">
               <h2 style="font-size: 16px; font-weight: bold; margin-bottom: 12px; color: #333;">任务信息</h2>
               <div style="background: #f5f5f5; padding: 16px; border-radius: 8px;">
                 <p style="margin: 4px 0;"><strong>任务名称：</strong>${taskName}</p>
@@ -160,7 +237,7 @@ export default function ScanDetailPage() {
               </div>
             </div>
             
-            <div style="margin-bottom: 32px;">
+            <div>
               <h2 style="font-size: 16px; font-weight: bold; margin-bottom: 12px; color: #333;">检测结果摘要</h2>
               <div style="background: #f5f5f5; padding: 16px; border-radius: 8px;">
                 <p style="margin: 4px 0;"><strong>总发现数：</strong>${summary?.totalFindings ?? 0}</p>
@@ -170,145 +247,77 @@ export default function ScanDetailPage() {
                 <p style="margin: 4px 0;"><strong>高风险链路：</strong>${summary?.highRiskChainCount ?? 0}</p>
               </div>
             </div>
-        `
+          </div>
+        `)
         
-        // DOE检测结果
+        // DOE检测结果 - 每个发现单独渲染
         const exposureFindings = scanData.detail?.exposure?.findings
         if (exposureFindings && exposureFindings.length > 0) {
-          reportHTML += `
-            <div style="margin-bottom: 32px; page-break-before: always;">
+          await renderElementToPDF(`
+            <div style="padding: 16px 0;">
               <h2 style="font-size: 16px; font-weight: bold; margin-bottom: 16px; color: #333;">数据过度暴露 (DOE) 检测结果</h2>
-          `
-          exposureFindings.forEach((finding, index) => {
-            reportHTML += `
+            </div>
+          `, true)
+          
+          for (const finding of exposureFindings) {
+            await renderElementToPDF(`
               <div style="background: #fff5f5; border-left: 4px solid #f56565; padding: 16px; margin-bottom: 12px; border-radius: 4px;">
-                <p style="margin: 0 0 8px 0; font-weight: bold;">${index + 1}. ${finding.title} (${finding.severity})</p>
+                <p style="margin: 0 0 8px 0; font-weight: bold;">${finding.title} (${finding.severity})</p>
                 <p style="margin: 4px 0; color: #666;"><strong>工具：</strong>${finding.toolName || 'N/A'}</p>
                 <p style="margin: 4px 0; color: #666;"><strong>描述：</strong>${finding.description || ''}</p>
               </div>
-            `
-          })
-          reportHTML += `</div>`
+            `)
+          }
         }
         
         // 组合式漏洞检测结果
         const fuzzingFindings = scanData.detail?.fuzzing?.findings
         if (fuzzingFindings && fuzzingFindings.length > 0) {
-          reportHTML += `
-            <div style="margin-bottom: 32px; page-break-before: always;">
+          await renderElementToPDF(`
+            <div style="padding: 16px 0;">
               <h2 style="font-size: 16px; font-weight: bold; margin-bottom: 16px; color: #333;">组合式漏洞检测结果</h2>
-          `
-          fuzzingFindings.forEach((finding, index) => {
-            reportHTML += `
+            </div>
+          `, true)
+          
+          for (const finding of fuzzingFindings) {
+            await renderElementToPDF(`
               <div style="background: #fffaf0; border-left: 4px solid #ed8936; padding: 16px; margin-bottom: 12px; border-radius: 4px;">
-                <p style="margin: 0 0 8px 0; font-weight: bold;">${index + 1}. ${finding.title} (${finding.severity})</p>
+                <p style="margin: 0 0 8px 0; font-weight: bold;">${finding.title} (${finding.severity})</p>
                 <p style="margin: 4px 0; color: #666;"><strong>工具：</strong>${finding.toolName || 'N/A'}</p>
                 <p style="margin: 4px 0; color: #666;"><strong>描述：</strong>${finding.description || ''}</p>
               </div>
-            `
-          })
-          reportHTML += `</div>`
+            `)
+          }
         }
         
         // 执行摘要
         const executiveSummary = scanData.detail?.executiveSummary
         if (executiveSummary && executiveSummary.length > 0) {
-          reportHTML += `
-            <div style="margin-bottom: 32px; page-break-before: always;">
+          await renderElementToPDF(`
+            <div style="padding: 16px 0;">
               <h2 style="font-size: 16px; font-weight: bold; margin-bottom: 16px; color: #333;">执行摘要</h2>
               <div style="background: #f0fff4; border-left: 4px solid #48bb78; padding: 16px; border-radius: 4px;">
-          `
-          executiveSummary.forEach((item) => {
-            reportHTML += `<p style="margin: 8px 0;">• ${item}</p>`
-          })
-          reportHTML += `</div></div>`
+                ${executiveSummary.map((item) => `<p style="margin: 8px 0;">• ${item}</p>`).join('')}
+              </div>
+            </div>
+          `, true)
         }
         
         // 主要风险
         const topRisks = summary?.topRisks
         if (topRisks && topRisks.length > 0) {
-          reportHTML += `
-            <div style="margin-bottom: 32px;">
+          await renderElementToPDF(`
+            <div style="padding: 16px 0;">
               <h2 style="font-size: 16px; font-weight: bold; margin-bottom: 16px; color: #333;">主要风险</h2>
               <div style="background: #fff5f5; border-left: 4px solid #f56565; padding: 16px; border-radius: 4px;">
-          `
-          topRisks.forEach((risk, index) => {
-            reportHTML += `<p style="margin: 8px 0;">${index + 1}. ${risk}</p>`
-          })
-          reportHTML += `</div></div>`
+                ${topRisks.map((risk, index) => `<p style="margin: 8px 0;">${index + 1}. ${risk}</p>`).join('')}
+              </div>
+            </div>
+          `)
         }
         
-        reportHTML += `</div>`
-        reportContainer.innerHTML = reportHTML
-        document.body.appendChild(reportContainer)
-        
-        try {
-          // 使用html2canvas将HTML渲染为canvas
-          const canvas = await html2canvas(reportContainer, {
-            scale: 2,
-            useCORS: true,
-            logging: false,
-            backgroundColor: '#ffffff',
-            windowWidth: 794,
-          })
-          
-          // 计算PDF页面尺寸
-          const imgData = canvas.toDataURL('image/png')
-          const pdf = new jsPDF('p', 'mm', 'a4')
-          const pdfWidth = pdf.internal.pageSize.getWidth()
-          const pdfHeight = pdf.internal.pageSize.getHeight()
-          const imgWidth = canvas.width
-          const imgHeight = canvas.height
-          
-          // 计算缩放比例，使内容宽度适应PDF页面
-          const scaleFactor = pdfWidth / imgWidth
-          const scaledHeight = imgHeight * scaleFactor
-          
-          // 如果内容高度不超过一页，直接添加
-          if (scaledHeight <= pdfHeight) {
-            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, scaledHeight)
-          } else {
-            // 内容超过一页，需要分页
-            // 计算需要多少页
-            const totalPages = Math.ceil(scaledHeight / pdfHeight)
-            
-            for (let page = 0; page < totalPages; page++) {
-              if (page > 0) {
-                pdf.addPage()
-              }
-              
-              // 计算当前页应该显示的图片区域
-              const sourceY = (page * pdfHeight) / scaleFactor
-              const remainingHeight = imgHeight - sourceY
-              const sourceHeight = Math.min(pdfHeight / scaleFactor, remainingHeight)
-              
-              // 创建临时canvas来裁剪当前页内容
-              const pageCanvas = document.createElement('canvas')
-              pageCanvas.width = imgWidth
-              pageCanvas.height = sourceHeight
-              const pageCtx = pageCanvas.getContext('2d')
-              
-              if (pageCtx) {
-                // 绘制当前页内容
-                pageCtx.drawImage(
-                  canvas,
-                  0, sourceY, imgWidth, sourceHeight,  // 源区域
-                  0, 0, imgWidth, sourceHeight          // 目标区域
-                )
-                
-                const pageImgData = pageCanvas.toDataURL('image/png')
-                const pageScaledHeight = sourceHeight * scaleFactor
-                pdf.addImage(pageImgData, 'PNG', 0, 0, pdfWidth, pageScaledHeight)
-              }
-            }
-          }
-          
-          pdf.save(`${fileName}.pdf`)
-          toast.success('PDF导出完成。')
-        } finally {
-          // 清理临时元素
-          document.body.removeChild(reportContainer)
-        }
+        pdf.save(`${fileName}.pdf`)
+        toast.success('PDF导出完成。')
       } else {
         // JSON导出
         const blob = await downloadReport(scanId, format)
@@ -878,6 +887,27 @@ function FindingsSection({
 function FindingCard({ finding, type }: { finding: ExposureFinding | FuzzingFinding; type: ScanType }) {
   const [open, setOpen] = useState(false)
   const trace = type === 'fuzzing' && 'trace' in finding && Array.isArray(finding.trace) ? finding.trace : []
+  
+  // 解析DOE的evidence中的flowPath（工具调用链）和泄露字段
+  let doeFlowPath: string[] = []
+  let leakedFields: string[] = []
+  if (type === 'exposure' && finding.evidence) {
+    try {
+      const evidence = JSON.parse(finding.evidence)
+      // 提取工具调用链
+      if (evidence.flowPath && Array.isArray(evidence.flowPath)) {
+        doeFlowPath = evidence.flowPath
+      }
+      // 尝试从evidence中提取泄露字段（支持多种字段名）
+      if (evidence.leakedFields && Array.isArray(evidence.leakedFields)) {
+        leakedFields = evidence.leakedFields
+      } else if (evidence.fineGrainItems && Array.isArray(evidence.fineGrainItems)) {
+        leakedFields = evidence.fineGrainItems
+      }
+    } catch {
+      // 解析失败则忽略
+    }
+  }
 
   const severityLabel = finding.severity === 'high' ? '高危' : finding.severity === 'medium' ? '中危' : '低危'
   const severityIcon = finding.severity === 'high' ? '!' : finding.severity === 'medium' ? '⚠' : 'ℹ'
@@ -901,14 +931,19 @@ function FindingCard({ finding, type }: { finding: ExposureFinding | FuzzingFind
             <p className="scan-detail-finding-title font-medium text-slate-900 dark:text-slate-50">{finding.title}</p>
           </div>
         </div>
-        <Info className="h-4 w-4 shrink-0 text-slate-400 transition-transform duration-200" style={{ transform: open ? 'rotate(180deg)' : 'rotate(0deg)' }} />
+        <span className={`shrink-0 rounded-full px-4 py-1.5 text-sm font-bold transition-colors ${open ? 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300' : 'bg-sky-50 text-sky-600 hover:bg-sky-100 dark:bg-sky-950/30 dark:text-sky-300 dark:hover:bg-sky-900/50'}`}>
+          {open ? '收起详情' : '查看详情'}
+        </span>
       </button>
 
       {open && (
         <div className="space-y-3 border-t border-slate-200/60 bg-slate-50/40 px-5 py-4 dark:border-slate-800 dark:bg-slate-950/20">
-          <p className="scan-detail-finding-desc text-slate-600 dark:text-slate-300">{finding.description}</p>
+          {/* 描述文本 */}
+          <div className="scan-detail-finding-desc text-sm leading-7 text-slate-600 dark:text-slate-300">
+            {finding.description}
+          </div>
           
-          {/* 组合式漏洞链路展示 - 更显眼的方式 */}
+          {/* 组合式漏洞链路展示 */}
           {trace.length > 0 && (
             <div className="rounded-xl border border-sky-200 bg-gradient-to-r from-sky-50/80 to-blue-50/60 p-4 dark:border-sky-800/60 dark:from-sky-950/30 dark:to-blue-950/20">
               <p className="mb-3 text-sm font-semibold text-sky-700 dark:text-sky-300">调用链路</p>
@@ -929,6 +964,44 @@ function FindingCard({ finding, type }: { finding: ExposureFinding | FuzzingFind
             </div>
           )}
           
+          {/* DOE工具调用链展示 - 与组合式漏洞相同风格 */}
+          {type === 'exposure' && doeFlowPath.length > 0 && (
+            <div className="rounded-xl border border-amber-200 bg-gradient-to-r from-amber-50/80 to-orange-50/60 p-4 dark:border-amber-800/60 dark:from-amber-950/30 dark:to-orange-950/20">
+              <p className="mb-3 text-sm font-semibold text-amber-700 dark:text-amber-300">工具调用链</p>
+              <div className="flex flex-wrap items-center gap-2">
+                {doeFlowPath.map((step, index) => (
+                  <div key={index} className="flex items-center gap-2">
+                    <span className="rounded-lg bg-white/80 px-3 py-1.5 text-sm font-medium text-slate-700 shadow-sm dark:bg-slate-800/80 dark:text-slate-200">
+                      {step}
+                    </span>
+                    {index < doeFlowPath.length - 1 && (
+                      <span className="text-amber-400 dark:text-amber-500">
+                        <Waypoints className="h-4 w-4" />
+                      </span>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+          
+          {/* DOE泄露字段明确展示 */}
+          {type === 'exposure' && leakedFields.length > 0 && (
+            <div className="rounded-xl border border-rose-200 bg-gradient-to-r from-rose-50/80 to-pink-50/60 p-4 dark:border-rose-800/60 dark:from-rose-950/30 dark:to-pink-950/20">
+              <p className="mb-3 text-sm font-semibold text-rose-700 dark:text-rose-300">泄露字段 ({leakedFields.length} 项)</p>
+              <div className="flex flex-wrap gap-2">
+                {leakedFields.map((field, index) => (
+                  <span 
+                    key={index} 
+                    className="rounded-lg bg-white/80 px-3 py-1.5 text-sm font-medium text-rose-700 shadow-sm dark:bg-slate-800/80 dark:text-rose-300"
+                  >
+                    {field}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+          
           <div className="flex flex-wrap gap-4 scan-detail-meta">
             {finding.toolSignature && (
               <div>
@@ -937,9 +1010,46 @@ function FindingCard({ finding, type }: { finding: ExposureFinding | FuzzingFind
               </div>
             )}
             {finding.detectionInfo && (
-              <div>
-                <span className="font-semibold text-slate-700 dark:text-slate-200">检测信息：</span>
-                <span className="text-slate-600 dark:text-slate-300">{finding.detectionInfo}</span>
+              <div className="w-full">
+                {/* 解析检测信息中的工具调用链 */}
+                {(() => {
+                  const info = finding.detectionInfo as string
+                  // 匹配 "工具调用链：xxx -> yyy -> zzz" 格式
+                  const chainMatch = info.match(/工具调用链[：:]\s*(.+)/)
+                  if (chainMatch) {
+                    const chainText = chainMatch[1].trim()
+                    // 分割调用链步骤
+                    const chainSteps = chainText.split(/\s*->\s*/).filter(s => s.trim())
+                    if (chainSteps.length > 0) {
+                      return (
+                        <div className="rounded-xl border border-amber-200 bg-gradient-to-r from-amber-50/80 to-orange-50/60 p-4 dark:border-amber-800/60 dark:from-amber-950/30 dark:to-orange-950/20">
+                          <p className="mb-3 text-sm font-semibold text-amber-700 dark:text-amber-300">工具调用链</p>
+                          <div className="flex flex-wrap items-center gap-2">
+                            {chainSteps.map((step, index) => (
+                              <div key={index} className="flex items-center gap-2">
+                                <span className="rounded-lg bg-white/80 px-3 py-1.5 text-sm font-medium text-slate-700 shadow-sm dark:bg-slate-800/80 dark:text-slate-200">
+                                  {step}
+                                </span>
+                                {index < chainSteps.length - 1 && (
+                                  <span className="text-amber-400 dark:text-amber-500">
+                                    <Waypoints className="h-4 w-4" />
+                                  </span>
+                                )}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )
+                    }
+                  }
+                  // 如果没有匹配到工具调用链格式，显示原始文本
+                  return (
+                    <div>
+                      <span className="font-semibold text-slate-700 dark:text-slate-200">检测信息：</span>
+                      <span className="text-slate-600 dark:text-slate-300">{finding.detectionInfo}</span>
+                    </div>
+                  )
+                })()}
               </div>
             )}
             {type === 'exposure' && 'dataType' in finding && (
