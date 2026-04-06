@@ -1,0 +1,26 @@
+{
+  "scanId": "8b1d7f3a-4c5e-4a92-b6d8-3f0e1c9a2b57Z",
+  "title": "API 端点邮件整理",
+  "category": "Office",
+  "pipelineName": "claude-opus-4-20250514",
+  "userTaskId": "user_task_18",
+  "createdAt": "2025-12-08T12:02:42.348796+08:00",
+  "startedAt": "2025-12-08T12:04:12.348796+08:00",
+  "finishedAt": "2025-12-08T12:05:05+08:00",
+  "durationMs": 52651,
+  "reportId": "8b1d7f3a-4c5e-4a92-b6d8-3f0e1c9a2b57Z-report",
+  "toolCount": 4,
+  "inputSources": [
+    {
+      "fileName": "Claude Post.json",
+      "workspacePath": "C:\\Files\\Study\\Codes\\SAFE-Agent\\backend\\agentRaft\\data\\workspaces\\8b1d7f3a-4c5e-4a92-b6d8-3f0e1c9a2b57Z\\agentRaft\\input\\Claude Post.json",
+      "toolCount": 4,
+      "functions": [
+        "search_emails",
+        "get_email_content",
+        "count_daily_emails",
+        "send_email"
+      ]
+    }
+  ]
+}

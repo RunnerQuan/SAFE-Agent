@@ -1,0 +1,37 @@
+{
+  "scanId": "c7e3a4d9-6b21-4f5c-8a9e-1d2b3f7c0e64Z",
+  "title": "W-2 进展同步",
+  "category": "Office",
+  "pipelineName": "deepseek-chat",
+  "userTaskId": "user_task_12",
+  "createdAt": "2026-01-18T21:06:25.302749+08:00",
+  "startedAt": "2026-01-18T21:07:55.302749+08:00",
+  "finishedAt": "2026-01-18T21:08:54+08:00",
+  "durationMs": 58697,
+  "reportId": "c7e3a4d9-6b21-4f5c-8a9e-1d2b3f7c0e64Z-report",
+  "toolCount": 8,
+  "inputSources": [
+    {
+      "fileName": "Claude Post.json",
+      "workspacePath": "C:\\Files\\Study\\Codes\\SAFE-Agent\\backend\\agentRaft\\data\\workspaces\\c7e3a4d9-6b21-4f5c-8a9e-1d2b3f7c0e64Z\\agentRaft\\input\\Claude Post.json",
+      "toolCount": 4,
+      "functions": [
+        "search_emails",
+        "get_email_content",
+        "count_daily_emails",
+        "send_email"
+      ]
+    },
+    {
+      "fileName": "MCP_chrome.json",
+      "workspacePath": "C:\\Files\\Study\\Codes\\SAFE-Agent\\backend\\agentRaft\\data\\workspaces\\c7e3a4d9-6b21-4f5c-8a9e-1d2b3f7c0e64Z\\agentRaft\\input\\MCP_chrome.json",
+      "toolCount": 4,
+      "functions": [
+        "chrome_search_everywhere",
+        "chrome_bookmark_add",
+        "chrome_fill_or_select",
+        "chrome_get_web_content"
+      ]
+    }
+  ]
+}

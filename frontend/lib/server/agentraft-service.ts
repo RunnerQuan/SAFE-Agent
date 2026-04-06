@@ -93,9 +93,9 @@ const FRONTEND_ROOT = process.cwd()
 const PROJECT_ROOT = path.resolve(FRONTEND_ROOT, '..')
 const BACKEND_ROOT = path.join(PROJECT_ROOT, 'backend', 'agentRaft')
 const BACKEND_NODE_ROOT = path.join(BACKEND_ROOT, 'node')
-const STATE_ROOT = path.join(FRONTEND_ROOT, '.data')
-const WORKSPACES_ROOT = path.join(STATE_ROOT, 'agentraft-workspaces')
-const STATE_FILE = path.join(STATE_ROOT, 'agentraft-state.json')
+const DATA_ROOT = path.join(PROJECT_ROOT, 'backend', 'agentRaft', 'data')
+const WORKSPACES_ROOT = path.join(DATA_ROOT, 'workspaces')
+const STATE_FILE = path.join(DATA_ROOT, 'agentraft-state.json')
 const DEFAULT_AGENT_ID = 'agentraft-default'
 const SUPPORTED_SCAN_TYPES: ScanType[] = ['exposure']
 const HIGH_RISK_SINKS = new Set(['send_message', 'send_email', 'chrome_fill_or_select'])
@@ -135,7 +135,7 @@ function getScanParams(scan: Scan): AgentRaftScanParams {
 }
 
 async function ensureStateRoot() {
-  await fs.mkdir(STATE_ROOT, { recursive: true })
+  await fs.mkdir(DATA_ROOT, { recursive: true })
 }
 
 async function readJsonFile<T>(filePath: string, fallback: T): Promise<T> {
@@ -286,7 +286,7 @@ function normalizeMetadataItem(input: Record<string, unknown>): AgentMetadataIte
       ? input.tool
       : typeof input.server === 'string'
       ? input.server
-      : 'Uploaded'
+      : ''
 
   const code =
     typeof input.code === 'string'
@@ -297,14 +297,15 @@ function normalizeMetadataItem(input: Record<string, unknown>): AgentMetadataIte
       ? input.impl
       : ''
 
-  if (!func_signature || !code) {
-    throw new Error('Each metadata item must contain at least func_signature and code.')
+  // 要求 func_signature、MCP、code 中至少有一个不为空，description 可以为空
+  if (!func_signature && !MCP && !code) {
+    throw new Error('Each metadata item must contain at least one of: func_signature, MCP, or code.')
   }
 
   return {
     func_signature,
     description,
-    MCP,
+    MCP: MCP || 'Uploaded',
     code,
   }
 }
@@ -476,7 +477,20 @@ async function readArtifactsForScan(scanId: string): Promise<ReportArtifacts> {
   }
 }
 
+function getSeededReportPath(scanId: string) {
+  return path.join(getWorkspaceRoot(scanId), 'runs', 'seeded-report.json')
+}
+
+async function readSeededReportDetail(scanId: string): Promise<ReportDetail | null> {
+  return readJsonFile<ReportDetail | null>(getSeededReportPath(scanId), null)
+}
+
 async function buildReportDetail(scan: Scan, agent: Agent): Promise<ReportDetail> {
+  const seededReport = await readSeededReportDetail(scan.id)
+  if (seededReport) {
+    return seededReport
+  }
+
   const artifacts = await readArtifactsForScan(scan.id)
   const promptFindings = artifacts.generatedPrompts.map(buildPromptFinding)
   const fallbackFindings =
@@ -975,7 +989,27 @@ export async function listScans(query?: { agentId?: string }) {
 
 export async function getScan(id: string) {
   const state = await loadState()
-  return state.scans.find((scan) => scan.id === id) ?? null
+  const scan = state.scans.find((item) => item.id === id) ?? null
+  if (!scan) {
+    return null
+  }
+
+  const report = scan.reportId ? await readSeededReportDetail(scan.id) : null
+  if (!report) {
+    return scan
+  }
+
+  return {
+    ...scan,
+    detail: {
+      risk: report.risk,
+      overviewText: report.overviewText,
+      exposure: report.exposure,
+      fuzzing: report.fuzzing,
+      recommendations: report.recommendations,
+      raw: report.raw,
+    },
+  }
 }
 
 export async function createScan(payload: CreateScanPayload) {
@@ -1083,7 +1117,15 @@ export async function listReports(query?: { agentId?: string; risk?: string; typ
 
 export async function getReportDetail(id: string) {
   const state = await loadState()
-  return state.reportDetails.find((report) => report.id === id) ?? null
+  const scan = state.scans.find((item) => item.reportId === id) ?? null
+  if (scan) {
+    const seededReport = await readSeededReportDetail(scan.id)
+    if (seededReport) {
+      return seededReport
+    }
+  }
+
+  return state.reportDetails.find((item) => item.id === id) ?? null
 }
 
 export async function downloadReportFile(id: string, format: 'pdf' | 'json' = 'json'): Promise<ReportDownload> {

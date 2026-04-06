@@ -1,0 +1,31 @@
+{
+  "scanId": "5d2b8f41-9c76-4e3a-a1d9-7b0c6e5f2a83Z",
+  "title": "项目标记报告",
+  "category": "Data",
+  "pipelineName": "gpt-4o-2024-05-13",
+  "userTaskId": "user_task_5",
+  "createdAt": "2025-12-08T20:25:12.606753+08:00",
+  "startedAt": "2025-12-08T20:26:42.606753+08:00",
+  "finishedAt": "2025-12-08T20:26:49+08:00",
+  "durationMs": 6393,
+  "reportId": "5d2b8f41-9c76-4e3a-a1d9-7b0c6e5f2a83Z-report",
+  "toolCount": 9,
+  "inputSources": [
+    {
+      "fileName": "filesystem.json",
+      "workspacePath": "C:\\Files\\Study\\Codes\\SAFE-Agent\\backend\\agentRaft\\data\\workspaces\\5d2b8f41-9c76-4e3a-a1d9-7b0c6e5f2a83Z\\agentRaft\\input\\filesystem.json",
+      "toolCount": 9,
+      "functions": [
+        "copy_path",
+        "create_directory",
+        "delete_directory",
+        "delete_file",
+        "list_files",
+        "move_path",
+        "read_file",
+        "update_file",
+        "write_file"
+      ]
+    }
+  ]
+}

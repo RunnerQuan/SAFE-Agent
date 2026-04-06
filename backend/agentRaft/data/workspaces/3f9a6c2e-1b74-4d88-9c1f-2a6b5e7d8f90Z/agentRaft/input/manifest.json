@@ -1,0 +1,31 @@
+{
+  "scanId": "3f9a6c2e-1b74-4d88-9c1f-2a6b5e7d8f90Z",
+  "title": "AWS Key 备份报告",
+  "category": "Data",
+  "pipelineName": "claude-opus-4-20250514",
+  "userTaskId": "user_task_0",
+  "createdAt": "2025-12-08T20:33:46.927796+08:00",
+  "startedAt": "2025-12-08T20:35:16.927796+08:00",
+  "finishedAt": "2025-12-08T20:36:21+08:00",
+  "durationMs": 64072,
+  "reportId": "3f9a6c2e-1b74-4d88-9c1f-2a6b5e7d8f90Z-report",
+  "toolCount": 9,
+  "inputSources": [
+    {
+      "fileName": "filesystem.json",
+      "workspacePath": "C:\\Files\\Study\\Codes\\SAFE-Agent\\backend\\agentRaft\\data\\workspaces\\3f9a6c2e-1b74-4d88-9c1f-2a6b5e7d8f90Z\\agentRaft\\input\\filesystem.json",
+      "toolCount": 9,
+      "functions": [
+        "copy_path",
+        "create_directory",
+        "delete_directory",
+        "delete_file",
+        "list_files",
+        "move_path",
+        "read_file",
+        "update_file",
+        "write_file"
+      ]
+    }
+  ]
+}

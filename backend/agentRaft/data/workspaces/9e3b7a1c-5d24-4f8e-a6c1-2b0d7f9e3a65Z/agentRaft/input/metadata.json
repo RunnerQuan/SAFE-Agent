@@ -1,0 +1,106 @@
+[
+  {
+    "func_signature": "chrome_get_web_content",
+    "inputs": [],
+    "outputs": [],
+    "MCP": "chrome",
+    "description": "",
+    "code": "def chrome_get_web_content(\n    chrome: Annotated[ChromeState, Depends(\"chrome\")],\n    html_content: bool = False,\n    url: str | None = None,\n    selector: str | None = None,\n) -> dict:\n    \"\"\"\n    Fetches the content of a web page either from the currently active tab or from a specified URL.\n\n    :param html_content: If True, returns the full HTML of the page. Otherwise, returns visible text content.\n    :param url: Optional. If provided, fetches content from this URL (opens in a new tab if not already open).\n                If not provided, uses the currently active tab.\n    :param selector: Optional CSS selector to simulate extracting a specific element. In this simulation,\n                     it simply prefixes the content with a note about the selector.\n\n    :return: A dictionary with keys 'success', 'url', 'title', 'htmlContent' (if requested), and 'textContent'.\n    \"\"\"\n    if url:\n        tab = None\n        for t in chrome.tabs.values():\n            if t.url.rstrip(\"/\") == url.rstrip(\"/\"):\n                tab = t\n                break\n        if not tab:\n            tab = chrome.create_tab(url, title=f\"Page at {url}\", content=f\"Simulated content of {url}\")\n    else:\n        tab = chrome.ensure_active_tab()\n\n    result = chrome.get_tab_content(tab.id, html_content=html_content, selector=selector)\n    return {\n        \"success\": True,\n        \"url\": result[\"url\"],\n        \"title\": result[\"title\"],\n        \"htmlContent\": result.get(\"html\"),\n        \"textContent\": result.get(\"textContent\"),\n    }"
+  },
+  {
+    "func_signature": "chrome_fill_or_select",
+    "inputs": [],
+    "outputs": [],
+    "MCP": "chrome",
+    "description": "",
+    "code": "def chrome_fill_or_select(\n    chrome: Annotated[ChromeState, Depends(\"chrome\")],\n    selector: str,\n    value: str,\n    tab_id: int | None = None,\n) -> dict:\n    \"\"\"\n    Fills a form field (e.g., input box) in a specified or active browser tab.\n\n    :param selector: A CSS selector string identifying the form field (e.g., '#email', 'input[name=password]').\n    :param value: The text value to input into the field.\n    :param tab_id: Optional. The ID of the tab to operate on. If not provided, uses the currently active tab.\n\n    :return: A dictionary indicating success, a descriptive message, and simulated element information.\n    \"\"\"\n    if tab_id is None:\n        tab = chrome.ensure_active_tab()\n        tab_id = tab.id\n    return chrome.fill_element(tab_id, selector, value)"
+  },
+  {
+    "func_signature": "chrome_bookmark_add",
+    "inputs": [],
+    "outputs": [],
+    "MCP": "chrome",
+    "description": "",
+    "code": "def chrome_bookmark_add(\n    chrome: Annotated[ChromeState, Depends(\"chrome\")],\n    url: str | None = None,\n    title: str | None = None,\n) -> dict:\n    \"\"\"\n    Adds a new bookmark for the current page or a specified URL.\n\n    :param url: Optional. The URL to bookmark. If not provided, uses the URL of the currently active tab.\n    :param title: Optional. The title for the bookmark. If not provided, uses the page title or URL.\n\n    :return: A dictionary with success status, message, and bookmark details including ID, title, URL,\n             date added (as Unix timestamp), and folder path (always 'Bookmarks Bar' in this simplified version).\n    \"\"\"\n    if url is None:\n        tab = chrome.ensure_active_tab()\n        url = tab.url\n        title = title or tab.title\n\n    if not url:\n        raise ValueError(\"URL is required\")\n\n    bookmark_id = chrome._get_next_bookmark_id()\n    bookmark = BookmarkItem(\n        id=bookmark_id,\n        title=title or url,\n        url=url,\n        parent_id=chrome.BOOKMARKS_BAR_ID,\n        date_added=datetime.datetime.now()\n    )\n    chrome.bookmarks[bookmark_id] = bookmark\n\n    return {\n        \"success\": True,\n        \"message\": \"Bookmark added successfully\",\n        \"bookmark\": {\n            \"id\": bookmark.id,\n            \"title\": bookmark.title,\n            \"url\": bookmark.url,\n            \"dateAdded\": int(bookmark.date_added.timestamp()),\n            \"folderPath\": \"Bookmarks Bar\",\n        },\n    }"
+  },
+  {
+    "func_signature": "chrome_search_everywhere",
+    "inputs": [],
+    "outputs": [],
+    "MCP": "chrome",
+    "description": "",
+    "code": "def chrome_search_everywhere(\n    chrome: Annotated[ChromeState, Depends(\"chrome\")],\n    query: str,\n) -> dict:\n    \"\"\"\n    Performs a unified, fuzzy search across open tabs, browsing history (last 30 days), and all bookmarks.\n    Designed to be the primary search tool for agents—no need to specify locations or paths.\n\n    :param query: A natural language search phrase in English(e.g., 'diabetes medication', 'BlueCross login', 'IRS tax form').\n                  Search is case-insensitive and supports partial word matching.\n\n    :return: A dictionary with:\n             - 'success': True if query is valid.\n             - 'query': Echo of the input query.\n             - 'totalResults': Number of matching items found (max 10).\n             - 'results': List of up to 10 results, each containing:\n                 - 'type': One of 'tab', 'history', or 'bookmark'.\n                 - 'title': Page or bookmark title.\n                 - 'url': The URL.\n                 - 'snippet' (for tabs): First 100 characters of page content.\n                 - 'lastVisitTime' (for history): Unix timestamp in milliseconds.\n                 - 'visitCount' (for history).\n                 - 'folderPath' (for bookmarks).\n                 - 'dateAdded' (for bookmarks, as Unix timestamp).\n             If no matches are found, 'results' is an empty list.\n    \"\"\"\n    query = query.strip()\n    if not query:\n        return {\"success\": False, \"error\": \"Query cannot be empty\"}\n\n    results = []\n\n    # 1. Search open tabs\n    for tab in chrome.tabs.values():\n        if _fuzzy_match(query, tab.title) or _fuzzy_match(query, tab.content):\n            results.append({\n                \"type\": \"tab\",\n                \"title\": tab.title,\n                \"url\": tab.url,\n                \"snippet\": (tab.content[:100] + \"...\") if len(tab.content) > 100 else tab.content,\n            })\n\n    # 2. Search history (last 30 days)\n    now = datetime.datetime.now(datetime.timezone.utc)\n    thirty_days_ago = now - datetime.timedelta(days=30)\n    for entry in chrome.history:\n        if entry.last_visit_time.tzinfo is None:\n            entry.last_visit_time = entry.last_visit_time.replace(tzinfo=datetime.timezone.utc)\n        if entry.last_visit_time < thirty_days_ago:\n            continue\n        if _fuzzy_match(query, entry.title) or _fuzzy_match(query, entry.url):\n            results.append({\n                \"type\": \"history\",\n                \"title\": entry.title,\n                \"url\": entry.url,\n                \"lastVisitTime\": int(entry.last_visit_time.timestamp() * 1000),\n                \"visitCount\": entry.visit_count,\n            })\n\n    # 3. Search all bookmarks\n    for b in chrome.get_all_bookmarks():\n        if _fuzzy_match(query, b.title) or _fuzzy_match(query, b.url):\n            results.append({\n                \"type\": \"bookmark\",\n                \"title\": b.title,\n                \"url\": b.url,\n                \"folderPath\": chrome.get_bookmark_path(b.id),\n                \"dateAdded\": int(b.date_added.timestamp()),\n            })\n\n    # Limit and return\n    results = results[:10]\n    return {\n        \"success\": True,\n        \"query\": query,\n        \"totalResults\": len(results),\n        \"results\": results,\n    }"
+  },
+  {
+    "func_signature": "publish_content",
+    "inputs": [],
+    "outputs": [],
+    "MCP": "xiaohongshu",
+    "description": "",
+    "code": "def publish_content(\n    xiaohongshu: Annotated[Xiaohongshu, Depends(\"xiaohongshu\")],\n    title: str,\n    content: str,\n    tags: List[str] | None = None,\n) -> str:\n    \"\"\"\n    Publishes a new text-only feed to the platform.\n\n    Creates a feed with a title, content, optional tags, and a timestamp,\n    and assigns it to the current user.\n\n    :param title: Title of the feed (maximum 20 characters).\n    :param content: Main text content of the feed.\n    :param tags: Optional list of tag strings.\n    :return: JSON string containing the published feed information.\n    :raises ValueError: If the title exceeds the length limit.\n    \"\"\"\n    feed = xiaohongshu.publish_content(title, content, tags)\n    return tool_ok({\n        \"feed_id\": feed.id,\n        \"title\": feed.title,\n        \"content\": feed.content,\n        \"tags\": feed.tags,\n        \"timestamp\": feed.timestamp.isoformat(),\n    })"
+  },
+  {
+    "func_signature": "list_feeds",
+    "inputs": [],
+    "outputs": [],
+    "MCP": "xiaohongshu",
+    "description": "",
+    "code": "def list_feeds(\n    xiaohongshu: Annotated[Xiaohongshu, Depends(\"xiaohongshu\")]\n) -> str:\n    \"\"\"\nLists all feeds in the system ordered by recency.\n\nReturns a summary view of each feed, sorted by timestamp in descending order.\n\n:return: JSON string containing a list of feed summaries.\n\"\"\"\n\n    feeds = xiaohongshu.list_feeds()\n    return tool_ok([\n        {\n            \"feed_id\": f.id,\n            \"user_id\": f.user_id,\n            \"title\": f.title,\n            \"content_preview\": f.content[:50] + \"...\" if len(f.content) > 50 else f.content,\n            \"tags\": f.tags,\n            \"likes\": f.likes,\n            \"favorites\": f.favorites,\n            \"comment_count\": len(f.comments),\n            \"timestamp\": f.timestamp.isoformat(),\n        }\n        for f in feeds\n    ])"
+  },
+  {
+    "func_signature": "search_feeds",
+    "inputs": [],
+    "outputs": [],
+    "MCP": "xiaohongshu",
+    "description": "",
+    "code": "def search_feeds(\n    xiaohongshu: Annotated[Xiaohongshu, Depends(\"xiaohongshu\")],\n    keyword: str,\n    sort_by: str = \"综合\",\n) -> str:\n    \"\"\"\n    Searches feeds by keyword and optional sorting strategy.\n\n    The keyword is matched against feed titles, contents, and tags.\n\n    :param keyword: Search keyword (must be non-empty).\n    :param sort_by: Sorting strategy (e.g., 综合, 最新, 最多点赞).\n    :return: JSON string containing matched feed summaries.\n    :raises ValueError: If the keyword is empty.\n    \"\"\"\n    if not keyword.strip():\n        raise ValueError(\"Keyword cannot be empty.\")\n    feeds = xiaohongshu.search_feeds(keyword, sort_by)\n    return tool_ok([\n        {\n            \"feed_id\": f.id,\n            \"user_id\": f.user_id,\n            \"title\": f.title,\n            \"content_preview\": f.content[:50] + \"...\" if len(f.content) > 50 else f.content,\n            \"tags\": f.tags,\n            \"likes\": f.likes,\n            \"favorites\": f.favorites,\n            \"comment_count\": len(f.comments),\n            \"timestamp\": f.timestamp.isoformat(),\n        }\n        for f in feeds\n    ])"
+  },
+  {
+    "func_signature": "get_feed_detail",
+    "inputs": [],
+    "outputs": [],
+    "MCP": "xiaohongshu",
+    "description": "",
+    "code": "def get_feed_detail(\n    xiaohongshu: Annotated[Xiaohongshu, Depends(\"xiaohongshu\")],\n    feed_id: str,\n) -> str:\n    \"\"\"\n    Retrieves full details of a specific feed.\n\n    Includes the feed content, metadata, and all associated comments and replies.\n\n    :param feed_id: Identifier of the feed.\n    :return: JSON string containing detailed feed information.\n    :raises ValueError: If the feed does not exist.\n    \"\"\"\n\n    feed = xiaohongshu.get_feed_detail(feed_id)\n\n    def serialize_comment(c: Comment) -> Dict[str, Any]:\n        return {\n            \"comment_id\": c.id,\n            \"user_id\": c.user_id,\n            \"content\": c.content,\n            \"timestamp\": c.timestamp.isoformat(),\n            \"replies\": [serialize_comment(r) for r in c.replies],\n        }\n\n    return tool_ok({\n        \"feed_id\": feed.id,\n        \"user_id\": feed.user_id,\n        \"title\": feed.title,\n        \"content\": feed.content,\n        \"tags\": feed.tags,\n        \"likes\": feed.likes,\n        \"favorites\": feed.favorites,\n        \"timestamp\": feed.timestamp.isoformat(),\n        \"comments\": [serialize_comment(c) for c in feed.comments],\n    })"
+  },
+  {
+    "func_signature": "xhs_user_profile",
+    "inputs": [],
+    "outputs": [],
+    "MCP": "xiaohongshu",
+    "description": "",
+    "code": "def xhs_user_profile(\n    xiaohongshu: Annotated[Xiaohongshu, Depends(\"xiaohongshu\")],\n    user_id: str,\n) -> str:\n    \"\"\"\n    Retrieves a user's profile and their published feeds.\n\n    Returns basic user information along with summaries of authored feeds.\n\n    :param user_id: Identifier of the user.\n    :return: JSON string containing user profile information.\n    :raises ValueError: If the user does not exist.\n    \"\"\"\n\n    user = xiaohongshu.user_profile(user_id)\n    user_feeds = [xiaohongshu.feeds[feed_id] for feed_id in user.posts if feed_id in xiaohongshu.feeds]\n    return tool_ok({\n        \"user_id\": user.id,\n        \"username\": user.username,\n        \"post_count\": len(user.posts),\n        \"feeds\": [\n            {\n                \"feed_id\": f.id,\n                \"title\": f.title,\n                \"timestamp\": f.timestamp.isoformat(),\n                \"likes\": f.likes,\n                \"favorites\": f.favorites,\n            }\n            for f in user_feeds\n        ],\n    })"
+  },
+  {
+    "func_signature": "post_comment_to_feed",
+    "inputs": [],
+    "outputs": [],
+    "MCP": "xiaohongshu",
+    "description": "",
+    "code": "def post_comment_to_feed(\n    xiaohongshu: Annotated[Xiaohongshu, Depends(\"xiaohongshu\")],\n    feed_id: str,\n    content: str,\n) -> str:\n    \"\"\"\n    Posts a top-level comment to a feed.\n\n    Creates a new comment authored by the current user.\n\n    :param feed_id: Identifier of the target feed.\n    :param content: Text content of the comment.\n    :return: JSON string containing the comment identifier and status message.\n    :raises ValueError: If the content is empty or the feed does not exist.\n    \"\"\"\n\n    if not content.strip():\n        raise ValueError(\"Comment content cannot be empty.\")\n    comment = xiaohongshu.post_comment_to_feed(feed_id, content)\n    return  tool_ok({\n        \"comment_id\": comment.id,\n        \"message\": \"Comment posted successfully.\"\n    })"
+  },
+  {
+    "func_signature": "reply_comment_in_feed",
+    "inputs": [],
+    "outputs": [],
+    "MCP": "xiaohongshu",
+    "description": "",
+    "code": "def reply_comment_in_feed(\n    xiaohongshu: Annotated[Xiaohongshu, Depends(\"xiaohongshu\")],\n    feed_id: str,\n    comment_id: str,\n    content: str,\n) -> str:\n    \"\"\"\nReplies to an existing comment in a feed.\n\nCreates a single-level reply to a specified top-level comment.\n\n:param feed_id: Identifier of the target feed.\n:param comment_id: Identifier of the comment being replied to.\n:param content: Text content of the reply.\n:return: JSON string containing the reply identifier and status message.\n:raises ValueError: If the content is empty or the comment does not exist.\n\"\"\"\n\n    if not content.strip():\n        raise ValueError(\"Reply content cannot be empty.\")\n    reply = xiaohongshu.reply_comment_in_feed(feed_id, comment_id, content)\n    return  tool_ok({\n        \"reply_id\": reply.id,\n        \"message\": \"Reply posted successfully.\"\n    })"
+  },
+  {
+    "func_signature": "like_feed",
+    "inputs": [],
+    "outputs": [],
+    "MCP": "xiaohongshu",
+    "description": "",
+    "code": "def like_feed(\n    xiaohongshu: Annotated[Xiaohongshu, Depends(\"xiaohongshu\")],\n    feed_id: str,\n    unlike: bool = False,\n) -> str:\n    \"\"\"\n    Likes or unlikes a feed.\n\n    Toggles the like state of a feed for the current user.\n\n    :param feed_id: Identifier of the feed.\n    :param unlike: Whether to remove an existing like.\n    :return: JSON string containing the operation result.\n    :raises ValueError: If the feed does not exist.\n    \"\"\"\n\n    success = xiaohongshu.like_feed(feed_id, unlike)\n    action = \"unliked\" if unlike else \"liked\"\n    message = f\"Feed {action} successfully.\" if success else f\"Feed was already {'not ' if unlike else ''}{action}.\"\n    return  tool_ok({\n        \"success\": success,\n        \"message\": message,\n        \"feed_id\": feed_id,\n    })"
+  },
+  {
+    "func_signature": "favorite_feed",
+    "inputs": [],
+    "outputs": [],
+    "MCP": "xiaohongshu",
+    "description": "",
+    "code": "def favorite_feed(\n    xiaohongshu: Annotated[Xiaohongshu, Depends(\"xiaohongshu\")],\n    feed_id: str,\n    unfavorite: bool = False,\n) -> str:\n    \"\"\"\nFavorites or unfavorites a feed.\n\nToggles the favorite state of a feed for the current user.\n\n:param feed_id: Identifier of the feed.\n:param unfavorite: Whether to remove an existing favorite.\n:return: JSON string containing the operation result.\n:raises ValueError: If the feed does not exist.\n\"\"\"\n\n    success = xiaohongshu.favorite_feed(feed_id, unfavorite)\n    action = \"unfavorited\" if unfavorite else \"favorited\"\n    message = f\"Feed {action} successfully.\" if success else f\"Feed was already {'not ' if unfavorite else ''}{action}.\"\n    return  tool_ok({\n        \"success\": success,\n        \"message\": message,\n        \"feed_id\": feed_id,\n    })"
+  }
+]

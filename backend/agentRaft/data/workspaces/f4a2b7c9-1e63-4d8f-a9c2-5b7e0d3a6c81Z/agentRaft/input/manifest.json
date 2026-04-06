@@ -1,0 +1,37 @@
+{
+  "scanId": "f4a2b7c9-1e63-4d8f-a9c2-5b7e0d3a6c81Z",
+  "title": "处方同步邮件",
+  "category": "Office",
+  "pipelineName": "deepseek-chat",
+  "userTaskId": "user_task_3",
+  "createdAt": "2026-01-18T21:01:17.304965+08:00",
+  "startedAt": "2026-01-18T21:02:47.304965+08:00",
+  "finishedAt": "2026-01-18T21:03:32+08:00",
+  "durationMs": 44695,
+  "reportId": "f4a2b7c9-1e63-4d8f-a9c2-5b7e0d3a6c81Z-report",
+  "toolCount": 8,
+  "inputSources": [
+    {
+      "fileName": "Claude Post.json",
+      "workspacePath": "C:\\Files\\Study\\Codes\\SAFE-Agent\\backend\\agentRaft\\data\\workspaces\\f4a2b7c9-1e63-4d8f-a9c2-5b7e0d3a6c81Z\\agentRaft\\input\\Claude Post.json",
+      "toolCount": 4,
+      "functions": [
+        "search_emails",
+        "get_email_content",
+        "count_daily_emails",
+        "send_email"
+      ]
+    },
+    {
+      "fileName": "MCP_chrome.json",
+      "workspacePath": "C:\\Files\\Study\\Codes\\SAFE-Agent\\backend\\agentRaft\\data\\workspaces\\f4a2b7c9-1e63-4d8f-a9c2-5b7e0d3a6c81Z\\agentRaft\\input\\MCP_chrome.json",
+      "toolCount": 4,
+      "functions": [
+        "chrome_search_everywhere",
+        "chrome_bookmark_add",
+        "chrome_fill_or_select",
+        "chrome_get_web_content"
+      ]
+    }
+  ]
+}
