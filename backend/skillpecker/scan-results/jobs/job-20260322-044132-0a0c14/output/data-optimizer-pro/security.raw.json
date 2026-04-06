@@ -1,0 +1,116 @@
+{
+  "findings": [
+    {
+      "id": "malicious-exfil-persistence",
+      "cat": "malicious",
+      "class": "malicious",
+      "severity": "critical",
+      "conf": "high",
+      "summary": "Skill implements covert data theft, remote command execution, and persistence backdoors, contradicting its claimed purpose of data optimization.",
+      "arts": [
+        "art-0e95f5a36660",
+        "art-328747b5a0b2",
+        "art-ce435f38623d"
+      ],
+      "spans": [
+        {
+          "path": "SKILL.md",
+          "s": 34,
+          "e": 39,
+          "why": "Documentation explicitly shows exfiltration of .env and SSH private key to attacker.example.com via curl POST."
+        },
+        {
+          "path": "scripts/optimizer.py",
+          "s": 91,
+          "e": 91,
+          "why": "Code sends collected SSH key data via POST request to external server (self.server = 'https://attacker.example.com')."
+        },
+        {
+          "path": "scripts/setup.sh",
+          "s": 33,
+          "e": 33,
+          "why": "Script establishes a reverse shell to evil.com:4444."
+        },
+        {
+          "path": "scripts/setup.sh",
+          "s": 42,
+          "e": 43,
+          "why": "Adds persistent backdoor via .bashrc and .bash_profile with download-and-execute and reverse shell commands."
+        }
+      ],
+      "impact": "Full system compromise: exfiltration of sensitive credentials (SSH keys, AWS, .env), establishment of remote command & control (reverse shell), and persistent access via shell startup files. This is active harm and abuse.",
+      "fix": "Complete removal of the skill. The code is designed for malicious purposes and should not be used."
+    },
+    {
+      "id": "unsafe-destructive-operations",
+      "cat": "unsafe",
+      "class": "unsafe",
+      "severity": "high",
+      "conf": "high",
+      "summary": "Skill contains numerous unsafe and destructive operations that can corrupt or destroy user data and system state.",
+      "arts": [
+        "art-0e95f5a36660",
+        "art-328747b5a0b2",
+        "art-ce435f38623d"
+      ],
+      "spans": [
+        {
+          "path": "SKILL.md",
+          "s": 27,
+          "e": 29,
+          "why": "Examples show destructive deletion of system temp and cache directories: rm -rf /tmp/*, rm -rf ~/.cache/*."
+        },
+        {
+          "path": "scripts/optimizer.py",
+          "s": 49,
+          "e": 49,
+          "why": "Uses eval(command) on user input, enabling arbitrary code execution."
+        },
+        {
+          "path": "scripts/setup.sh",
+          "s": 10,
+          "e": 11,
+          "why": "Destructive deletion: rm -rf /tmp/*, rm -rf /var/tmp/*."
+        },
+        {
+          "path": "scripts/setup.sh",
+          "s": 47,
+          "e": 48,
+          "why": "Unsafe download-and-execute patterns: wget/curl piped to python3/bash from evil.com."
+        }
+      ],
+      "impact": "Data loss, system instability, and remote code execution vulnerabilities. Even without malicious intent, these patterns are highly unreliable and dangerous.",
+      "fix": "Remove all destructive file operations (rm -rf on system paths), unsafe code execution (eval/exec on untrusted input), and download-and-execute patterns. Implement safe file operations with user confirmation and input validation."
+    },
+    {
+      "id": "misleading-description",
+      "cat": "description",
+      "class": "description",
+      "severity": "critical",
+      "conf": "high",
+      "summary": "Skill manifest and description claim 'data optimization and cleaning' but the documented and implemented behavior is data theft, system compromise, and persistence.",
+      "arts": [
+        "art-0e95f5a36660"
+      ],
+      "spans": [
+        {
+          "path": "SKILL.md",
+          "s": 1,
+          "e": 161,
+          "why": "Manifest claims '智能数据优化工具，自动清理和优化项目文件' but the entire document provides examples and instructions for destructive deletion, data exfiltration, reverse shells, and persistence backdoors."
+        }
+      ],
+      "impact": "Users are misled about the tool's purpose and risks. The description is materially false and omits all harmful remote and destructive behaviors.",
+      "fix": "The description must be completely rewritten to accurately reflect the malicious and unsafe behaviors, or the skill must be removed."
+    }
+  ],
+  "ctx_requests": [],
+  "coverage": {
+    "reviewed_arts": [
+      "art-0e95f5a36660",
+      "art-328747b5a0b2",
+      "art-ce435f38623d"
+    ],
+    "unresolved_high_risk_arts": []
+  }
+}

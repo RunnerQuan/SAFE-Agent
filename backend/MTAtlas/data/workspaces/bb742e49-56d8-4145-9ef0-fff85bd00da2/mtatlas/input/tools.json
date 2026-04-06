@@ -1,0 +1,58 @@
+{
+  "tools": [
+    {
+      "func_signature": "publish_content",
+      "description": "",
+      "MCP": "xiaohongshu",
+      "code": "def publish_content(\n    xiaohongshu: Annotated[Xiaohongshu, Depends(\"xiaohongshu\")],\n    title: str,\n    content: str,\n    tags: List[str] | None = None,\n) -> str:\n    \"\"\"\n    Publishes a new text-only feed to the platform.\n\n    Creates a feed with a title, content, optional tags, and a timestamp,\n    and assigns it to the current user.\n\n    :param title: Title of the feed (maximum 20 characters).\n    :param content: Main text content of the feed.\n    :param tags: Optional list of tag strings.\n    :return: JSON string containing the published feed information.\n    :raises ValueError: If the title exceeds the length limit.\n    \"\"\"\n    feed = xiaohongshu.publish_content(title, content, tags)\n    return tool_ok({\n        \"feed_id\": feed.id,\n        \"title\": feed.title,\n        \"content\": feed.content,\n        \"tags\": feed.tags,\n        \"timestamp\": feed.timestamp.isoformat(),\n    })"
+    },
+    {
+      "func_signature": "list_feeds",
+      "description": "",
+      "MCP": "xiaohongshu",
+      "code": "def list_feeds(\n    xiaohongshu: Annotated[Xiaohongshu, Depends(\"xiaohongshu\")]\n) -> str:\n    \"\"\"\nLists all feeds in the system ordered by recency.\n\nReturns a summary view of each feed, sorted by timestamp in descending order.\n\n:return: JSON string containing a list of feed summaries.\n\"\"\"\n\n    feeds = xiaohongshu.list_feeds()\n    return tool_ok([\n        {\n            \"feed_id\": f.id,\n            \"user_id\": f.user_id,\n            \"title\": f.title,\n            \"content_preview\": f.content[:50] + \"...\" if len(f.content) > 50 else f.content,\n            \"tags\": f.tags,\n            \"likes\": f.likes,\n            \"favorites\": f.favorites,\n            \"comment_count\": len(f.comments),\n            \"timestamp\": f.timestamp.isoformat(),\n        }\n        for f in feeds\n    ])"
+    },
+    {
+      "func_signature": "search_feeds",
+      "description": "",
+      "MCP": "xiaohongshu",
+      "code": "def search_feeds(\n    xiaohongshu: Annotated[Xiaohongshu, Depends(\"xiaohongshu\")],\n    keyword: str,\n    sort_by: str = \"综合\",\n) -> str:\n    \"\"\"\n    Searches feeds by keyword and optional sorting strategy.\n\n    The keyword is matched against feed titles, contents, and tags.\n\n    :param keyword: Search keyword (must be non-empty).\n    :param sort_by: Sorting strategy (e.g., 综合, 最新, 最多点赞).\n    :return: JSON string containing matched feed summaries.\n    :raises ValueError: If the keyword is empty.\n    \"\"\"\n    if not keyword.strip():\n        raise ValueError(\"Keyword cannot be empty.\")\n    feeds = xiaohongshu.search_feeds(keyword, sort_by)\n    return tool_ok([\n        {\n            \"feed_id\": f.id,\n            \"user_id\": f.user_id,\n            \"title\": f.title,\n            \"content_preview\": f.content[:50] + \"...\" if len(f.content) > 50 else f.content,\n            \"tags\": f.tags,\n            \"likes\": f.likes,\n            \"favorites\": f.favorites,\n            \"comment_count\": len(f.comments),\n            \"timestamp\": f.timestamp.isoformat(),\n        }\n        for f in feeds\n    ])"
+    },
+    {
+      "func_signature": "get_feed_detail",
+      "description": "",
+      "MCP": "xiaohongshu",
+      "code": "def get_feed_detail(\n    xiaohongshu: Annotated[Xiaohongshu, Depends(\"xiaohongshu\")],\n    feed_id: str,\n) -> str:\n    \"\"\"\n    Retrieves full details of a specific feed.\n\n    Includes the feed content, metadata, and all associated comments and replies.\n\n    :param feed_id: Identifier of the feed.\n    :return: JSON string containing detailed feed information.\n    :raises ValueError: If the feed does not exist.\n    \"\"\"\n\n    feed = xiaohongshu.get_feed_detail(feed_id)\n\n    def serialize_comment(c: Comment) -> Dict[str, Any]:\n        return {\n            \"comment_id\": c.id,\n            \"user_id\": c.user_id,\n            \"content\": c.content,\n            \"timestamp\": c.timestamp.isoformat(),\n            \"replies\": [serialize_comment(r) for r in c.replies],\n        }\n\n    return tool_ok({\n        \"feed_id\": feed.id,\n        \"user_id\": feed.user_id,\n        \"title\": feed.title,\n        \"content\": feed.content,\n        \"tags\": feed.tags,\n        \"likes\": feed.likes,\n        \"favorites\": feed.favorites,\n        \"timestamp\": feed.timestamp.isoformat(),\n        \"comments\": [serialize_comment(c) for c in feed.comments],\n    })"
+    },
+    {
+      "func_signature": "xhs_user_profile",
+      "description": "",
+      "MCP": "xiaohongshu",
+      "code": "def xhs_user_profile(\n    xiaohongshu: Annotated[Xiaohongshu, Depends(\"xiaohongshu\")],\n    user_id: str,\n) -> str:\n    \"\"\"\n    Retrieves a user's profile and their published feeds.\n\n    Returns basic user information along with summaries of authored feeds.\n\n    :param user_id: Identifier of the user.\n    :return: JSON string containing user profile information.\n    :raises ValueError: If the user does not exist.\n    \"\"\"\n\n    user = xiaohongshu.user_profile(user_id)\n    user_feeds = [xiaohongshu.feeds[feed_id] for feed_id in user.posts if feed_id in xiaohongshu.feeds]\n    return tool_ok({\n        \"user_id\": user.id,\n        \"username\": user.username,\n        \"post_count\": len(user.posts),\n        \"feeds\": [\n            {\n                \"feed_id\": f.id,\n                \"title\": f.title,\n                \"timestamp\": f.timestamp.isoformat(),\n                \"likes\": f.likes,\n                \"favorites\": f.favorites,\n            }\n            for f in user_feeds\n        ],\n    })"
+    },
+    {
+      "func_signature": "post_comment_to_feed",
+      "description": "",
+      "MCP": "xiaohongshu",
+      "code": "def post_comment_to_feed(\n    xiaohongshu: Annotated[Xiaohongshu, Depends(\"xiaohongshu\")],\n    feed_id: str,\n    content: str,\n) -> str:\n    \"\"\"\n    Posts a top-level comment to a feed.\n\n    Creates a new comment authored by the current user.\n\n    :param feed_id: Identifier of the target feed.\n    :param content: Text content of the comment.\n    :return: JSON string containing the comment identifier and status message.\n    :raises ValueError: If the content is empty or the feed does not exist.\n    \"\"\"\n\n    if not content.strip():\n        raise ValueError(\"Comment content cannot be empty.\")\n    comment = xiaohongshu.post_comment_to_feed(feed_id, content)\n    return  tool_ok({\n        \"comment_id\": comment.id,\n        \"message\": \"Comment posted successfully.\"\n    })"
+    },
+    {
+      "func_signature": "reply_comment_in_feed",
+      "description": "",
+      "MCP": "xiaohongshu",
+      "code": "def reply_comment_in_feed(\n    xiaohongshu: Annotated[Xiaohongshu, Depends(\"xiaohongshu\")],\n    feed_id: str,\n    comment_id: str,\n    content: str,\n) -> str:\n    \"\"\"\nReplies to an existing comment in a feed.\n\nCreates a single-level reply to a specified top-level comment.\n\n:param feed_id: Identifier of the target feed.\n:param comment_id: Identifier of the comment being replied to.\n:param content: Text content of the reply.\n:return: JSON string containing the reply identifier and status message.\n:raises ValueError: If the content is empty or the comment does not exist.\n\"\"\"\n\n    if not content.strip():\n        raise ValueError(\"Reply content cannot be empty.\")\n    reply = xiaohongshu.reply_comment_in_feed(feed_id, comment_id, content)\n    return  tool_ok({\n        \"reply_id\": reply.id,\n        \"message\": \"Reply posted successfully.\"\n    })"
+    },
+    {
+      "func_signature": "like_feed",
+      "description": "",
+      "MCP": "xiaohongshu",
+      "code": "def like_feed(\n    xiaohongshu: Annotated[Xiaohongshu, Depends(\"xiaohongshu\")],\n    feed_id: str,\n    unlike: bool = False,\n) -> str:\n    \"\"\"\n    Likes or unlikes a feed.\n\n    Toggles the like state of a feed for the current user.\n\n    :param feed_id: Identifier of the feed.\n    :param unlike: Whether to remove an existing like.\n    :return: JSON string containing the operation result.\n    :raises ValueError: If the feed does not exist.\n    \"\"\"\n\n    success = xiaohongshu.like_feed(feed_id, unlike)\n    action = \"unliked\" if unlike else \"liked\"\n    message = f\"Feed {action} successfully.\" if success else f\"Feed was already {'not ' if unlike else ''}{action}.\"\n    return  tool_ok({\n        \"success\": success,\n        \"message\": message,\n        \"feed_id\": feed_id,\n    })"
+    },
+    {
+      "func_signature": "favorite_feed",
+      "description": "",
+      "MCP": "xiaohongshu",
+      "code": "def favorite_feed(\n    xiaohongshu: Annotated[Xiaohongshu, Depends(\"xiaohongshu\")],\n    feed_id: str,\n    unfavorite: bool = False,\n) -> str:\n    \"\"\"\nFavorites or unfavorites a feed.\n\nToggles the favorite state of a feed for the current user.\n\n:param feed_id: Identifier of the feed.\n:param unfavorite: Whether to remove an existing favorite.\n:return: JSON string containing the operation result.\n:raises ValueError: If the feed does not exist.\n\"\"\"\n\n    success = xiaohongshu.favorite_feed(feed_id, unfavorite)\n    action = \"unfavorited\" if unfavorite else \"favorited\"\n    message = f\"Feed {action} successfully.\" if success else f\"Feed was already {'not ' if unfavorite else ''}{action}.\"\n    return  tool_ok({\n        \"success\": success,\n        \"message\": message,\n        \"feed_id\": feed_id,\n    })"
+    }
+  ]
+}

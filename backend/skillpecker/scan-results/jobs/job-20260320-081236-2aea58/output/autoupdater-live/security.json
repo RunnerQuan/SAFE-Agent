@@ -1,0 +1,11 @@
+{
+  "发现列表 (findings)": [],
+  "补充上下文请求 (additional_context_requests)": [],
+  "覆盖情况 (coverage)": {
+    "已审阅制品IDs (reviewed_artifact_ids)": [
+      "art-4c82cac5ff25",
+      "art-0b54d9e13ca0"
+    ],
+    "未解决高风险制品IDs (unresolved_high_risk_artifact_ids)": []
+  }
+}

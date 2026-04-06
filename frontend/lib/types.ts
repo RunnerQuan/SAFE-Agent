@@ -181,36 +181,3 @@ export interface DashboardStats {
   failedScanCount: number
   highRiskReportCount: number
 }
-
-export interface DoeLibraryTranscriptItem {
-  role: string
-  text: string
-}
-
-export interface DoeLibraryCase {
-  id: string
-  folderName: string
-  pipelineName: string
-  suiteName: string
-  scenarioName: string
-  userTaskId: string
-  hasJudgeResult: boolean
-  verdict?: boolean
-  utility?: boolean | null
-  security?: boolean | null
-  durationSeconds?: number | null
-  messageCount: number
-  toolSequence: string[]
-  uniqueTools: string[]
-  userPrompt: string
-  finalAction?: string
-  lastToolOutput?: string
-  analysisReason?: string
-  allowedFields: string[]
-  leakedFields: string[]
-  transcriptPreview: DoeLibraryTranscriptItem[]
-  raw?: {
-    evaluation?: unknown
-    judgeResult?: unknown
-  }
-}

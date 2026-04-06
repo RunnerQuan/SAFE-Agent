@@ -1,0 +1,77 @@
+{
+  "verdict": {
+    "label": "insufficient_evidence",
+    "primary_concern": "unknown",
+    "issue_types": [
+      "supply_chain",
+      "credential_handling",
+      "capability_gap"
+    ],
+    "maliciousness": 3,
+    "safety": 4,
+    "description_reliability": 3,
+    "coverage": 2
+  },
+  "top_findings": [
+    {
+      "id": "mal-download-exec-1",
+      "cat": "supply_chain",
+      "severity": "critical",
+      "conf": "high",
+      "summary": "Skill instructs users to download and execute a remote script via curl-to-bash without verification, creating supply chain attack risk",
+      "spans": [
+        {
+          "path": "SKILL.md",
+          "s": 15,
+          "e": 15,
+          "why": "Direct instruction: 'curl -sSL https://canifi.com/skills/healthgrades/install.sh | bash' - classic supply chain attack pattern"
+        }
+      ]
+    },
+    {
+      "id": "desc-missing-impl",
+      "cat": "capability_gap",
+      "severity": "med",
+      "conf": "high",
+      "summary": "Skill claims capabilities (search doctors, read reviews, check credentials) but no implementation files are present to support these claims",
+      "spans": [
+        {
+          "path": ".claude-plugin/plugin.json",
+          "s": 27,
+          "e": 30,
+          "why": "Network endpoints defined but no implementation shown for advertised capabilities"
+        }
+      ]
+    },
+    {
+      "id": "unsafe-cred-example",
+      "cat": "credential_handling",
+      "severity": "med",
+      "conf": "high",
+      "summary": "Examples show credential storage in environment variables without security context, potentially normalizing unsafe practices",
+      "spans": [
+        {
+          "path": "SKILL.md",
+          "s": 31,
+          "e": 32,
+          "why": "Example: 'canifi-env set HEALTHGRADES_EMAIL \"your-email@example.com\"' and password storage"
+        }
+      ]
+    }
+  ],
+  "coverage_audit": {
+    "adequate": false,
+    "missed": [
+      {
+        "path": "skills/healthgrades/install.sh",
+        "why": "Critical to examine the downloaded script for actual behavior - needed to assess maliciousness of download-execute pattern"
+      },
+      {
+        "path": "skills/healthgrades/",
+        "why": "Need to see actual implementation files for advertised capabilities (search, reviews, credentials)"
+      }
+    ],
+    "needs_rescan": true
+  },
+  "next_action": "rescan_targeted"
+}

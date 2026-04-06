@@ -1,0 +1,425 @@
+{
+  "技能概览 (skill_overview)": {
+    "技能声明列表 (skill_claims)": [
+      "Presentation creation, editing, and analysis",
+      "PPTX creation, editing, and analysis",
+      "Reading and analyzing content",
+      "Text extraction",
+      "Convert document to markdown",
+      "Raw XML access",
+      "Unpacking a file"
+    ],
+    "观察到的行为 (observed_behaviors)": [
+      "Skill is a toolkit for working with .pptx files (Office Open XML).",
+      "Provides multiple workflows: text extraction via markitdown, raw XML editing via unpack/pack scripts, and high-level manipulation via Python scripts.",
+      "Includes extensive documentation on XML structure, HTML-to-PPTX conversion, and content extraction guidelines.",
+      "Contains XSD schema files for validation."
+    ],
+    "高风险特征 (high_risk_features)": []
+  },
+  "文件分析列表 (artifact_reviews)": [
+    {
+      "制品ID (artifact_id)": "art-0e95f5a36660",
+      "文件路径 (path)": "SKILL.md",
+      "文件类型 (kind)": "Markdown 文档 (markdown)",
+      "文件角色 (role)": "Skill 定义文件 (skill_definition)",
+      "观察结果 (observations)": [
+        "Primary skill definition and user guide.",
+        "Documents workflows: text extraction via markitdown, XML unpacking/editing/packing, template-based slide creation.",
+        "Contains shell command examples for external tools (python -m markitdown, find).",
+        "Includes warnings about slide indexing (0-based)."
+      ],
+      "风险信号 (risk_signals)": [
+        "shell_wrapper",
+        "prompt_rule"
+      ],
+      "证据位置 (evidence_spans)": [
+        {
+          "文件路径 (path)": "SKILL.md",
+          "起始行 (start_line)": 18,
+          "结束行 (end_line)": 19,
+          "说明 (why)": "Shell command example: python -m markitdown path-to-file.pptx"
+        },
+        {
+          "文件路径 (path)": "SKILL.md",
+          "起始行 (start_line)": 248,
+          "结束行 (end_line)": 248,
+          "说明 (why)": "Shell command example: python scripts/rearrange.py template.pptx working.pptx 0,34,34,50,52"
+        }
+      ],
+      "优先级 (priority)": "中 (med)",
+      "是否需要回源查看原文 (needs_raw_review)": false
+    },
+    {
+      "制品ID (artifact_id)": "art-2bf971b24994",
+      "文件路径 (path)": "ooxml/scripts/pack.py",
+      "文件类型 (kind)": "Python 脚本 (python)",
+      "文件角色 (role)": "脚本 (script)",
+      "观察结果 (observations)": [
+        "Script to pack an unpacked directory back into a .docx/.pptx/.xlsx file.",
+        "Uses subprocess.run to call xmllint for XML validation.",
+        "Has a --force flag to skip validation.",
+        "Deletes output file on validation failure."
+      ],
+      "风险信号 (risk_signals)": [
+        "shell_wrapper",
+        "file_write"
+      ],
+      "证据位置 (evidence_spans)": [
+        {
+          "文件路径 (path)": "ooxml/scripts/pack.py",
+          "起始行 (start_line)": 103,
+          "结束行 (end_line)": 103,
+          "说明 (why)": "Calls subprocess.run to execute xmllint for validation."
+        },
+        {
+          "文件路径 (path)": "ooxml/scripts/pack.py",
+          "起始行 (start_line)": 84,
+          "结束行 (end_line)": 84,
+          "说明 (why)": "Deletes (unlinks) output file on validation failure."
+        }
+      ],
+      "优先级 (priority)": "中 (med)",
+      "是否需要回源查看原文 (needs_raw_review)": true
+    },
+    {
+      "制品ID (artifact_id)": "art-2f349655d495",
+      "文件路径 (path)": "ooxml/scripts/unpack.py",
+      "文件类型 (kind)": "Python 脚本 (python)",
+      "文件角色 (role)": "脚本 (script)",
+      "观察结果 (observations)": [
+        "Script to unpack and pretty-print XML from Office files.",
+        "Uses zipfile.ZipFile.extractall and writes formatted XML back.",
+        "Uses defusedxml.minidom for parsing (mitigates XML bombs).",
+        "Generates a random suggested RSID for .docx tracked changes."
+      ],
+      "风险信号 (risk_signals)": [
+        "file_write"
+      ],
+      "证据位置 (evidence_spans)": [
+        {
+          "文件路径 (path)": "ooxml/scripts/unpack.py",
+          "起始行 (start_line)": 24,
+          "结束行 (end_line)": 24,
+          "说明 (why)": "Writes formatted XML bytes back to file."
+        }
+      ],
+      "优先级 (priority)": "低 (low)",
+      "是否需要回源查看原文 (needs_raw_review)": false
+    },
+    {
+      "制品ID (artifact_id)": "art-e92dd8365878",
+      "文件路径 (path)": "ooxml/scripts/validate.py",
+      "文件类型 (kind)": "Python 脚本 (python)",
+      "文件角色 (role)": "脚本 (script)",
+      "观察结果 (observations)": [
+        "Command-line tool to validate unpacked Office XML against XSD schemas and check tracked changes.",
+        "Dispatches to format-specific validators (DOCXSchemaValidator, PPTXSchemaValidator, RedliningValidator)."
+      ],
+      "风险信号 (risk_signals)": [],
+      "证据位置 (evidence_spans)": [],
+      "优先级 (priority)": "低 (low)",
+      "是否需要回源查看原文 (needs_raw_review)": false
+    },
+    {
+      "制品ID (artifact_id)": "art-a996168bd0d7",
+      "文件路径 (path)": "ooxml/scripts/validation/redlining.py",
+      "文件类型 (kind)": "Python 脚本 (python)",
+      "文件角色 (role)": "脚本 (script)",
+      "观察结果 (observations)": [
+        "Validator for tracked changes in Word documents.",
+        "Uses subprocess.run to call diff tool on temporary files.",
+        "Creates temporary files with original and modified XML content for diffing."
+      ],
+      "风险信号 (risk_signals)": [
+        "shell_wrapper",
+        "file_write"
+      ],
+      "证据位置 (evidence_spans)": [
+        {
+          "文件路径 (path)": "ooxml/scripts/validation/redlining.py",
+          "起始行 (start_line)": 153,
+          "结束行 (end_line)": 153,
+          "说明 (why)": "Calls subprocess.run to execute diff command."
+        },
+        {
+          "文件路径 (path)": "ooxml/scripts/validation/redlining.py",
+          "起始行 (start_line)": 149,
+          "结束行 (end_line)": 150,
+          "说明 (why)": "Writes XML content to temporary files for diffing."
+        }
+      ],
+      "优先级 (priority)": "中 (med)",
+      "是否需要回源查看原文 (needs_raw_review)": true
+    },
+    {
+      "制品ID (artifact_id)": "art-a3b98e9af3e7",
+      "文件路径 (path)": "scripts/inventory.py",
+      "文件类型 (kind)": "Python 脚本 (python)",
+      "文件角色 (role)": "脚本 (script)",
+      "观察结果 (observations)": [
+        "Extracts structured text content from PowerPoint presentations to JSON.",
+        "Uses python-pptx library.",
+        "Takes file paths from command-line arguments via argparse.",
+        "Contains logic to find font directories with user expansion (~)."
+      ],
+      "风险信号 (risk_signals)": [
+        "file_write"
+      ],
+      "证据位置 (evidence_spans)": [
+        {
+          "文件路径 (path)": "scripts/inventory.py",
+          "起始行 (start_line)": 82,
+          "结束行 (end_line)": 82,
+          "说明 (why)": "Reads input path from command-line argument."
+        },
+        {
+          "文件路径 (path)": "scripts/inventory.py",
+          "起始行 (start_line)": 319,
+          "结束行 (end_line)": 319,
+          "说明 (why)": "Expands user directory (~) for font path."
+        }
+      ],
+      "优先级 (priority)": "中 (med)",
+      "是否需要回源查看原文 (needs_raw_review)": true
+    },
+    {
+      "制品ID (artifact_id)": "art-1de130940601",
+      "文件路径 (path)": "scripts/rearrange.py",
+      "文件类型 (kind)": "Python 脚本 (python)",
+      "文件角色 (role)": "脚本 (script)",
+      "观察结果 (observations)": [
+        "Rearranges PowerPoint slides based on a sequence of indices.",
+        "Uses python-pptx library to copy slides from template to new presentation.",
+        "Takes file paths and slide sequence from command-line arguments."
+      ],
+      "风险信号 (risk_signals)": [
+        "file_write"
+      ],
+      "证据位置 (evidence_spans)": [],
+      "优先级 (priority)": "低 (low)",
+      "是否需要回源查看原文 (needs_raw_review)": false
+    },
+    {
+      "制品ID (artifact_id)": "art-d35fe6a13b86",
+      "文件路径 (path)": "scripts/replace.py",
+      "文件类型 (kind)": "Python 脚本 (python)",
+      "文件角色 (role)": "脚本 (script)",
+      "观察结果 (observations)": [
+        "Applies text replacements to a PowerPoint presentation using JSON from inventory.py.",
+        "Clears text from shapes unless replacements specified.",
+        "Takes file paths from sys.argv directly (not argparse)."
+      ],
+      "风险信号 (risk_signals)": [
+        "file_write"
+      ],
+      "证据位置 (evidence_spans)": [
+        {
+          "文件路径 (path)": "scripts/replace.py",
+          "起始行 (start_line)": 362,
+          "结束行 (end_line)": 364,
+          "说明 (why)": "Reads input, JSON, and output paths directly from sys.argv."
+        }
+      ],
+      "优先级 (priority)": "中 (med)",
+      "是否需要回源查看原文 (needs_raw_review)": true
+    },
+    {
+      "制品ID (artifact_id)": "art-1e2b509c6c33",
+      "文件路径 (path)": "scripts/suggest-fonts.sh",
+      "文件类型 (kind)": "Shell 脚本 (shell)",
+      "文件角色 (role)": "脚本 (script)",
+      "观察结果 (observations)": [
+        "Bash script to suggest Google Fonts by language.",
+        "Pure informational output, no file operations or network calls."
+      ],
+      "风险信号 (risk_signals)": [],
+      "证据位置 (evidence_spans)": [],
+      "优先级 (priority)": "低 (low)",
+      "是否需要回源查看原文 (needs_raw_review)": false
+    },
+    {
+      "制品ID (artifact_id)": "art-32e96034dda4",
+      "文件路径 (path)": "scripts/thumbnail.py",
+      "文件类型 (kind)": "Python 脚本 (python)",
+      "文件角色 (role)": "脚本 (script)",
+      "观察结果 (observations)": [
+        "Creates thumbnail grid images from presentation slides.",
+        "Uses python-pptx and PIL.",
+        "Takes input path from command-line argument."
+      ],
+      "风险信号 (risk_signals)": [
+        "file_write"
+      ],
+      "证据位置 (evidence_spans)": [
+        {
+          "文件路径 (path)": "scripts/thumbnail.py",
+          "起始行 (start_line)": 98,
+          "结束行 (end_line)": 98,
+          "说明 (why)": "Reads input path from command-line argument."
+        }
+      ],
+      "优先级 (priority)": "中 (med)",
+      "是否需要回源查看原文 (needs_raw_review)": true
+    },
+    {
+      "制品ID (artifact_id)": "art-7e1aba8a0649",
+      "文件路径 (path)": "html2pptx.md",
+      "文件类型 (kind)": "Markdown 文档 (markdown)",
+      "文件角色 (role)": "文档 (documentation)",
+      "观察结果 (observations)": [
+        "Guide for converting HTML slides to PowerPoint using html2pptx.js library.",
+        "Includes code examples requiring Node.js, playwright, sharp.",
+        "Emphasizes strict rules for HTML structure and font usage.",
+        "Contains claims about 'web-safe fonts' and 'universally available'."
+      ],
+      "风险信号 (risk_signals)": [
+        "prompt_rule"
+      ],
+      "证据位置 (evidence_spans)": [
+        {
+          "文件路径 (path)": "html2pptx.md",
+          "起始行 (start_line)": 46,
+          "结束行 (end_line)": 47,
+          "说明 (why)": "Makes safety claims about font usage: 'ONLY use web-safe fonts that are universally available'."
+        }
+      ],
+      "优先级 (priority)": "低 (low)",
+      "是否需要回源查看原文 (needs_raw_review)": false
+    },
+    {
+      "制品ID (artifact_id)": "art-def0d979b5b7",
+      "文件路径 (path)": "scripts/html2pptx.js",
+      "文件类型 (kind)": "文本文件 (text)",
+      "文件角色 (role)": "辅助材料 (supporting)",
+      "观察结果 (observations)": [
+        "Node.js module to convert HTML to pptxgenjs slide with positioned elements.",
+        "Uses playwright (headless browser) to render HTML and compute layout.",
+        "Uses sharp for image processing.",
+        "Exports function for use with pptxgenjs."
+      ],
+      "风险信号 (risk_signals)": [
+        "network_call"
+      ],
+      "证据位置 (evidence_spans)": [
+        {
+          "文件路径 (path)": "scripts/html2pptx.js",
+          "起始行 (start_line)": 0,
+          "结束行 (end_line)": 0,
+          "说明 (why)": "Requires playwright and sharp; involves headless browser execution."
+        }
+      ],
+      "优先级 (priority)": "高 (high)",
+      "是否需要回源查看原文 (needs_raw_review)": true
+    }
+  ],
+  "跨文件关注点 (cross_artifact_concerns)": [
+    {
+      "关注点类型 (concern_type)": "不安全候选 (unsafe_candidate)",
+      "关联制品IDs (artifact_ids)": [
+        "art-2bf971b24994",
+        "art-a996168bd0d7",
+        "art-a3b98e9af3e7",
+        "art-d35fe6a13b86",
+        "art-32e96034dda4"
+      ],
+      "证据位置 (evidence_spans)": [
+        {
+          "文件路径 (path)": "ooxml/scripts/pack.py",
+          "起始行 (start_line)": 103,
+          "结束行 (end_line)": 103,
+          "说明 (why)": "Subprocess call to xmllint with user-controlled directory path; potential command injection if arguments are not sanitized."
+        },
+        {
+          "文件路径 (path)": "ooxml/scripts/validation/redlining.py",
+          "起始行 (start_line)": 153,
+          "结束行 (end_line)": 153,
+          "说明 (why)": "Subprocess call to diff with temporary file paths; potential shell injection risk."
+        },
+        {
+          "文件路径 (path)": "scripts/inventory.py",
+          "起始行 (start_line)": 82,
+          "结束行 (end_line)": 82,
+          "说明 (why)": "Takes file path from command line; potential path traversal if input is not validated."
+        },
+        {
+          "文件路径 (path)": "scripts/replace.py",
+          "起始行 (start_line)": 362,
+          "结束行 (end_line)": 364,
+          "说明 (why)": "Reads file paths directly from sys.argv without argparse validation; potential path traversal."
+        },
+        {
+          "文件路径 (path)": "scripts/thumbnail.py",
+          "起始行 (start_line)": 98,
+          "结束行 (end_line)": 98,
+          "说明 (why)": "Takes file path from command line; potential path traversal."
+        }
+      ],
+      "原因说明 (why)": "Multiple scripts accept file paths from command-line arguments or sys.argv without apparent path sanitization, creating potential for path traversal attacks. Subprocess calls in pack.py and redlining.py could be vulnerable to injection if arguments are not properly sanitized (though they appear to use Path objects)."
+    },
+    {
+      "关注点类型 (concern_type)": "描述缺口 (description_gap)",
+      "关联制品IDs (artifact_ids)": [
+        "art-0e95f5a36660",
+        "art-7e1aba8a0649"
+      ],
+      "证据位置 (evidence_spans)": [
+        {
+          "文件路径 (path)": "SKILL.md",
+          "起始行 (start_line)": 60,
+          "结束行 (end_line)": 60,
+          "说明 (why)": "Claims about 'safe' fonts are subjective and not a security guarantee."
+        },
+        {
+          "文件路径 (path)": "html2pptx.md",
+          "起始行 (start_line)": 46,
+          "结束行 (end_line)": 47,
+          "说明 (why)": "Claims about 'web-safe fonts' and 'universally available' are potentially misleading; font availability depends on system."
+        }
+      ],
+      "原因说明 (why)": "Documentation makes absolute safety claims ('safe fonts', 'universally available') that are not technically accurate and could mislead users about security or compatibility."
+    }
+  ],
+  "建议回源片段 (retrieval_requests)": [
+    {
+      "文件路径 (path)": "scripts/html2pptx.js",
+      "起始行 (start_line)": 0,
+      "结束行 (end_line)": 100,
+      "请求原因 (reason)": "High priority: Need to examine the full implementation of the html2pptx module, especially its use of playwright (headless browser) and sharp, to assess network and local resource access patterns."
+    },
+    {
+      "文件路径 (path)": "ooxml/scripts/pack.py",
+      "起始行 (start_line)": 90,
+      "结束行 (end_line)": 130,
+      "请求原因 (reason)": "Medium priority: Need to see the full subprocess.run call and argument construction for xmllint to assess injection risk."
+    },
+    {
+      "文件路径 (path)": "ooxml/scripts/validation/redlining.py",
+      "起始行 (start_line)": 140,
+      "结束行 (end_line)": 160,
+      "请求原因 (reason)": "Medium priority: Need to examine the subprocess.run call for diff and how temporary file paths are constructed."
+    },
+    {
+      "文件路径 (path)": "scripts/replace.py",
+      "起始行 (start_line)": 360,
+      "结束行 (end_line)": 380,
+      "请求原因 (reason)": "Medium priority: Need to see the main() function and how sys.argv is used to understand input handling."
+    },
+    {
+      "文件路径 (path)": "scripts/inventory.py",
+      "起始行 (start_line)": 315,
+      "结束行 (end_line)": 325,
+      "请求原因 (reason)": "Medium priority: Need to examine the font directory path expansion logic for potential unsafe path handling."
+    }
+  ],
+  "覆盖情况 (coverage)": {
+    "文件总数 (total_artifacts)": 58,
+    "已索引文件数 (indexed_artifacts)": 57,
+    "覆盖缺口列表 (coverage_gaps)": [
+      {
+        "文件路径 (path)": "ooxml/schemas/ISO-IEC29500-4_2016/sml.xsd",
+        "原因 (why)": "truncated_large_text_file"
+      }
+    ]
+  }
+}

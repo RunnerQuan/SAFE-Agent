@@ -1,0 +1,38 @@
+{
+  "chains": [
+    {
+      "chain_id": "chain_001",
+      "tools": [
+        "get_email_content",
+        "write_file",
+        "run_terminal"
+      ],
+      "chain_display": "get_email_content -> write_file -> run_terminal",
+      "chain_display_with_mcp": "[Claude Post] get_email_content -> [Filesystem MCP] write_file -> [Shell MCP] run_terminal",
+      "sink_tool": "run_terminal",
+      "sink_type": "CMDi",
+      "user_source_risk": {
+        "supported": true,
+        "earliest_tool": "get_email_content",
+        "earliest_field": "account",
+        "carrier": "account",
+        "reason": "`get_email_content` accepts user-controlled input through `account`, which can plausibly enter the chain from dialogue.",
+        "confidence": "low"
+      },
+      "environment_source_risk": {
+        "supported": true,
+        "earliest_tool": "get_email_content",
+        "earliest_field_or_resource": "email_store",
+        "carrier": "email_content",
+        "reason": "`get_email_content` appears to ingest untrusted external content from `email_store`, which can plausibly propagate toward the sink.",
+        "confidence": "high"
+      },
+      "recommended_boundary": {
+        "type": "environment-source",
+        "tool": "get_email_content",
+        "field_or_resource": "email_store",
+        "reason": "`get_email_content` appears to ingest untrusted external content from `email_store`, which can plausibly propagate toward the sink."
+      }
+    }
+  ]
+}

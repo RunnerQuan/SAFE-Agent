@@ -1,0 +1,13 @@
+{
+  "mode": "static-pure",
+  "framework": "scan_bb742e49",
+  "input_path": "C:\\Files\\Study\\Codes\\SAFE-Agent\\backend\\MTAtlas\\data\\workspaces\\bb742e49-56d8-4145-9ef0-fff85bd00da2\\mtatlas\\input\\tools.json",
+  "tool_count": 9,
+  "sink_tools": 0,
+  "dependency_edges": 33,
+  "candidate_chain_count": 0,
+  "accepted_chain_count": 0,
+  "rejected_chain_count": 0,
+  "chains": [],
+  "wall_time_seconds": 0.06434249877929688
+}

@@ -1,0 +1,42 @@
+{
+  "scanId": "9e3b7a1c-5d24-4f8e-a6c1-2b0d7f9e3a65Z",
+  "title": "MyChart 用药评论发布",
+  "category": "Social",
+  "pipelineName": "gpt-5.1",
+  "userTaskId": "user_task_10",
+  "createdAt": "2026-01-17T22:08:44.157272+08:00",
+  "startedAt": "2026-01-17T22:10:14.157272+08:00",
+  "finishedAt": "2026-01-17T22:10:31+08:00",
+  "durationMs": 16842,
+  "reportId": "9e3b7a1c-5d24-4f8e-a6c1-2b0d7f9e3a65Z-report",
+  "toolCount": 13,
+  "inputSources": [
+    {
+      "fileName": "chrome.json",
+      "workspacePath": "C:\\Files\\Study\\Codes\\SAFE-Agent\\backend\\agentRaft\\data\\workspaces\\9e3b7a1c-5d24-4f8e-a6c1-2b0d7f9e3a65Z\\agentRaft\\input\\chrome.json",
+      "toolCount": 4,
+      "functions": [
+        "chrome_get_web_content",
+        "chrome_fill_or_select",
+        "chrome_bookmark_add",
+        "chrome_search_everywhere"
+      ]
+    },
+    {
+      "fileName": "xiaohongshu.json",
+      "workspacePath": "C:\\Files\\Study\\Codes\\SAFE-Agent\\backend\\agentRaft\\data\\workspaces\\9e3b7a1c-5d24-4f8e-a6c1-2b0d7f9e3a65Z\\agentRaft\\input\\xiaohongshu.json",
+      "toolCount": 9,
+      "functions": [
+        "publish_content",
+        "list_feeds",
+        "search_feeds",
+        "get_feed_detail",
+        "xhs_user_profile",
+        "post_comment_to_feed",
+        "reply_comment_in_feed",
+        "like_feed",
+        "favorite_feed"
+      ]
+    }
+  ]
+}

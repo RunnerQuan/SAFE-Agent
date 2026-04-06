@@ -74,9 +74,9 @@ type ReportDownload = {
 const FRONTEND_ROOT = process.cwd()
 const PROJECT_ROOT = path.resolve(FRONTEND_ROOT, '..')
 const BACKEND_ROOT = path.join(PROJECT_ROOT, 'backend', 'MTAtlas')
-const STATE_ROOT = path.join(FRONTEND_ROOT, '.data')
-const WORKSPACES_ROOT = path.join(STATE_ROOT, 'mtatlas-workspaces')
-const STATE_FILE = path.join(STATE_ROOT, 'mtatlas-state.json')
+const DATA_ROOT = path.join(PROJECT_ROOT, 'backend', 'MTAtlas', 'data')
+const WORKSPACES_ROOT = path.join(DATA_ROOT, 'workspaces')
+const STATE_FILE = path.join(DATA_ROOT, 'mtatlas-state.json')
 const DEFAULT_AGENT_ID = 'mtatlas-default'
 const HIGH_RISK_SINK_TYPES = new Set(['CMDi', 'RCE', 'SQLi', 'SSTI', 'TemplateInjection', 'CodeInjection'])
 const MEDIUM_RISK_SINK_TYPES = new Set(['SSRF', 'PathTraversal', 'FileWrite', 'FileRead', 'DataExfiltration'])
@@ -127,7 +127,7 @@ function getScanParams(scan: Scan): MTAtlasScanParams {
 }
 
 async function ensureStateRoot() {
-  await fs.mkdir(STATE_ROOT, { recursive: true })
+  await fs.mkdir(DATA_ROOT, { recursive: true })
 }
 
 async function readJsonFile<T>(filePath: string, fallback: T): Promise<T> {
@@ -285,14 +285,15 @@ function normalizeMetadataItem(input: Record<string, unknown>): MTAtlasMetadataI
       ? input.implementation
       : ''
 
-  if (!func_signature || !description || !MCP || !code) {
-    throw new Error('Each metadata item must contain func_signature, description, MCP, and code.')
+  // 要求 func_signature、MCP、code 中至少有一个不为空，description 可以为空
+  if (!func_signature && !MCP && !code) {
+    throw new Error('Each metadata item must contain at least one of: func_signature, MCP, or code.')
   }
 
   return {
     func_signature: func_signature.trim(),
     description: description.trim(),
-    MCP: MCP.trim(),
+    MCP: MCP.trim() || 'Uploaded',
     code,
   }
 }

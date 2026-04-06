@@ -113,6 +113,11 @@ export default function ScanDetailPage() {
 
   const handleDownload = async (format: 'pdf' | 'json') => {
     try {
+      if (!scan) {
+        toast.error('当前任务尚未加载完成。')
+        return
+      }
+
       toast.info('开始导出报告…')
       const taskName = getTaskTitle(scan)
       const fileName = `检测报告-${taskName}`
@@ -872,6 +877,7 @@ function FindingsSection({
 
 function FindingCard({ finding, type }: { finding: ExposureFinding | FuzzingFinding; type: ScanType }) {
   const [open, setOpen] = useState(false)
+  const trace = type === 'fuzzing' && 'trace' in finding && Array.isArray(finding.trace) ? finding.trace : []
 
   const severityLabel = finding.severity === 'high' ? '高危' : finding.severity === 'medium' ? '中危' : '低危'
   const severityIcon = finding.severity === 'high' ? '!' : finding.severity === 'medium' ? '⚠' : 'ℹ'
@@ -903,16 +909,16 @@ function FindingCard({ finding, type }: { finding: ExposureFinding | FuzzingFind
           <p className="scan-detail-finding-desc text-slate-600 dark:text-slate-300">{finding.description}</p>
           
           {/* 组合式漏洞链路展示 - 更显眼的方式 */}
-          {type === 'fuzzing' && 'trace' in finding && finding.trace && finding.trace.length > 0 && (
+          {trace.length > 0 && (
             <div className="rounded-xl border border-sky-200 bg-gradient-to-r from-sky-50/80 to-blue-50/60 p-4 dark:border-sky-800/60 dark:from-sky-950/30 dark:to-blue-950/20">
               <p className="mb-3 text-sm font-semibold text-sky-700 dark:text-sky-300">调用链路</p>
               <div className="flex flex-wrap items-center gap-2">
-                {finding.trace.map((step, index) => (
+                {trace.map((step, index) => (
                   <div key={index} className="flex items-center gap-2">
                     <span className="rounded-lg bg-white/80 px-3 py-1.5 text-sm font-medium text-slate-700 shadow-sm dark:bg-slate-800/80 dark:text-slate-200">
                       {step}
                     </span>
-                    {index < finding.trace.length - 1 && (
+                    {index < trace.length - 1 && (
                       <span className="text-sky-400 dark:text-sky-500">
                         <Waypoints className="h-4 w-4" />
                       </span>

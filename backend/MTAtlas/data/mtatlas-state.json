@@ -1,0 +1,1436 @@
+{
+  "agents": [
+    {
+      "id": "mtatlas-default",
+      "name": "MTAtlas Composite Vulnerability Detection",
+      "version": "1.0",
+      "description": "Runs MTAtlas static-pure analysis over uploaded Agent function metadata to detect multi-tool vulnerability chains.",
+      "tags": [
+        "mtatlas",
+        "fuzzing",
+        "static-pure",
+        "metadata"
+      ],
+      "inputType": "spec_upload",
+      "specFilename": "Tool metadata JSON",
+      "createdAt": "2026-04-06T02:52:30.592Z",
+      "updatedAt": "2026-04-06T03:38:58.417Z",
+      "toolCount": 3,
+      "highRiskToolCount": 1,
+      "lastScanAt": "2026-04-06T03:38:58.417Z"
+    }
+  ],
+  "scans": [
+    {
+      "id": "bb742e49-56d8-4145-9ef0-fff85bd00da2",
+      "agentId": "mtatlas-default",
+      "agentName": "MTAtlas Composite Vulnerability Detection",
+      "title": "小红书agent 组合式漏洞检测",
+      "types": [
+        "fuzzing"
+      ],
+      "status": "succeeded",
+      "createdAt": "2026-04-06T03:38:58.417Z",
+      "params": {
+        "taskName": "小红书agent 组合式漏洞检测",
+        "metadataText": "[\n  {\n    \"func_signature\": \"publish_content\",\n    \"inputs\": [],\n    \"outputs\": [],\n    \"MCP\": \"xiaohongshu\",\n    \"description\": \"\",\n    \"code\": \"def publish_content(\\n    xiaohongshu: Annotated[Xiaohongshu, Depends(\\\"xiaohongshu\\\")],\\n    title: str,\\n    content: str,\\n    tags: List[str] | None = None,\\n) -> str:\\n    \\\"\\\"\\\"\\n    Publishes a new text-only feed to the platform.\\n\\n    Creates a feed with a title, content, optional tags, and a timestamp,\\n    and assigns it to the current user.\\n\\n    :param title: Title of the feed (maximum 20 characters).\\n    :param content: Main text content of the feed.\\n    :param tags: Optional list of tag strings.\\n    :return: JSON string containing the published feed information.\\n    :raises ValueError: If the title exceeds the length limit.\\n    \\\"\\\"\\\"\\n    feed = xiaohongshu.publish_content(title, content, tags)\\n    return tool_ok({\\n        \\\"feed_id\\\": feed.id,\\n        \\\"title\\\": feed.title,\\n        \\\"content\\\": feed.content,\\n        \\\"tags\\\": feed.tags,\\n        \\\"timestamp\\\": feed.timestamp.isoformat(),\\n    })\"\n  },\n  {\n    \"func_signature\": \"list_feeds\",\n    \"inputs\": [],\n    \"outputs\": [],\n    \"MCP\": \"xiaohongshu\",\n    \"description\": \"\",\n    \"code\": \"def list_feeds(\\n    xiaohongshu: Annotated[Xiaohongshu, Depends(\\\"xiaohongshu\\\")]\\n) -> str:\\n    \\\"\\\"\\\"\\nLists all feeds in the system ordered by recency.\\n\\nReturns a summary view of each feed, sorted by timestamp in descending order.\\n\\n:return: JSON string containing a list of feed summaries.\\n\\\"\\\"\\\"\\n\\n    feeds = xiaohongshu.list_feeds()\\n    return tool_ok([\\n        {\\n            \\\"feed_id\\\": f.id,\\n            \\\"user_id\\\": f.user_id,\\n            \\\"title\\\": f.title,\\n            \\\"content_preview\\\": f.content[:50] + \\\"...\\\" if len(f.content) > 50 else f.content,\\n            \\\"tags\\\": f.tags,\\n            \\\"likes\\\": f.likes,\\n            \\\"favorites\\\": f.favorites,\\n            \\\"comment_count\\\": len(f.comments),\\n            \\\"timestamp\\\": f.timestamp.isoformat(),\\n        }\\n        for f in feeds\\n    ])\"\n  },\n  {\n    \"func_signature\": \"search_feeds\",\n    \"inputs\": [],\n    \"outputs\": [],\n    \"MCP\": \"xiaohongshu\",\n    \"description\": \"\",\n    \"code\": \"def search_feeds(\\n    xiaohongshu: Annotated[Xiaohongshu, Depends(\\\"xiaohongshu\\\")],\\n    keyword: str,\\n    sort_by: str = \\\"综合\\\",\\n) -> str:\\n    \\\"\\\"\\\"\\n    Searches feeds by keyword and optional sorting strategy.\\n\\n    The keyword is matched against feed titles, contents, and tags.\\n\\n    :param keyword: Search keyword (must be non-empty).\\n    :param sort_by: Sorting strategy (e.g., 综合, 最新, 最多点赞).\\n    :return: JSON string containing matched feed summaries.\\n    :raises ValueError: If the keyword is empty.\\n    \\\"\\\"\\\"\\n    if not keyword.strip():\\n        raise ValueError(\\\"Keyword cannot be empty.\\\")\\n    feeds = xiaohongshu.search_feeds(keyword, sort_by)\\n    return tool_ok([\\n        {\\n            \\\"feed_id\\\": f.id,\\n            \\\"user_id\\\": f.user_id,\\n            \\\"title\\\": f.title,\\n            \\\"content_preview\\\": f.content[:50] + \\\"...\\\" if len(f.content) > 50 else f.content,\\n            \\\"tags\\\": f.tags,\\n            \\\"likes\\\": f.likes,\\n            \\\"favorites\\\": f.favorites,\\n            \\\"comment_count\\\": len(f.comments),\\n            \\\"timestamp\\\": f.timestamp.isoformat(),\\n        }\\n        for f in feeds\\n    ])\"\n  },\n  {\n    \"func_signature\": \"get_feed_detail\",\n    \"inputs\": [],\n    \"outputs\": [],\n    \"MCP\": \"xiaohongshu\",\n    \"description\": \"\",\n    \"code\": \"def get_feed_detail(\\n    xiaohongshu: Annotated[Xiaohongshu, Depends(\\\"xiaohongshu\\\")],\\n    feed_id: str,\\n) -> str:\\n    \\\"\\\"\\\"\\n    Retrieves full details of a specific feed.\\n\\n    Includes the feed content, metadata, and all associated comments and replies.\\n\\n    :param feed_id: Identifier of the feed.\\n    :return: JSON string containing detailed feed information.\\n    :raises ValueError: If the feed does not exist.\\n    \\\"\\\"\\\"\\n\\n    feed = xiaohongshu.get_feed_detail(feed_id)\\n\\n    def serialize_comment(c: Comment) -> Dict[str, Any]:\\n        return {\\n            \\\"comment_id\\\": c.id,\\n            \\\"user_id\\\": c.user_id,\\n            \\\"content\\\": c.content,\\n            \\\"timestamp\\\": c.timestamp.isoformat(),\\n            \\\"replies\\\": [serialize_comment(r) for r in c.replies],\\n        }\\n\\n    return tool_ok({\\n        \\\"feed_id\\\": feed.id,\\n        \\\"user_id\\\": feed.user_id,\\n        \\\"title\\\": feed.title,\\n        \\\"content\\\": feed.content,\\n        \\\"tags\\\": feed.tags,\\n        \\\"likes\\\": feed.likes,\\n        \\\"favorites\\\": feed.favorites,\\n        \\\"timestamp\\\": feed.timestamp.isoformat(),\\n        \\\"comments\\\": [serialize_comment(c) for c in feed.comments],\\n    })\"\n  },\n  {\n    \"func_signature\": \"xhs_user_profile\",\n    \"inputs\": [],\n    \"outputs\": [],\n    \"MCP\": \"xiaohongshu\",\n    \"description\": \"\",\n    \"code\": \"def xhs_user_profile(\\n    xiaohongshu: Annotated[Xiaohongshu, Depends(\\\"xiaohongshu\\\")],\\n    user_id: str,\\n) -> str:\\n    \\\"\\\"\\\"\\n    Retrieves a user's profile and their published feeds.\\n\\n    Returns basic user information along with summaries of authored feeds.\\n\\n    :param user_id: Identifier of the user.\\n    :return: JSON string containing user profile information.\\n    :raises ValueError: If the user does not exist.\\n    \\\"\\\"\\\"\\n\\n    user = xiaohongshu.user_profile(user_id)\\n    user_feeds = [xiaohongshu.feeds[feed_id] for feed_id in user.posts if feed_id in xiaohongshu.feeds]\\n    return tool_ok({\\n        \\\"user_id\\\": user.id,\\n        \\\"username\\\": user.username,\\n        \\\"post_count\\\": len(user.posts),\\n        \\\"feeds\\\": [\\n            {\\n                \\\"feed_id\\\": f.id,\\n                \\\"title\\\": f.title,\\n                \\\"timestamp\\\": f.timestamp.isoformat(),\\n                \\\"likes\\\": f.likes,\\n                \\\"favorites\\\": f.favorites,\\n            }\\n            for f in user_feeds\\n        ],\\n    })\"\n  },\n  {\n    \"func_signature\": \"post_comment_to_feed\",\n    \"inputs\": [],\n    \"outputs\": [],\n    \"MCP\": \"xiaohongshu\",\n    \"description\": \"\",\n    \"code\": \"def post_comment_to_feed(\\n    xiaohongshu: Annotated[Xiaohongshu, Depends(\\\"xiaohongshu\\\")],\\n    feed_id: str,\\n    content: str,\\n) -> str:\\n    \\\"\\\"\\\"\\n    Posts a top-level comment to a feed.\\n\\n    Creates a new comment authored by the current user.\\n\\n    :param feed_id: Identifier of the target feed.\\n    :param content: Text content of the comment.\\n    :return: JSON string containing the comment identifier and status message.\\n    :raises ValueError: If the content is empty or the feed does not exist.\\n    \\\"\\\"\\\"\\n\\n    if not content.strip():\\n        raise ValueError(\\\"Comment content cannot be empty.\\\")\\n    comment = xiaohongshu.post_comment_to_feed(feed_id, content)\\n    return  tool_ok({\\n        \\\"comment_id\\\": comment.id,\\n        \\\"message\\\": \\\"Comment posted successfully.\\\"\\n    })\"\n  },\n  {\n    \"func_signature\": \"reply_comment_in_feed\",\n    \"inputs\": [],\n    \"outputs\": [],\n    \"MCP\": \"xiaohongshu\",\n    \"description\": \"\",\n    \"code\": \"def reply_comment_in_feed(\\n    xiaohongshu: Annotated[Xiaohongshu, Depends(\\\"xiaohongshu\\\")],\\n    feed_id: str,\\n    comment_id: str,\\n    content: str,\\n) -> str:\\n    \\\"\\\"\\\"\\nReplies to an existing comment in a feed.\\n\\nCreates a single-level reply to a specified top-level comment.\\n\\n:param feed_id: Identifier of the target feed.\\n:param comment_id: Identifier of the comment being replied to.\\n:param content: Text content of the reply.\\n:return: JSON string containing the reply identifier and status message.\\n:raises ValueError: If the content is empty or the comment does not exist.\\n\\\"\\\"\\\"\\n\\n    if not content.strip():\\n        raise ValueError(\\\"Reply content cannot be empty.\\\")\\n    reply = xiaohongshu.reply_comment_in_feed(feed_id, comment_id, content)\\n    return  tool_ok({\\n        \\\"reply_id\\\": reply.id,\\n        \\\"message\\\": \\\"Reply posted successfully.\\\"\\n    })\"\n  },\n  {\n    \"func_signature\": \"like_feed\",\n    \"inputs\": [],\n    \"outputs\": [],\n    \"MCP\": \"xiaohongshu\",\n    \"description\": \"\",\n    \"code\": \"def like_feed(\\n    xiaohongshu: Annotated[Xiaohongshu, Depends(\\\"xiaohongshu\\\")],\\n    feed_id: str,\\n    unlike: bool = False,\\n) -> str:\\n    \\\"\\\"\\\"\\n    Likes or unlikes a feed.\\n\\n    Toggles the like state of a feed for the current user.\\n\\n    :param feed_id: Identifier of the feed.\\n    :param unlike: Whether to remove an existing like.\\n    :return: JSON string containing the operation result.\\n    :raises ValueError: If the feed does not exist.\\n    \\\"\\\"\\\"\\n\\n    success = xiaohongshu.like_feed(feed_id, unlike)\\n    action = \\\"unliked\\\" if unlike else \\\"liked\\\"\\n    message = f\\\"Feed {action} successfully.\\\" if success else f\\\"Feed was already {'not ' if unlike else ''}{action}.\\\"\\n    return  tool_ok({\\n        \\\"success\\\": success,\\n        \\\"message\\\": message,\\n        \\\"feed_id\\\": feed_id,\\n    })\"\n  },\n  {\n    \"func_signature\": \"favorite_feed\",\n    \"inputs\": [],\n    \"outputs\": [],\n    \"MCP\": \"xiaohongshu\",\n    \"description\": \"\",\n    \"code\": \"def favorite_feed(\\n    xiaohongshu: Annotated[Xiaohongshu, Depends(\\\"xiaohongshu\\\")],\\n    feed_id: str,\\n    unfavorite: bool = False,\\n) -> str:\\n    \\\"\\\"\\\"\\nFavorites or unfavorites a feed.\\n\\nToggles the favorite state of a feed for the current user.\\n\\n:param feed_id: Identifier of the feed.\\n:param unfavorite: Whether to remove an existing favorite.\\n:return: JSON string containing the operation result.\\n:raises ValueError: If the feed does not exist.\\n\\\"\\\"\\\"\\n\\n    success = xiaohongshu.favorite_feed(feed_id, unfavorite)\\n    action = \\\"unfavorited\\\" if unfavorite else \\\"favorited\\\"\\n    message = f\\\"Feed {action} successfully.\\\" if success else f\\\"Feed was already {'not ' if unfavorite else ''}{action}.\\\"\\n    return  tool_ok({\\n        \\\"success\\\": success,\\n        \\\"message\\\": message,\\n        \\\"feed_id\\\": feed_id,\\n    })\"\n  }\n]",
+        "sourceFunctions": [],
+        "sinkFunctions": [],
+        "toolCount": 9,
+        "selectedChecks": [
+          "fuzzing"
+        ]
+      },
+      "progress": {
+        "stage": "done",
+        "percent": 100,
+        "message": "MTAtlas analysis completed."
+      },
+      "startedAt": "2026-04-06T03:38:58.586Z",
+      "finishedAt": "2026-04-06T03:39:03.336Z",
+      "durationMs": 4919,
+      "reportId": "e3adfa5b-88ea-4d8e-b4f3-af1b75fbcbc8"
+    },
+    {
+      "id": "f71ca99b-9acc-4af0-964a-2d5828dabd5a",
+      "agentId": "mtatlas-default",
+      "agentName": "MTAtlas Composite Vulnerability Detection",
+      "title": "email_agent 组合式漏洞检测",
+      "types": [
+        "fuzzing"
+      ],
+      "status": "succeeded",
+      "createdAt": "2026-04-06T02:52:30.593Z",
+      "params": {
+        "taskName": "email_agent 组合式漏洞检测",
+        "metadataText": "[\n  {\n    \"func_signature\": \"get_email_content\",\n    \"description\": \"Get the full content of a specific email by its ID, including sender, recipient, subject, and body content.\",\n    \"MCP\": \"Claude Post\",\n    \"code\": \"def get_email_content(account, email_id: str) -> str:\\n    for msg in account.messages:\\n        if msg.id == email_id:\\n            return f\\\"Subject: {msg.subject}\\\\nContent:\\\\n{msg.body}\\\"\\n    return \\\"\\\"\"\n  },\n  {\n    \"func_signature\": \"write_file\",\n    \"description\": \"Write provided content to a local file path and return the saved path.\",\n    \"MCP\": \"Filesystem MCP\",\n    \"code\": \"from pathlib import Path\\n\\ndef write_file(path: str, content: str) -> str:\\n    Path(path).write_text(content)\\n    return path\"\n  },\n  {\n    \"func_signature\": \"run_terminal\",\n    \"description\": \"Run a shell command on the provided file path.\",\n    \"MCP\": \"Shell MCP\",\n    \"code\": \"import subprocess\\n\\ndef run_terminal(path: str) -> str:\\n    return subprocess.getoutput(f\\\"cat {path}\\\")\"\n  }\n]\n",
+        "sourceFunctions": [],
+        "sinkFunctions": [],
+        "toolCount": 3,
+        "selectedChecks": [
+          "fuzzing"
+        ]
+      },
+      "progress": {
+        "stage": "done",
+        "percent": 100,
+        "message": "MTAtlas analysis completed."
+      },
+      "startedAt": "2026-04-06T02:52:30.717Z",
+      "finishedAt": "2026-04-06T02:52:35.603Z",
+      "durationMs": 5010,
+      "reportId": "0176f5b5-2bc0-47da-bfed-7f5c359ac7b9"
+    }
+  ],
+  "reportDetails": [
+    {
+      "id": "e3adfa5b-88ea-4d8e-b4f3-af1b75fbcbc8",
+      "agentId": "mtatlas-default",
+      "agentName": "MTAtlas Composite Vulnerability Detection",
+      "title": "小红书agent 组合式漏洞检测",
+      "toolCount": 9,
+      "scanId": "bb742e49-56d8-4145-9ef0-fff85bd00da2",
+      "createdAt": "2026-04-06T03:39:03.320Z",
+      "types": [
+        "fuzzing"
+      ],
+      "risk": "unknown",
+      "summary": {
+        "totalFindings": 0,
+        "fuzzingFindings": 0,
+        "chainToolCount": 0
+      },
+      "overviewText": [
+        "MTAtlas analyzed 9 tools in static-pure mode.",
+        "0 sink tools and 0 accepted candidate chains were retained after filtering.",
+        "No plausible composition-risk chain was retained in this run."
+      ],
+      "fuzzing": {
+        "findings": [],
+        "stats": {
+          "high": 0,
+          "medium": 0,
+          "low": 0
+        }
+      },
+      "recommendations": [
+        "Constrain high-impact sink tools with explicit allowlists and precondition checks.",
+        "Review sink tools for cross-tool argument binding assumptions.",
+        "Review accepted chains and break unnecessary tool-to-tool dependencies."
+      ],
+      "raw": {
+        "mtatlas": {
+          "summary": {
+            "mode": "static-pure",
+            "framework": "scan_bb742e49",
+            "input_path": "C:\\Files\\Study\\Codes\\SAFE-Agent\\backend\\MTAtlas\\data\\workspaces\\bb742e49-56d8-4145-9ef0-fff85bd00da2\\mtatlas\\input\\tools.json",
+            "tool_count": 9,
+            "sink_tools": 0,
+            "dependency_edges": 33,
+            "candidate_chain_count": 0,
+            "accepted_chain_count": 0,
+            "rejected_chain_count": 0,
+            "chains": [],
+            "wall_time_seconds": 0.06434249877929688
+          },
+          "normalizedTools": {
+            "tools": [
+              {
+                "tool_name": "favorite_feed",
+                "mcp_name": "xiaohongshu",
+                "description": "",
+                "input_params": [
+                  {
+                    "name": "feed_id",
+                    "type": "str",
+                    "kind": "user_input",
+                    "required": true
+                  },
+                  {
+                    "name": "unfavorite",
+                    "type": "bool",
+                    "kind": "user_input",
+                    "required": false
+                  }
+                ],
+                "injected_params": [
+                  {
+                    "name": "xiaohongshu",
+                    "type": "Annotated[Xiaohongshu, Depends('xiaohongshu')]",
+                    "kind": "depends_injection",
+                    "required": false
+                  }
+                ],
+                "return_shape": "text",
+                "return_fields": [
+                  "body",
+                  "content",
+                  "email_content"
+                ],
+                "side_effects": [],
+                "content_sources": []
+              },
+              {
+                "tool_name": "get_feed_detail",
+                "mcp_name": "xiaohongshu",
+                "description": "",
+                "input_params": [
+                  {
+                    "name": "feed_id",
+                    "type": "str",
+                    "kind": "user_input",
+                    "required": true
+                  }
+                ],
+                "injected_params": [
+                  {
+                    "name": "xiaohongshu",
+                    "type": "Annotated[Xiaohongshu, Depends('xiaohongshu')]",
+                    "kind": "depends_injection",
+                    "required": false
+                  }
+                ],
+                "return_shape": "text",
+                "return_fields": [
+                  "comment_id",
+                  "content",
+                  "replies",
+                  "timestamp",
+                  "user_id"
+                ],
+                "side_effects": [
+                  "index_store",
+                  "persistent_write"
+                ],
+                "content_sources": [
+                  "indexed_document"
+                ]
+              },
+              {
+                "tool_name": "like_feed",
+                "mcp_name": "xiaohongshu",
+                "description": "",
+                "input_params": [
+                  {
+                    "name": "feed_id",
+                    "type": "str",
+                    "kind": "user_input",
+                    "required": true
+                  },
+                  {
+                    "name": "unlike",
+                    "type": "bool",
+                    "kind": "user_input",
+                    "required": false
+                  }
+                ],
+                "injected_params": [
+                  {
+                    "name": "xiaohongshu",
+                    "type": "Annotated[Xiaohongshu, Depends('xiaohongshu')]",
+                    "kind": "depends_injection",
+                    "required": false
+                  }
+                ],
+                "return_shape": "text",
+                "return_fields": [
+                  "body",
+                  "content",
+                  "email_content"
+                ],
+                "side_effects": [],
+                "content_sources": []
+              },
+              {
+                "tool_name": "list_feeds",
+                "mcp_name": "xiaohongshu",
+                "description": "",
+                "input_params": [],
+                "injected_params": [
+                  {
+                    "name": "xiaohongshu",
+                    "type": "Annotated[Xiaohongshu, Depends('xiaohongshu')]",
+                    "kind": "depends_injection",
+                    "required": false
+                  }
+                ],
+                "return_shape": "text",
+                "return_fields": [
+                  "content"
+                ],
+                "side_effects": [],
+                "content_sources": []
+              },
+              {
+                "tool_name": "post_comment_to_feed",
+                "mcp_name": "xiaohongshu",
+                "description": "",
+                "input_params": [
+                  {
+                    "name": "feed_id",
+                    "type": "str",
+                    "kind": "user_input",
+                    "required": true
+                  },
+                  {
+                    "name": "content",
+                    "type": "str",
+                    "kind": "user_input",
+                    "required": true
+                  }
+                ],
+                "injected_params": [
+                  {
+                    "name": "xiaohongshu",
+                    "type": "Annotated[Xiaohongshu, Depends('xiaohongshu')]",
+                    "kind": "depends_injection",
+                    "required": false
+                  }
+                ],
+                "return_shape": "text",
+                "return_fields": [
+                  "body",
+                  "content",
+                  "email_content"
+                ],
+                "side_effects": [],
+                "content_sources": []
+              },
+              {
+                "tool_name": "publish_content",
+                "mcp_name": "xiaohongshu",
+                "description": "",
+                "input_params": [
+                  {
+                    "name": "title",
+                    "type": "str",
+                    "kind": "user_input",
+                    "required": true
+                  },
+                  {
+                    "name": "content",
+                    "type": "str",
+                    "kind": "user_input",
+                    "required": true
+                  },
+                  {
+                    "name": "tags",
+                    "type": "List[str] | None",
+                    "kind": "user_input",
+                    "required": false
+                  }
+                ],
+                "injected_params": [
+                  {
+                    "name": "xiaohongshu",
+                    "type": "Annotated[Xiaohongshu, Depends('xiaohongshu')]",
+                    "kind": "depends_injection",
+                    "required": false
+                  }
+                ],
+                "return_shape": "text",
+                "return_fields": [
+                  "content"
+                ],
+                "side_effects": [],
+                "content_sources": []
+              },
+              {
+                "tool_name": "reply_comment_in_feed",
+                "mcp_name": "xiaohongshu",
+                "description": "",
+                "input_params": [
+                  {
+                    "name": "feed_id",
+                    "type": "str",
+                    "kind": "user_input",
+                    "required": true
+                  },
+                  {
+                    "name": "comment_id",
+                    "type": "str",
+                    "kind": "user_input",
+                    "required": true
+                  },
+                  {
+                    "name": "content",
+                    "type": "str",
+                    "kind": "user_input",
+                    "required": true
+                  }
+                ],
+                "injected_params": [
+                  {
+                    "name": "xiaohongshu",
+                    "type": "Annotated[Xiaohongshu, Depends('xiaohongshu')]",
+                    "kind": "depends_injection",
+                    "required": false
+                  }
+                ],
+                "return_shape": "text",
+                "return_fields": [
+                  "body",
+                  "content",
+                  "email_content"
+                ],
+                "side_effects": [],
+                "content_sources": []
+              },
+              {
+                "tool_name": "search_feeds",
+                "mcp_name": "xiaohongshu",
+                "description": "",
+                "input_params": [
+                  {
+                    "name": "keyword",
+                    "type": "str",
+                    "kind": "user_input",
+                    "required": true
+                  },
+                  {
+                    "name": "sort_by",
+                    "type": "str",
+                    "kind": "user_input",
+                    "required": false
+                  }
+                ],
+                "injected_params": [
+                  {
+                    "name": "xiaohongshu",
+                    "type": "Annotated[Xiaohongshu, Depends('xiaohongshu')]",
+                    "kind": "depends_injection",
+                    "required": false
+                  }
+                ],
+                "return_shape": "text",
+                "return_fields": [
+                  "content"
+                ],
+                "side_effects": [],
+                "content_sources": []
+              },
+              {
+                "tool_name": "xhs_user_profile",
+                "mcp_name": "xiaohongshu",
+                "description": "",
+                "input_params": [
+                  {
+                    "name": "user_id",
+                    "type": "str",
+                    "kind": "user_input",
+                    "required": true
+                  }
+                ],
+                "injected_params": [
+                  {
+                    "name": "xiaohongshu",
+                    "type": "Annotated[Xiaohongshu, Depends('xiaohongshu')]",
+                    "kind": "depends_injection",
+                    "required": false
+                  }
+                ],
+                "return_shape": "text",
+                "return_fields": [
+                  "file_path"
+                ],
+                "side_effects": [
+                  "index_store",
+                  "persistent_write"
+                ],
+                "content_sources": [
+                  "indexed_document"
+                ]
+              }
+            ]
+          },
+          "sinkTools": {
+            "sink_tools": []
+          },
+          "dependencyEdges": {
+            "edges": [
+              {
+                "source_tool": "favorite_feed",
+                "target_tool": "post_comment_to_feed",
+                "dependency_kind": "direct",
+                "carrier": "content",
+                "source_field": "body",
+                "target_param": "content",
+                "match_kind": "equivalence",
+                "criteria": [
+                  "field_equivalence"
+                ],
+                "evidence": "favorite_feed.body has a equivalence match with post_comment_to_feed.content"
+              },
+              {
+                "source_tool": "favorite_feed",
+                "target_tool": "post_comment_to_feed",
+                "dependency_kind": "direct",
+                "carrier": "content",
+                "source_field": "content",
+                "target_param": "content",
+                "match_kind": "equivalence",
+                "criteria": [
+                  "field_equivalence"
+                ],
+                "evidence": "favorite_feed.content has a equivalence match with post_comment_to_feed.content"
+              },
+              {
+                "source_tool": "get_feed_detail",
+                "target_tool": "post_comment_to_feed",
+                "dependency_kind": "direct",
+                "carrier": "content",
+                "source_field": "content",
+                "target_param": "content",
+                "match_kind": "equivalence",
+                "criteria": [
+                  "field_equivalence"
+                ],
+                "evidence": "get_feed_detail.content has a equivalence match with post_comment_to_feed.content"
+              },
+              {
+                "source_tool": "like_feed",
+                "target_tool": "post_comment_to_feed",
+                "dependency_kind": "direct",
+                "carrier": "content",
+                "source_field": "body",
+                "target_param": "content",
+                "match_kind": "equivalence",
+                "criteria": [
+                  "field_equivalence"
+                ],
+                "evidence": "like_feed.body has a equivalence match with post_comment_to_feed.content"
+              },
+              {
+                "source_tool": "like_feed",
+                "target_tool": "post_comment_to_feed",
+                "dependency_kind": "direct",
+                "carrier": "content",
+                "source_field": "content",
+                "target_param": "content",
+                "match_kind": "equivalence",
+                "criteria": [
+                  "field_equivalence"
+                ],
+                "evidence": "like_feed.content has a equivalence match with post_comment_to_feed.content"
+              },
+              {
+                "source_tool": "list_feeds",
+                "target_tool": "post_comment_to_feed",
+                "dependency_kind": "direct",
+                "carrier": "content",
+                "source_field": "content",
+                "target_param": "content",
+                "match_kind": "equivalence",
+                "criteria": [
+                  "field_equivalence"
+                ],
+                "evidence": "list_feeds.content has a equivalence match with post_comment_to_feed.content"
+              },
+              {
+                "source_tool": "publish_content",
+                "target_tool": "post_comment_to_feed",
+                "dependency_kind": "direct",
+                "carrier": "content",
+                "source_field": "content",
+                "target_param": "content",
+                "match_kind": "equivalence",
+                "criteria": [
+                  "field_equivalence"
+                ],
+                "evidence": "publish_content.content has a equivalence match with post_comment_to_feed.content"
+              },
+              {
+                "source_tool": "reply_comment_in_feed",
+                "target_tool": "post_comment_to_feed",
+                "dependency_kind": "direct",
+                "carrier": "content",
+                "source_field": "body",
+                "target_param": "content",
+                "match_kind": "equivalence",
+                "criteria": [
+                  "field_equivalence"
+                ],
+                "evidence": "reply_comment_in_feed.body has a equivalence match with post_comment_to_feed.content"
+              },
+              {
+                "source_tool": "reply_comment_in_feed",
+                "target_tool": "post_comment_to_feed",
+                "dependency_kind": "direct",
+                "carrier": "content",
+                "source_field": "content",
+                "target_param": "content",
+                "match_kind": "equivalence",
+                "criteria": [
+                  "field_equivalence"
+                ],
+                "evidence": "reply_comment_in_feed.content has a equivalence match with post_comment_to_feed.content"
+              },
+              {
+                "source_tool": "search_feeds",
+                "target_tool": "post_comment_to_feed",
+                "dependency_kind": "direct",
+                "carrier": "content",
+                "source_field": "content",
+                "target_param": "content",
+                "match_kind": "equivalence",
+                "criteria": [
+                  "field_equivalence"
+                ],
+                "evidence": "search_feeds.content has a equivalence match with post_comment_to_feed.content"
+              },
+              {
+                "source_tool": "favorite_feed",
+                "target_tool": "publish_content",
+                "dependency_kind": "direct",
+                "carrier": "content",
+                "source_field": "body",
+                "target_param": "content",
+                "match_kind": "equivalence",
+                "criteria": [
+                  "field_equivalence"
+                ],
+                "evidence": "favorite_feed.body has a equivalence match with publish_content.content"
+              },
+              {
+                "source_tool": "favorite_feed",
+                "target_tool": "publish_content",
+                "dependency_kind": "direct",
+                "carrier": "content",
+                "source_field": "content",
+                "target_param": "content",
+                "match_kind": "equivalence",
+                "criteria": [
+                  "field_equivalence"
+                ],
+                "evidence": "favorite_feed.content has a equivalence match with publish_content.content"
+              },
+              {
+                "source_tool": "get_feed_detail",
+                "target_tool": "publish_content",
+                "dependency_kind": "direct",
+                "carrier": "content",
+                "source_field": "content",
+                "target_param": "content",
+                "match_kind": "equivalence",
+                "criteria": [
+                  "field_equivalence"
+                ],
+                "evidence": "get_feed_detail.content has a equivalence match with publish_content.content"
+              },
+              {
+                "source_tool": "like_feed",
+                "target_tool": "publish_content",
+                "dependency_kind": "direct",
+                "carrier": "content",
+                "source_field": "body",
+                "target_param": "content",
+                "match_kind": "equivalence",
+                "criteria": [
+                  "field_equivalence"
+                ],
+                "evidence": "like_feed.body has a equivalence match with publish_content.content"
+              },
+              {
+                "source_tool": "like_feed",
+                "target_tool": "publish_content",
+                "dependency_kind": "direct",
+                "carrier": "content",
+                "source_field": "content",
+                "target_param": "content",
+                "match_kind": "equivalence",
+                "criteria": [
+                  "field_equivalence"
+                ],
+                "evidence": "like_feed.content has a equivalence match with publish_content.content"
+              },
+              {
+                "source_tool": "list_feeds",
+                "target_tool": "publish_content",
+                "dependency_kind": "direct",
+                "carrier": "content",
+                "source_field": "content",
+                "target_param": "content",
+                "match_kind": "equivalence",
+                "criteria": [
+                  "field_equivalence"
+                ],
+                "evidence": "list_feeds.content has a equivalence match with publish_content.content"
+              },
+              {
+                "source_tool": "post_comment_to_feed",
+                "target_tool": "publish_content",
+                "dependency_kind": "direct",
+                "carrier": "content",
+                "source_field": "body",
+                "target_param": "content",
+                "match_kind": "equivalence",
+                "criteria": [
+                  "field_equivalence"
+                ],
+                "evidence": "post_comment_to_feed.body has a equivalence match with publish_content.content"
+              },
+              {
+                "source_tool": "post_comment_to_feed",
+                "target_tool": "publish_content",
+                "dependency_kind": "direct",
+                "carrier": "content",
+                "source_field": "content",
+                "target_param": "content",
+                "match_kind": "equivalence",
+                "criteria": [
+                  "field_equivalence"
+                ],
+                "evidence": "post_comment_to_feed.content has a equivalence match with publish_content.content"
+              },
+              {
+                "source_tool": "reply_comment_in_feed",
+                "target_tool": "publish_content",
+                "dependency_kind": "direct",
+                "carrier": "content",
+                "source_field": "body",
+                "target_param": "content",
+                "match_kind": "equivalence",
+                "criteria": [
+                  "field_equivalence"
+                ],
+                "evidence": "reply_comment_in_feed.body has a equivalence match with publish_content.content"
+              },
+              {
+                "source_tool": "reply_comment_in_feed",
+                "target_tool": "publish_content",
+                "dependency_kind": "direct",
+                "carrier": "content",
+                "source_field": "content",
+                "target_param": "content",
+                "match_kind": "equivalence",
+                "criteria": [
+                  "field_equivalence"
+                ],
+                "evidence": "reply_comment_in_feed.content has a equivalence match with publish_content.content"
+              },
+              {
+                "source_tool": "search_feeds",
+                "target_tool": "publish_content",
+                "dependency_kind": "direct",
+                "carrier": "content",
+                "source_field": "content",
+                "target_param": "content",
+                "match_kind": "equivalence",
+                "criteria": [
+                  "field_equivalence"
+                ],
+                "evidence": "search_feeds.content has a equivalence match with publish_content.content"
+              },
+              {
+                "source_tool": "favorite_feed",
+                "target_tool": "reply_comment_in_feed",
+                "dependency_kind": "direct",
+                "carrier": "content",
+                "source_field": "body",
+                "target_param": "content",
+                "match_kind": "equivalence",
+                "criteria": [
+                  "field_equivalence"
+                ],
+                "evidence": "favorite_feed.body has a equivalence match with reply_comment_in_feed.content"
+              },
+              {
+                "source_tool": "favorite_feed",
+                "target_tool": "reply_comment_in_feed",
+                "dependency_kind": "direct",
+                "carrier": "content",
+                "source_field": "content",
+                "target_param": "content",
+                "match_kind": "equivalence",
+                "criteria": [
+                  "field_equivalence"
+                ],
+                "evidence": "favorite_feed.content has a equivalence match with reply_comment_in_feed.content"
+              },
+              {
+                "source_tool": "get_feed_detail",
+                "target_tool": "reply_comment_in_feed",
+                "dependency_kind": "direct",
+                "carrier": "content",
+                "source_field": "content",
+                "target_param": "content",
+                "match_kind": "equivalence",
+                "criteria": [
+                  "field_equivalence"
+                ],
+                "evidence": "get_feed_detail.content has a equivalence match with reply_comment_in_feed.content"
+              },
+              {
+                "source_tool": "like_feed",
+                "target_tool": "reply_comment_in_feed",
+                "dependency_kind": "direct",
+                "carrier": "content",
+                "source_field": "body",
+                "target_param": "content",
+                "match_kind": "equivalence",
+                "criteria": [
+                  "field_equivalence"
+                ],
+                "evidence": "like_feed.body has a equivalence match with reply_comment_in_feed.content"
+              },
+              {
+                "source_tool": "like_feed",
+                "target_tool": "reply_comment_in_feed",
+                "dependency_kind": "direct",
+                "carrier": "content",
+                "source_field": "content",
+                "target_param": "content",
+                "match_kind": "equivalence",
+                "criteria": [
+                  "field_equivalence"
+                ],
+                "evidence": "like_feed.content has a equivalence match with reply_comment_in_feed.content"
+              },
+              {
+                "source_tool": "list_feeds",
+                "target_tool": "reply_comment_in_feed",
+                "dependency_kind": "direct",
+                "carrier": "content",
+                "source_field": "content",
+                "target_param": "content",
+                "match_kind": "equivalence",
+                "criteria": [
+                  "field_equivalence"
+                ],
+                "evidence": "list_feeds.content has a equivalence match with reply_comment_in_feed.content"
+              },
+              {
+                "source_tool": "post_comment_to_feed",
+                "target_tool": "reply_comment_in_feed",
+                "dependency_kind": "direct",
+                "carrier": "content",
+                "source_field": "body",
+                "target_param": "content",
+                "match_kind": "equivalence",
+                "criteria": [
+                  "field_equivalence"
+                ],
+                "evidence": "post_comment_to_feed.body has a equivalence match with reply_comment_in_feed.content"
+              },
+              {
+                "source_tool": "post_comment_to_feed",
+                "target_tool": "reply_comment_in_feed",
+                "dependency_kind": "direct",
+                "carrier": "content",
+                "source_field": "content",
+                "target_param": "content",
+                "match_kind": "equivalence",
+                "criteria": [
+                  "field_equivalence"
+                ],
+                "evidence": "post_comment_to_feed.content has a equivalence match with reply_comment_in_feed.content"
+              },
+              {
+                "source_tool": "publish_content",
+                "target_tool": "reply_comment_in_feed",
+                "dependency_kind": "direct",
+                "carrier": "content",
+                "source_field": "content",
+                "target_param": "content",
+                "match_kind": "equivalence",
+                "criteria": [
+                  "field_equivalence"
+                ],
+                "evidence": "publish_content.content has a equivalence match with reply_comment_in_feed.content"
+              },
+              {
+                "source_tool": "search_feeds",
+                "target_tool": "reply_comment_in_feed",
+                "dependency_kind": "direct",
+                "carrier": "content",
+                "source_field": "content",
+                "target_param": "content",
+                "match_kind": "equivalence",
+                "criteria": [
+                  "field_equivalence"
+                ],
+                "evidence": "search_feeds.content has a equivalence match with reply_comment_in_feed.content"
+              },
+              {
+                "source_tool": "get_feed_detail",
+                "target_tool": "search_feeds",
+                "dependency_kind": "indirect",
+                "carrier": "index",
+                "source_field": "indexed_content",
+                "target_param": "",
+                "match_kind": "persist-read",
+                "criteria": [
+                  "persistent_index_dependency"
+                ],
+                "evidence": "get_feed_detail can store indexed content that search_feeds may retrieve later."
+              },
+              {
+                "source_tool": "xhs_user_profile",
+                "target_tool": "search_feeds",
+                "dependency_kind": "indirect",
+                "carrier": "index",
+                "source_field": "indexed_content",
+                "target_param": "",
+                "match_kind": "persist-read",
+                "criteria": [
+                  "persistent_index_dependency"
+                ],
+                "evidence": "xhs_user_profile can store indexed content that search_feeds may retrieve later."
+              }
+            ]
+          },
+          "candidateChains": {
+            "chains": []
+          },
+          "filteredCandidateChains": {
+            "accepted": [],
+            "rejected": []
+          },
+          "sourceRiskReport": {
+            "chains": []
+          },
+          "reportMarkdown": "# MTAtlas Static-Pure Report (scan_bb742e49)\r\n\r\n- Tools: 9\r\n- Sink tools: 0\r\n- Dependency edges: 33\r\n- Candidate chains: 0\r\n- Accepted chains: 0\r\n\r\n## Chains\r\n\r\nNo candidate chains were retained after filtering."
+        }
+      }
+    },
+    {
+      "id": "0176f5b5-2bc0-47da-bfed-7f5c359ac7b9",
+      "agentId": "mtatlas-default",
+      "agentName": "MTAtlas Composite Vulnerability Detection",
+      "title": "email_agent 组合式漏洞检测",
+      "toolCount": 3,
+      "scanId": "f71ca99b-9acc-4af0-964a-2d5828dabd5a",
+      "createdAt": "2026-04-06T02:52:35.597Z",
+      "types": [
+        "fuzzing"
+      ],
+      "risk": "high",
+      "summary": {
+        "totalFindings": 1,
+        "fuzzingFindings": 1,
+        "chainToolCount": 1
+      },
+      "overviewText": [
+        "MTAtlas analyzed 3 tools in static-pure mode.",
+        "1 sink tools and 1 accepted candidate chains were retained after filtering.",
+        "The report contains 1 plausible composition-risk chains."
+      ],
+      "fuzzing": {
+        "findings": [
+          {
+            "id": "d2765ab8-6740-4404-b34e-e10a0e1eb821",
+            "severity": "high",
+            "title": "run_terminal forms a plausible CMDi chain",
+            "description": "[Claude Post] get_email_content -> [Filesystem MCP] write_file -> [Shell MCP] run_terminal",
+            "toolName": "run_terminal",
+            "toolSignature": "get_email_content -> write_file -> run_terminal",
+            "detectionInfo": "Boundary: environment-source @ get_email_content:email_store",
+            "attackType": "CMDi",
+            "payloadSummary": "Accepted chain: get_email_content -> write_file -> run_terminal",
+            "reproductionSteps": "Upload complete function metadata JSON.\nRun MTAtlas static-pure analysis.\nInspect accepted chains, dependency sites, and sink evidence.",
+            "trace": [
+              "get_email_content",
+              "write_file",
+              "run_terminal"
+            ],
+            "evidence": "{\n  \"chain\": {\n    \"chain_id\": \"chain_001\",\n    \"tools\": [\n      \"get_email_content\",\n      \"write_file\",\n      \"run_terminal\"\n    ],\n    \"chain_display\": \"get_email_content -> write_file -> run_terminal\",\n    \"chain_display_with_mcp\": \"[Claude Post] get_email_content -> [Filesystem MCP] write_file -> [Shell MCP] run_terminal\",\n    \"sink_tool\": \"run_terminal\",\n    \"sink_type\": \"CMDi\",\n    \"user_source_risk\": {\n      \"supported\": true,\n      \"earliest_tool\": \"get_email_content\",\n      \"earliest_field\": \"account\",\n      \"carrier\": \"account\",\n      \"reason\": \"`get_email_content` accepts user-controlled input through `account`, which can plausibly enter the chain from dialogue.\",\n      \"confidence\": \"low\"\n    },\n    \"environment_source_risk\": {\n      \"supported\": true,\n      \"earliest_tool\": \"get_email_content\",\n      \"earliest_field_or_resource\": \"email_store\",\n      \"carrier\": \"email_content\",\n      \"reason\": \"`get_email_content` appears to ingest untrusted external content from `email_store`, which can plausibly propagate toward the sink.\",\n      \"confidence\": \"high\"\n    },\n    \"recommended_boundary\": {\n      \"type\": \"environment-source\",\n      \"tool\": \"get_email_content\",\n      \"field_or_resource\": \"email_store\",\n      \"reason\": \"`get_email_content` appears to ingest untrusted external content from `email_store`, which can plausibly propagate toward the sink.\"\n    }\n  },\n  \"sink\": {\n    \"tool_name\": \"run_terminal\",\n    \"sink_types\": [\n      \"CMDi\"\n    ],\n    \"effects\": [\n      \"CMDi\"\n    ],\n    \"evidence\": [\n      \"run_terminal:subprocess.getoutput:path:f'cat {path}':line4\"\n    ],\n    \"sink_sites\": [\n      {\n        \"tool_name\": \"run_terminal\",\n        \"sink_type\": \"CMDi\",\n        \"api\": \"subprocess.getoutput\",\n        \"sink_argument\": \"f'cat {path}'\",\n        \"evidence\": \"run_terminal:subprocess.getoutput:path:line4\"\n      }\n    ]\n  },\n  \"dependency_edges\": [\n    {\n      \"source_tool\": \"write_file\",\n      \"target_tool\": \"run_terminal\",\n      \"dependency_kind\": \"direct\",\n      \"carrier\": \"file_path\",\n      \"source_field\": \"file_path\",\n      \"target_param\": \"path\",\n      \"match_kind\": \"equivalence\",\n      \"criteria\": [\n        \"field_equivalence\"\n      ],\n      \"evidence\": \"write_file.file_path has a equivalence match with run_terminal.path\"\n    },\n    {\n      \"source_tool\": \"write_file\",\n      \"target_tool\": \"run_terminal\",\n      \"dependency_kind\": \"direct\",\n      \"carrier\": \"file_path\",\n      \"source_field\": \"path\",\n      \"target_param\": \"path\",\n      \"match_kind\": \"equivalence\",\n      \"criteria\": [\n        \"field_equivalence\"\n      ],\n      \"evidence\": \"write_file.path has a equivalence match with run_terminal.path\"\n    },\n    {\n      \"source_tool\": \"write_file\",\n      \"target_tool\": \"run_terminal\",\n      \"dependency_kind\": \"indirect\",\n      \"carrier\": \"file\",\n      \"source_field\": \"persisted_file\",\n      \"target_param\": \"path\",\n      \"match_kind\": \"persist-read\",\n      \"criteria\": [\n        \"persistent_file_dependency\"\n      ],\n      \"evidence\": \"write_file can persist file-backed content that run_terminal can later read or execute.\"\n    },\n    {\n      \"source_tool\": \"get_email_content\",\n      \"target_tool\": \"write_file\",\n      \"dependency_kind\": \"direct\",\n      \"carrier\": \"content\",\n      \"source_field\": \"body\",\n      \"target_param\": \"content\",\n      \"match_kind\": \"equivalence\",\n      \"criteria\": [\n        \"field_equivalence\"\n      ],\n      \"evidence\": \"get_email_content.body has a equivalence match with write_file.content\"\n    },\n    {\n      \"source_tool\": \"get_email_content\",\n      \"target_tool\": \"write_file\",\n      \"dependency_kind\": \"direct\",\n      \"carrier\": \"content\",\n      \"source_field\": \"content\",\n      \"target_param\": \"content\",\n      \"match_kind\": \"equivalence\",\n      \"criteria\": [\n        \"field_equivalence\"\n      ],\n      \"evidence\": \"get_email_content.content has a equivalence match with write_file.content\"\n    },\n    {\n      \"source_tool\": \"get_email_content\",\n      \"target_tool\": \"write_file\",\n      \"dependency_kind\": \"direct\",\n      \"carrier\": \"content\",\n      \"source_field\": \"text\",\n      \"target_param\": \"content\",\n      \"match_kind\": \"equivalence\",\n      \"criteria\": [\n        \"field_equivalence\"\n      ],\n      \"evidence\": \"get_email_content.text has a equivalence match with write_file.content\"\n    },\n    {\n      \"source_tool\": \"run_terminal\",\n      \"target_tool\": \"write_file\",\n      \"dependency_kind\": \"direct\",\n      \"carrier\": \"file_path\",\n      \"source_field\": \"file_path\",\n      \"target_param\": \"path\",\n      \"match_kind\": \"equivalence\",\n      \"criteria\": [\n        \"field_equivalence\"\n      ],\n      \"evidence\": \"run_terminal.file_path has a equivalence match with write_file.path\"\n    },\n    {\n      \"source_tool\": \"run_terminal\",\n      \"target_tool\": \"write_file\",\n      \"dependency_kind\": \"direct\",\n      \"carrier\": \"file_path\",\n      \"source_field\": \"path\",\n      \"target_param\": \"path\",\n      \"match_kind\": \"equivalence\",\n      \"criteria\": [\n        \"field_equivalence\"\n      ],\n      \"evidence\": \"run_terminal.path has a equivalence match with write_file.path\"\n    }\n  ],\n  \"user_source_risk\": {\n    \"supported\": true,\n    \"earliest_tool\": \"get_email_content\",\n    \"earliest_field\": \"account\",\n    \"carrier\": \"account\",\n    \"reason\": \"`get_email_content` accepts user-controlled input through `account`, which can plausibly enter the chain from dialogue.\",\n    \"confidence\": \"low\"\n  },\n  \"environment_source_risk\": {\n    \"supported\": true,\n    \"earliest_tool\": \"get_email_content\",\n    \"earliest_field_or_resource\": \"email_store\",\n    \"carrier\": \"email_content\",\n    \"reason\": \"`get_email_content` appears to ingest untrusted external content from `email_store`, which can plausibly propagate toward the sink.\",\n    \"confidence\": \"high\"\n  }\n}"
+          }
+        ],
+        "stats": {
+          "high": 1,
+          "medium": 0,
+          "low": 0
+        }
+      },
+      "recommendations": [
+        "Constrain high-impact sink tools with explicit allowlists and precondition checks.",
+        "Block free-form file paths and command fragments from flowing into shell-execution sinks.",
+        "Review accepted chains and break unnecessary tool-to-tool dependencies."
+      ],
+      "raw": {
+        "mtatlas": {
+          "summary": {
+            "mode": "static-pure",
+            "framework": "scan_f71ca99b",
+            "input_path": "C:\\Files\\Study\\Codes\\SAFE-Agent\\backend\\MTAtlas\\data\\workspaces\\f71ca99b-9acc-4af0-964a-2d5828dabd5a\\mtatlas\\input\\tools.json",
+            "tool_count": 3,
+            "sink_tools": 1,
+            "dependency_edges": 8,
+            "candidate_chain_count": 1,
+            "accepted_chain_count": 1,
+            "rejected_chain_count": 0,
+            "chains": [
+              "get_email_content -> write_file -> run_terminal"
+            ],
+            "wall_time_seconds": 0.016031265258789062
+          },
+          "normalizedTools": {
+            "tools": [
+              {
+                "tool_name": "get_email_content",
+                "mcp_name": "Claude Post",
+                "description": "Get the full content of a specific email by its ID, including sender, recipient, subject, and body content.",
+                "input_params": [
+                  {
+                    "name": "account",
+                    "type": "Any",
+                    "kind": "user_input",
+                    "required": true
+                  },
+                  {
+                    "name": "email_id",
+                    "type": "str",
+                    "kind": "user_input",
+                    "required": true
+                  }
+                ],
+                "injected_params": [],
+                "return_shape": "text",
+                "return_fields": [
+                  "body",
+                  "content",
+                  "email_content",
+                  "text"
+                ],
+                "side_effects": [
+                  "email_read",
+                  "external_input"
+                ],
+                "content_sources": [
+                  "email_store"
+                ]
+              },
+              {
+                "tool_name": "run_terminal",
+                "mcp_name": "Shell MCP",
+                "description": "Run a shell command on the provided file path.",
+                "input_params": [
+                  {
+                    "name": "path",
+                    "type": "str",
+                    "kind": "user_input",
+                    "required": true
+                  }
+                ],
+                "injected_params": [],
+                "return_shape": "text",
+                "return_fields": [
+                  "file_path",
+                  "path"
+                ],
+                "side_effects": [
+                  "shell_execute"
+                ],
+                "content_sources": []
+              },
+              {
+                "tool_name": "write_file",
+                "mcp_name": "Filesystem MCP",
+                "description": "Write provided content to a local file path and return the saved path.",
+                "input_params": [
+                  {
+                    "name": "path",
+                    "type": "str",
+                    "kind": "user_input",
+                    "required": true
+                  },
+                  {
+                    "name": "content",
+                    "type": "str",
+                    "kind": "user_input",
+                    "required": true
+                  }
+                ],
+                "injected_params": [],
+                "return_shape": "text",
+                "return_fields": [
+                  "content",
+                  "file_path",
+                  "path"
+                ],
+                "side_effects": [
+                  "file_write",
+                  "persistent_write"
+                ],
+                "content_sources": []
+              }
+            ]
+          },
+          "sinkTools": {
+            "sink_tools": [
+              {
+                "tool_name": "run_terminal",
+                "sink_types": [
+                  "CMDi"
+                ],
+                "effects": [
+                  "CMDi"
+                ],
+                "evidence": [
+                  "run_terminal:subprocess.getoutput:path:f'cat {path}':line4"
+                ],
+                "sink_sites": [
+                  {
+                    "tool_name": "run_terminal",
+                    "sink_type": "CMDi",
+                    "api": "subprocess.getoutput",
+                    "sink_argument": "f'cat {path}'",
+                    "evidence": "run_terminal:subprocess.getoutput:path:line4"
+                  }
+                ]
+              }
+            ]
+          },
+          "dependencyEdges": {
+            "edges": [
+              {
+                "source_tool": "write_file",
+                "target_tool": "run_terminal",
+                "dependency_kind": "direct",
+                "carrier": "file_path",
+                "source_field": "file_path",
+                "target_param": "path",
+                "match_kind": "equivalence",
+                "criteria": [
+                  "field_equivalence"
+                ],
+                "evidence": "write_file.file_path has a equivalence match with run_terminal.path"
+              },
+              {
+                "source_tool": "write_file",
+                "target_tool": "run_terminal",
+                "dependency_kind": "direct",
+                "carrier": "file_path",
+                "source_field": "path",
+                "target_param": "path",
+                "match_kind": "equivalence",
+                "criteria": [
+                  "field_equivalence"
+                ],
+                "evidence": "write_file.path has a equivalence match with run_terminal.path"
+              },
+              {
+                "source_tool": "write_file",
+                "target_tool": "run_terminal",
+                "dependency_kind": "indirect",
+                "carrier": "file",
+                "source_field": "persisted_file",
+                "target_param": "path",
+                "match_kind": "persist-read",
+                "criteria": [
+                  "persistent_file_dependency"
+                ],
+                "evidence": "write_file can persist file-backed content that run_terminal can later read or execute."
+              },
+              {
+                "source_tool": "get_email_content",
+                "target_tool": "write_file",
+                "dependency_kind": "direct",
+                "carrier": "content",
+                "source_field": "body",
+                "target_param": "content",
+                "match_kind": "equivalence",
+                "criteria": [
+                  "field_equivalence"
+                ],
+                "evidence": "get_email_content.body has a equivalence match with write_file.content"
+              },
+              {
+                "source_tool": "get_email_content",
+                "target_tool": "write_file",
+                "dependency_kind": "direct",
+                "carrier": "content",
+                "source_field": "content",
+                "target_param": "content",
+                "match_kind": "equivalence",
+                "criteria": [
+                  "field_equivalence"
+                ],
+                "evidence": "get_email_content.content has a equivalence match with write_file.content"
+              },
+              {
+                "source_tool": "get_email_content",
+                "target_tool": "write_file",
+                "dependency_kind": "direct",
+                "carrier": "content",
+                "source_field": "text",
+                "target_param": "content",
+                "match_kind": "equivalence",
+                "criteria": [
+                  "field_equivalence"
+                ],
+                "evidence": "get_email_content.text has a equivalence match with write_file.content"
+              },
+              {
+                "source_tool": "run_terminal",
+                "target_tool": "write_file",
+                "dependency_kind": "direct",
+                "carrier": "file_path",
+                "source_field": "file_path",
+                "target_param": "path",
+                "match_kind": "equivalence",
+                "criteria": [
+                  "field_equivalence"
+                ],
+                "evidence": "run_terminal.file_path has a equivalence match with write_file.path"
+              },
+              {
+                "source_tool": "run_terminal",
+                "target_tool": "write_file",
+                "dependency_kind": "direct",
+                "carrier": "file_path",
+                "source_field": "path",
+                "target_param": "path",
+                "match_kind": "equivalence",
+                "criteria": [
+                  "field_equivalence"
+                ],
+                "evidence": "run_terminal.path has a equivalence match with write_file.path"
+              }
+            ]
+          },
+          "candidateChains": {
+            "chains": [
+              {
+                "chain_id": "chain_001",
+                "tools": [
+                  "get_email_content",
+                  "write_file",
+                  "run_terminal"
+                ],
+                "chain_display": "get_email_content -> write_file -> run_terminal",
+                "mcp_sequence": [
+                  "Claude Post",
+                  "Filesystem MCP",
+                  "Shell MCP"
+                ],
+                "chain_display_with_mcp": "[Claude Post] get_email_content -> [Filesystem MCP] write_file -> [Shell MCP] run_terminal",
+                "sink_tool": "run_terminal",
+                "sink_type": "CMDi",
+                "dependency_summary": [
+                  "get_email_content.body has a equivalence match with write_file.content",
+                  "write_file.file_path has a equivalence match with run_terminal.path"
+                ],
+                "dependency_kinds": [
+                  "direct",
+                  "direct"
+                ],
+                "dependency_sites": [
+                  {
+                    "source_tool": "get_email_content",
+                    "source_field": "body",
+                    "target_tool": "write_file",
+                    "target_param": "content",
+                    "dependency_kind": "direct",
+                    "carrier": "content",
+                    "match_kind": "equivalence",
+                    "evidence": "get_email_content.body has a equivalence match with write_file.content"
+                  },
+                  {
+                    "source_tool": "write_file",
+                    "source_field": "file_path",
+                    "target_tool": "run_terminal",
+                    "target_param": "path",
+                    "dependency_kind": "direct",
+                    "carrier": "file_path",
+                    "match_kind": "equivalence",
+                    "evidence": "write_file.file_path has a equivalence match with run_terminal.path"
+                  }
+                ],
+                "key_dependency_site": {
+                  "source_tool": "write_file",
+                  "source_field": "file_path",
+                  "target_tool": "run_terminal",
+                  "target_param": "path",
+                  "dependency_kind": "direct",
+                  "carrier": "file_path",
+                  "match_kind": "equivalence",
+                  "evidence": "write_file.file_path has a equivalence match with run_terminal.path"
+                }
+              }
+            ]
+          },
+          "filteredCandidateChains": {
+            "accepted": [
+              {
+                "chain_id": "chain_001",
+                "tools": [
+                  "get_email_content",
+                  "write_file",
+                  "run_terminal"
+                ],
+                "chain_display": "get_email_content -> write_file -> run_terminal",
+                "mcp_sequence": [
+                  "Claude Post",
+                  "Filesystem MCP",
+                  "Shell MCP"
+                ],
+                "chain_display_with_mcp": "[Claude Post] get_email_content -> [Filesystem MCP] write_file -> [Shell MCP] run_terminal",
+                "sink_tool": "run_terminal",
+                "sink_type": "CMDi",
+                "dependency_summary": [
+                  "get_email_content.body has a equivalence match with write_file.content",
+                  "write_file.file_path has a equivalence match with run_terminal.path"
+                ],
+                "dependency_kinds": [
+                  "direct",
+                  "direct"
+                ],
+                "dependency_sites": [
+                  {
+                    "source_tool": "get_email_content",
+                    "source_field": "body",
+                    "target_tool": "write_file",
+                    "target_param": "content",
+                    "dependency_kind": "direct",
+                    "carrier": "content",
+                    "match_kind": "equivalence",
+                    "evidence": "get_email_content.body has a equivalence match with write_file.content"
+                  },
+                  {
+                    "source_tool": "write_file",
+                    "source_field": "file_path",
+                    "target_tool": "run_terminal",
+                    "target_param": "path",
+                    "dependency_kind": "direct",
+                    "carrier": "file_path",
+                    "match_kind": "equivalence",
+                    "evidence": "write_file.file_path has a equivalence match with run_terminal.path"
+                  }
+                ],
+                "key_dependency_site": {
+                  "source_tool": "write_file",
+                  "source_field": "file_path",
+                  "target_tool": "run_terminal",
+                  "target_param": "path",
+                  "dependency_kind": "direct",
+                  "carrier": "file_path",
+                  "match_kind": "equivalence",
+                  "evidence": "write_file.file_path has a equivalence match with run_terminal.path"
+                }
+              }
+            ],
+            "rejected": []
+          },
+          "sourceRiskReport": {
+            "chains": [
+              {
+                "chain_id": "chain_001",
+                "tools": [
+                  "get_email_content",
+                  "write_file",
+                  "run_terminal"
+                ],
+                "chain_display": "get_email_content -> write_file -> run_terminal",
+                "chain_display_with_mcp": "[Claude Post] get_email_content -> [Filesystem MCP] write_file -> [Shell MCP] run_terminal",
+                "sink_tool": "run_terminal",
+                "sink_type": "CMDi",
+                "user_source_risk": {
+                  "supported": true,
+                  "earliest_tool": "get_email_content",
+                  "earliest_field": "account",
+                  "carrier": "account",
+                  "reason": "`get_email_content` accepts user-controlled input through `account`, which can plausibly enter the chain from dialogue.",
+                  "confidence": "low"
+                },
+                "environment_source_risk": {
+                  "supported": true,
+                  "earliest_tool": "get_email_content",
+                  "earliest_field_or_resource": "email_store",
+                  "carrier": "email_content",
+                  "reason": "`get_email_content` appears to ingest untrusted external content from `email_store`, which can plausibly propagate toward the sink.",
+                  "confidence": "high"
+                },
+                "recommended_boundary": {
+                  "type": "environment-source",
+                  "tool": "get_email_content",
+                  "field_or_resource": "email_store",
+                  "reason": "`get_email_content` appears to ingest untrusted external content from `email_store`, which can plausibly propagate toward the sink."
+                }
+              }
+            ]
+          },
+          "reportMarkdown": "# MTAtlas Static-Pure Report (scan_f71ca99b)\r\n\r\n- Tools: 3\r\n- Sink tools: 1\r\n- Dependency edges: 8\r\n- Candidate chains: 1\r\n- Accepted chains: 1\r\n\r\n## Chains\r\n\r\n### chain_001\r\n- Chain: get_email_content -> write_file -> run_terminal\r\n- MCP Path: [Claude Post] get_email_content -> [Filesystem MCP] write_file -> [Shell MCP] run_terminal\r\n- Sink: run_terminal (CMDi)\r\n- User-source risk: True | `get_email_content` accepts user-controlled input through `account`, which can plausibly enter the chain from dialogue.\r\n- Environment-source risk: True | `get_email_content` appears to ingest untrusted external content from `email_store`, which can plausibly propagate toward the sink."
+        }
+      }
+    }
+  ],
+  "logs": {
+    "f71ca99b-9acc-4af0-964a-2d5828dabd5a": [
+      {
+        "id": "c236861e-e7ac-41f6-a439-cac35b9ef8d8",
+        "timestamp": "2026-04-06T02:52:30.620Z",
+        "level": "info",
+        "message": "MTAtlas scan created from uploaded tool metadata."
+      },
+      {
+        "id": "1c8038f7-da8f-41e3-b3e0-7251af0f9001",
+        "timestamp": "2026-04-06T02:52:30.768Z",
+        "level": "info",
+        "message": "Parsed 3 metadata entries for MTAtlas."
+      },
+      {
+        "id": "78a9f065-210f-4366-b289-bcced4b8d76e",
+        "timestamp": "2026-04-06T02:52:30.982Z",
+        "level": "info",
+        "message": "Workspace prepared at C:\\Files\\Study\\Codes\\SAFE-Agent\\backend\\MTAtlas\\data\\workspaces\\f71ca99b-9acc-4af0-964a-2d5828dabd5a\\mtatlas."
+      },
+      {
+        "id": "e974e056-fcaa-4506-b1eb-a5e09c81dccb",
+        "timestamp": "2026-04-06T02:52:31.602Z",
+        "level": "info",
+        "message": "Executing: python -m mtatlas --mode static-pure --input C:\\Files\\Study\\Codes\\SAFE-Agent\\backend\\MTAtlas\\data\\workspaces\\f71ca99b-9acc-4af0-964a-2d5828dabd5a\\mtatlas\\input\\tools.json --framework scan_f71ca99b --artifact-root C:\\Files\\Study\\Codes\\SAFE-Agent\\backend\\MTAtlas\\data\\workspaces\\f71ca99b-9acc-4af0-964a-2d5828dabd5a\\mtatlas\\artifacts"
+      },
+      {
+        "id": "f0e2f322-5765-4d64-838a-217f7468cb70",
+        "timestamp": "2026-04-06T02:52:34.701Z",
+        "level": "info",
+        "message": "{ \"mode\": \"static-pure\", \"framework\": \"scan_f71ca99b\", \"input_path\": \"C:\\\\Files\\\\Study\\\\Codes\\\\SAFE-Agent\\\\backend\\\\MTAtlas\\\\data\\\\workspaces\\\\f71ca99b-9acc-4af0-964a-2d5828dabd5a\\\\mtatlas\\\\input\\\\tools.json\", \"tool_count\": 3, \"sink_tools\": 1, \"dependency_edges\": 8, \"candidate_chain_count\": 1, \"accepted_chain_count\": 1, \"rejected_chain_count\": 0, \"chains\": [ \"get_email_content -> write_file -> run_terminal\" ], \"wall_time_seconds\": 0.016031265258789062 }"
+      },
+      {
+        "id": "3c5a5fa3-52c7-4356-86bd-01e3a9166071",
+        "timestamp": "2026-04-06T02:52:35.640Z",
+        "level": "info",
+        "message": "MTAtlas analysis completed successfully."
+      }
+    ],
+    "bb742e49-56d8-4145-9ef0-fff85bd00da2": [
+      {
+        "id": "de6b6df0-6130-438b-9848-8e0e0e631e24",
+        "timestamp": "2026-04-06T03:38:58.457Z",
+        "level": "info",
+        "message": "MTAtlas scan created from uploaded tool metadata."
+      },
+      {
+        "id": "806a10fa-76fc-4dab-88f2-857ddbc4dbe1",
+        "timestamp": "2026-04-06T03:38:58.635Z",
+        "level": "info",
+        "message": "Parsed 9 metadata entries for MTAtlas."
+      },
+      {
+        "id": "97f6d9fc-0aca-4d73-a8b3-cf93606afe50",
+        "timestamp": "2026-04-06T03:38:58.719Z",
+        "level": "info",
+        "message": "Workspace prepared at C:\\Files\\Study\\Codes\\SAFE-Agent\\backend\\MTAtlas\\data\\workspaces\\bb742e49-56d8-4145-9ef0-fff85bd00da2\\mtatlas."
+      },
+      {
+        "id": "80e18bee-74c2-4a3c-86f7-c6987e5a6260",
+        "timestamp": "2026-04-06T03:38:58.936Z",
+        "level": "info",
+        "message": "Executing: python -m mtatlas --mode static-pure --input C:\\Files\\Study\\Codes\\SAFE-Agent\\backend\\MTAtlas\\data\\workspaces\\bb742e49-56d8-4145-9ef0-fff85bd00da2\\mtatlas\\input\\tools.json --framework scan_bb742e49 --artifact-root C:\\Files\\Study\\Codes\\SAFE-Agent\\backend\\MTAtlas\\data\\workspaces\\bb742e49-56d8-4145-9ef0-fff85bd00da2\\mtatlas\\artifacts"
+      },
+      {
+        "id": "968ce5e6-1b01-47b5-b8b0-a96f3e02ae9b",
+        "timestamp": "2026-04-06T03:39:02.076Z",
+        "level": "info",
+        "message": "{ \"mode\": \"static-pure\", \"framework\": \"scan_bb742e49\", \"input_path\": \"C:\\\\Files\\\\Study\\\\Codes\\\\SAFE-Agent\\\\backend\\\\MTAtlas\\\\data\\\\workspaces\\\\bb742e49-56d8-4145-9ef0-fff85bd00da2\\\\mtatlas\\\\input\\\\tools.json\", \"tool_count\": 9, \"sink_tools\": 0, \"dependency_edges\": 33, \"candidate_chain_count\": 0, \"accepted_chain_count\": 0, \"rejected_chain_count\": 0, \"chains\": [], \"wall_time_seconds\": 0.06434249877929688 }"
+      },
+      {
+        "id": "7c7f8602-66df-4758-9923-e95f1c712b07",
+        "timestamp": "2026-04-06T03:39:03.411Z",
+        "level": "info",
+        "message": "MTAtlas analysis completed successfully."
+      }
+    ]
+  }
+}

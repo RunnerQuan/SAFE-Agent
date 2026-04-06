@@ -1,0 +1,92 @@
+{
+  "tools": [
+    {
+      "tool_name": "get_email_content",
+      "mcp_name": "Claude Post",
+      "description": "Get the full content of a specific email by its ID, including sender, recipient, subject, and body content.",
+      "input_params": [
+        {
+          "name": "account",
+          "type": "Any",
+          "kind": "user_input",
+          "required": true
+        },
+        {
+          "name": "email_id",
+          "type": "str",
+          "kind": "user_input",
+          "required": true
+        }
+      ],
+      "injected_params": [],
+      "return_shape": "text",
+      "return_fields": [
+        "body",
+        "content",
+        "email_content",
+        "text"
+      ],
+      "side_effects": [
+        "email_read",
+        "external_input"
+      ],
+      "content_sources": [
+        "email_store"
+      ]
+    },
+    {
+      "tool_name": "run_terminal",
+      "mcp_name": "Shell MCP",
+      "description": "Run a shell command on the provided file path.",
+      "input_params": [
+        {
+          "name": "path",
+          "type": "str",
+          "kind": "user_input",
+          "required": true
+        }
+      ],
+      "injected_params": [],
+      "return_shape": "text",
+      "return_fields": [
+        "file_path",
+        "path"
+      ],
+      "side_effects": [
+        "shell_execute"
+      ],
+      "content_sources": []
+    },
+    {
+      "tool_name": "write_file",
+      "mcp_name": "Filesystem MCP",
+      "description": "Write provided content to a local file path and return the saved path.",
+      "input_params": [
+        {
+          "name": "path",
+          "type": "str",
+          "kind": "user_input",
+          "required": true
+        },
+        {
+          "name": "content",
+          "type": "str",
+          "kind": "user_input",
+          "required": true
+        }
+      ],
+      "injected_params": [],
+      "return_shape": "text",
+      "return_fields": [
+        "content",
+        "file_path",
+        "path"
+      ],
+      "side_effects": [
+        "file_write",
+        "persistent_write"
+      ],
+      "content_sources": []
+    }
+  ]
+}

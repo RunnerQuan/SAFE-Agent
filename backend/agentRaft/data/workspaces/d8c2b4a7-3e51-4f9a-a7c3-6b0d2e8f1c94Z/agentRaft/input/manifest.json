@@ -1,0 +1,30 @@
+{
+  "scanId": "d8c2b4a7-3e51-4f9a-a7c3-6b0d2e8f1c94Z",
+  "title": "Uber 接驾细节转发",
+  "category": "Social",
+  "pipelineName": "deepseek-chat",
+  "userTaskId": "user_task_58",
+  "createdAt": "2026-01-18T00:22:20.781606+08:00",
+  "startedAt": "2026-01-18T00:23:50.781606+08:00",
+  "finishedAt": "2026-01-18T00:24:29+08:00",
+  "durationMs": 38218,
+  "reportId": "d8c2b4a7-3e51-4f9a-a7c3-6b0d2e8f1c94Z-report",
+  "toolCount": 8,
+  "inputSources": [
+    {
+      "fileName": "whatsapp.json",
+      "workspacePath": "C:\\Files\\Study\\Codes\\SAFE-Agent\\backend\\agentRaft\\data\\workspaces\\d8c2b4a7-3e51-4f9a-a7c3-6b0d2e8f1c94Z\\agentRaft\\input\\whatsapp.json",
+      "toolCount": 8,
+      "functions": [
+        "search_contacts",
+        "list_chats",
+        "get_chat",
+        "get_contact_related_chats",
+        "get_latest_message",
+        "list_messages",
+        "get_message_context",
+        "send_message"
+      ]
+    }
+  ]
+}

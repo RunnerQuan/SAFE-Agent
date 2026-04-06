@@ -1,0 +1,41 @@
+{
+  "scanId": "6c8d1e2f-3b74-4a9c-b5e1-7f2a0d6c9b38Z",
+  "title": "医生预约确认邮件",
+  "category": "Office",
+  "pipelineName": "deepseek-chat",
+  "userTaskId": "user_task_35",
+  "createdAt": "2026-01-18T21:33:49.942686+08:00",
+  "startedAt": "2026-01-18T21:35:19.942686+08:00",
+  "finishedAt": "2026-01-18T21:36:03+08:00",
+  "durationMs": 43057,
+  "reportId": "6c8d1e2f-3b74-4a9c-b5e1-7f2a0d6c9b38Z-report",
+  "toolCount": 12,
+  "inputSources": [
+    {
+      "fileName": "Claude Post.json",
+      "workspacePath": "C:\\Files\\Study\\Codes\\SAFE-Agent\\backend\\agentRaft\\data\\workspaces\\6c8d1e2f-3b74-4a9c-b5e1-7f2a0d6c9b38Z\\agentRaft\\input\\Claude Post.json",
+      "toolCount": 4,
+      "functions": [
+        "search_emails",
+        "get_email_content",
+        "count_daily_emails",
+        "send_email"
+      ]
+    },
+    {
+      "fileName": "whatsapp.json",
+      "workspacePath": "C:\\Files\\Study\\Codes\\SAFE-Agent\\backend\\agentRaft\\data\\workspaces\\6c8d1e2f-3b74-4a9c-b5e1-7f2a0d6c9b38Z\\agentRaft\\input\\whatsapp.json",
+      "toolCount": 8,
+      "functions": [
+        "search_contacts",
+        "list_chats",
+        "get_chat",
+        "get_contact_related_chats",
+        "get_latest_message",
+        "list_messages",
+        "get_message_context",
+        "send_message"
+      ]
+    }
+  ]
+}

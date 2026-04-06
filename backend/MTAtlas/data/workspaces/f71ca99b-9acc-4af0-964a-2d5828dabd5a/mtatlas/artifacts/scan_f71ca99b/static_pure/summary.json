@@ -1,0 +1,15 @@
+{
+  "mode": "static-pure",
+  "framework": "scan_f71ca99b",
+  "input_path": "C:\\Files\\Study\\Codes\\SAFE-Agent\\backend\\MTAtlas\\data\\workspaces\\f71ca99b-9acc-4af0-964a-2d5828dabd5a\\mtatlas\\input\\tools.json",
+  "tool_count": 3,
+  "sink_tools": 1,
+  "dependency_edges": 8,
+  "candidate_chain_count": 1,
+  "accepted_chain_count": 1,
+  "rejected_chain_count": 0,
+  "chains": [
+    "get_email_content -> write_file -> run_terminal"
+  ],
+  "wall_time_seconds": 0.016031265258789062
+}

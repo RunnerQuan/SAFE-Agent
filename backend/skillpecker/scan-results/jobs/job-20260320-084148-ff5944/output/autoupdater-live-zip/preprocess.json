@@ -1,0 +1,50 @@
+{
+  "技能信息 (skill_info)": {
+    "技能根目录 (skill_root)": "C:\\Files\\Study\\Codes\\Skill-Scan\\scan-results\\jobs\\job-20260320-084148-ff5944\\skills\\autoupdater-live-zip",
+    "技能声明列表 (skill_claims)": [
+      "Demo zip skill"
+    ],
+    "观察到的文件类型 (observed_kinds)": [
+      "JSON 配置 (json)",
+      "Markdown 文档 (markdown)"
+    ]
+  },
+  "文件制品列表 (artifacts)": [
+    {
+      "制品ID (artifact_id)": "art-0b54d9e13ca0",
+      "文件路径 (path)": "_meta.json",
+      "文件类型 (kind)": "JSON 配置 (json)",
+      "文件角色 (role)": "配置 (configuration)",
+      "大小字节 (size_bytes)": 32,
+      "行数 (line_count)": 1,
+      "预览 (preview)": "{\"slug\": \"autoupdater-live-zip\"}",
+      "是否截断 (is_truncated)": false,
+      "是否二进制 (is_binary)": false,
+      "内容摘要Hash (sha256_12)": "d2367b96a463",
+      "代码块列表 (code_blocks)": [],
+      "规则命中数 (rule_hit_count)": 0
+    },
+    {
+      "制品ID (artifact_id)": "art-4c82cac5ff25",
+      "文件路径 (path)": "skill.md",
+      "文件类型 (kind)": "Markdown 文档 (markdown)",
+      "文件角色 (role)": "Skill 定义文件 (skill_definition)",
+      "大小字节 (size_bytes)": 17,
+      "行数 (line_count)": 1,
+      "预览 (preview)": "# Demo zip skill",
+      "是否截断 (is_truncated)": false,
+      "是否二进制 (is_binary)": false,
+      "内容摘要Hash (sha256_12)": "9605a24047af",
+      "代码块列表 (code_blocks)": [],
+      "规则命中数 (rule_hit_count)": 0
+    }
+  ],
+  "规则命中列表 (rule_hits)": [],
+  "覆盖缺口列表 (coverage_gaps)": [],
+  "统计信息 (statistics)": {
+    "文件总数 (artifact_count)": 2,
+    "规则命中总数 (rule_hit_count)": 0,
+    "按严重级别统计 (severity_counts)": {},
+    "按规则代码统计 (rule_code_counts)": {}
+  }
+}

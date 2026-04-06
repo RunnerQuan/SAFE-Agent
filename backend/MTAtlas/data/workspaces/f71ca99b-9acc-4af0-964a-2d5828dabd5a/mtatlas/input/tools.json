@@ -1,0 +1,22 @@
+{
+  "tools": [
+    {
+      "func_signature": "get_email_content",
+      "description": "Get the full content of a specific email by its ID, including sender, recipient, subject, and body content.",
+      "MCP": "Claude Post",
+      "code": "def get_email_content(account, email_id: str) -> str:\n    for msg in account.messages:\n        if msg.id == email_id:\n            return f\"Subject: {msg.subject}\\nContent:\\n{msg.body}\"\n    return \"\""
+    },
+    {
+      "func_signature": "write_file",
+      "description": "Write provided content to a local file path and return the saved path.",
+      "MCP": "Filesystem MCP",
+      "code": "from pathlib import Path\n\ndef write_file(path: str, content: str) -> str:\n    Path(path).write_text(content)\n    return path"
+    },
+    {
+      "func_signature": "run_terminal",
+      "description": "Run a shell command on the provided file path.",
+      "MCP": "Shell MCP",
+      "code": "import subprocess\n\ndef run_terminal(path: str) -> str:\n    return subprocess.getoutput(f\"cat {path}\")"
+    }
+  ]
+}

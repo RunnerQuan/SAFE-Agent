@@ -1,0 +1,310 @@
+{
+  "tools": [
+    {
+      "tool_name": "favorite_feed",
+      "mcp_name": "xiaohongshu",
+      "description": "",
+      "input_params": [
+        {
+          "name": "feed_id",
+          "type": "str",
+          "kind": "user_input",
+          "required": true
+        },
+        {
+          "name": "unfavorite",
+          "type": "bool",
+          "kind": "user_input",
+          "required": false
+        }
+      ],
+      "injected_params": [
+        {
+          "name": "xiaohongshu",
+          "type": "Annotated[Xiaohongshu, Depends('xiaohongshu')]",
+          "kind": "depends_injection",
+          "required": false
+        }
+      ],
+      "return_shape": "text",
+      "return_fields": [
+        "body",
+        "content",
+        "email_content"
+      ],
+      "side_effects": [],
+      "content_sources": []
+    },
+    {
+      "tool_name": "get_feed_detail",
+      "mcp_name": "xiaohongshu",
+      "description": "",
+      "input_params": [
+        {
+          "name": "feed_id",
+          "type": "str",
+          "kind": "user_input",
+          "required": true
+        }
+      ],
+      "injected_params": [
+        {
+          "name": "xiaohongshu",
+          "type": "Annotated[Xiaohongshu, Depends('xiaohongshu')]",
+          "kind": "depends_injection",
+          "required": false
+        }
+      ],
+      "return_shape": "text",
+      "return_fields": [
+        "comment_id",
+        "content",
+        "replies",
+        "timestamp",
+        "user_id"
+      ],
+      "side_effects": [
+        "index_store",
+        "persistent_write"
+      ],
+      "content_sources": [
+        "indexed_document"
+      ]
+    },
+    {
+      "tool_name": "like_feed",
+      "mcp_name": "xiaohongshu",
+      "description": "",
+      "input_params": [
+        {
+          "name": "feed_id",
+          "type": "str",
+          "kind": "user_input",
+          "required": true
+        },
+        {
+          "name": "unlike",
+          "type": "bool",
+          "kind": "user_input",
+          "required": false
+        }
+      ],
+      "injected_params": [
+        {
+          "name": "xiaohongshu",
+          "type": "Annotated[Xiaohongshu, Depends('xiaohongshu')]",
+          "kind": "depends_injection",
+          "required": false
+        }
+      ],
+      "return_shape": "text",
+      "return_fields": [
+        "body",
+        "content",
+        "email_content"
+      ],
+      "side_effects": [],
+      "content_sources": []
+    },
+    {
+      "tool_name": "list_feeds",
+      "mcp_name": "xiaohongshu",
+      "description": "",
+      "input_params": [],
+      "injected_params": [
+        {
+          "name": "xiaohongshu",
+          "type": "Annotated[Xiaohongshu, Depends('xiaohongshu')]",
+          "kind": "depends_injection",
+          "required": false
+        }
+      ],
+      "return_shape": "text",
+      "return_fields": [
+        "content"
+      ],
+      "side_effects": [],
+      "content_sources": []
+    },
+    {
+      "tool_name": "post_comment_to_feed",
+      "mcp_name": "xiaohongshu",
+      "description": "",
+      "input_params": [
+        {
+          "name": "feed_id",
+          "type": "str",
+          "kind": "user_input",
+          "required": true
+        },
+        {
+          "name": "content",
+          "type": "str",
+          "kind": "user_input",
+          "required": true
+        }
+      ],
+      "injected_params": [
+        {
+          "name": "xiaohongshu",
+          "type": "Annotated[Xiaohongshu, Depends('xiaohongshu')]",
+          "kind": "depends_injection",
+          "required": false
+        }
+      ],
+      "return_shape": "text",
+      "return_fields": [
+        "body",
+        "content",
+        "email_content"
+      ],
+      "side_effects": [],
+      "content_sources": []
+    },
+    {
+      "tool_name": "publish_content",
+      "mcp_name": "xiaohongshu",
+      "description": "",
+      "input_params": [
+        {
+          "name": "title",
+          "type": "str",
+          "kind": "user_input",
+          "required": true
+        },
+        {
+          "name": "content",
+          "type": "str",
+          "kind": "user_input",
+          "required": true
+        },
+        {
+          "name": "tags",
+          "type": "List[str] | None",
+          "kind": "user_input",
+          "required": false
+        }
+      ],
+      "injected_params": [
+        {
+          "name": "xiaohongshu",
+          "type": "Annotated[Xiaohongshu, Depends('xiaohongshu')]",
+          "kind": "depends_injection",
+          "required": false
+        }
+      ],
+      "return_shape": "text",
+      "return_fields": [
+        "content"
+      ],
+      "side_effects": [],
+      "content_sources": []
+    },
+    {
+      "tool_name": "reply_comment_in_feed",
+      "mcp_name": "xiaohongshu",
+      "description": "",
+      "input_params": [
+        {
+          "name": "feed_id",
+          "type": "str",
+          "kind": "user_input",
+          "required": true
+        },
+        {
+          "name": "comment_id",
+          "type": "str",
+          "kind": "user_input",
+          "required": true
+        },
+        {
+          "name": "content",
+          "type": "str",
+          "kind": "user_input",
+          "required": true
+        }
+      ],
+      "injected_params": [
+        {
+          "name": "xiaohongshu",
+          "type": "Annotated[Xiaohongshu, Depends('xiaohongshu')]",
+          "kind": "depends_injection",
+          "required": false
+        }
+      ],
+      "return_shape": "text",
+      "return_fields": [
+        "body",
+        "content",
+        "email_content"
+      ],
+      "side_effects": [],
+      "content_sources": []
+    },
+    {
+      "tool_name": "search_feeds",
+      "mcp_name": "xiaohongshu",
+      "description": "",
+      "input_params": [
+        {
+          "name": "keyword",
+          "type": "str",
+          "kind": "user_input",
+          "required": true
+        },
+        {
+          "name": "sort_by",
+          "type": "str",
+          "kind": "user_input",
+          "required": false
+        }
+      ],
+      "injected_params": [
+        {
+          "name": "xiaohongshu",
+          "type": "Annotated[Xiaohongshu, Depends('xiaohongshu')]",
+          "kind": "depends_injection",
+          "required": false
+        }
+      ],
+      "return_shape": "text",
+      "return_fields": [
+        "content"
+      ],
+      "side_effects": [],
+      "content_sources": []
+    },
+    {
+      "tool_name": "xhs_user_profile",
+      "mcp_name": "xiaohongshu",
+      "description": "",
+      "input_params": [
+        {
+          "name": "user_id",
+          "type": "str",
+          "kind": "user_input",
+          "required": true
+        }
+      ],
+      "injected_params": [
+        {
+          "name": "xiaohongshu",
+          "type": "Annotated[Xiaohongshu, Depends('xiaohongshu')]",
+          "kind": "depends_injection",
+          "required": false
+        }
+      ],
+      "return_shape": "text",
+      "return_fields": [
+        "file_path"
+      ],
+      "side_effects": [
+        "index_store",
+        "persistent_write"
+      ],
+      "content_sources": [
+        "indexed_document"
+      ]
+    }
+  ]
+}

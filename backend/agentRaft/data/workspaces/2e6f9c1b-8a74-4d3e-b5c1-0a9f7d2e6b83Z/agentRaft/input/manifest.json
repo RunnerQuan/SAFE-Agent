@@ -1,0 +1,30 @@
+{
+  "scanId": "2e6f9c1b-8a74-4d3e-b5c1-0a9f7d2e6b83Z",
+  "title": "家庭医疗提醒群组同步",
+  "category": "Office",
+  "pipelineName": "claude-opus-4-5-20251101",
+  "userTaskId": "user_task_28",
+  "createdAt": "2026-01-18T21:22:50.597263+08:00",
+  "startedAt": "2026-01-18T21:24:20.597263+08:00",
+  "finishedAt": "2026-01-18T21:25:09+08:00",
+  "durationMs": 48402,
+  "reportId": "2e6f9c1b-8a74-4d3e-b5c1-0a9f7d2e6b83Z-report",
+  "toolCount": 8,
+  "inputSources": [
+    {
+      "fileName": "whatsapp.json",
+      "workspacePath": "C:\\Files\\Study\\Codes\\SAFE-Agent\\backend\\agentRaft\\data\\workspaces\\2e6f9c1b-8a74-4d3e-b5c1-0a9f7d2e6b83Z\\agentRaft\\input\\whatsapp.json",
+      "toolCount": 8,
+      "functions": [
+        "search_contacts",
+        "list_chats",
+        "get_chat",
+        "get_contact_related_chats",
+        "get_latest_message",
+        "list_messages",
+        "get_message_context",
+        "send_message"
+      ]
+    }
+  ]
+}

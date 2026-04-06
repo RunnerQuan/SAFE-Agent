@@ -1,0 +1,512 @@
+{
+  "preprocess": {
+    "skill": {
+      "root": "C:\\Files\\Study\\Codes\\Skill-Scan\\scan-results\\jobs\\job-20260322-044132-0a0c14\\skills\\healthgrades",
+      "claims": [
+        "--",
+        "Find doctors with Healthgrades - search providers, read reviews, and check credentials",
+        "Healthgrades Skill",
+        "Overview",
+        "Quick Install",
+        "Setup",
+        "First, ensure canifi-env is installed:",
+        "curl -sSL https://canifi.com/install.sh | bash",
+        "Privacy & Authentication",
+        "*Your credentials, your choice.** Canifi LifeOS respects your privacy.",
+        "Option 1: Manual Browser Login (Recommended)"
+      ],
+      "observed_kinds": [
+        "json",
+        "markdown"
+      ]
+    },
+    "artifacts": [
+      {
+        "id": "art-037fda535255",
+        "path": ".claude-plugin/plugin.json",
+        "kind": "json",
+        "role": "configuration",
+        "size_bytes": 852,
+        "line_count": 33,
+        "preview": "{\n  \"name\": \"healthgrades\",\n  \"displayName\": \"Healthgrades\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Find doctors with Healthgrades - search providers, read reviews, and check credentials\",\n  \"author\": \"Canifi LifeOS\",\n  \"category\": \"Healthcare & Telehealth\",\n  \"authentication\": {\n    \"type\": \"browser\",\n    \"loginUrl\": \"https://www.healthgrades.com/login\",\n    \"loggedInIndicator\": \"[data-testid='user-menu']\"\n  },\n  \"capabilities\": [\n    \"search-doctors\",\n    \"read-reviews\",\n    \"check-credentials\",\n    \"hospital-ratings\",\n    \"compare-providers\",\n    \"find-specialists\"\n  ],\n  \"requiredEnvVars\": [\n    \"HEALTHGRADES_EMAIL\",\n    \"HEALTHGRADES_PASSWORD\"\n  ],\n  \"endpoints\": {\n    \"base\": \"https://www.healthgrades.com\",\n    \"find\": \"https://www.healthgrades.com/find-a-doctor\"\n  },\n  \"rateLimit\": {\n    \"requests\": 60,\n    \"period\": \"minute\"\n  }\n}",
+        "truncated": false,
+        "binary": false,
+        "sha256_12": "1710dee8e791",
+        "code_blocks": [],
+        "hit_count": 0
+      },
+      {
+        "id": "art-0e95f5a36660",
+        "path": "SKILL.md",
+        "kind": "markdown",
+        "role": "skill_definition",
+        "size_bytes": 3390,
+        "line_count": 122,
+        "preview": "---\nname: healthgrades\ndescription: Find doctors with Healthgrades - search providers, read reviews, and check credentials\ncategory: healthcare\n---\n\n# Healthgrades Skill\n\n## Overview\nEnables Claude to use Healthgrades for finding and researching healthcare providers including searching doctors, reading patient reviews, and checking credentials.\n\n## Quick Install\n\n```bash\ncurl -sSL https://canifi.com/skills/healthgrades/install.sh | bash\n```\n\nOr manually:\n```bash\ncp -r skills/healthgrades ~/.canifi/skills/\n```\n\n## Setup\n\nConfigure via [canifi-env](https://canifi.com/setup/scripts):\n\n```bash\n# First, ensure canifi-env is installed:\n# curl -sSL https://canifi.com/install.sh | bash\n\ncanifi-env set HEALTHGRADES_EMAIL \"your-email@example.com\"\ncanifi-env set HEALTHGRADES_PASSWORD \"your-password\"\n```\n\n## Privacy & Authentication\n\n**Your credentials, your choice.** Canifi LifeOS respects your privacy.\n\n### Option 1: Manual Browser Login (Recommended)\nIf you prefer not to share credentials with Claude Code:\n1. Complete the [Browser Automation Setup](/setup/automation) using CDP mode\n2. Login to the service manually in the Playwright-controlled Chrome window\n3. Claude will use your authenticated session without ever seeing your password\n\n### Option 2: Environment Variables\nIf you're comfortable sharing credentials, you can store them locally:\n```bash\ncanifi-env set SERVICE_EMAIL \"your-email\"\ncanifi-env set SERVICE_PASSWORD \"your-password\"\n```",
+        "truncated": false,
+        "binary": false,
+        "sha256_12": "a9b62dc48666",
+        "code_blocks": [
+          {
+            "language": "shell",
+            "start_line": 15,
+            "end_line": 15,
+            "preview": "curl -sSL https://canifi.com/skills/healthgrades/install.sh | bash"
+          },
+          {
+            "language": "shell",
+            "start_line": 20,
+            "end_line": 20,
+            "preview": "cp -r skills/healthgrades ~/.canifi/skills/"
+          },
+          {
+            "language": "shell",
+            "start_line": 28,
+            "end_line": 32,
+            "preview": "# First, ensure canifi-env is installed:\n# curl -sSL https://canifi.com/install.sh | bash\n\ncanifi-env set HEALTHGRADES_EMAIL \"your-email@example.com\"\ncanifi-env set HEALTHGRADES_PASSWORD \"your-password\""
+          },
+          {
+            "language": "shell",
+            "start_line": 48,
+            "end_line": 49,
+            "preview": "canifi-env set SERVICE_EMAIL \"your-email\"\ncanifi-env set SERVICE_PASSWORD \"your-password\""
+          },
+          {
+            "language": "text",
+            "start_line": 66,
+            "end_line": 72,
+            "preview": "User: \"Find a highly rated cardiologist near me\"\nClaude: I'll search for cardiologists.\n1. Opening Healthgrades via Playwright MCP\n2. Searching for cardiologists\n3. Filtering by location\n4. Sorting by patient ratings\n5. Listing top-rated options"
+          },
+          {
+            "language": "text",
+            "start_line": 77,
+            "end_line": 82,
+            "preview": "User: \"What do patients say about Dr. Johnson?\"\nClaude: I'll check patient reviews.\n1. Finding Dr. Johnson's profile\n2. Accessing patient reviews\n3. Summarizing feedback themes\n4. Noting ratings breakdown"
+          },
+          {
+            "language": "text",
+            "start_line": 87,
+            "end_line": 92,
+            "preview": "User: \"Is Dr. Smith board certified?\"\nClaude: I'll verify credentials.\n1. Finding Dr. Smith's profile\n2. Viewing credentials section\n3. Checking board certifications\n4. Noting education and training"
+          }
+        ],
+        "hit_count": 4
+      }
+    ],
+    "rule_hits": [
+      {
+        "code": "MAL-DOWNLOAD-EXEC",
+        "severity": "critical",
+        "path": "SKILL.md",
+        "start_line": 15,
+        "end_line": 15,
+        "message": "Potential download-and-execute behavior",
+        "excerpt": "curl -sSL https://canifi.com/skills/healthgrades/install.sh | bash",
+        "source": "code_block"
+      },
+      {
+        "code": "MAL-DOWNLOAD-EXEC",
+        "severity": "critical",
+        "path": "SKILL.md",
+        "start_line": 29,
+        "end_line": 29,
+        "message": "Potential download-and-execute behavior",
+        "excerpt": "# curl -sSL https://canifi.com/install.sh | bash",
+        "source": "code_block"
+      },
+      {
+        "code": "FEAT-NETWORK",
+        "severity": "low",
+        "path": "SKILL.md",
+        "start_line": 15,
+        "end_line": 15,
+        "message": "Network access behavior",
+        "excerpt": "curl -sSL https://canifi.com/skills/healthgrades/install.sh | bash",
+        "source": "code_block"
+      },
+      {
+        "code": "FEAT-NETWORK",
+        "severity": "low",
+        "path": "SKILL.md",
+        "start_line": 29,
+        "end_line": 29,
+        "message": "Network access behavior",
+        "excerpt": "# curl -sSL https://canifi.com/install.sh | bash",
+        "source": "code_block"
+      }
+    ],
+    "coverage_gaps": [],
+    "stats": {
+      "artifact_count": 2,
+      "rule_hit_count": 4,
+      "severity_counts": {
+        "critical": 2,
+        "low": 2
+      },
+      "rule_code_counts": {
+        "FEAT-NETWORK": 2,
+        "MAL-DOWNLOAD-EXEC": 2
+      }
+    }
+  },
+  "triage": {
+    "skill": {
+      "claims": [
+        "Find doctors with Healthgrades - search providers, read reviews, and check credentials"
+      ],
+      "obs": [
+        "network_call",
+        "shell_wrapper",
+        "secret_env_read"
+      ],
+      "high_risk_features": [
+        "download_and_execute"
+      ]
+    },
+    "arts": [
+      {
+        "id": "art-0e95f5a36660",
+        "path": "SKILL.md",
+        "kind": "markdown",
+        "role": "skill_definition",
+        "obs": [
+          "network_call",
+          "shell_wrapper",
+          "secret_env_read"
+        ],
+        "signals": [
+          "download_and_execute",
+          "network_access"
+        ],
+        "spans": [
+          {
+            "path": "SKILL.md",
+            "s": 15,
+            "e": 15,
+            "why": "curl pipe to bash - download and execute remote script"
+          },
+          {
+            "path": "SKILL.md",
+            "s": 29,
+            "e": 29,
+            "why": "commented curl pipe to bash - shows pattern but disabled"
+          },
+          {
+            "path": "SKILL.md",
+            "s": 31,
+            "e": 32,
+            "why": "environment variable storage for credentials"
+          },
+          {
+            "path": "SKILL.md",
+            "s": 48,
+            "e": 49,
+            "why": "alternative credential storage pattern"
+          }
+        ],
+        "priority": "high",
+        "raw": true
+      },
+      {
+        "id": "art-037fda535255",
+        "path": ".claude-plugin/plugin.json",
+        "kind": "json",
+        "role": "configuration",
+        "obs": [
+          "network_call"
+        ],
+        "signals": [],
+        "spans": [
+          {
+            "path": ".claude-plugin/plugin.json",
+            "s": 12,
+            "e": 14,
+            "why": "browser authentication configuration with login URL"
+          },
+          {
+            "path": ".claude-plugin/plugin.json",
+            "s": 24,
+            "e": 26,
+            "why": "required environment variables for credentials"
+          },
+          {
+            "path": ".claude-plugin/plugin.json",
+            "s": 27,
+            "e": 30,
+            "why": "network endpoints defined"
+          }
+        ],
+        "priority": "med",
+        "raw": false
+      }
+    ],
+    "xconcerns": [
+      {
+        "type": "malicious_candidate",
+        "arts": [
+          "art-0e95f5a36660"
+        ],
+        "spans": [
+          {
+            "path": "SKILL.md",
+            "s": 15,
+            "e": 15,
+            "why": "Direct curl-to-bash pattern without hash verification or safety checks"
+          }
+        ],
+        "why": "Download and execute remote script - classic supply chain risk pattern"
+      },
+      {
+        "type": "unsafe_candidate",
+        "arts": [
+          "art-0e95f5a36660"
+        ],
+        "spans": [
+          {
+            "path": "SKILL.md",
+            "s": 31,
+            "e": 32,
+            "why": "Storing credentials in environment variables with example"
+          },
+          {
+            "path": "SKILL.md",
+            "s": 48,
+            "e": 49,
+            "why": "Alternative credential storage with different variable names"
+          }
+        ],
+        "why": "Credential handling patterns without clear security context or encryption"
+      },
+      {
+        "type": "description_gap",
+        "arts": [
+          "art-0e95f5a36660",
+          "art-037fda535255"
+        ],
+        "spans": [
+          {
+            "path": "SKILL.md",
+            "s": 15,
+            "e": 15,
+            "why": "Install script source not described in skill claims"
+          },
+          {
+            "path": ".claude-plugin/plugin.json",
+            "s": 27,
+            "e": 30,
+            "why": "Network endpoints defined but no implementation shown"
+          }
+        ],
+        "why": "Missing implementation details for advertised capabilities and network behavior"
+      }
+    ],
+    "retrieve": [
+      {
+        "path": "skills/healthgrades/install.sh",
+        "s": 0,
+        "e": 0,
+        "reason": "Critical to examine the downloaded script for actual behavior"
+      },
+      {
+        "path": "skills/healthgrades/",
+        "s": 0,
+        "e": 0,
+        "reason": "Need to see actual implementation files for capabilities"
+      },
+      {
+        "path": "~/.canifi/skills/healthgrades",
+        "s": 0,
+        "e": 0,
+        "reason": "Check installed location for any additional artifacts"
+      }
+    ],
+    "coverage": {
+      "total": 2,
+      "indexed": 2,
+      "gaps": [
+        {
+          "path": "skills/healthgrades/",
+          "why": "Missing implementation files for advertised capabilities (search, reviews, credentials)"
+        },
+        {
+          "path": "https://canifi.com/skills/healthgrades/install.sh",
+          "why": "Remote install script content unknown - critical for download-and-execute assessment"
+        }
+      ]
+    }
+  },
+  "security": {
+    "findings": [
+      {
+        "id": "mal-download-exec-1",
+        "cat": "supply_chain",
+        "class": "malicious",
+        "severity": "critical",
+        "conf": "high",
+        "summary": "Skill instructs users to download and execute a remote script via curl-to-bash without verification, creating supply chain attack risk",
+        "arts": [
+          "art-0e95f5a36660"
+        ],
+        "spans": [
+          {
+            "path": "SKILL.md",
+            "s": 15,
+            "e": 15,
+            "why": "Direct instruction: 'curl -sSL https://canifi.com/skills/healthgrades/install.sh | bash' - classic supply chain attack pattern"
+          }
+        ],
+        "impact": "Remote code execution with full user privileges; script content is unknown and could contain malicious payloads",
+        "fix": "Provide script content for review, use cryptographic verification (checksums, signatures), or offer manual installation only"
+      },
+      {
+        "id": "unsafe-cred-example",
+        "cat": "credential_handling",
+        "class": "unsafe",
+        "severity": "med",
+        "conf": "high",
+        "summary": "Examples show credential storage in environment variables without security context, potentially normalizing unsafe practices",
+        "arts": [
+          "art-0e95f5a36660"
+        ],
+        "spans": [
+          {
+            "path": "SKILL.md",
+            "s": 31,
+            "e": 32,
+            "why": "Example: 'canifi-env set HEALTHGRADES_EMAIL \"your-email@example.com\"' and password storage"
+          },
+          {
+            "path": "SKILL.md",
+            "s": 48,
+            "e": 49,
+            "why": "Alternative example with different variable names: 'canifi-env set SERVICE_EMAIL \"your-email\"'"
+          }
+        ],
+        "impact": "Users may store sensitive credentials insecurely; examples lack warnings about credential protection, encryption, or secure storage practices",
+        "fix": "Add security warnings, recommend credential managers, explain encryption status, and clarify access controls"
+      },
+      {
+        "id": "desc-missing-impl",
+        "cat": "capability_gap",
+        "class": "description",
+        "severity": "med",
+        "conf": "high",
+        "summary": "Skill claims capabilities (search doctors, read reviews, check credentials) but no implementation files are present to support these claims",
+        "arts": [
+          "art-0e95f5a36660",
+          "art-037fda535255"
+        ],
+        "spans": [
+          {
+            "path": ".claude-plugin/plugin.json",
+            "s": 27,
+            "e": 30,
+            "why": "Network endpoints defined but no implementation shown for advertised capabilities"
+          }
+        ],
+        "impact": "Users cannot verify if skill actually performs claimed functions; may be misleading about capabilities",
+        "fix": "Include implementation files or clarify that capabilities require external scripts/APIs not shown"
+      }
+    ],
+    "ctx_requests": [
+      {
+        "path": "skills/healthgrades/install.sh",
+        "s": 0,
+        "e": 0,
+        "reason": "Critical to examine the downloaded script for actual behavior - needed to assess maliciousness of download-execute pattern"
+      },
+      {
+        "path": "skills/healthgrades/",
+        "s": 0,
+        "e": 0,
+        "reason": "Need to see actual implementation files for advertised capabilities (search, reviews, credentials)"
+      }
+    ],
+    "coverage": {
+      "reviewed_arts": [
+        "art-0e95f5a36660",
+        "art-037fda535255"
+      ],
+      "unresolved_high_risk_arts": [
+        "art-0e95f5a36660"
+      ]
+    }
+  },
+  "judge": {
+    "verdict": {
+      "label": "insufficient_evidence",
+      "primary_concern": "unknown",
+      "issue_types": [
+        "supply_chain",
+        "credential_handling",
+        "capability_gap"
+      ],
+      "maliciousness": 3,
+      "safety": 4,
+      "description_reliability": 3,
+      "coverage": 2
+    },
+    "top_findings": [
+      {
+        "id": "mal-download-exec-1",
+        "cat": "supply_chain",
+        "severity": "critical",
+        "conf": "high",
+        "summary": "Skill instructs users to download and execute a remote script via curl-to-bash without verification, creating supply chain attack risk",
+        "spans": [
+          {
+            "path": "SKILL.md",
+            "s": 15,
+            "e": 15,
+            "why": "Direct instruction: 'curl -sSL https://canifi.com/skills/healthgrades/install.sh | bash' - classic supply chain attack pattern"
+          }
+        ]
+      },
+      {
+        "id": "desc-missing-impl",
+        "cat": "capability_gap",
+        "severity": "med",
+        "conf": "high",
+        "summary": "Skill claims capabilities (search doctors, read reviews, check credentials) but no implementation files are present to support these claims",
+        "spans": [
+          {
+            "path": ".claude-plugin/plugin.json",
+            "s": 27,
+            "e": 30,
+            "why": "Network endpoints defined but no implementation shown for advertised capabilities"
+          }
+        ]
+      },
+      {
+        "id": "unsafe-cred-example",
+        "cat": "credential_handling",
+        "severity": "med",
+        "conf": "high",
+        "summary": "Examples show credential storage in environment variables without security context, potentially normalizing unsafe practices",
+        "spans": [
+          {
+            "path": "SKILL.md",
+            "s": 31,
+            "e": 32,
+            "why": "Example: 'canifi-env set HEALTHGRADES_EMAIL \"your-email@example.com\"' and password storage"
+          }
+        ]
+      }
+    ],
+    "coverage_audit": {
+      "adequate": false,
+      "missed": [
+        {
+          "path": "skills/healthgrades/install.sh",
+          "why": "Critical to examine the downloaded script for actual behavior - needed to assess maliciousness of download-execute pattern"
+        },
+        {
+          "path": "skills/healthgrades/",
+          "why": "Need to see actual implementation files for advertised capabilities (search, reviews, credentials)"
+        }
+      ],
+      "needs_rescan": true
+    },
+    "next_action": "rescan_targeted"
+  }
+}

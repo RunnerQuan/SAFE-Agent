@@ -1,0 +1,99 @@
+{
+  "skill": {
+    "claims": [
+      "Demo skill"
+    ],
+    "obs": [
+      "minimal_description",
+      "slug_only_config"
+    ],
+    "high_risk_features": []
+  },
+  "arts": [
+    {
+      "id": "art-4c82cac5ff25",
+      "path": "skill.md",
+      "kind": "markdown",
+      "role": "skill_definition",
+      "obs": [
+        "minimal_description"
+      ],
+      "signals": [],
+      "spans": [
+        {
+          "path": "skill.md",
+          "s": 0,
+          "e": 35,
+          "why": "Entire file is minimal description with no behavior details"
+        }
+      ],
+      "priority": "low",
+      "raw": false
+    },
+    {
+      "id": "art-0b54d9e13ca0",
+      "path": "_meta.json",
+      "kind": "json",
+      "role": "configuration",
+      "obs": [
+        "slug_only_config"
+      ],
+      "signals": [],
+      "spans": [
+        {
+          "path": "_meta.json",
+          "s": 0,
+          "e": 28,
+          "why": "Configuration contains only slug, no runtime or behavior configuration"
+        }
+      ],
+      "priority": "low",
+      "raw": false
+    }
+  ],
+  "xconcerns": [
+    {
+      "type": "description_gap",
+      "arts": [
+        "art-4c82cac5ff25"
+      ],
+      "spans": [
+        {
+          "path": "skill.md",
+          "s": 0,
+          "e": 35,
+          "why": "Description 'Demo skill' and 'This is a test skill.' provides no information about actual behavior, capabilities, or purpose"
+        }
+      ],
+      "why": "Skill claims to be a demo/test but provides zero information about what it does, how it works, or what operations it performs"
+    }
+  ],
+  "retrieve": [
+    {
+      "path": "skill.md",
+      "s": 0,
+      "e": 35,
+      "reason": "Primary documentation file; contains only minimal description"
+    },
+    {
+      "path": "_meta.json",
+      "s": 0,
+      "e": 28,
+      "reason": "Configuration file; contains only slug identifier"
+    }
+  ],
+  "coverage": {
+    "total": 2,
+    "indexed": 2,
+    "gaps": [
+      {
+        "path": "skill.md",
+        "why": "No code, implementation, or detailed behavior description present"
+      },
+      {
+        "path": "_meta.json",
+        "why": "No runtime configuration, dependencies, or execution details"
+      }
+    ]
+  }
+}

@@ -1,0 +1,433 @@
+{
+  "edges": [
+    {
+      "source_tool": "favorite_feed",
+      "target_tool": "post_comment_to_feed",
+      "dependency_kind": "direct",
+      "carrier": "content",
+      "source_field": "body",
+      "target_param": "content",
+      "match_kind": "equivalence",
+      "criteria": [
+        "field_equivalence"
+      ],
+      "evidence": "favorite_feed.body has a equivalence match with post_comment_to_feed.content"
+    },
+    {
+      "source_tool": "favorite_feed",
+      "target_tool": "post_comment_to_feed",
+      "dependency_kind": "direct",
+      "carrier": "content",
+      "source_field": "content",
+      "target_param": "content",
+      "match_kind": "equivalence",
+      "criteria": [
+        "field_equivalence"
+      ],
+      "evidence": "favorite_feed.content has a equivalence match with post_comment_to_feed.content"
+    },
+    {
+      "source_tool": "get_feed_detail",
+      "target_tool": "post_comment_to_feed",
+      "dependency_kind": "direct",
+      "carrier": "content",
+      "source_field": "content",
+      "target_param": "content",
+      "match_kind": "equivalence",
+      "criteria": [
+        "field_equivalence"
+      ],
+      "evidence": "get_feed_detail.content has a equivalence match with post_comment_to_feed.content"
+    },
+    {
+      "source_tool": "like_feed",
+      "target_tool": "post_comment_to_feed",
+      "dependency_kind": "direct",
+      "carrier": "content",
+      "source_field": "body",
+      "target_param": "content",
+      "match_kind": "equivalence",
+      "criteria": [
+        "field_equivalence"
+      ],
+      "evidence": "like_feed.body has a equivalence match with post_comment_to_feed.content"
+    },
+    {
+      "source_tool": "like_feed",
+      "target_tool": "post_comment_to_feed",
+      "dependency_kind": "direct",
+      "carrier": "content",
+      "source_field": "content",
+      "target_param": "content",
+      "match_kind": "equivalence",
+      "criteria": [
+        "field_equivalence"
+      ],
+      "evidence": "like_feed.content has a equivalence match with post_comment_to_feed.content"
+    },
+    {
+      "source_tool": "list_feeds",
+      "target_tool": "post_comment_to_feed",
+      "dependency_kind": "direct",
+      "carrier": "content",
+      "source_field": "content",
+      "target_param": "content",
+      "match_kind": "equivalence",
+      "criteria": [
+        "field_equivalence"
+      ],
+      "evidence": "list_feeds.content has a equivalence match with post_comment_to_feed.content"
+    },
+    {
+      "source_tool": "publish_content",
+      "target_tool": "post_comment_to_feed",
+      "dependency_kind": "direct",
+      "carrier": "content",
+      "source_field": "content",
+      "target_param": "content",
+      "match_kind": "equivalence",
+      "criteria": [
+        "field_equivalence"
+      ],
+      "evidence": "publish_content.content has a equivalence match with post_comment_to_feed.content"
+    },
+    {
+      "source_tool": "reply_comment_in_feed",
+      "target_tool": "post_comment_to_feed",
+      "dependency_kind": "direct",
+      "carrier": "content",
+      "source_field": "body",
+      "target_param": "content",
+      "match_kind": "equivalence",
+      "criteria": [
+        "field_equivalence"
+      ],
+      "evidence": "reply_comment_in_feed.body has a equivalence match with post_comment_to_feed.content"
+    },
+    {
+      "source_tool": "reply_comment_in_feed",
+      "target_tool": "post_comment_to_feed",
+      "dependency_kind": "direct",
+      "carrier": "content",
+      "source_field": "content",
+      "target_param": "content",
+      "match_kind": "equivalence",
+      "criteria": [
+        "field_equivalence"
+      ],
+      "evidence": "reply_comment_in_feed.content has a equivalence match with post_comment_to_feed.content"
+    },
+    {
+      "source_tool": "search_feeds",
+      "target_tool": "post_comment_to_feed",
+      "dependency_kind": "direct",
+      "carrier": "content",
+      "source_field": "content",
+      "target_param": "content",
+      "match_kind": "equivalence",
+      "criteria": [
+        "field_equivalence"
+      ],
+      "evidence": "search_feeds.content has a equivalence match with post_comment_to_feed.content"
+    },
+    {
+      "source_tool": "favorite_feed",
+      "target_tool": "publish_content",
+      "dependency_kind": "direct",
+      "carrier": "content",
+      "source_field": "body",
+      "target_param": "content",
+      "match_kind": "equivalence",
+      "criteria": [
+        "field_equivalence"
+      ],
+      "evidence": "favorite_feed.body has a equivalence match with publish_content.content"
+    },
+    {
+      "source_tool": "favorite_feed",
+      "target_tool": "publish_content",
+      "dependency_kind": "direct",
+      "carrier": "content",
+      "source_field": "content",
+      "target_param": "content",
+      "match_kind": "equivalence",
+      "criteria": [
+        "field_equivalence"
+      ],
+      "evidence": "favorite_feed.content has a equivalence match with publish_content.content"
+    },
+    {
+      "source_tool": "get_feed_detail",
+      "target_tool": "publish_content",
+      "dependency_kind": "direct",
+      "carrier": "content",
+      "source_field": "content",
+      "target_param": "content",
+      "match_kind": "equivalence",
+      "criteria": [
+        "field_equivalence"
+      ],
+      "evidence": "get_feed_detail.content has a equivalence match with publish_content.content"
+    },
+    {
+      "source_tool": "like_feed",
+      "target_tool": "publish_content",
+      "dependency_kind": "direct",
+      "carrier": "content",
+      "source_field": "body",
+      "target_param": "content",
+      "match_kind": "equivalence",
+      "criteria": [
+        "field_equivalence"
+      ],
+      "evidence": "like_feed.body has a equivalence match with publish_content.content"
+    },
+    {
+      "source_tool": "like_feed",
+      "target_tool": "publish_content",
+      "dependency_kind": "direct",
+      "carrier": "content",
+      "source_field": "content",
+      "target_param": "content",
+      "match_kind": "equivalence",
+      "criteria": [
+        "field_equivalence"
+      ],
+      "evidence": "like_feed.content has a equivalence match with publish_content.content"
+    },
+    {
+      "source_tool": "list_feeds",
+      "target_tool": "publish_content",
+      "dependency_kind": "direct",
+      "carrier": "content",
+      "source_field": "content",
+      "target_param": "content",
+      "match_kind": "equivalence",
+      "criteria": [
+        "field_equivalence"
+      ],
+      "evidence": "list_feeds.content has a equivalence match with publish_content.content"
+    },
+    {
+      "source_tool": "post_comment_to_feed",
+      "target_tool": "publish_content",
+      "dependency_kind": "direct",
+      "carrier": "content",
+      "source_field": "body",
+      "target_param": "content",
+      "match_kind": "equivalence",
+      "criteria": [
+        "field_equivalence"
+      ],
+      "evidence": "post_comment_to_feed.body has a equivalence match with publish_content.content"
+    },
+    {
+      "source_tool": "post_comment_to_feed",
+      "target_tool": "publish_content",
+      "dependency_kind": "direct",
+      "carrier": "content",
+      "source_field": "content",
+      "target_param": "content",
+      "match_kind": "equivalence",
+      "criteria": [
+        "field_equivalence"
+      ],
+      "evidence": "post_comment_to_feed.content has a equivalence match with publish_content.content"
+    },
+    {
+      "source_tool": "reply_comment_in_feed",
+      "target_tool": "publish_content",
+      "dependency_kind": "direct",
+      "carrier": "content",
+      "source_field": "body",
+      "target_param": "content",
+      "match_kind": "equivalence",
+      "criteria": [
+        "field_equivalence"
+      ],
+      "evidence": "reply_comment_in_feed.body has a equivalence match with publish_content.content"
+    },
+    {
+      "source_tool": "reply_comment_in_feed",
+      "target_tool": "publish_content",
+      "dependency_kind": "direct",
+      "carrier": "content",
+      "source_field": "content",
+      "target_param": "content",
+      "match_kind": "equivalence",
+      "criteria": [
+        "field_equivalence"
+      ],
+      "evidence": "reply_comment_in_feed.content has a equivalence match with publish_content.content"
+    },
+    {
+      "source_tool": "search_feeds",
+      "target_tool": "publish_content",
+      "dependency_kind": "direct",
+      "carrier": "content",
+      "source_field": "content",
+      "target_param": "content",
+      "match_kind": "equivalence",
+      "criteria": [
+        "field_equivalence"
+      ],
+      "evidence": "search_feeds.content has a equivalence match with publish_content.content"
+    },
+    {
+      "source_tool": "favorite_feed",
+      "target_tool": "reply_comment_in_feed",
+      "dependency_kind": "direct",
+      "carrier": "content",
+      "source_field": "body",
+      "target_param": "content",
+      "match_kind": "equivalence",
+      "criteria": [
+        "field_equivalence"
+      ],
+      "evidence": "favorite_feed.body has a equivalence match with reply_comment_in_feed.content"
+    },
+    {
+      "source_tool": "favorite_feed",
+      "target_tool": "reply_comment_in_feed",
+      "dependency_kind": "direct",
+      "carrier": "content",
+      "source_field": "content",
+      "target_param": "content",
+      "match_kind": "equivalence",
+      "criteria": [
+        "field_equivalence"
+      ],
+      "evidence": "favorite_feed.content has a equivalence match with reply_comment_in_feed.content"
+    },
+    {
+      "source_tool": "get_feed_detail",
+      "target_tool": "reply_comment_in_feed",
+      "dependency_kind": "direct",
+      "carrier": "content",
+      "source_field": "content",
+      "target_param": "content",
+      "match_kind": "equivalence",
+      "criteria": [
+        "field_equivalence"
+      ],
+      "evidence": "get_feed_detail.content has a equivalence match with reply_comment_in_feed.content"
+    },
+    {
+      "source_tool": "like_feed",
+      "target_tool": "reply_comment_in_feed",
+      "dependency_kind": "direct",
+      "carrier": "content",
+      "source_field": "body",
+      "target_param": "content",
+      "match_kind": "equivalence",
+      "criteria": [
+        "field_equivalence"
+      ],
+      "evidence": "like_feed.body has a equivalence match with reply_comment_in_feed.content"
+    },
+    {
+      "source_tool": "like_feed",
+      "target_tool": "reply_comment_in_feed",
+      "dependency_kind": "direct",
+      "carrier": "content",
+      "source_field": "content",
+      "target_param": "content",
+      "match_kind": "equivalence",
+      "criteria": [
+        "field_equivalence"
+      ],
+      "evidence": "like_feed.content has a equivalence match with reply_comment_in_feed.content"
+    },
+    {
+      "source_tool": "list_feeds",
+      "target_tool": "reply_comment_in_feed",
+      "dependency_kind": "direct",
+      "carrier": "content",
+      "source_field": "content",
+      "target_param": "content",
+      "match_kind": "equivalence",
+      "criteria": [
+        "field_equivalence"
+      ],
+      "evidence": "list_feeds.content has a equivalence match with reply_comment_in_feed.content"
+    },
+    {
+      "source_tool": "post_comment_to_feed",
+      "target_tool": "reply_comment_in_feed",
+      "dependency_kind": "direct",
+      "carrier": "content",
+      "source_field": "body",
+      "target_param": "content",
+      "match_kind": "equivalence",
+      "criteria": [
+        "field_equivalence"
+      ],
+      "evidence": "post_comment_to_feed.body has a equivalence match with reply_comment_in_feed.content"
+    },
+    {
+      "source_tool": "post_comment_to_feed",
+      "target_tool": "reply_comment_in_feed",
+      "dependency_kind": "direct",
+      "carrier": "content",
+      "source_field": "content",
+      "target_param": "content",
+      "match_kind": "equivalence",
+      "criteria": [
+        "field_equivalence"
+      ],
+      "evidence": "post_comment_to_feed.content has a equivalence match with reply_comment_in_feed.content"
+    },
+    {
+      "source_tool": "publish_content",
+      "target_tool": "reply_comment_in_feed",
+      "dependency_kind": "direct",
+      "carrier": "content",
+      "source_field": "content",
+      "target_param": "content",
+      "match_kind": "equivalence",
+      "criteria": [
+        "field_equivalence"
+      ],
+      "evidence": "publish_content.content has a equivalence match with reply_comment_in_feed.content"
+    },
+    {
+      "source_tool": "search_feeds",
+      "target_tool": "reply_comment_in_feed",
+      "dependency_kind": "direct",
+      "carrier": "content",
+      "source_field": "content",
+      "target_param": "content",
+      "match_kind": "equivalence",
+      "criteria": [
+        "field_equivalence"
+      ],
+      "evidence": "search_feeds.content has a equivalence match with reply_comment_in_feed.content"
+    },
+    {
+      "source_tool": "get_feed_detail",
+      "target_tool": "search_feeds",
+      "dependency_kind": "indirect",
+      "carrier": "index",
+      "source_field": "indexed_content",
+      "target_param": "",
+      "match_kind": "persist-read",
+      "criteria": [
+        "persistent_index_dependency"
+      ],
+      "evidence": "get_feed_detail can store indexed content that search_feeds may retrieve later."
+    },
+    {
+      "source_tool": "xhs_user_profile",
+      "target_tool": "search_feeds",
+      "dependency_kind": "indirect",
+      "carrier": "index",
+      "source_field": "indexed_content",
+      "target_param": "",
+      "match_kind": "persist-read",
+      "criteria": [
+        "persistent_index_dependency"
+      ],
+      "evidence": "xhs_user_profile can store indexed content that search_feeds may retrieve later."
+    }
+  ]
+}
