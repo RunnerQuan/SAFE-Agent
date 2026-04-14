@@ -3,6 +3,7 @@ from __future__ import annotations
 import os
 import tomllib
 from dataclasses import dataclass
+from dataclasses import replace
 from pathlib import Path
 
 
@@ -61,6 +62,24 @@ class AppConfig:
     scan: ScanConfig
     logging: LoggingConfig
     web: WebConfig
+
+
+def apply_task_llm_override(
+    config: AppConfig,
+    *,
+    provider: str,
+    model: str,
+    api_key: str,
+) -> AppConfig:
+    return replace(
+        config,
+        llm=replace(
+            config.llm,
+            provider=provider,
+            model=model,
+            api_key=api_key,
+        ),
+    )
 
 
 def load_app_config(config_path: Path) -> AppConfig:

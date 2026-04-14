@@ -4,7 +4,7 @@ import { Suspense, useMemo, useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { Clock, Eye, Filter, Plus, RotateCcw, Search, StopCircle } from 'lucide-react'
+import { Clock, Eye, Filter, Search, StopCircle } from 'lucide-react'
 import { toast } from 'sonner'
 
 import { ConfirmDialog } from '@/components/dialogs/confirm-dialog'
@@ -103,14 +103,6 @@ function ScansContent() {
         title="工具链风险分析"
         description="统一查看工具链联合检测任务，跟踪执行进度，并在详情页直接阅读 DOE 与组合式漏洞结果。"
         descriptionClassName="page-header-description-lg"
-        actions={
-          <Link href="/scans/new">
-            <Button>
-              <Plus className="mr-1.5 h-4 w-4" />
-              新建分析
-            </Button>
-          </Link>
-        }
       />
 
       {/* 工具能力介绍 — 紧跟 PageHeader */}
@@ -360,12 +352,6 @@ function ScansContent() {
                         </Button>
                       </Link>
 
-                      <Link href={`/scans/new?copyFrom=${scan.id}`}>
-                        <Button variant="ghost" size="icon" title="重新运行">
-                          <RotateCcw className="h-5 w-5" />
-                        </Button>
-                      </Link>
-
                       {canCancel && (
                         <Button variant="ghost" size="icon" title="取消任务" onClick={() => setCancelDialog({ open: true, scan })}>
                           <StopCircle className="h-5 w-5" />
@@ -383,7 +369,6 @@ function ScansContent() {
           <EmptyState
             title={activeFilters.length > 0 || searchTerm ? '当前条件下暂无任务' : '暂无任务'}
             description={activeFilters.length > 0 || searchTerm ? '调整筛选条件或搜索关键词后再试。' : '提交一次联合检测后，任务会出现在这里。'}
-            action={{ label: '新建分析', href: '/scans/new' }}
           />
         </Card>
       )}

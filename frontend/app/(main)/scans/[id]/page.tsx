@@ -17,7 +17,6 @@ import {
   FileJson,
   FileText,
   Info,
-  RotateCcw,
   ShieldAlert,
   StopCircle,
   Waypoints,
@@ -382,12 +381,6 @@ export default function ScanDetailPage() {
                 取消任务
               </Button>
             )}
-            <Link href={`/scans/new?copyFrom=${scan.id}`}>
-              <Button variant="outline">
-                <RotateCcw className="mr-2 h-4 w-4" />
-                重新运行
-              </Button>
-            </Link>
             <Link href="/scans">
               <Button variant="ghost">
                 <ArrowLeft className="mr-2 h-4 w-4" />

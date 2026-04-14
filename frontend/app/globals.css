@@ -481,7 +481,7 @@
   width: min(1520px, 100%);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-columns: clamp(220px, 17vw, 320px) minmax(0, 1fr) clamp(220px, 17vw, 320px);
   align-items: center;
   gap: 1.4rem;
   padding: 1rem 1.35rem;
@@ -524,7 +524,10 @@
 .topbar-brand {
   display: inline-flex;
   align-items: center;
-  gap: 1.6rem;
+  justify-content: center;
+  width: auto;
+  max-width: 100%;
+  gap: 1.15rem;
 }
 
 .topbar-tools {
@@ -537,11 +540,20 @@
 .main-nav {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
   gap: 0.75rem;
   padding: 0;
   border-radius: 1.2rem;
   border: 1px solid transparent;
   background: transparent;
+}
+
+.topbar-balance {
+  width: clamp(220px, 17vw, 320px);
+  min-width: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .dark .main-nav {
@@ -1772,6 +1784,7 @@
   .topbar-brand {
     flex-direction: column;
     align-items: flex-start;
+    justify-content: flex-start;
   }
 
   .topbar-tools {
@@ -1782,6 +1795,10 @@
     width: 100%;
     overflow-x: auto;
     justify-content: flex-start;
+  }
+
+  .topbar-balance {
+    display: none;
   }
 
   .corner-school-brand-logo {
@@ -2243,7 +2260,7 @@
 
 .skillpecker-console-description {
   margin: 0.9rem 0 0;
-  font-size: 1.1rem;
+  font-size: 1.02rem;
   color: #64748b;
 }
 
@@ -3264,7 +3281,7 @@
 
 .skillpecker-console-description {
   max-width: 34rem;
-  font-size: 1rem;
+  font-size: 0.96rem;
   line-height: 1.82;
 }
 
@@ -5169,7 +5186,7 @@
 .skillpecker-console-title-single {
   display: block;
   max-width: 8em;
-  font-size: clamp(3rem, 5.4vw, 4.3rem);
+  font-size: clamp(2.7rem, 4.8vw, 3.8rem);
   line-height: 1;
   letter-spacing: -0.06em;
 }
@@ -5200,7 +5217,7 @@
 .skillpecker-queue-title {
   margin: 0;
   font-family: var(--font-display), var(--font-body), sans-serif;
-  font-size: clamp(1.85rem, 2.8vw, 2.4rem);
+  font-size: clamp(1.65rem, 2.4vw, 2.05rem);
   font-weight: 900;
   line-height: 1.02;
   color: #0f172a;
@@ -5213,10 +5230,217 @@
   border-radius: 999px;
 }
 
+.skillpecker-console-config-card {
+  display: grid;
+  gap: 1rem;
+  padding: 1.1rem;
+  border-radius: 1.7rem;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  background:
+    linear-gradient(180deg, rgba(248, 250, 252, 0.96), rgba(255, 255, 255, 0.92)),
+    radial-gradient(circle at top right, rgba(186, 230, 253, 0.22), transparent 42%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.84),
+    0 14px 34px rgba(148, 163, 184, 0.1);
+}
+
+.skillpecker-console-config-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.9rem;
+}
+
+.skillpecker-console-config-kicker {
+  margin: 0 0 0.25rem;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #0369a1;
+}
+
+.skillpecker-console-config-title {
+  margin: 0;
+  font-size: 1.42rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #0f172a;
+}
+
+.skillpecker-console-config-copy {
+  margin: 0.35rem 0 0;
+  font-size: 1.02rem;
+  line-height: 1.6;
+  color: #64748b;
+}
+
+.skillpecker-console-config-badge {
+  flex-shrink: 0;
+}
+
+.skillpecker-console-provider-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.skillpecker-console-provider-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  padding: 0.24rem 0.82rem;
+  border-radius: 999px;
+  border: 1px solid rgba(203, 213, 225, 0.8);
+  background: rgba(255, 255, 255, 0.72);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #475569;
+}
+
+.skillpecker-console-provider-chip.is-openai-compatible {
+  border-color: rgba(125, 211, 252, 0.84);
+  background: rgba(240, 249, 255, 0.94);
+  color: #0369a1;
+}
+
+.skillpecker-console-config-grid {
+  display: grid;
+  gap: 0.95rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.skillpecker-console-config-field {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.skillpecker-console-config-field-wide {
+  grid-column: 1 / -1;
+}
+
+.skillpecker-console-config-label {
+  font-size: 0.96rem;
+  font-weight: 700;
+  color: #334155;
+}
+
+.skillpecker-console-config-secret-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.skillpecker-console-config-note {
+  font-size: 0.86rem;
+  color: #64748b;
+}
+
+.skillpecker-console-model-helper {
+  margin: 0;
+  font-size: 0.97rem;
+  line-height: 1.65;
+  color: #64748b;
+}
+
+.skillpecker-console-model-helper strong {
+  color: #0f172a;
+  font-weight: 800;
+}
+
+.skillpecker-console-secret-wrap {
+  position: relative;
+}
+
+.skillpecker-console-secret-icon {
+  position: absolute;
+  left: 0.9rem;
+  top: 50%;
+  width: 1rem;
+  height: 1rem;
+  color: #64748b;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.skillpecker-console-secret-input {
+  padding-left: 2.6rem;
+  padding-right: 3rem;
+}
+
+.skillpecker-console-secret-toggle {
+  position: absolute;
+  right: 0.55rem;
+  top: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  color: #475569;
+  transform: translateY(-50%);
+  transition:
+    background-color 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.skillpecker-console-secret-toggle:hover {
+  background: rgba(224, 242, 254, 0.96);
+  color: #0369a1;
+  transform: translateY(-50%) scale(1.03);
+}
+
+.skillpecker-console-config-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  padding-top: 0.2rem;
+}
+
+.skillpecker-console-config-footer-copy {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: #64748b;
+}
+
+.skillpecker-console-config-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.45rem;
+}
+
+.skillpecker-console-config-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  padding: 0.25rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid rgba(186, 230, 253, 0.95);
+  background: rgba(240, 249, 255, 0.94);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #075985;
+}
+
 .skillpecker-console-copy {
   display: grid;
-  grid-template-rows: auto auto auto minmax(12rem, 1fr);
+  grid-template-rows: auto auto auto auto;
   gap: 1rem;
+}
+
+.skillpecker-console-form-subtitle {
+  margin: 0.45rem 0 0;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: #64748b;
 }
 
 .skillpecker-upload-mode-switch-refined {
@@ -5304,11 +5528,12 @@
 }
 
 .skillpecker-console-step-card strong {
-  font-size: 1.62rem;
+  font-size: 1.46rem;
   line-height: 1.08;
 }
 
 .skillpecker-console-step-card p {
+  font-size: 0.95rem;
   line-height: 1.78;
 }
 
@@ -5419,7 +5644,7 @@
 .skillpecker-upload-heading {
   margin: 0;
   font-family: var(--font-display), var(--font-body), sans-serif;
-  font-size: clamp(1.7rem, 2.4vw, 2.2rem);
+  font-size: clamp(1.5rem, 2.1vw, 1.9rem);
   font-weight: 900;
   line-height: 1.02;
   color: #0f172a;
@@ -5428,7 +5653,7 @@
 
 .skillpecker-upload-description {
   margin: 1rem 0 0;
-  font-size: 1.08rem;
+  font-size: 0.98rem;
   line-height: 1.9;
   font-weight: 600;
   color: #64748b;
@@ -5476,14 +5701,14 @@
 .skillpecker-selected-title {
   margin: 0;
   font-family: var(--font-display), var(--font-body), sans-serif;
-  font-size: 1.72rem;
+  font-size: 1.5rem;
   font-weight: 900;
   line-height: 1.05;
   color: #0f172a;
 }
 
 .skillpecker-selected-meta {
-  font-size: 1rem;
+  font-size: 0.92rem;
   font-weight: 800;
   color: #64748b;
 }
@@ -5500,7 +5725,7 @@
 .skillpecker-selected-item,
 .skillpecker-selected-empty,
 .skillpecker-selected-overflow {
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 700;
   line-height: 1.8;
   color: #0f172a;
@@ -5508,6 +5733,18 @@
 
 .skillpecker-selected-empty,
 .skillpecker-selected-overflow {
+  color: #64748b;
+}
+
+.skillpecker-console-submit-row {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.skillpecker-console-submit-hint {
+  margin: 0;
+  font-size: 0.86rem;
+  line-height: 1.6;
   color: #64748b;
 }
 
@@ -5585,6 +5822,19 @@
   color: #0284c7 !important;
   background: rgba(224, 242, 254, 0.9) !important;
   border-color: rgba(125, 211, 252, 0.72) !important;
+}
+
+.skillpecker-queue-llm-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  padding: 0.2rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(224, 242, 254, 0.8);
+  border: 1px solid rgba(125, 211, 252, 0.72);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #0369a1;
 }
 
 .skillpecker-queue-position,
@@ -5743,7 +5993,7 @@
 
 .skillpecker-console-description {
   max-width: 34rem;
-  font-size: 1rem;
+  font-size: 0.96rem;
   line-height: 1.82;
 }
 
@@ -6015,6 +6265,7 @@
 }
 
 .dark .skillpecker-console-form-refined,
+.dark .skillpecker-console-config-card,
 .dark .skillpecker-upload-tile-refined,
 .dark .skillpecker-selected-packages,
 .dark .skillpecker-selected-list,
@@ -6024,6 +6275,7 @@
 }
 
 .dark .skillpecker-console-form-title,
+.dark .skillpecker-console-config-title,
 .dark .skillpecker-queue-title,
 .dark .skillpecker-upload-heading,
 .dark .skillpecker-selected-title,
@@ -6047,6 +6299,10 @@
 
 .dark .skillpecker-selected-empty,
 .dark .skillpecker-selected-overflow,
+.dark .skillpecker-console-config-copy,
+.dark .skillpecker-console-config-note,
+.dark .skillpecker-console-config-footer-copy,
+.dark .skillpecker-console-submit-hint,
 .dark .skillpecker-queue-summary,
 .dark .skillpecker-result-skill-subtitle,
 .dark .skillpecker-result-summary-english,
@@ -6074,6 +6330,59 @@
   background:
     linear-gradient(180deg, rgba(30, 41, 59, 0.72), rgba(15, 23, 42, 0.54)),
     radial-gradient(circle at top left, rgba(56, 189, 248, 0.12), transparent 50%);
+}
+
+.dark .skillpecker-console-config-label {
+  color: #cbd5e1;
+}
+
+.dark .skillpecker-console-provider-chip {
+  border-color: rgba(71, 85, 105, 0.72);
+  background: rgba(15, 23, 42, 0.62);
+  color: #cbd5e1;
+}
+
+.dark .skillpecker-console-secret-toggle {
+  background: rgba(15, 23, 42, 0.72);
+  color: #cbd5e1;
+}
+
+.dark .skillpecker-console-secret-toggle:hover {
+  background: rgba(14, 165, 233, 0.16);
+  color: #7dd3fc;
+}
+
+.dark .skillpecker-console-config-chip,
+.dark .skillpecker-console-provider-chip.is-openai-compatible,
+.dark .skillpecker-queue-llm-chip {
+  border-color: rgba(56, 189, 248, 0.24);
+  background: rgba(8, 47, 73, 0.46);
+  color: #bae6fd;
+}
+
+.dark .skillpecker-console-model-helper strong {
+  color: #f8fafc;
+}
+
+@media (max-width: 900px) {
+  .skillpecker-console-config-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .skillpecker-console-config-head,
+  .skillpecker-console-config-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .skillpecker-console-config-chip-row {
+    justify-content: flex-start;
+  }
+
+  .skillpecker-console-config-secret-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 /* ============================================================

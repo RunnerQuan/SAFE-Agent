@@ -22,7 +22,8 @@ from fastapi.staticfiles import StaticFiles
 
 from .batch import BatchSkillScanner, discover_skill_dirs
 from .cli import build_scanner
-from .config import AppConfig, load_app_config
+from .config import AppConfig, apply_task_llm_override, load_app_config
+from .llm import get_provider_profile
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 FRONTEND_ROOT = PROJECT_ROOT / "frontend"
@@ -34,10 +35,12 @@ SEARCH_NORMALIZE_RE = re.compile(r"[-_]+")
 
 executor = ThreadPoolExecutor(max_workers=1, thread_name_prefix="skill-scan-web")
 job_lock = threading.Lock()
+job_runtime_llm_lock = threading.Lock()
 library_search_cache_lock = threading.Lock()
 library_entry_cache_lock = threading.Lock()
 library_search_cache: dict[str, tuple[tuple[int, ...], str]] = {}
 library_entry_cache: dict[tuple[str, bool, bool], tuple[tuple[int, ...], dict[str, Any]]] = {}
+job_runtime_llm_overrides: dict[str, dict[str, str]] = {}
 
 
 def load_config() -> AppConfig:
@@ -54,6 +57,46 @@ def library_root_for(config: AppConfig) -> Path:
 
 def now_iso() -> str:
     return datetime.now(timezone.utc).isoformat()
+
+
+def normalize_runtime_llm_override(*, provider: str, model: str, api_key: str) -> dict[str, str]:
+    normalized_provider = provider.strip().lower()
+    normalized_model = model.strip()
+    normalized_api_key = api_key.strip()
+
+    missing_fields: list[str] = []
+    if not normalized_provider:
+        missing_fields.append("provider")
+    if not normalized_model:
+        missing_fields.append("model")
+    if not normalized_api_key:
+        missing_fields.append("API key")
+    if missing_fields:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Missing scan configuration: {', '.join(missing_fields)}.",
+        )
+
+    try:
+        get_provider_profile(normalized_provider)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+    return {
+        "provider": normalized_provider,
+        "model": normalized_model,
+        "api_key": normalized_api_key,
+    }
+
+
+def set_job_runtime_llm_override(job_id: str, override: dict[str, str]) -> None:
+    with job_runtime_llm_lock:
+        job_runtime_llm_overrides[job_id] = override
+
+
+def pop_job_runtime_llm_override(job_id: str) -> dict[str, str] | None:
+    with job_runtime_llm_lock:
+        return job_runtime_llm_overrides.pop(job_id, None)
 
 
 def sanitize_name(value: str, fallback: str = "skill") -> str:
@@ -338,6 +381,7 @@ def summarize_job(job_id: str, metadata: dict[str, Any], *, queue_positions: dic
         "queuePosition": queue_positions.get(job_id),
         "summaryExcerpt": metadata.get("summary_excerpt"),
         "logFile": metadata.get("log_file"),
+        "llmConfig": metadata.get("llm_config"),
     }
 
 
@@ -417,6 +461,7 @@ def run_scan_job(job_id: str) -> None:
     metadata = read_job_metadata(job_id)
     skills_root = Path(metadata["skills_root"])
     output_root = Path(metadata["output_root"])
+    runtime_llm_override = pop_job_runtime_llm_override(job_id)
 
     update_job_metadata(job_id, status="running", started_at=now_iso())
     log_path: Path | None = None
@@ -424,9 +469,17 @@ def run_scan_job(job_id: str) -> None:
 
     try:
         app_config = load_config()
+        if runtime_llm_override is None:
+            raise RuntimeError("Missing runtime scan configuration for this job.")
         app_config = replace(
             app_config,
             paths=replace(app_config.paths, skills_dir=skills_root, output_dir=output_root),
+        )
+        app_config = apply_task_llm_override(
+            app_config,
+            provider=runtime_llm_override["provider"],
+            model=runtime_llm_override["model"],
+            api_key=runtime_llm_override["api_key"],
         )
         logging.getLogger().setLevel(getattr(logging, app_config.logging.level.upper(), logging.INFO))
         if app_config.logging.file_enabled:
@@ -823,12 +876,20 @@ def create_app() -> FastAPI:
         archives: Annotated[list[UploadFile] | None, File()] = None,
         files: Annotated[list[UploadFile] | None, File()] = None,
         relative_paths: Annotated[list[str] | None, Form()] = None,
+        llm_provider: Annotated[str | None, Form()] = None,
+        llm_model: Annotated[str | None, Form()] = None,
+        llm_api_key: Annotated[str | None, Form()] = None,
     ) -> dict[str, Any]:
         archive_items = archives or []
         file_items = files or []
         relative_path_items = relative_paths or []
         if not archive_items and not file_items:
             raise HTTPException(status_code=400, detail="Upload at least one zip package or one skill directory.")
+        runtime_llm_override = normalize_runtime_llm_override(
+            provider=llm_provider or "",
+            model=llm_model or "",
+            api_key=llm_api_key or "",
+        )
 
         config = load_config()
         jobs_root = jobs_root_for(config)
@@ -857,8 +918,13 @@ def create_app() -> FastAPI:
             "log_file": None,
             "summary_excerpt": None,
             "upload_summary": None,
+            "llm_config": {
+                "provider": runtime_llm_override["provider"],
+                "model": runtime_llm_override["model"],
+            },
         }
         write_job_metadata(job_root, metadata)
+        set_job_runtime_llm_override(job_id, runtime_llm_override)
 
         try:
             imported_archives = await ingest_archives(archive_items, staging_root, skills_root)
@@ -877,6 +943,7 @@ def create_app() -> FastAPI:
                 },
             )
         except Exception:
+            pop_job_runtime_llm_override(job_id)
             shutil.rmtree(job_root, ignore_errors=True)
             raise
 

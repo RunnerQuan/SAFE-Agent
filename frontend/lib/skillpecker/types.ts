@@ -22,6 +22,11 @@ export interface SkillPeckerSummaryExcerpt {
   labelCounts: Record<string, number>
 }
 
+export interface SkillPeckerLLMConfig {
+  provider: string
+  model: string
+}
+
 export interface SkillPeckerJobSummary {
   id: string
   status: SkillPeckerJobStatus
@@ -35,6 +40,7 @@ export interface SkillPeckerJobSummary {
   queuePosition?: number | null
   summaryExcerpt?: SkillPeckerSummaryExcerpt | null
   logFile?: string | null
+  llmConfig?: SkillPeckerLLMConfig | null
 }
 
 export interface SkillPeckerQueueResponse {

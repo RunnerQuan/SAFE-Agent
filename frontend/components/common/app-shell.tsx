@@ -3,13 +3,11 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Home, ScanLine, ShieldCheck, Sparkles } from 'lucide-react'
+import { Home, ScanLine, ShieldCheck } from 'lucide-react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 
-import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { AnimatedBackground } from './animated-background'
-import { ThemeToggle } from './theme-toggle'
 
 interface NavItem {
   title: string
@@ -34,7 +32,7 @@ function SectionIntro({ pathname }: { pathname: string }) {
   return (
     <section className="glass-panel rounded-[2rem] p-6 lg:p-7">
       <span className="section-tag">SAFE-Agent</span>
-      <div className="mt-4 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+      <div className="mt-4 flex flex-col gap-4">
         <div className="max-w-3xl">
           <h1 className="font-display text-3xl font-medium tracking-tight text-slate-900 dark:text-slate-50 sm:text-4xl">
             {current?.title ?? '平台'}
@@ -43,10 +41,6 @@ function SectionIntro({ pathname }: { pathname: string }) {
             {current?.description ?? '统一处理工具 metadata 输入、检测任务执行与联合结果查看。'}
           </p>
         </div>
-
-        <Link href="/scans/new">
-          <Button size="sm">新建分析</Button>
-        </Link>
       </div>
     </section>
   )
@@ -183,15 +177,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             </div>
           </div>
 
-          <div className="topbar-tools">
-            <ThemeToggle />
-            <Link href="/scans/new" className="hidden sm:block">
-              <Button size="sm">
-                <Sparkles className="mr-1.5 h-4 w-4" />
-                新建分析
-              </Button>
-            </Link>
-          </div>
+          <div className="topbar-balance" aria-hidden="true" />
         </div>
       </header>
 

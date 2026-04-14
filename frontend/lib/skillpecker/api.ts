@@ -189,6 +189,16 @@ function normalizeJobSummary(value: unknown): SkillPeckerJobSummary {
     queuePosition: typeof record?.queuePosition === 'number' ? record.queuePosition : null,
     summaryExcerpt: normalizeSummaryExcerpt(record?.summaryExcerpt),
     logFile: pickString(record, ['logFile']) || null,
+    llmConfig: (() => {
+      const llmConfig = toRecord(record?.llmConfig)
+      if (!llmConfig) {
+        return null
+      }
+
+      const provider = pickString(llmConfig, ['provider'])
+      const model = pickString(llmConfig, ['model'])
+      return provider && model ? { provider, model } : null
+    })(),
   }
 }
 
