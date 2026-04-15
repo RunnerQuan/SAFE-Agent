@@ -34,6 +34,8 @@ type ReportDetailIndex = {
     totalFindings: number
     fuzzingFindings: number
     chainToolCount: number
+    highRiskChainCount: number
+    topRisks: string[]
   }
   createdAt: string
   types: ScanType[]
@@ -201,6 +203,8 @@ async function migrateReportDetailsIfNeeded(state: PersistedState): Promise<Pers
           totalFindings: report.summary?.totalFindings ?? 0,
           fuzzingFindings: report.summary?.fuzzingFindings ?? report.fuzzing?.findings.length ?? 0,
           chainToolCount: report.summary?.chainToolCount ?? 0,
+          highRiskChainCount: report.fuzzing?.findings.filter((f) => f.severity === 'high').length ?? 0,
+          topRisks: report.fuzzing?.findings.filter((f) => f.severity === 'high').slice(0, 2).map((f) => f.title) ?? [],
         },
         createdAt: report.createdAt,
         types: report.types,
@@ -528,6 +532,8 @@ async function persistReportDetail(report: ReportDetail) {
         totalFindings: report.summary?.totalFindings ?? 0,
         fuzzingFindings: report.summary?.fuzzingFindings ?? report.fuzzing?.findings.length ?? 0,
         chainToolCount: report.summary?.chainToolCount ?? 0,
+        highRiskChainCount: report.fuzzing?.findings.filter((f) => f.severity === 'high').length ?? 0,
+        topRisks: report.fuzzing?.findings.filter((f) => f.severity === 'high').slice(0, 2).map((f) => f.title) ?? [],
       },
       createdAt: report.createdAt,
       types: report.types,
@@ -912,7 +918,26 @@ export async function listScans(query?: { agentId?: string; limit?: number; offs
   if (query?.limit) {
     scans = scans.slice(0, query.limit)
   }
-  return scans
+  // 对于已完成的扫描，如果 summary 缺少字段，从 reportDetailIndex 补充
+  return scans.map((scan) => {
+    if (scan.status === 'succeeded' && scan.reportId) {
+      const reportIndex = state.reportDetailIndex.find((r) => r.scanId === scan.id)
+      if (reportIndex && reportIndex.summary) {
+        return {
+          ...scan,
+          summary: {
+            ...scan.summary,
+            totalFindings: scan.summary?.totalFindings ?? reportIndex.summary.totalFindings ?? 0,
+            fuzzingFindings: scan.summary?.fuzzingFindings ?? reportIndex.summary.fuzzingFindings ?? 0,
+            chainToolCount: scan.summary?.chainToolCount ?? reportIndex.summary.chainToolCount ?? 0,
+            highRiskChainCount: scan.summary?.highRiskChainCount ?? reportIndex.summary.highRiskChainCount ?? 0,
+            topRisks: scan.summary?.topRisks ?? reportIndex.summary.topRisks ?? [],
+          },
+        }
+      }
+    }
+    return scan
+  })
 }
 
 export async function getScan(id: string) {

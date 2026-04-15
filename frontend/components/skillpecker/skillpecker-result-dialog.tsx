@@ -146,6 +146,15 @@ const categoryLabelMap: Record<string, string> = {
   insecure_design: '不安全设计',
   'access control': '访问控制',
   access_control: '访问控制',
+  control: '控制',
+  tampering: '篡改',
+  'system tampering': '系统篡改',
+  system_tampering: '系统篡改',
+  destructive: '破坏性',
+  ops: '操作',
+  destructiveops: '破坏性操作',
+  'destructive ops': '破坏性操作',
+  destructive_ops: '破坏性操作',
   'capability abuse': '能力滥用',
   capability_abuse: '能力滥用',
   'scope violation': '范围越界',
@@ -334,7 +343,7 @@ function FindingCard({ finding, index }: { finding: SkillPeckerFinding; index: n
     <article className="skillpecker-finding-card skillpecker-finding-card-refined" style={{ ['--finding-stagger' as string]: `${index * 80}ms` }}>
       <div className="skillpecker-finding-card-head">
         <div className="min-w-0">
-          {finding.id ? <p className="skillpecker-finding-kicker">{finding.id}</p> : null}
+          {finding.id ? <p className="skillpecker-finding-kicker">{finding.id.replace(/^F(\d+)$/i, '发现 $1')}</p> : null}
           <h5>{finding.summary}</h5>
         </div>
         <div className="skillpecker-finding-badges">
