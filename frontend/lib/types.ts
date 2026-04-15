@@ -113,6 +113,8 @@ export interface ReportSummary {
   fuzzingFindings?: number
   doeToolCount?: number
   chainToolCount?: number
+  highRiskChainCount?: number
+  topRisks?: string[]
 }
 
 export interface Report {

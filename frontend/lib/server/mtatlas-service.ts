@@ -714,6 +714,8 @@ async function buildReportDetail(scan: Scan, agent: Agent): Promise<ReportDetail
       totalFindings: findings.length,
       fuzzingFindings: findings.length,
       chainToolCount: findings.length,
+      highRiskChainCount: findings.filter((f) => f.severity === 'high').length,
+      topRisks: findings.filter((f) => f.severity === 'high').slice(0, 2).map((f) => f.title),
     },
     overviewText: buildOverview(artifacts, findings),
     fuzzing: {
@@ -918,11 +920,16 @@ export async function listScans(query?: { agentId?: string; limit?: number; offs
   if (query?.limit) {
     scans = scans.slice(0, query.limit)
   }
-  // 对于已完成的扫描，如果 summary 缺少字段，从 reportDetailIndex 补充
-  return scans.map((scan) => {
-    if (scan.status === 'succeeded' && scan.reportId) {
+  // 对于已完成的扫描，如果 summary 缺少字段，从 reportDetailIndex 或报告文件补充
+  return Promise.all(
+    scans.map(async (scan) => {
+      if (scan.status !== 'succeeded' || !scan.reportId) {
+        return scan
+      }
+
+      // 尝试从 reportDetailIndex 获取
       const reportIndex = state.reportDetailIndex.find((r) => r.scanId === scan.id)
-      if (reportIndex && reportIndex.summary) {
+      if (reportIndex?.summary?.highRiskChainCount) {
         return {
           ...scan,
           summary: {
@@ -935,9 +942,31 @@ export async function listScans(query?: { agentId?: string; limit?: number; offs
           },
         }
       }
-    }
-    return scan
-  })
+
+      // 如果 reportDetailIndex 中没有，直接从报告文件读取
+      try {
+        const report = await getReportDetail(scan.reportId)
+        if (report?.fuzzing?.findings) {
+          const highRiskCount = report.fuzzing.findings.filter((f) => f.severity === 'high').length
+          return {
+            ...scan,
+            summary: {
+              ...scan.summary,
+              totalFindings: report.summary?.totalFindings ?? report.fuzzing.findings.length ?? 0,
+              fuzzingFindings: report.summary?.fuzzingFindings ?? report.fuzzing.findings.length ?? 0,
+              chainToolCount: report.summary?.chainToolCount ?? report.fuzzing.findings.length ?? 0,
+              highRiskChainCount: highRiskCount,
+              topRisks: report.fuzzing.findings.filter((f) => f.severity === 'high').slice(0, 2).map((f) => f.title),
+            },
+          }
+        }
+      } catch {
+        // 如果读取失败，返回原始扫描数据
+      }
+
+      return scan
+    })
+  )
 }
 
 export async function getScan(id: string) {
