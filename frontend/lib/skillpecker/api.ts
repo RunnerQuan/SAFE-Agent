@@ -296,6 +296,21 @@ function normalizeJobSkills(summary: Record<string, unknown> | undefined) {
   return toArray<Record<string, unknown>>(summary?.skills).map(normalizeJobSkill)
 }
 
+function buildFallbackJobSkills(job: SkillPeckerJobSummary): SkillPeckerJobSkillSummary[] {
+  if (job.skillNames.length) {
+    return job.skillNames.map((name) => ({
+      name,
+      status: job.status === 'failed' ? 'failed' : job.status === 'completed' ? 'completed' : 'unknown',
+      artifactCount: 0,
+      ruleHitCount: 0,
+      findingCount: 0,
+      errorMessage: job.error || undefined,
+    }))
+  }
+
+  return []
+}
+
 function normalizeLibraryItem(value: unknown): SkillPeckerLibraryItem {
   const record = toRecord(value)
   const verdict = toRecord(record?.verdict)
@@ -427,15 +442,15 @@ export async function getSkillPeckerQueue(): Promise<SkillPeckerQueueResponse> {
 
 export async function getSkillPeckerJobDetail(jobId: string): Promise<SkillPeckerJobDetail> {
   const payload = await fetchSkillPecker<Record<string, unknown>>(`/scans/${encodeURIComponent(jobId)}`)
-  const wrapper = toRecord(payload) ?? {}
-  const job: Record<string, unknown> = (wrapper.job as Record<string, unknown>) ?? wrapper
-  const summary = toRecord(job.summaryExcerpt ?? job.summary) ?? undefined
+  const summary = toRecord(payload.summary) ?? undefined
+  const job = normalizeJobSummary(payload.job)
+  const skills = normalizeJobSkills(summary)
 
   return {
-    job: normalizeJobSummary(job),
+    job,
     summary,
-    skills: normalizeJobSkills(summary),
-    scannedCount: pickNumber(summary ?? null, ['scanned_count', 'scannedCount', 'scannedCount']),
+    skills: skills.length ? skills : buildFallbackJobSkills(job),
+    scannedCount: pickNumber(summary ?? null, ['scanned_count', 'scannedCount']),
     failedCount: pickNumber(summary ?? null, ['failed_count', 'failedCount']),
   }
 }

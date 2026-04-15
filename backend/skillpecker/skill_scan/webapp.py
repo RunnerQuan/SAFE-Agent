@@ -400,6 +400,59 @@ def build_scans_payload() -> dict[str, Any]:
     }
 
 
+def build_job_summary_from_outputs(metadata: dict[str, Any]) -> dict[str, Any]:
+    output_root = Path(metadata["output_root"])
+    skill_names = [str(item) for item in metadata.get("skill_names", []) if str(item).strip()]
+    skills: list[dict[str, Any]] = []
+
+    for skill_name in skill_names:
+        skill_root = output_root / skill_name
+        entry: dict[str, Any] = {
+            "name": skill_name,
+            "path": str(skill_root),
+            "status": "unknown",
+            "output_dir": str(skill_root),
+        }
+
+        error_path = skill_root / "error.raw.json"
+        result_path = skill_root / "scan-result.raw.json"
+
+        if error_path.exists():
+            error_payload = read_json(error_path)
+            entry["status"] = "error"
+            if isinstance(error_payload, dict):
+                error_message = error_payload.get("error")
+                if isinstance(error_message, str) and error_message.strip():
+                    entry["error"] = error_message.strip()
+            skills.append(entry)
+            continue
+
+        if result_path.exists():
+            result_payload = read_json(result_path)
+            preprocess = result_payload.get("preprocess") if isinstance(result_payload, dict) else None
+            judge = result_payload.get("judge") if isinstance(result_payload, dict) else None
+            stats = preprocess.get("stats") if isinstance(preprocess, dict) else None
+            verdict = judge.get("verdict") if isinstance(judge, dict) else None
+
+            entry["status"] = "ok"
+            if isinstance(stats, dict):
+                entry["artifact_count"] = int(stats.get("artifact_count", 0) or 0)
+                entry["rule_hit_count"] = int(stats.get("rule_hit_count", 0) or 0)
+            if isinstance(verdict, dict):
+                entry["verdict"] = verdict
+
+        skills.append(entry)
+
+    return {
+        "skills_root": metadata.get("skills_root"),
+        "output_root": metadata.get("output_root"),
+        "skill_count": metadata.get("skill_count", len(skills)),
+        "scanned_count": sum(1 for item in skills if item.get("status") == "ok"),
+        "failed_count": sum(1 for item in skills if item.get("status") == "error"),
+        "skills": skills,
+    }
+
+
 def build_job_payload(job_id: str) -> dict[str, Any]:
     records = list_job_records()
     queue_positions = build_queue_positions(records)
@@ -412,6 +465,8 @@ def build_job_payload(job_id: str) -> dict[str, Any]:
     index_path = output_root / "index.raw.json"
     if index_path.exists():
         payload["summary"] = read_json(index_path)
+    else:
+        payload["summary"] = build_job_summary_from_outputs(metadata)
     return payload
 
 
