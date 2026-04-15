@@ -937,8 +937,8 @@ export async function getScanLogs(id: string): Promise<LogEntry[]> {
 }
 
 export async function listReports(query?: { agentId?: string; risk?: string; type?: string }): Promise<Report[]> {
-  const scans = await listUnifiedScans(query)
-  let reports = scans.filter((scan) => isTerminal(scan.status)).map((scan) => toLegacyReport(scan))
+  const scans = await listUnifiedScans({ agentId: query?.agentId })
+  let reports = (scans as Scan[]).filter((scan) => isTerminal(scan.status)).map((scan) => toLegacyReport(scan))
 
   if (query?.risk) {
     reports = reports.filter((report) => report.risk === query.risk)
