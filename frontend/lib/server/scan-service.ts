@@ -49,7 +49,11 @@ type UnifiedScanRecord = {
 type ChildData = {
   scan: Scan | null
   report: ReportDetail | null
-  logs: LogEntry[]
+}
+
+type ChildReaders = {
+  exposure: Pick<typeof agentraft, 'getScan' | 'getReportDetail'>
+  fuzzing: Pick<typeof mtatlas, 'getScan' | 'getReportDetail'>
 }
 
 const FRONTEND_ROOT = process.cwd()
@@ -208,22 +212,25 @@ async function appendUnifiedLog(scanId: string, level: LogEntry['level'], messag
   })
 }
 
-async function getChildData(type: ScanType, scanId?: string): Promise<ChildData> {
+async function getChildData(type: ScanType, scanId?: string, readers?: ChildReaders): Promise<ChildData> {
+  const activeReaders = readers ?? {
+    exposure: agentraft,
+    fuzzing: mtatlas,
+  }
+
   if (!scanId) {
-    return { scan: null, report: null, logs: [] }
+    return { scan: null, report: null }
   }
 
   if (type === 'exposure') {
-    const scan = await agentraft.getScan(scanId)
-    const report = scan?.reportId ? await agentraft.getReportDetail(scan.reportId) : null
-    const logs = await agentraft.getScanLogs(scanId)
-    return { scan, report, logs }
+    const scan = await activeReaders.exposure.getScan(scanId)
+    const report = scan?.reportId ? await activeReaders.exposure.getReportDetail(scan.reportId) : null
+    return { scan, report }
   }
 
-  const scan = await mtatlas.getScan(scanId)
-  const report = scan?.reportId ? await mtatlas.getReportDetail(scan.reportId) : null
-  const logs = await mtatlas.getScanLogs(scanId)
-  return { scan, report, logs }
+  const scan = await activeReaders.fuzzing.getScan(scanId)
+  const report = scan?.reportId ? await activeReaders.fuzzing.getReportDetail(scan.reportId) : null
+  return { scan, report }
 }
 
 function buildCheckState(type: ScanType, data: ChildData, enabled: boolean): ScanCheckState {
@@ -884,4 +891,8 @@ export async function getDashboardStats(): Promise<DashboardStats> {
 
 export async function testConnection(url: string) {
   return agentraft.testConnection(url)
+}
+
+export const __internal = {
+  getChildData,
 }

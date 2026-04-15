@@ -82,12 +82,15 @@ const STATE_FILE = path.join(DATA_ROOT, 'mtatlas-state.json')
 const DEFAULT_AGENT_ID = 'mtatlas-default'
 const HIGH_RISK_SINK_TYPES = new Set(['CMDi', 'RCE', 'SQLi', 'SSTI', 'TemplateInjection', 'CodeInjection'])
 const MEDIUM_RISK_SINK_TYPES = new Set(['SSRF', 'PathTraversal', 'FileWrite', 'FileRead', 'DataExfiltration'])
+const STATE_CACHE_TTL_MS = 5_000
 
 declare global {
   // eslint-disable-next-line no-var
   var __mtatlasProcessRegistry: Map<string, ChildProcess> | undefined
   // eslint-disable-next-line no-var
   var __mtatlasMutationQueue: Promise<unknown> | undefined
+  // eslint-disable-next-line no-var
+  var __mtatlasStateCache: { expiresAt: number; state: PersistedState } | undefined
 }
 
 const processRegistry = globalThis.__mtatlasProcessRegistry ?? new Map<string, ChildProcess>()
@@ -130,6 +133,10 @@ function getScanParams(scan: Scan): MTAtlasScanParams {
 
 async function ensureStateRoot() {
   await fs.mkdir(DATA_ROOT, { recursive: true })
+}
+
+function invalidateStateCache() {
+  globalThis.__mtatlasStateCache = undefined
 }
 
 async function readJsonFile<T>(filePath: string, fallback: T): Promise<T> {
@@ -211,13 +218,24 @@ async function hydrateState(state: PersistedState) {
 }
 
 async function loadState() {
+  const cached = globalThis.__mtatlasStateCache
+  if (cached && cached.expiresAt > Date.now()) {
+    return cached.state
+  }
+
   await ensureStateRoot()
   const state = await readJsonFile<PersistedState>(STATE_FILE, createEmptyState())
-  return hydrateState(state)
+  const hydrated = await hydrateState(state)
+  globalThis.__mtatlasStateCache = {
+    expiresAt: Date.now() + STATE_CACHE_TTL_MS,
+    state: hydrated,
+  }
+  return hydrated
 }
 
 async function saveState(state: PersistedState) {
   await writeJsonFile(STATE_FILE, state)
+  invalidateStateCache()
 }
 
 async function mutateState<T>(mutator: (state: PersistedState) => Promise<T> | T): Promise<T> {
@@ -227,6 +245,7 @@ async function mutateState<T>(mutator: (state: PersistedState) => Promise<T> | T
     .catch(() => undefined)
     .then(async () => {
       const state = await loadState()
+      invalidateStateCache()
       result = await mutator(state)
       await saveState(state)
     })
@@ -934,4 +953,8 @@ export async function getDashboardStats(): Promise<DashboardStats> {
     failedScanCount: state.scans.filter((scan) => scan.status === 'failed').length,
     highRiskReportCount: state.reportDetails.filter((report) => report.risk === 'high').length,
   }
+}
+
+export const __internal = {
+  invalidateStateCache,
 }

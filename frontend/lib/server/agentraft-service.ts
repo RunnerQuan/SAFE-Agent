@@ -102,10 +102,12 @@ const DEFAULT_AGENT_ID = 'agentraft-default'
 const SUPPORTED_SCAN_TYPES: ScanType[] = ['exposure']
 const HIGH_RISK_SINKS = new Set(['send_message', 'send_email', 'chrome_fill_or_select'])
 const MEDIUM_RISK_SINKS = new Set(['chrome_bookmark_add', 'update_note', 'create_note'])
+const STATE_CACHE_TTL_MS = 5_000
 
 declare global {
   var __agentRaftProcessRegistry: Map<string, ChildProcess> | undefined
   var __agentRaftMutationQueue: Promise<unknown> | undefined
+  var __agentRaftStateCache: { expiresAt: number; state: PersistedState } | undefined
 }
 
 const processRegistry = globalThis.__agentRaftProcessRegistry ?? new Map<string, ChildProcess>()
@@ -138,6 +140,10 @@ function getScanParams(scan: Scan): AgentRaftScanParams {
 
 async function ensureStateRoot() {
   await fs.mkdir(DATA_ROOT, { recursive: true })
+}
+
+function invalidateStateCache() {
+  globalThis.__agentRaftStateCache = undefined
 }
 
 async function readJsonFile<T>(filePath: string, fallback: T): Promise<T> {
@@ -217,13 +223,24 @@ async function hydrateState(state: PersistedState) {
 }
 
 async function loadState() {
+  const cached = globalThis.__agentRaftStateCache
+  if (cached && cached.expiresAt > Date.now()) {
+    return cached.state
+  }
+
   await ensureStateRoot()
   const state = await readJsonFile<PersistedState>(STATE_FILE, createEmptyState())
-  return hydrateState(state)
+  const hydrated = await hydrateState(state)
+  globalThis.__agentRaftStateCache = {
+    expiresAt: Date.now() + STATE_CACHE_TTL_MS,
+    state: hydrated,
+  }
+  return hydrated
 }
 
 async function saveState(state: PersistedState) {
   await writeJsonFile(STATE_FILE, state)
+  invalidateStateCache()
 }
 
 async function mutateState<T>(mutator: (state: PersistedState) => Promise<T> | T): Promise<T> {
@@ -233,6 +250,7 @@ async function mutateState<T>(mutator: (state: PersistedState) => Promise<T> | T
     .catch(() => undefined)
     .then(async () => {
       const state = await loadState()
+      invalidateStateCache()
       result = await mutator(state)
       await saveState(state)
     })
@@ -1212,4 +1230,8 @@ export async function testConnection(url: string) {
   } finally {
     clearTimeout(timeout)
   }
+}
+
+export const __internal = {
+  invalidateStateCache,
 }
