@@ -511,11 +511,11 @@ async function listLegacyScans(records: UnifiedScanRecord[], query?: { agentId?:
   const unreferencedFuzzingScans = fuzzingData.filter((scan) => !isReferencedChildScan(scan.id, records))
 
   // 合并后排序（不限制数量，返回所有 legacy 扫描）
-  const allScans = sortByCreatedDesc([...unreferencedExposureScans, ...unreferencedFuzzingScans])
+  const allScans: Scan[] = sortByCreatedDesc([...unreferencedExposureScans, ...unreferencedFuzzingScans]) as Scan[]
 
   if (query?.light) {
     // 轻量模式：只返回必要字段，不读取报告详情
-    return (allScans as Scan[]).map((scan) => toScanListItem(scan))
+    return allScans.map((scan) => toScanListItem(scan))
   }
 
   // 完整模式：逐条 hydrate 报告详情
