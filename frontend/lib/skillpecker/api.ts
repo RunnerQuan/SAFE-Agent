@@ -427,13 +427,15 @@ export async function getSkillPeckerQueue(): Promise<SkillPeckerQueueResponse> {
 
 export async function getSkillPeckerJobDetail(jobId: string): Promise<SkillPeckerJobDetail> {
   const payload = await fetchSkillPecker<Record<string, unknown>>(`/scans/${encodeURIComponent(jobId)}`)
-  const summary = toRecord(payload.summary) ?? undefined
+  const wrapper = toRecord(payload) ?? {}
+  const job: Record<string, unknown> = (wrapper.job as Record<string, unknown>) ?? wrapper
+  const summary = toRecord(job.summaryExcerpt ?? job.summary) ?? undefined
 
   return {
-    job: normalizeJobSummary(payload.job),
+    job: normalizeJobSummary(job),
     summary,
     skills: normalizeJobSkills(summary),
-    scannedCount: pickNumber(summary ?? null, ['scanned_count', 'scannedCount']),
+    scannedCount: pickNumber(summary ?? null, ['scanned_count', 'scannedCount', 'scannedCount']),
     failedCount: pickNumber(summary ?? null, ['failed_count', 'failedCount']),
   }
 }
