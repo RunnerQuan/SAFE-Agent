@@ -357,7 +357,6 @@ export function SkillPeckerConsole() {
             <div className="skillpecker-console-copy-head">
               <div>
                 <h2 className="skillpecker-console-title skillpecker-console-title-single">技能安全检测</h2>
-                <p className="skillpecker-console-description">保留服务商切换，同时使用更接近主流 AI 控制台的模型名称输入方式。</p>
               </div>
             </div>
 
@@ -493,7 +492,6 @@ export function SkillPeckerConsole() {
             <div className="flex items-start justify-between gap-4">
               <div>
                 <h3 className="skillpecker-console-form-title">上传扫描内容</h3>
-                <p className="skillpecker-console-form-subtitle">右侧只处理上传与提交，结构更接近常见 AI 工具工作台。</p>
               </div>
               <Button variant="outline" size="sm" className="skillpecker-console-refresh" onClick={() => queueQuery.refetch()}>
                 <RefreshCw className="mr-1.5 h-4 w-4" />

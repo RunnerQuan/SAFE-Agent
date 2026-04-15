@@ -150,6 +150,8 @@ const categoryLabelMap: Record<string, string> = {
   tampering: '篡改',
   'system tampering': '系统篡改',
   system_tampering: '系统篡改',
+  '系统tampering': '系统篡改',
+  '访问control': '访问控制',
   destructive: '破坏性',
   ops: '操作',
   destructiveops: '破坏性操作',
@@ -237,7 +239,19 @@ function translateLabel(value?: string): string {
   if (translated.every(Boolean)) {
     return translated.join('')
   }
-  // 4. 混合翻译（能翻就翻，不能翻保留英文词，首字母大写）
+  // 4. 处理中英文混合（如"系统tampering"）
+  const mixedZhEn = raw.replace(/([\u4e00-\u9fa5]+)([a-zA-Z_]+)/g, (_, zh, en) => {
+    const enMapped = categoryLabelMap[en.toLowerCase()]
+    return enMapped ? zh + enMapped : zh + en
+  }).replace(/([a-zA-Z_]+)([\u4e00-\u9fa5]+)/g, (_, en, zh) => {
+    const enMapped = categoryLabelMap[en.toLowerCase()]
+    return enMapped ? enMapped + zh : en + zh
+  })
+  if (mixedZhEn !== raw) {
+    return mixedZhEn
+  }
+
+  // 5. 混合翻译（能翻就翻，不能翻保留英文词，首字母大写）
   const mixed = parts.map((part, i) => {
     const t = categoryLabelMap[part.toLowerCase()]
     if (t) return t
