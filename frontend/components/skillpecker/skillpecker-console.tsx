@@ -3,7 +3,7 @@
 import type { ChangeEvent, InputHTMLAttributes } from 'react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
-import { Eye, EyeOff, FileArchive, FolderTree, KeyRound, RefreshCw, ScanSearch } from 'lucide-react'
+import { Eye, EyeOff, FileArchive, FolderTree, KeyRound, Loader2, RefreshCw, ScanSearch } from 'lucide-react'
 import { toast } from 'sonner'
 
 import { ErrorState } from '@/components/common/error-state'
@@ -149,8 +149,8 @@ function getJobSummary(job: { skillCount: number; summaryExcerpt?: { labelCounts
   }
 
   const counts = job.summaryExcerpt.labelCounts ?? {}
-  const malicious = (counts.malicious ?? 0) + (counts.mixed_risk ?? 0)
-  const suspicious = (counts.unsafe ?? 0) + (counts.insufficient_evidence ?? 0) + (counts.description_unreliable ?? 0)
+  const malicious = counts.malicious ?? 0
+  const suspicious = (counts.mixed_risk ?? 0) + (counts.unsafe ?? 0) + (counts.insufficient_evidence ?? 0) + (counts.description_unreliable ?? 0)
   const safe = counts.safe ?? 0
   const parts: string[] = []
 
@@ -187,10 +187,47 @@ export function SkillPeckerConsole() {
     apiKey: '',
   })
 
+  // 当前正在轮询等待完成的任务 ID（提交后置位，完成/失败后清除）
+  const [scanningJobId, setScanningJobId] = useState<string>()
+
   const queueQuery = useSkillPeckerQueue()
+
+  // 从队列中获取所有 running + queued 任务，优先展示 running 的
+  const activeJobs = useMemo(() => {
+    return queueQuery.data?.jobs.filter((j) => j.status === 'running' || j.status === 'queued') ?? []
+  }, [queueQuery.data?.jobs])
+
+  const primaryJob = activeJobs[0] // 正在执行的那个
+  const waitingJobs = activeJobs.slice(1) // 排队的那些
+
   const createMutation = useCreateSkillPeckerScan()
   const jobDetailQuery = useSkillPeckerJobDetail(dialogOpen ? activeJobId : undefined)
   const skillResultQuery = useSkillPeckerSkillResult(dialogOpen ? activeJobId : undefined, dialogOpen ? activeSkillName : undefined)
+
+  // 扫描任务状态轮询（scanningJobId 有值时激活）
+  const scanningJobQuery = useSkillPeckerJobDetail(scanningJobId ?? null)
+
+  // 监听扫描任务状态：completed → 自动打开弹窗；failed → 提示并清除
+  useEffect(() => {
+    if (!scanningJobId || scanningJobQuery.isLoading || !scanningJobQuery.data) return
+
+    const status = scanningJobQuery.data.job?.status
+    if (status === 'completed') {
+      setScanningJobId(undefined)
+      openResult(scanningJobId)
+    } else if (status === 'failed') {
+      setScanningJobId(undefined)
+      toast.error(`扫描任务 ${scanningJobId} 执行失败。`)
+      queryClient.invalidateQueries({ queryKey: ['skillpecker', 'queue'] })
+    }
+  }, [scanningJobId, scanningJobQuery.data, scanningJobQuery.isLoading])
+
+  // 当没有 activeJobs 时清除 scanningJobId，避免残留状态
+  useEffect(() => {
+    if (activeJobs.length === 0 && scanningJobId) {
+      setScanningJobId(undefined)
+    }
+  }, [activeJobs.length, scanningJobId])
 
   useEffect(() => {
     if (!jobDetailQuery.data?.skills.length) {
@@ -201,6 +238,15 @@ export function SkillPeckerConsole() {
       setActiveSkillName(jobDetailQuery.data.skills[0].name)
     }
   }, [activeSkillName, jobDetailQuery.data])
+
+  // 轮询逻辑：scanningJobId 有值时每 2 秒刷新一次任务状态
+  useEffect(() => {
+    if (!scanningJobId) return
+    const interval = setInterval(() => {
+      scanningJobQuery.refetch()
+    }, 2000)
+    return () => clearInterval(interval)
+  }, [scanningJobId])
 
   const providerMeta = getProviderMeta(scanConfig.provider)
   const selectedFiles = uploadMode === 'archive' ? archiveFiles : directoryFiles
@@ -290,8 +336,9 @@ export function SkillPeckerConsole() {
         queryClient.invalidateQueries({ queryKey: ['skillpecker', 'overview'] }),
       ])
 
+      // 不立即打开弹窗——改为后台轮询，等任务 completed 再自动弹出
       if (result.job?.id) {
-        openResult(result.job.id)
+        setScanningJobId(result.job.id)
       }
     } catch (error) {
       toast.error(error instanceof Error ? error.message : '创建扫描任务失败。')
@@ -586,6 +633,33 @@ export function SkillPeckerConsole() {
             {queueQuery.data?.jobs.length ?? 0} 个任务
           </Badge>
         </div>
+
+        {/* 扫描动画提示：有 running/queued 任务时显示 */}
+        {activeJobs.length > 0 && (
+          <div className="mt-6 space-y-2">
+            <p className="font-bold text-lg text-blue-900 dark:text-blue-200">扫描进行中</p>
+            {activeJobs.map((job, i) => (
+              <Card
+                key={job.id}
+                className="skillpecker-scanning-card p-5 flex items-center gap-4 border-2 border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-950/40"
+              >
+                <Loader2 className="h-6 w-6 shrink-0 animate-spin text-blue-600 dark:text-blue-400" />
+                <div className="min-w-0 flex-1">
+                  <p className="text-base font-medium text-blue-900 dark:text-blue-200">
+                    {job.status === 'running' ? '🔄 正在执行' : '⏳ 排队中'}
+                    {' '}
+                    <code className="bg-blue-100 dark:bg-blue-900 px-1.5 py-0.5 rounded text-sm">{job.id}</code>
+                    {job.skillCount ? `（${job.skillCount} 个技能）` : ''}
+                  </p>
+                  {i === 0 && job.status === 'queued' && (
+                    <p className="text-sm text-blue-600 dark:text-blue-400 mt-1">等待前面任务完成后自动开始…</p>
+                  )}
+                </div>
+                <span className="inline-flex h-3 w-3 rounded-full bg-blue-500 animate-pulse shrink-0" />
+              </Card>
+            ))}
+          </div>
+        )}
 
         <div className="mt-6 space-y-4">
           {queueQuery.isLoading ? (
