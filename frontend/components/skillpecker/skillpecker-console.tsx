@@ -120,6 +120,13 @@ const providerOptions: ProviderOption[] = [
     example: 'qwen-plus / qwen-max',
     compatibility: 'openai-compatible',
   },
+  {
+    value: 'glm',
+    label: 'GLM',
+    placeholder: 'glm-4.7',
+    example: 'glm-4.7 / glm-4.5-air / glm-4-plus',
+    compatibility: 'openai-compatible',
+  },
 ]
 
 const scanSteps = [
@@ -408,7 +415,6 @@ export function SkillPeckerConsole() {
                     <Label htmlFor="skillpecker-api-key" className="skillpecker-console-config-label">
                       API Key
                     </Label>
-                    <span className="skillpecker-console-config-note">仅用于当前任务，不写回全局配置</span>
                   </div>
 
                   <div className="skillpecker-console-secret-wrap">

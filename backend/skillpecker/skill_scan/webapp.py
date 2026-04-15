@@ -423,11 +423,21 @@ def build_skill_payload(job_id: str, skill_name: str) -> dict[str, Any]:
 
     error_path = skill_root / "error.raw.json"
     if error_path.exists():
+        error_payload = read_json(error_path)
+        error_record = error_payload if isinstance(error_payload, dict) else {}
+        error_message = ""
+        if isinstance(error_record, dict):
+            for key in ("detail", "message", "error"):
+                value = error_record.get(key)
+                if isinstance(value, str) and value.strip():
+                    error_message = value.strip()
+                    break
         return {
             "jobId": job_id,
             "skillName": skill_name,
             "status": "error",
-            "error": read_json(error_path),
+            "error": error_payload,
+            "errorMessage": error_message or None,
         }
 
     result_path = skill_root / "scan-result.raw.json"

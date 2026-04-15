@@ -117,6 +117,71 @@ const categoryLabelMap: Record<string, string> = {
   suspicious: '可疑',
   overreach: '越界',
   safe: '安全',
+  // 常见英文通用类别词
+  implementation: '实现层',
+  configuration: '配置',
+  network: '网络',
+  authentication: '身份认证',
+  authorization: '权限授权',
+  injection: '注入',
+  'code execution': '代码执行',
+  code_execution: '代码执行',
+  'command execution': '命令执行',
+  command_execution: '命令执行',
+  'file access': '文件访问',
+  file_access: '文件访问',
+  'file write': '文件写入',
+  file_write: '文件写入',
+  'file read': '文件读取',
+  file_read: '文件读取',
+  'tool use': '工具调用',
+  tool_use: '工具调用',
+  'tool access': '工具访问',
+  tool_access: '工具访问',
+  'prompt injection': '提示词注入',
+  prompt_injection: '提示词注入',
+  'information disclosure': '信息泄露',
+  information_disclosure: '信息泄露',
+  'insecure design': '不安全设计',
+  insecure_design: '不安全设计',
+  'access control': '访问控制',
+  access_control: '访问控制',
+  'capability abuse': '能力滥用',
+  capability_abuse: '能力滥用',
+  'scope violation': '范围越界',
+  scope_violation: '范围越界',
+  'data access': '数据访问',
+  data_access: '数据访问',
+  'side effect': '副作用',
+  side_effect: '副作用',
+  logging: '日志',
+  monitoring: '监控',
+  validation: '校验',
+  sanitization: '净化处理',
+  encryption: '加密',
+  storage: '存储',
+  execution: '执行',
+  runtime: '运行时',
+  design: '设计',
+  logic: '业务逻辑',
+  api: 'API',
+  web: 'Web',
+  system: '系统',
+  process: '进程',
+  memory: '内存',
+  crypto: '加密',
+  session: '会话',
+  token: '令牌',
+  cookie: 'Cookie',
+  header: '请求头',
+  'sql injection': 'SQL 注入',
+  sql_injection: 'SQL 注入',
+  xss: 'XSS 跨站脚本',
+  ssrf: 'SSRF 服务器请求伪造',
+  csrf: 'CSRF 跨站请求伪造',
+  rce: '远程代码执行',
+  lfi: '本地文件包含',
+  rfi: '远程文件包含',
 }
 
 function normalizeLabel(value?: string) {
@@ -150,12 +215,26 @@ function translateLabel(value?: string): string {
       .filter(Boolean)
       .join('、')
   }
+  // 1. 整体匹配（原始值、小写）
   const mapped = categoryLabelMap[raw] || categoryLabelMap[raw.toLowerCase()]
   if (mapped) return mapped
-  return normalizeLabel(raw)
-    .split(' ')
-    .map((part) => categoryLabelMap[part.toLowerCase()] || part)
-    .join(' ')
+  // 2. 规范化后整体匹配
+  const normalized = normalizeLabel(raw)
+  const mappedNorm = categoryLabelMap[normalized] || categoryLabelMap[normalized.toLowerCase()]
+  if (mappedNorm) return mappedNorm
+  // 3. 逐词翻译：如果所有词都能翻译成中文，则拼中文；否则保留规范化的英文格式
+  const parts = normalized.split(' ').filter(Boolean)
+  const translated = parts.map((part) => categoryLabelMap[part.toLowerCase()] || null)
+  if (translated.every(Boolean)) {
+    return translated.join('')
+  }
+  // 4. 混合翻译（能翻就翻，不能翻保留英文词，首字母大写）
+  const mixed = parts.map((part, i) => {
+    const t = categoryLabelMap[part.toLowerCase()]
+    if (t) return t
+    return i === 0 ? part.charAt(0).toUpperCase() + part.slice(1) : part
+  })
+  return mixed.join(' ')
 }
 
 function isUnknownLike(value?: string) {
@@ -226,7 +305,17 @@ function getSeverityClass(value?: string) {
   return ''
 }
 
-function getEnabledFlags(flags: Record<string, boolean>) {
+function getConfidenceClass(value?: string) {
+  const normalized = normalizeLabel(value).toLowerCase()
+  if (normalized === 'high') return 'skillpecker-confidence-chip-high'
+  if (normalized === 'medium' || normalized === 'med') return 'skillpecker-confidence-chip-medium'
+  if (normalized === 'low') return 'skillpecker-confidence-chip-low'
+  return 'skillpecker-detail-chip-neutral'
+}
+
+
+function getEnabledFlags(flags?: Record<string, boolean>): string[] {
+  if (!flags) return []
   return Object.entries(flags)
     .filter(([, enabled]) => enabled)
     .map(([key]) => flagLabelMap[key] || translateLabel(key))
@@ -260,7 +349,7 @@ function FindingCard({ finding, index }: { finding: SkillPeckerFinding; index: n
             </span>
           ) : null}
           {finding.confidence && !isUnknownLike(finding.confidence) ? (
-            <span className="skillpecker-detail-chip skillpecker-detail-chip-neutral skillpecker-finding-side-badge">
+            <span className={cn('skillpecker-detail-chip skillpecker-finding-side-badge', getConfidenceClass(finding.confidence))}>
               置信度 {translateConfidence(finding.confidence)}
             </span>
           ) : null}

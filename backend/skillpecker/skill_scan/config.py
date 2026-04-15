@@ -6,6 +6,8 @@ from dataclasses import dataclass
 from dataclasses import replace
 from pathlib import Path
 
+from .llm import get_provider_profile
+
 
 @dataclass(slots=True)
 class PathsConfig:
@@ -78,6 +80,7 @@ def apply_task_llm_override(
             provider=provider,
             model=model,
             api_key=api_key,
+            base_url=get_provider_profile(provider).default_base_url,
         ),
     )
 

@@ -12,11 +12,13 @@ output_dir = "scan-output"
 # - together
 # - siliconflow
 # - dashscope
+# - glm
 # - anthropic
 # - gemini
 # 常见 provider / model 示例:
 # - deepseek / deepseek-chat
 # - openai / gpt-4o-mini
+# - glm / glm-4.7
 # - openrouter / anthropic/claude-3.5-sonnet
 # - groq / llama-3.3-70b-versatile
 # - anthropic / claude-3-5-sonnet-20241022

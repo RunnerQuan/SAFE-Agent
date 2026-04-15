@@ -3,6 +3,7 @@ import 'server-only'
 import { randomUUID } from 'node:crypto'
 import { ChildProcess, spawn, spawnSync } from 'node:child_process'
 import fs from 'node:fs/promises'
+import os from 'node:os'
 import path from 'node:path'
 
 import type {
@@ -18,6 +19,7 @@ import type {
   ScanStatus,
   ScanType,
 } from '@/lib/types'
+import { sanitizeLogEntry, sanitizeLogMessage } from './log-sanitizer'
 
 type PersistedState = {
   agents: Agent[]
@@ -571,11 +573,17 @@ function truncateLogMessage(message: string, limit = 800) {
 
 async function appendLog(scanId: string, level: LogEntry['level'], message: string) {
   return mutateState((state) => {
+    const sanitizedMessage = sanitizeLogMessage(message, {
+      projectRoot: PROJECT_ROOT,
+      workspaceRoot: getWorkspaceRoot(scanId),
+      userHome: os.homedir(),
+    })
+
     const entry: LogEntry = {
       id: randomUUID(),
       timestamp: nowIso(),
       level,
-      message: truncateLogMessage(message),
+      message: truncateLogMessage(sanitizedMessage),
     }
 
     state.logs[scanId] = [...(state.logs[scanId] ?? []), entry]
@@ -1093,7 +1101,13 @@ export async function cancelScanEntry(id: string) {
 
 export async function getScanLogs(id: string) {
   const state = await loadState()
-  return state.logs[id] ?? []
+  return (state.logs[id] ?? []).map((entry) =>
+    sanitizeLogEntry(entry, {
+      projectRoot: PROJECT_ROOT,
+      workspaceRoot: getWorkspaceRoot(id),
+      userHome: os.homedir(),
+    })
+  )
 }
 
 export async function listReports(query?: { agentId?: string; risk?: string; type?: string }) {

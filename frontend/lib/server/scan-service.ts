@@ -418,6 +418,49 @@ function toLegacyReportDetail(scan: Scan): ReportDetail {
   }
 }
 
+function hydrateLegacyScan(scan: Scan, report: ReportDetail | null): Scan {
+  if (!report) {
+    return scan
+  }
+
+  return {
+    ...scan,
+    summary: {
+      totalFindings: report.summary.totalFindings ?? 0,
+      exposureFindings: report.summary.exposureFindings ?? report.exposure?.findings.length ?? 0,
+      fuzzingFindings: report.summary.fuzzingFindings ?? report.fuzzing?.findings.length ?? 0,
+      doeToolCount: report.summary.doeToolCount ?? report.exposure?.findings.length ?? 0,
+      chainToolCount: report.summary.chainToolCount ?? report.fuzzing?.findings.length ?? 0,
+      highRiskExposureCount: report.exposure?.findings.filter((item) => item.severity === 'high').length ?? 0,
+      highRiskChainCount: report.fuzzing?.findings.filter((item) => item.severity === 'high').length ?? 0,
+      topRisks: unique(
+        [
+          ...(report.exposure?.findings ?? []).filter((item) => item.severity === 'high').slice(0, 2).map((item) => item.title),
+          ...(report.fuzzing?.findings ?? []).filter((item) => item.severity === 'high').slice(0, 2).map((item) => item.title),
+        ].filter(Boolean)
+      ),
+    },
+    detail: {
+      risk: report.risk,
+      overviewText: report.overviewText,
+      exposure: report.exposure
+        ? {
+            findings: report.exposure.findings,
+            flowGraph: report.exposure.flowGraph,
+          }
+        : undefined,
+      fuzzing: report.fuzzing
+        ? {
+            findings: report.fuzzing.findings,
+            stats: report.fuzzing.stats,
+          }
+        : undefined,
+      recommendations: report.recommendations,
+      raw: report.raw,
+    },
+  }
+}
+
 function isReferencedChildScan(id: string, records: UnifiedScanRecord[]) {
   return records.some((record) => Object.values(record.childScanIds).includes(id))
 }
@@ -431,7 +474,23 @@ async function listUnifiedScans(query?: { agentId?: string }) {
 
 async function listLegacyScans(records: UnifiedScanRecord[], query?: { agentId?: string }): Promise<Scan[]> {
   const [exposureScans, fuzzingScans] = await Promise.all([agentraft.listScans(query), mtatlas.listScans(query)])
-  return sortByCreatedDesc([...exposureScans, ...fuzzingScans]).filter((scan) => !isReferencedChildScan(scan.id, records))
+  const unreferencedExposureScans = exposureScans.filter((scan) => !isReferencedChildScan(scan.id, records))
+  const unreferencedFuzzingScans = fuzzingScans.filter((scan) => !isReferencedChildScan(scan.id, records))
+
+  const [hydratedExposureScans, hydratedFuzzingScans] = await Promise.all([
+    Promise.all(
+      unreferencedExposureScans.map(async (scan) =>
+        hydrateLegacyScan(scan, scan.reportId ? await agentraft.getReportDetail(scan.reportId) : null)
+      )
+    ),
+    Promise.all(
+      unreferencedFuzzingScans.map(async (scan) =>
+        hydrateLegacyScan(scan, scan.reportId ? await mtatlas.getReportDetail(scan.reportId) : null)
+      )
+    ),
+  ])
+
+  return sortByCreatedDesc([...hydratedExposureScans, ...hydratedFuzzingScans])
 }
 
 async function resolveUnifiedRecordByScanId(scanId: string) {
@@ -515,10 +574,15 @@ export async function getScan(id: string): Promise<Scan | null> {
 
   const exposureScan = await agentraft.getScan(id)
   if (exposureScan) {
-    return exposureScan
+    return hydrateLegacyScan(exposureScan, exposureScan.reportId ? await agentraft.getReportDetail(exposureScan.reportId) : null)
   }
 
-  return mtatlas.getScan(id)
+  const fuzzingScan = await mtatlas.getScan(id)
+  if (!fuzzingScan) {
+    return null
+  }
+
+  return hydrateLegacyScan(fuzzingScan, fuzzingScan.reportId ? await mtatlas.getReportDetail(fuzzingScan.reportId) : null)
 }
 
 export async function createScan(payload: CreateScanPayload): Promise<Scan> {

@@ -166,6 +166,10 @@ function normalizeSummaryExcerpt(value: unknown): SkillPeckerSummaryExcerpt | nu
 }
 
 function normalizeJobStatus(value: unknown): SkillPeckerJobStatus {
+  if (value === 'error') {
+    return 'failed'
+  }
+
   if (value === 'queued' || value === 'running' || value === 'completed' || value === 'failed') {
     return value
   }
@@ -465,7 +469,9 @@ export async function getSkillPeckerSkillResult(jobId: string, skillName: string
     rawResult: payload.result,
     rawError: payload.error,
     errorMessage:
-      pickString(toRecord(payload.error), ['detail', 'message']) || (typeof payload.error === 'string' ? payload.error : undefined),
+      pickString(payload, ['errorMessage']) ||
+      pickString(toRecord(payload.error), ['detail', 'message', 'error']) ||
+      (typeof payload.error === 'string' ? payload.error : undefined),
   }
 }
 

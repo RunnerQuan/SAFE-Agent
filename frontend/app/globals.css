@@ -3137,6 +3137,27 @@
   color: #a16207;
 }
 
+/* 置信度颜色变体 */
+.skillpecker-confidence-chip-high {
+  border-color: rgba(239, 68, 68, 0.2);
+  background: rgba(254, 226, 226, 0.82);
+  color: #b91c1c;
+}
+
+.skillpecker-confidence-chip-medium {
+  border-color: rgba(245, 158, 11, 0.2);
+  background: rgba(254, 243, 199, 0.82);
+  color: #b45309;
+}
+
+.skillpecker-confidence-chip-low {
+  border-color: rgba(34, 197, 94, 0.2);
+  background: rgba(220, 252, 231, 0.82);
+  color: #047857;
+}
+
+
+
 .skillpecker-severity-chip.is-critical,
 .skillpecker-severity-chip.is-high {
   border-color: rgba(239, 68, 68, 0.2);
@@ -3191,6 +3212,25 @@
 .dark .skillpecker-severity-chip {
   color: #e2e8f0;
 }
+
+.dark .skillpecker-confidence-chip-high {
+  border-color: rgba(239, 68, 68, 0.3);
+  background: rgba(127, 29, 29, 0.5);
+  color: #fca5a5;
+}
+
+.dark .skillpecker-confidence-chip-medium {
+  border-color: rgba(245, 158, 11, 0.3);
+  background: rgba(120, 53, 15, 0.5);
+  color: #fcd34d;
+}
+
+.dark .skillpecker-confidence-chip-low {
+  border-color: rgba(34, 197, 94, 0.3);
+  background: rgba(20, 83, 45, 0.5);
+  color: #6ee7b7;
+}
+
 
 .dark .skillpecker-result-skill-name,
 .dark .skillpecker-skill-detail-top h5,

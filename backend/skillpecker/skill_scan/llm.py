@@ -73,6 +73,12 @@ PROVIDER_PROFILES: dict[str, ProviderProfile] = {
         default_base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
         description="DashScope compatible-mode API for Qwen and other models",
     ),
+    "glm": ProviderProfile(
+        name="glm",
+        api_style="openai_compatible",
+        default_base_url="https://open.bigmodel.cn/api/paas/v4",
+        description="Zhipu GLM OpenAI-compatible API",
+    ),
     "anthropic": ProviderProfile(
         name="anthropic",
         api_style="anthropic_messages",
@@ -150,14 +156,23 @@ class LLMClient:
 
     def _complete_openai_compatible(self, system_prompt: str, payload_text: str) -> str:
         assert self._client is not None
-        response = self._client.chat.completions.create(
-            model=self.model,
-            messages=[
+        request_kwargs: dict[str, Any] = {
+            "model": self.model,
+            "messages": [
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": payload_text},
             ],
-            temperature=self.temperature,
-            stream=False,
+            "temperature": self.temperature,
+            "stream": False,
+        }
+
+        # GLM supports OpenAI-style JSON mode and defaults to plain text output.
+        # Force json_object here so judge/triage/security all return valid JSON.
+        if self.provider == "glm":
+            request_kwargs["response_format"] = {"type": "json_object"}
+
+        response = self._client.chat.completions.create(
+            **request_kwargs,
         )
         return response.choices[0].message.content or ""
 
