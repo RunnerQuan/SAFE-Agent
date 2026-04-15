@@ -7,6 +7,7 @@ import {
   Report,
   ReportDetail,
   Scan,
+  ScanListItem,
   ScanProgress,
   ToolMetadataItem,
 } from './types'
@@ -289,16 +290,27 @@ export async function deleteAgent(id: string): Promise<void> {
   await fetchApi(`/agents/${id}`, { method: 'DELETE' })
 }
 
-export async function listScans(query?: { agentId?: string }): Promise<Scan[]> {
+export async function listScans(query?: { agentId?: string; light?: boolean; limit?: number; offset?: number }): Promise<Scan[]> {
   if (USE_MOCK) {
     await sleep(180)
     let scans = [...mockState.scans]
     if (query?.agentId) {
       scans = scans.filter((item) => item.agentId === query.agentId)
     }
-    return scans.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+    scans = scans.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+    if (query?.offset) {
+      scans = scans.slice(query.offset)
+    }
+    if (query?.limit) {
+      scans = scans.slice(0, query.limit)
+    }
+    return scans
   }
-  const params = new URLSearchParams(query as Record<string, string>)
+  const params = new URLSearchParams()
+  if (query?.agentId) params.set('agentId', query.agentId)
+  if (query?.light) params.set('light', 'true')
+  if (query?.limit) params.set('limit', String(query.limit))
+  if (query?.offset) params.set('offset', String(query.offset))
   return fetchApi<Scan[]>(`/scans?${params}`)
 }
 

@@ -14,6 +14,7 @@ import type {
   RiskLevel,
   Scan,
   ScanCheckState,
+  ScanListItem,
   ScanProgress,
   ScanStatus,
   ScanSummary,
@@ -472,32 +473,168 @@ function isReferencedChildScan(id: string, records: UnifiedScanRecord[]) {
   return records.some((record) => Object.values(record.childScanIds).includes(id))
 }
 
-async function listUnifiedScans(query?: { agentId?: string }) {
+const DEFAULT_LIST_LIMIT = 20
+
+async function listUnifiedScans(query?: { agentId?: string; light?: boolean; limit?: number; offset?: number }) {
   const state = await loadState()
-  const records = query?.agentId ? state.scans.filter((scan) => scan.agentId === query.agentId) : state.scans
+  let records = query?.agentId ? state.scans.filter((scan) => scan.agentId === query.agentId) : state.scans
+
+  // 按时间倒序并应用分页
+  records = sortByCreatedDesc(records)
+  const offset = query?.offset ?? 0
+  const limit = query?.limit ?? DEFAULT_LIST_LIMIT
+  records = records.slice(offset, offset + limit)
+
+  if (query?.light) {
+    // 轻量模式：获取子任务状态以组装基础 summary
+    const recordsWithChildren = await Promise.all(
+      records.map(async (record) => {
+        const [exposureScan, fuzzingScan] = await Promise.all([
+          record.childScanIds.exposure ? agentraft.getScan(record.childScanIds.exposure) : Promise.resolve(null),
+          record.childScanIds.fuzzing ? mtatlas.getScan(record.childScanIds.fuzzing) : Promise.resolve(null),
+        ])
+        return { record, exposureScan, fuzzingScan }
+      })
+    )
+    return recordsWithChildren.map(({ record, exposureScan, fuzzingScan }) => toUnifiedScanListItem(record, exposureScan ?? undefined, fuzzingScan ?? undefined))
+  }
+
   const scans = await Promise.all(records.map((record) => buildUnifiedScan(record)))
-  return sortByCreatedDesc(scans)
+  return scans
 }
 
-async function listLegacyScans(records: UnifiedScanRecord[], query?: { agentId?: string }): Promise<Scan[]> {
-  const [exposureScans, fuzzingScans] = await Promise.all([agentraft.listScans(query), mtatlas.listScans(query)])
-  const unreferencedExposureScans = exposureScans.filter((scan) => !isReferencedChildScan(scan.id, records))
-  const unreferencedFuzzingScans = fuzzingScans.filter((scan) => !isReferencedChildScan(scan.id, records))
+async function listLegacyScans(records: UnifiedScanRecord[], query?: { agentId?: string; light?: boolean; limit?: number; offset?: number }): Promise<ScanListItem[] | Scan[]> {
+  const exposureData = await agentraft.listScans(query)
+  const fuzzingData = await mtatlas.listScans(query)
 
+  const unreferencedExposureScans = exposureData.filter((scan) => !isReferencedChildScan(scan.id, records))
+  const unreferencedFuzzingScans = fuzzingData.filter((scan) => !isReferencedChildScan(scan.id, records))
+
+  // 合并后排序（不限制数量，返回所有 legacy 扫描）
+  const allScans = sortByCreatedDesc([...unreferencedExposureScans, ...unreferencedFuzzingScans])
+
+  if (query?.light) {
+    // 轻量模式：只返回必要字段，不读取报告详情
+    return allScans.map((scan) => toScanListItem(scan))
+  }
+
+  // 完整模式：逐条 hydrate 报告详情
   const [hydratedExposureScans, hydratedFuzzingScans] = await Promise.all([
     Promise.all(
-      unreferencedExposureScans.map(async (scan) =>
-        hydrateLegacyScan(scan, scan.reportId ? await agentraft.getReportDetail(scan.reportId) : null)
-      )
+      allScans
+        .filter((scan) => scan.types.includes('exposure'))
+        .map(async (scan) =>
+          hydrateLegacyScan(scan, scan.reportId ? await agentraft.getReportDetail(scan.reportId) : null)
+        )
     ),
     Promise.all(
-      unreferencedFuzzingScans.map(async (scan) =>
-        hydrateLegacyScan(scan, scan.reportId ? await mtatlas.getReportDetail(scan.reportId) : null)
-      )
+      allScans
+        .filter((scan) => scan.types.includes('fuzzing'))
+        .map(async (scan) =>
+          hydrateLegacyScan(scan, scan.reportId ? await mtatlas.getReportDetail(scan.reportId) : null)
+        )
     ),
   ])
 
   return sortByCreatedDesc([...hydratedExposureScans, ...hydratedFuzzingScans])
+}
+
+// 将 Scan 转换为轻量版 ScanListItem
+function toScanListItem(scan: Scan): ScanListItem {
+  return {
+    id: scan.id,
+    agentId: scan.agentId,
+    agentName: scan.agentName,
+    title: scan.title,
+    types: scan.types,
+    status: scan.status,
+    createdAt: scan.createdAt,
+    reportId: scan.reportId,
+    params: scan.params
+      ? {
+          taskName: scan.params.taskName as string | undefined,
+          toolCount: scan.params.toolCount as number | undefined,
+          selectedChecks: scan.params.selectedChecks as ScanType[] | undefined,
+        }
+      : undefined,
+    summary: scan.summary
+      ? {
+          totalFindings: scan.summary.totalFindings,
+          exposureFindings: scan.summary.exposureFindings,
+          fuzzingFindings: scan.summary.fuzzingFindings,
+          doeToolCount: scan.summary.doeToolCount,
+          chainToolCount: scan.summary.chainToolCount,
+          highRiskExposureCount: scan.summary.highRiskExposureCount,
+          highRiskChainCount: scan.summary.highRiskChainCount,
+          topRisks: scan.summary.topRisks,
+        }
+      : undefined,
+  }
+}
+
+// 将 UnifiedScanRecord 转换为轻量版 ScanListItem
+// 轻量模式下需要从子任务状态组装基础信息
+function toUnifiedScanListItem(record: UnifiedScanRecord, exposureScan?: Scan, fuzzingScan?: Scan): ScanListItem {
+  // 从子任务状态推断风险等级
+  let risk: RiskLevel = 'unknown'
+  if (exposureScan?.reportId || fuzzingScan?.reportId) {
+    if (exposureScan?.status === 'succeeded' || fuzzingScan?.status === 'succeeded') {
+      risk = 'unknown' // 需要读取报告才能确定具体风险
+    }
+  }
+
+  // 从子任务获取 toolCount 和 summary
+  const exposureToolCount = exposureScan?.params?.toolCount as number | undefined
+  const fuzzingToolCount = fuzzingScan?.params?.toolCount as number | undefined
+  const totalToolCount = (exposureToolCount ?? 0) + (fuzzingToolCount ?? 0)
+
+  // 从子任务 summary 汇总
+  const exposureSummary = exposureScan?.summary
+  const fuzzingSummary = fuzzingScan?.summary
+
+  return {
+    id: record.id,
+    agentId: record.agentId,
+    agentName: record.agentName,
+    title: record.title,
+    types: record.types,
+    status: deriveStatusFromRecords(exposureScan, fuzzingScan),
+    createdAt: record.createdAt,
+    reportId: record.id, // unified 任务的 reportId 就是自己的 id
+    params: {
+      taskName: record.params?.taskName as string | undefined,
+      toolCount: totalToolCount > 0 ? totalToolCount : undefined,
+      selectedChecks: record.types,
+    },
+    summary: {
+      totalFindings: (exposureSummary?.totalFindings ?? 0) + (fuzzingSummary?.totalFindings ?? 0),
+      exposureFindings: exposureSummary?.exposureFindings ?? 0,
+      fuzzingFindings: fuzzingSummary?.fuzzingFindings ?? 0,
+      doeToolCount: exposureSummary?.doeToolCount ?? 0,
+      chainToolCount: fuzzingSummary?.chainToolCount ?? 0,
+      highRiskExposureCount: exposureSummary?.highRiskExposureCount ?? 0,
+      highRiskChainCount: fuzzingSummary?.highRiskChainCount ?? 0,
+      topRisks: [
+        ...(exposureSummary?.topRisks ?? []),
+        ...(fuzzingSummary?.topRisks ?? []),
+      ].slice(0, 4),
+    },
+  }
+}
+
+// 从子任务状态推断 unified 任务状态
+function deriveStatusFromRecords(exposureScan?: Scan, fuzzingScan?: Scan): ScanStatus {
+  const statuses: ScanStatus[] = []
+  if (exposureScan) statuses.push(exposureScan.status)
+  if (fuzzingScan) statuses.push(fuzzingScan.status)
+
+  if (statuses.every((s) => s === 'succeeded')) return 'succeeded'
+  if (statuses.some((s) => s === 'running')) return 'running'
+  if (statuses.some((s) => s === 'queued')) return 'queued'
+  if (statuses.every((s) => s === 'failed')) return 'failed'
+  if (statuses.every((s) => s === 'canceled')) return 'canceled'
+  if (statuses.some((s) => s === 'succeeded') && statuses.some((s) => s === 'failed' || s === 'canceled')) return 'partial'
+  return 'queued'
 }
 
 async function resolveUnifiedRecordByScanId(scanId: string) {
@@ -566,11 +703,24 @@ export async function deleteAgentEntry(id: string) {
   return agentraft.deleteAgentEntry(id)
 }
 
-export async function listScans(query?: { agentId?: string }): Promise<Scan[]> {
+export async function listScans(query?: { agentId?: string; light?: boolean; limit?: number; offset?: number }): Promise<Scan[]> {
   const state = await loadState()
   const unified = await listUnifiedScans(query)
   const legacy = await listLegacyScans(state.scans, query)
-  return sortByCreatedDesc([...unified, ...legacy])
+
+  // 合并所有扫描并排序
+  const combined = sortByCreatedDesc([...unified, ...legacy])
+
+  // 应用分页
+  let result = combined
+  if (query?.offset) {
+    result = result.slice(query.offset)
+  }
+  if (query?.limit) {
+    result = result.slice(0, query.limit)
+  }
+
+  return result as Scan[]
 }
 
 export async function getScan(id: string): Promise<Scan | null> {

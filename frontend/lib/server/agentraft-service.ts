@@ -21,10 +21,28 @@ import type {
 } from '@/lib/types'
 import { sanitizeLogEntry, sanitizeLogMessage } from './log-sanitizer'
 
+// 轻量化的报告详情索引
+type ReportDetailIndex = {
+  id: string
+  scanId: string
+  agentId: string
+  agentName?: string
+  title?: string
+  toolCount?: number
+  risk: RiskLevel
+  summary: {
+    totalFindings: number
+    exposureFindings: number
+    doeToolCount: number
+  }
+  createdAt: string
+  types: ScanType[]
+}
+
 type PersistedState = {
   agents: Agent[]
   scans: Scan[]
-  reportDetails: ReportDetail[]
+  reportDetailIndex: ReportDetailIndex[]
   logs: Record<string, LogEntry[]>
 }
 
@@ -98,6 +116,7 @@ const BACKEND_NODE_ROOT = path.join(BACKEND_ROOT, 'node')
 const DATA_ROOT = path.join(PROJECT_ROOT, 'backend', 'agentRaft', 'data')
 const WORKSPACES_ROOT = path.join(DATA_ROOT, 'workspaces')
 const STATE_FILE = path.join(DATA_ROOT, 'agentraft-state.json')
+const REPORT_DETAILS_DIR = path.join(DATA_ROOT, 'report-details')
 const DEFAULT_AGENT_ID = 'agentraft-default'
 const SUPPORTED_SCAN_TYPES: ScanType[] = ['exposure']
 const HIGH_RISK_SINKS = new Set(['send_message', 'send_email', 'chrome_fill_or_select'])
@@ -121,7 +140,7 @@ function createEmptyState(): PersistedState {
   return {
     agents: [],
     scans: [],
-    reportDetails: [],
+    reportDetailIndex: [],
     logs: {},
   }
 }
@@ -140,6 +159,71 @@ function getScanParams(scan: Scan): AgentRaftScanParams {
 
 async function ensureStateRoot() {
   await fs.mkdir(DATA_ROOT, { recursive: true })
+}
+
+function getReportDetailFilePath(reportId: string) {
+  return path.join(REPORT_DETAILS_DIR, `${reportId}.json`)
+}
+
+async function ensureReportDetailsDir() {
+  await fs.mkdir(REPORT_DETAILS_DIR, { recursive: true })
+}
+
+async function loadReportDetailFromFile(reportId: string): Promise<ReportDetail | null> {
+  const filePath = getReportDetailFilePath(reportId)
+  try {
+    return await readJsonFile<ReportDetail>(filePath, null as unknown as ReportDetail)
+  } catch {
+    return null
+  }
+}
+
+async function saveReportDetailToFile(report: ReportDetail): Promise<void> {
+  await ensureReportDetailsDir()
+  const filePath = getReportDetailFilePath(report.id)
+  await writeJsonFile(filePath, report)
+}
+
+async function migrateReportDetailsIfNeeded(state: PersistedState): Promise<PersistedState> {
+  // 检查是否需要迁移（旧格式有 reportDetails 数组）
+  const legacyReportDetails = (state as unknown as { reportDetails?: ReportDetail[] }).reportDetails
+  if (legacyReportDetails && legacyReportDetails.length > 0) {
+    console.log(`[AgentRaft] Migrating ${legacyReportDetails.length} reportDetails to separate files...`)
+    await ensureReportDetailsDir()
+
+    const newIndex: ReportDetailIndex[] = []
+    for (const report of legacyReportDetails) {
+      // 保存到单独文件
+      await saveReportDetailToFile(report)
+      // 添加到索引
+      newIndex.push({
+        id: report.id,
+        scanId: report.scanId,
+        agentId: report.agentId,
+        agentName: report.agentName,
+        title: report.title,
+        toolCount: report.toolCount,
+        risk: report.risk,
+        summary: {
+          totalFindings: report.summary?.totalFindings ?? 0,
+          exposureFindings: report.summary?.exposureFindings ?? report.exposure?.findings.length ?? 0,
+          doeToolCount: report.summary?.doeToolCount ?? 0,
+        },
+        createdAt: report.createdAt,
+        types: report.types,
+      })
+    }
+
+    // 更新状态，移除旧的 reportDetails
+    state.reportDetailIndex = newIndex
+    ;(state as unknown as { reportDetails?: unknown }).reportDetails = undefined
+
+    // 保存迁移后的状态
+    await saveState(state)
+    console.log(`[AgentRaft] Migration complete. State file should be much smaller now.`)
+  }
+
+  return state
 }
 
 function invalidateStateCache() {
@@ -230,7 +314,9 @@ async function loadState() {
 
   await ensureStateRoot()
   const state = await readJsonFile<PersistedState>(STATE_FILE, createEmptyState())
-  const hydrated = await hydrateState(state)
+  // 迁移旧的 reportDetails 到单独文件（只执行一次）
+  const migrated = await migrateReportDetailsIfNeeded(state)
+  const hydrated = await hydrateState(migrated)
   globalThis.__agentRaftStateCache = {
     expiresAt: Date.now() + STATE_CACHE_TTL_MS,
     state: hydrated,
@@ -786,7 +872,29 @@ async function finalizeSucceededScan(scanId: string, durationMs: number) {
     const agent = state.agents.find((item) => item.id === scan.agentId) ?? (await buildDefaultAgent())
     const reportDetail = await buildReportDetail(scan, agent)
 
-    state.reportDetails = [reportDetail, ...state.reportDetails.filter((item) => item.id !== reportDetail.id)]
+    // 保存到单独文件
+    await saveReportDetailToFile(reportDetail)
+
+    // 更新索引
+    state.reportDetailIndex = [
+      {
+        id: reportDetail.id,
+        scanId: reportDetail.scanId,
+        agentId: reportDetail.agentId,
+        agentName: reportDetail.agentName,
+        title: reportDetail.title,
+        toolCount: reportDetail.toolCount,
+        risk: reportDetail.risk,
+        summary: {
+          totalFindings: reportDetail.summary?.totalFindings ?? 0,
+          exposureFindings: reportDetail.summary?.exposureFindings ?? reportDetail.exposure?.findings.length ?? 0,
+          doeToolCount: reportDetail.summary?.doeToolCount ?? 0,
+        },
+        createdAt: reportDetail.createdAt,
+        types: reportDetail.types,
+      },
+      ...state.reportDetailIndex.filter((item) => item.id !== reportDetail.id),
+    ]
     state.scans[scanIndex] = {
       ...scan,
       status: 'succeeded',
@@ -794,6 +902,17 @@ async function finalizeSucceededScan(scanId: string, durationMs: number) {
       finishedAt: nowIso(),
       durationMs,
       reportId: reportDetail.id,
+      // 更新 summary 字段，供列表页轻量模式使用
+      summary: {
+        totalFindings: reportDetail.summary?.totalFindings ?? 0,
+        exposureFindings: reportDetail.summary?.exposureFindings ?? reportDetail.exposure?.findings.length ?? 0,
+        fuzzingFindings: 0,
+        doeToolCount: reportDetail.summary?.doeToolCount ?? reportDetail.exposure?.findings.length ?? 0,
+        chainToolCount: 0,
+        highRiskExposureCount: reportDetail.exposure?.findings.filter((f) => f.severity === 'high').length ?? 0,
+        highRiskChainCount: 0,
+        topRisks: reportDetail.exposure?.findings.filter((f) => f.severity === 'high').slice(0, 2).map((f) => f.title) ?? [],
+      },
     }
 
     return reportDetail
@@ -1007,10 +1126,17 @@ export async function deleteAgentEntry(id: string) {
   })
 }
 
-export async function listScans(query?: { agentId?: string }) {
+export async function listScans(query?: { agentId?: string; limit?: number; offset?: number }) {
   const state = await loadState()
-  const scans = query?.agentId ? state.scans.filter((scan) => scan.agentId === query.agentId) : state.scans
-  return sortByCreatedDesc(scans)
+  let scans = query?.agentId ? state.scans.filter((scan) => scan.agentId === query.agentId) : state.scans
+  scans = sortByCreatedDesc(scans)
+  if (query?.offset) {
+    scans = scans.slice(query.offset)
+  }
+  if (query?.limit) {
+    scans = scans.slice(0, query.limit)
+  }
+  return scans
 }
 
 export async function getScan(id: string) {
@@ -1130,7 +1256,7 @@ export async function getScanLogs(id: string) {
 
 export async function listReports(query?: { agentId?: string; risk?: string; type?: string }) {
   const state = await loadState()
-  let reports = state.reportDetails
+  let reports = state.reportDetailIndex
 
   if (query?.agentId) {
     reports = reports.filter((report) => report.agentId === query.agentId)
@@ -1144,10 +1270,17 @@ export async function listReports(query?: { agentId?: string; risk?: string; typ
     reports = reports.filter((report) => report.types.includes(query.type as ScanType))
   }
 
-  return sortByCreatedDesc(reports).map(toReportSummary)
+  return sortByCreatedDesc(reports).map((report) => toReportSummary(report as unknown as ReportDetail))
 }
 
 export async function getReportDetail(id: string) {
+  // 先尝试从单独文件读取
+  const fileReport = await loadReportDetailFromFile(id)
+  if (fileReport) {
+    return fileReport
+  }
+
+  // 回退：尝试从 seeded reports 读取
   const state = await loadState()
   const scan = state.scans.find((item) => item.reportId === id) ?? null
   if (scan) {
@@ -1157,7 +1290,7 @@ export async function getReportDetail(id: string) {
     }
   }
 
-  return state.reportDetails.find((item) => item.id === id) ?? null
+  return null
 }
 
 export async function downloadReportFile(id: string, format: 'pdf' | 'json' = 'json'): Promise<ReportDownload> {
@@ -1198,7 +1331,7 @@ export async function getDashboardStats(): Promise<DashboardStats> {
     agentCount: state.agents.length,
     recentScanCount: state.scans.length,
     failedScanCount: state.scans.filter((scan) => scan.status === 'failed').length,
-    highRiskReportCount: state.reportDetails.filter((report) => report.risk === 'high').length,
+    highRiskReportCount: state.reportDetailIndex.filter((report) => report.risk === 'high').length,
   }
 }
 

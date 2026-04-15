@@ -7,7 +7,13 @@ export const dynamic = 'force-dynamic'
 
 export async function GET(request: NextRequest) {
   const agentId = request.nextUrl.searchParams.get('agentId') || undefined
-  const scans = await listScans({ agentId })
+  const light = request.nextUrl.searchParams.get('light') === 'true'
+  const limitStr = request.nextUrl.searchParams.get('limit')
+  const limit = limitStr ? parseInt(limitStr, 10) : undefined
+  const offsetStr = request.nextUrl.searchParams.get('offset')
+  const offset = offsetStr ? parseInt(offsetStr, 10) : undefined
+
+  const scans = await listScans({ agentId, light, limit, offset })
   return NextResponse.json(scans)
 }
 

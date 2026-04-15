@@ -542,7 +542,7 @@ export async function getSkillPeckerOverview(): Promise<SkillPeckerOverview> {
     const [health, queue, library] = await Promise.all([
       getSkillPeckerHealth(),
       getSkillPeckerQueue(),
-      getSkillPeckerLibrary({ page: 1, pageSize: 200 }),
+      getSkillPeckerLibrary({ page: 1, pageSize: 100 }),
     ])
 
     const riskBreakdown = buildRiskBreakdown(library.items)

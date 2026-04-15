@@ -21,10 +21,28 @@ import type {
 } from '@/lib/types'
 import { sanitizeLogEntry, sanitizeLogMessage } from './log-sanitizer'
 
+// 轻量化的报告详情索引，只存储必要字段
+type ReportDetailIndex = {
+  id: string
+  scanId: string
+  agentId: string
+  agentName?: string
+  title?: string
+  toolCount?: number
+  risk: RiskLevel
+  summary: {
+    totalFindings: number
+    fuzzingFindings: number
+    chainToolCount: number
+  }
+  createdAt: string
+  types: ScanType[]
+}
+
 type PersistedState = {
   agents: Agent[]
   scans: Scan[]
-  reportDetails: ReportDetail[]
+  reportDetailIndex: ReportDetailIndex[]
   logs: Record<string, LogEntry[]>
 }
 
@@ -79,6 +97,7 @@ const BACKEND_ROOT = path.join(PROJECT_ROOT, 'backend', 'MTAtlas')
 const DATA_ROOT = path.join(PROJECT_ROOT, 'backend', 'MTAtlas', 'data')
 const WORKSPACES_ROOT = path.join(DATA_ROOT, 'workspaces')
 const STATE_FILE = path.join(DATA_ROOT, 'mtatlas-state.json')
+const REPORT_DETAILS_DIR = path.join(DATA_ROOT, 'report-details')
 const DEFAULT_AGENT_ID = 'mtatlas-default'
 const HIGH_RISK_SINK_TYPES = new Set(['CMDi', 'RCE', 'SQLi', 'SSTI', 'TemplateInjection', 'CodeInjection'])
 const MEDIUM_RISK_SINK_TYPES = new Set(['SSRF', 'PathTraversal', 'FileWrite', 'FileRead', 'DataExfiltration'])
@@ -104,7 +123,7 @@ function createEmptyState(): PersistedState {
   return {
     agents: [],
     scans: [],
-    reportDetails: [],
+    reportDetailIndex: [],
     logs: {},
   }
 }
@@ -133,6 +152,71 @@ function getScanParams(scan: Scan): MTAtlasScanParams {
 
 async function ensureStateRoot() {
   await fs.mkdir(DATA_ROOT, { recursive: true })
+}
+
+function getReportDetailFilePath(reportId: string) {
+  return path.join(REPORT_DETAILS_DIR, `${reportId}.json`)
+}
+
+async function ensureReportDetailsDir() {
+  await fs.mkdir(REPORT_DETAILS_DIR, { recursive: true })
+}
+
+async function loadReportDetailFromFile(reportId: string): Promise<ReportDetail | null> {
+  const filePath = getReportDetailFilePath(reportId)
+  try {
+    return await readJsonFile<ReportDetail>(filePath, null as unknown as ReportDetail)
+  } catch {
+    return null
+  }
+}
+
+async function saveReportDetailToFile(report: ReportDetail): Promise<void> {
+  await ensureReportDetailsDir()
+  const filePath = getReportDetailFilePath(report.id)
+  await writeJsonFile(filePath, report)
+}
+
+async function migrateReportDetailsIfNeeded(state: PersistedState): Promise<PersistedState> {
+  // 检查是否需要迁移（旧格式有 reportDetails 数组）
+  const legacyReportDetails = (state as unknown as { reportDetails?: ReportDetail[] }).reportDetails
+  if (legacyReportDetails && legacyReportDetails.length > 0) {
+    console.log(`[MTAtlas] Migrating ${legacyReportDetails.length} reportDetails to separate files...`)
+    await ensureReportDetailsDir()
+
+    const newIndex: ReportDetailIndex[] = []
+    for (const report of legacyReportDetails) {
+      // 保存到单独文件
+      await saveReportDetailToFile(report)
+      // 添加到索引
+      newIndex.push({
+        id: report.id,
+        scanId: report.scanId,
+        agentId: report.agentId,
+        agentName: report.agentName,
+        title: report.title,
+        toolCount: report.toolCount,
+        risk: report.risk,
+        summary: {
+          totalFindings: report.summary?.totalFindings ?? 0,
+          fuzzingFindings: report.summary?.fuzzingFindings ?? report.fuzzing?.findings.length ?? 0,
+          chainToolCount: report.summary?.chainToolCount ?? 0,
+        },
+        createdAt: report.createdAt,
+        types: report.types,
+      })
+    }
+
+    // 更新状态，移除旧的 reportDetails
+    state.reportDetailIndex = newIndex
+    ;(state as unknown as { reportDetails?: unknown }).reportDetails = undefined
+
+    // 保存迁移后的状态
+    await saveState(state)
+    console.log(`[MTAtlas] Migration complete. State file should be much smaller now.`)
+  }
+
+  return state
 }
 
 function invalidateStateCache() {
@@ -225,7 +309,9 @@ async function loadState() {
 
   await ensureStateRoot()
   const state = await readJsonFile<PersistedState>(STATE_FILE, createEmptyState())
-  const hydrated = await hydrateState(state)
+  // 迁移旧的 reportDetails 到单独文件（只执行一次）
+  const migrated = await migrateReportDetailsIfNeeded(state)
+  const hydrated = await hydrateState(migrated)
   globalThis.__mtatlasStateCache = {
     expiresAt: Date.now() + STATE_CACHE_TTL_MS,
     state: hydrated,
@@ -424,9 +510,28 @@ async function setScanStatus(id: string, status: ScanStatus, progress?: ScanProg
 }
 
 async function persistReportDetail(report: ReportDetail) {
-  return mutateState((state) => {
-    state.reportDetails = state.reportDetails.filter((item) => item.scanId !== report.scanId)
-    state.reportDetails.unshift(report)
+  // 保存到单独文件
+  await saveReportDetailToFile(report)
+
+  // 同时更新状态文件中的索引
+  await mutateState((state) => {
+    state.reportDetailIndex = state.reportDetailIndex.filter((item) => item.scanId !== report.scanId)
+    state.reportDetailIndex.unshift({
+      id: report.id,
+      scanId: report.scanId,
+      agentId: report.agentId,
+      agentName: report.agentName,
+      title: report.title,
+      toolCount: report.toolCount,
+      risk: report.risk,
+      summary: {
+        totalFindings: report.summary?.totalFindings ?? 0,
+        fuzzingFindings: report.summary?.fuzzingFindings ?? report.fuzzing?.findings.length ?? 0,
+        chainToolCount: report.summary?.chainToolCount ?? 0,
+      },
+      createdAt: report.createdAt,
+      types: report.types,
+    })
     return report
   })
 }
@@ -721,6 +826,17 @@ async function executeScan(scanId: string) {
       finishedAt: nowIso(),
       durationMs: Date.now() - new Date(scan.startedAt ?? scan.createdAt).getTime(),
       reportId: report.id,
+      // 更新 summary 字段，供列表页轻量模式使用
+      summary: {
+        totalFindings: report.summary?.totalFindings ?? 0,
+        exposureFindings: 0,
+        fuzzingFindings: report.summary?.fuzzingFindings ?? report.fuzzing?.findings.length ?? 0,
+        doeToolCount: 0,
+        chainToolCount: report.summary?.chainToolCount ?? report.fuzzing?.findings.length ?? 0,
+        highRiskExposureCount: 0,
+        highRiskChainCount: report.fuzzing?.findings.filter((f) => f.severity === 'high').length ?? 0,
+        topRisks: report.fuzzing?.findings.filter((f) => f.severity === 'high').slice(0, 2).map((f) => f.title) ?? [],
+      },
     })
     await appendLog(scanId, 'info', 'MTAtlas analysis completed successfully.')
   } catch (error) {
@@ -786,10 +902,17 @@ export async function getAgent(id: string) {
   return state.agents.find((agent) => agent.id === id) ?? null
 }
 
-export async function listScans(query?: { agentId?: string }) {
+export async function listScans(query?: { agentId?: string; limit?: number; offset?: number }) {
   const state = await loadState()
-  const scans = query?.agentId ? state.scans.filter((scan) => scan.agentId === query.agentId) : state.scans
-  return sortByCreatedDesc(scans)
+  let scans = query?.agentId ? state.scans.filter((scan) => scan.agentId === query.agentId) : state.scans
+  scans = sortByCreatedDesc(scans)
+  if (query?.offset) {
+    scans = scans.slice(query.offset)
+  }
+  if (query?.limit) {
+    scans = scans.slice(0, query.limit)
+  }
+  return scans
 }
 
 export async function getScan(id: string) {
@@ -894,7 +1017,7 @@ export async function getScanLogs(id: string) {
 
 export async function listReports(query?: { agentId?: string; risk?: string; type?: string }) {
   const state = await loadState()
-  let reports = state.reportDetails
+  let reports = state.reportDetailIndex
 
   if (query?.agentId) {
     reports = reports.filter((report) => report.agentId === query.agentId)
@@ -906,12 +1029,12 @@ export async function listReports(query?: { agentId?: string; risk?: string; typ
     reports = reports.filter((report) => report.types.includes(query.type as ScanType))
   }
 
-  return sortByCreatedDesc(reports).map(toReportSummary)
+  return sortByCreatedDesc(reports).map((report) => toReportSummary(report as unknown as ReportDetail))
 }
 
 export async function getReportDetail(id: string) {
-  const state = await loadState()
-  return state.reportDetails.find((report) => report.id === id) ?? null
+  // 从单独文件读取，不加载整个状态
+  return loadReportDetailFromFile(id)
 }
 
 export async function downloadReportFile(id: string, format: 'pdf' | 'json' = 'json'): Promise<ReportDownload> {
@@ -951,7 +1074,7 @@ export async function getDashboardStats(): Promise<DashboardStats> {
     agentCount: state.agents.length,
     recentScanCount: state.scans.length,
     failedScanCount: state.scans.filter((scan) => scan.status === 'failed').length,
-    highRiskReportCount: state.reportDetails.filter((report) => report.risk === 'high').length,
+    highRiskReportCount: state.reportDetailIndex.filter((report) => report.risk === 'high').length,
   }
 }
 

@@ -78,6 +78,33 @@ export interface Scan {
   detail?: IntegratedScanDetail
 }
 
+// 轻量版 Scan，用于列表页，避免加载过多数据
+export interface ScanListItem {
+  id: string
+  agentId: string
+  agentName?: string
+  title?: string
+  types: ScanType[]
+  status: ScanStatus
+  createdAt: string
+  reportId?: string
+  params?: {
+    taskName?: string
+    toolCount?: number
+    selectedChecks?: ScanType[]
+  }
+  summary?: {
+    totalFindings: number
+    exposureFindings: number
+    fuzzingFindings: number
+    doeToolCount: number
+    chainToolCount: number
+    highRiskExposureCount?: number
+    highRiskChainCount?: number
+    topRisks?: string[]
+  }
+}
+
 export type RiskLevel = 'high' | 'medium' | 'low' | 'unknown'
 
 export interface ReportSummary {

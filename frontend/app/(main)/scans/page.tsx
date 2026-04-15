@@ -18,24 +18,68 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { cancelScan, listScans } from '@/lib/api'
-import { Scan, ScanType } from '@/lib/types'
+import { Scan, ScanListItem, ScanType } from '@/lib/types'
 import { formatDate, formatDuration, scanTypeLabels, shortId } from '@/lib/utils'
 import { Activity, BarChart3, FileSearch, GitBranch, Network, Shield, ShieldAlert, Workflow } from 'lucide-react'
 
-function getTaskTitle(scan: Scan) {
-  return typeof scan.params?.taskName === 'string' ? scan.params.taskName : scan.title || scan.agentName || shortId(scan.id)
+// 兼容 Scan 和 ScanListItem
+function getTaskTitle(scan: Scan | ScanListItem) {
+  if ('params' in scan && typeof scan.params?.taskName === 'string') return scan.params.taskName
+  return scan.title || scan.agentName || shortId(scan.id)
 }
 
-function getToolCount(scan: Scan) {
-  return typeof scan.params?.toolCount === 'number' ? scan.params.toolCount : 0
+function getToolCount(scan: Scan | ScanListItem) {
+  // Scan 类型有 params.toolCount
+  if ('params' in scan && typeof scan.params?.toolCount === 'number') return scan.params.toolCount
+  // ScanListItem 类型没有 params，从 summary 推断工具数量
+  if ('summary' in scan && scan.summary) {
+    const doeCount = (scan.summary as { doeToolCount?: number }).doeToolCount ?? 0
+    const chainCount = (scan.summary as { chainToolCount?: number }).chainToolCount ?? 0
+    return doeCount + chainCount
+  }
+  return 0
 }
 
-function getSelectedChecks(scan: Scan) {
-  return Array.isArray(scan.params?.selectedChecks) ? (scan.params.selectedChecks as string[]) : scan.types
+function getSelectedChecks(scan: Scan | ScanListItem) {
+  if ('params' in scan && Array.isArray(scan.params?.selectedChecks)) {
+    return scan.params.selectedChecks as string[]
+  }
+  return scan.types
 }
 
-function hasReadableResult(scan: Scan) {
-  return Boolean(scan.detail) || scan.status === 'succeeded' || scan.status === 'partial'
+// 筛选逻辑：必须所有选中的筛选条件都在扫描的检查类型中
+function matchesFilters(scan: Scan | ScanListItem, activeFilters: ScanType[]) {
+  if (activeFilters.length === 0) return true
+  const selectedChecks = getSelectedChecks(scan)
+  // 所有筛选条件都必须匹配
+  return activeFilters.every(filter => selectedChecks.includes(filter))
+}
+
+// 轻量模式下根据 summary 推断是否有可读结果
+function hasReadableResult(scan: Scan | ScanListItem) {
+  if ('detail' in scan && Boolean(scan.detail)) return true
+  if (scan.status === 'succeeded' || scan.status === 'partial') return true
+  if ('summary' in scan && scan.summary) return true
+  return false
+}
+
+// 从 summary 推断风险等级
+function inferRiskLevel(scan: Scan | ScanListItem): 'high' | 'medium' | 'low' | null {
+  const summary = 'summary' in scan ? scan.summary : undefined
+  if (!summary) return null
+
+  // 如果有高风险发现，显示高风险
+  if ((summary.highRiskExposureCount ?? 0) > 0 || (summary.highRiskChainCount ?? 0) > 0) {
+    return 'high'
+  }
+
+  // 如果有 findings，显示对应等级
+  const totalFindings = summary.totalFindings ?? 0
+  if (totalFindings > 0) {
+    return 'medium'
+  }
+
+  return null
 }
 
 function normalizeKeyword(value: string) {
@@ -53,20 +97,22 @@ function ScansContent() {
 
   const { data: scans, isLoading, error, refetch } = useQuery({
     queryKey: ['scans'],
-    queryFn: () => listScans(),
+    // 使用轻量模式，加载全部
+    queryFn: () => listScans({ light: true }),
     refetchInterval: (query) => {
       const data = query.state.data
       return data?.some((scan) => scan.status === 'queued' || scan.status === 'running') ? 3000 : false
     },
   })
 
+
+
   const filteredScans = useMemo(() => {
     const list = scans || []
     const keyword = normalizeKeyword(searchTerm)
 
     return list.filter((scan) => {
-      const selectedChecks = getSelectedChecks(scan)
-      const matchesType = activeFilters.length === 0 || activeFilters.every(filter => selectedChecks.includes(filter))
+      const matchesType = matchesFilters(scan, activeFilters)
       const matchesKeyword = !keyword || normalizeKeyword(getTaskTitle(scan)).includes(keyword)
       return matchesType && matchesKeyword
     })
@@ -80,6 +126,14 @@ function ScansContent() {
       reports: list.filter((item) => hasReadableResult(item)).length,
     }
   }, [filteredScans])
+
+  const handleFilterChange = (filters: ScanType[]) => {
+    setActiveFilters(filters)
+  }
+
+  const handleSearchChange = (value: string) => {
+    setSearchTerm(value)
+  }
 
   const cancelMutation = useMutation({
     mutationFn: cancelScan,
@@ -194,10 +248,10 @@ function ScansContent() {
                 type="button"
                 variant={active ? 'default' : 'outline'}
                 className="rounded-full scan-filter-btn"
-                onClick={() => setActiveFilters((current) => 
-                  current.includes(type) 
-                    ? current.filter(t => t !== type)
-                    : [...current, type]
+                onClick={() => handleFilterChange(
+                  activeFilters.includes(type)
+                    ? activeFilters.filter(t => t !== type)
+                    : [...activeFilters, type]
                 )}
               >
                 {scanTypeLabels[type]}
@@ -210,7 +264,7 @@ function ScansContent() {
           <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
           <Input
             value={searchTerm}
-            onChange={(event) => setSearchTerm(event.target.value)}
+            onChange={(event) => handleSearchChange(event.target.value)}
             placeholder="搜索任务名称"
             className="pl-11 scan-filter-input"
           />
@@ -307,9 +361,10 @@ function ScansContent() {
                             {scanTypeLabels[type] || type}
                           </Badge>
                         ))}
-                        {scan.summary && (
+                        {'summary' in scan && scan.summary && (
                           <span className="scan-list-summary text-slate-500 dark:text-slate-400 ml-2">
-                            DOE {scan.summary.exposureFindings} 条，组合式漏洞 {scan.summary.fuzzingFindings} 条
+                            高风险 DOE {scan.summary.highRiskExposureCount ?? 0} 条，高风险组合式漏洞 {scan.summary.highRiskChainCount ?? 0} 条
+                            {scan.summary.totalFindings > 0 && `（共 ${scan.summary.totalFindings} 条）`}
                           </span>
                         )}
                       </div>
@@ -318,32 +373,33 @@ function ScansContent() {
                     <div className="flex items-center gap-2 lg:pl-4">
                       {/* 风险等级标签 */}
                       {(() => {
-                        const exposureCount = scan.summary?.exposureFindings ?? 0
-                        const fuzzingCount = scan.summary?.fuzzingFindings ?? 0
-                        const totalCount = exposureCount + fuzzingCount
+                        const riskLevel = inferRiskLevel(scan)
                         const hasResult = scan.status === 'succeeded' || scan.status === 'partial'
-                        
+                        const exposureCount = 'summary' in scan && scan.summary ? (scan.summary.highRiskExposureCount ?? 0) : 0
+                        const fuzzingCount = 'summary' in scan && scan.summary ? (scan.summary.highRiskChainCount ?? 0) : 0
+                        const totalFindings = 'summary' in scan && scan.summary ? scan.summary.totalFindings : 0
+
                         // 如果有明确的风险等级，使用它
-                        if (scan.detail?.risk && scan.detail.risk !== 'unknown') {
+                        if (riskLevel) {
                           return (
-                            <Badge 
-                              variant={scan.detail.risk === 'high' ? 'high' : scan.detail.risk === 'medium' ? 'medium' : 'low'}
+                            <Badge
+                              variant={riskLevel === 'high' ? 'high' : riskLevel === 'medium' ? 'medium' : 'low'}
                               className="mr-2"
                             >
-                              {scan.detail.risk === 'high' ? '高风险' : scan.detail.risk === 'medium' ? '中风险' : '安全'}
+                              {riskLevel === 'high' ? '高风险' : riskLevel === 'medium' ? '中风险' : '安全'}
                             </Badge>
                           )
                         }
-                        
+
                         // 如果检测完成且结果为0，显示安全（绿色）
-                        if (hasResult && totalCount === 0) {
+                        if (hasResult && totalFindings === 0) {
                           return (
                             <Badge variant="low" className="mr-2">
                               安全
                             </Badge>
                           )
                         }
-                        
+
                         return null
                       })()}
                       <Link href={`/scans/${scan.id}`}>
@@ -372,6 +428,7 @@ function ScansContent() {
           />
         </Card>
       )}
+
 
       <ConfirmDialog
         open={cancelDialog.open}
