@@ -515,7 +515,7 @@ async function listLegacyScans(records: UnifiedScanRecord[], query?: { agentId?:
 
   if (query?.light) {
     // 轻量模式：只返回必要字段，不读取报告详情
-    return allScans.map((scan) => toScanListItem(scan))
+    return (allScans as Scan[]).map((scan) => toScanListItem(scan))
   }
 
   // 完整模式：逐条 hydrate 报告详情
