@@ -36,4 +36,4 @@ frontend/.next-codex-build*/
 frontend/.next-codex-test*/
 frontend/*.tsbuildinfo
 
-
+backend/MTAtlas/data/
