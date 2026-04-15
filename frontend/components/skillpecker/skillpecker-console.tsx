@@ -205,7 +205,7 @@ export function SkillPeckerConsole() {
   const skillResultQuery = useSkillPeckerSkillResult(dialogOpen ? activeJobId : undefined, dialogOpen ? activeSkillName : undefined)
 
   // 扫描任务状态轮询（scanningJobId 有值时激活）
-  const scanningJobQuery = useSkillPeckerJobDetail(scanningJobId ?? null)
+  const scanningJobQuery = useSkillPeckerJobDetail(scanningJobId ?? undefined)
 
   // 监听扫描任务状态：completed → 自动打开弹窗；failed → 提示并清除
   useEffect(() => {
