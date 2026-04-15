@@ -578,28 +578,36 @@ export async function getScan(id: string): Promise<Scan | null> {
       cache: 'no-store',
     })
     if (spRes.ok) {
-      const job: Record<string, unknown> = await spRes.json()
+      const wrapper: Record<string, unknown> = await spRes.json()
+      const job: Record<string, unknown> = (wrapper.job as Record<string, unknown>) ?? wrapper
       const excerpt: Record<string, unknown> = (job.summaryExcerpt as Record<string, unknown>) ?? {}
       const labelCounts: Record<string, number> = (excerpt.labelCounts as Record<string, number>) ?? {}
+      const skillNames = Array.isArray(job.skillNames) ? job.skillNames : []
+      const malicious = (labelCounts.malicious ?? 0) + (labelCounts.unsafe ?? 0) + (labelCounts.mixed_risk ?? 0)
+      const suspicious = (labelCounts.insufficient_evidence ?? 0)
+      const safe = (excerpt.scannedCount as number ?? 0) - malicious - suspicious
       return {
         id: job.id as string,
         agentId: '',
         agentName: undefined,
-        title: Array.isArray(job.skillNames) ? job.skillNames.join('、') : undefined,
+        title: skillNames.length > 0 ? skillNames.join('、') : undefined,
         types: ['exposure'],
-        status: (job.status as Scan['status']) ?? 'succeeded',
+        status: (job.status as Scan['status']) === 'completed' ? 'succeeded' : (job.status as Scan['status']) ?? 'succeeded',
         createdAt: job.createdAt as string,
         startedAt: job.startedAt as string | undefined,
         finishedAt: job.finishedAt as string | undefined,
         durationMs: job.durationMs as number | undefined,
-        params: { taskName: Array.isArray(job.skillNames) ? `技能扫描：${job.skillNames.join('、')}` : undefined },
+        params: {
+          taskName: skillNames.length > 0 ? `技能扫描：${skillNames.join('、')}` : undefined,
+          selectedChecks: ['exposure'],
+        },
         summary: {
           totalFindings: (excerpt.scannedCount as number) ?? 0,
           exposureFindings: 0,
           fuzzingFindings: 0,
           doeToolCount: (excerpt.scannedCount as number) ?? 0,
           chainToolCount: 0,
-          highRiskExposureCount: (labelCounts.malicious ?? 0) + (labelCounts.unsafe ?? 0) + (labelCounts.mixed_risk ?? 0),
+          highRiskExposureCount: malicious,
           highRiskChainCount: 0,
           topRisks: [],
         },
