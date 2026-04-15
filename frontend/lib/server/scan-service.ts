@@ -572,6 +572,43 @@ export async function getScan(id: string): Promise<Scan | null> {
     return buildUnifiedScan(unified)
   }
 
+  // 尝试 SkillPecker（技能可信安全检测）
+  try {
+    const spRes = await fetch(`${process.env.SKILLPECKER_API_BASE ?? 'http://127.0.0.1:8010/api'}/scans/${id}`, {
+      cache: 'no-store',
+    })
+    if (spRes.ok) {
+      const job: Record<string, unknown> = await spRes.json()
+      const excerpt: Record<string, unknown> = (job.summaryExcerpt as Record<string, unknown>) ?? {}
+      const labelCounts: Record<string, number> = (excerpt.labelCounts as Record<string, number>) ?? {}
+      return {
+        id: job.id as string,
+        agentId: '',
+        agentName: undefined,
+        title: Array.isArray(job.skillNames) ? job.skillNames.join('、') : undefined,
+        types: ['exposure'],
+        status: (job.status as Scan['status']) ?? 'succeeded',
+        createdAt: job.createdAt as string,
+        startedAt: job.startedAt as string | undefined,
+        finishedAt: job.finishedAt as string | undefined,
+        durationMs: job.durationMs as number | undefined,
+        params: { taskName: Array.isArray(job.skillNames) ? `技能扫描：${job.skillNames.join('、')}` : undefined },
+        summary: {
+          totalFindings: (excerpt.scannedCount as number) ?? 0,
+          exposureFindings: 0,
+          fuzzingFindings: 0,
+          doeToolCount: (excerpt.scannedCount as number) ?? 0,
+          chainToolCount: 0,
+          highRiskExposureCount: (labelCounts.malicious ?? 0) + (labelCounts.unsafe ?? 0) + (labelCounts.mixed_risk ?? 0),
+          highRiskChainCount: 0,
+          topRisks: [],
+        },
+      }
+    }
+  } catch {
+    // ignore, fall through
+  }
+
   const exposureScan = await agentraft.getScan(id)
   if (exposureScan) {
     return hydrateLegacyScan(exposureScan, exposureScan.reportId ? await agentraft.getReportDetail(exposureScan.reportId) : null)
