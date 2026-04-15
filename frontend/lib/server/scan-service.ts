@@ -592,7 +592,7 @@ export async function getScan(id: string): Promise<Scan | null> {
         agentName: undefined,
         title: skillNames.length > 0 ? skillNames.join('、') : undefined,
         types: ['exposure'],
-        status: (job.status as Scan['status']) === 'completed' ? 'succeeded' : (job.status as Scan['status']) ?? 'succeeded',
+        status: (job.status as string) === 'completed' ? 'succeeded' : ((job.status as Scan['status']) ?? 'succeeded'),
         createdAt: job.createdAt as string,
         startedAt: job.startedAt as string | undefined,
         finishedAt: job.finishedAt as string | undefined,
