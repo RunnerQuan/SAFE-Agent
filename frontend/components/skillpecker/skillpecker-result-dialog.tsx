@@ -6,6 +6,11 @@ import { AlertTriangle } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
+import {
+  formatScore as formatSkillPeckerScore,
+  normalizeLabel as normalizeSkillPeckerLabel,
+  translateLabel as translateSkillPeckerLabel,
+} from '@/lib/skillpecker/result-formatters'
 import { SkillPeckerFinding, SkillPeckerJobDetail, SkillPeckerSkillResult } from '@/lib/skillpecker/types'
 import { cn, formatDate } from '@/lib/utils'
 
@@ -50,6 +55,11 @@ const flagLabelMap: Record<string, string> = {
 }
 
 const categoryLabelMap: Record<string, string> = {
+  description_gap: '描述缺口',
+  'description gap': '描述缺口',
+  descriptiongap: '描述缺口',
+  '描述gap': '描述缺口',
+  gap: '缺口',
   description: '描述',
   summary: '摘要',
   metadata: '元数据',
@@ -196,11 +206,7 @@ const categoryLabelMap: Record<string, string> = {
 }
 
 function normalizeLabel(value?: string) {
-  return String(value || '')
-    .replaceAll('_', ' ')
-    .replaceAll('-', ' ')
-    .replace(/\s+/g, ' ')
-    .trim()
+  return normalizeSkillPeckerLabel(value)
 }
 
 function normalizeVerdictLabel(value?: string) {
@@ -217,47 +223,7 @@ function normalizeVerdictLabel(value?: string) {
 }
 
 function translateLabel(value?: string): string {
-  if (!value) return ''
-  const raw = String(value).trim()
-  if (raw.includes('|')) {
-    return raw
-      .split('|')
-      .map((item) => translateLabel(item))
-      .filter(Boolean)
-      .join('、')
-  }
-  // 1. 整体匹配（原始值、小写）
-  const mapped = categoryLabelMap[raw] || categoryLabelMap[raw.toLowerCase()]
-  if (mapped) return mapped
-  // 2. 规范化后整体匹配
-  const normalized = normalizeLabel(raw)
-  const mappedNorm = categoryLabelMap[normalized] || categoryLabelMap[normalized.toLowerCase()]
-  if (mappedNorm) return mappedNorm
-  // 3. 逐词翻译：如果所有词都能翻译成中文，则拼中文；否则保留规范化的英文格式
-  const parts = normalized.split(' ').filter(Boolean)
-  const translated = parts.map((part) => categoryLabelMap[part.toLowerCase()] || null)
-  if (translated.every(Boolean)) {
-    return translated.join('')
-  }
-  // 4. 处理中英文混合（如"系统tampering"）
-  const mixedZhEn = raw.replace(/([\u4e00-\u9fa5]+)([a-zA-Z_]+)/g, (_, zh, en) => {
-    const enMapped = categoryLabelMap[en.toLowerCase()]
-    return enMapped ? zh + enMapped : zh + en
-  }).replace(/([a-zA-Z_]+)([\u4e00-\u9fa5]+)/g, (_, en, zh) => {
-    const enMapped = categoryLabelMap[en.toLowerCase()]
-    return enMapped ? enMapped + zh : en + zh
-  })
-  if (mixedZhEn !== raw) {
-    return mixedZhEn
-  }
-
-  // 5. 混合翻译（能翻就翻，不能翻保留英文词，首字母大写）
-  const mixed = parts.map((part, i) => {
-    const t = categoryLabelMap[part.toLowerCase()]
-    if (t) return t
-    return i === 0 ? part.charAt(0).toUpperCase() + part.slice(1) : part
-  })
-  return mixed.join(' ')
+  return translateSkillPeckerLabel(value)
 }
 
 function isUnknownLike(value?: string) {
@@ -298,7 +264,7 @@ function decisionBadgeVariant(level?: string): 'high' | 'medium' | 'low' | 'unkn
 }
 
 function formatScore(value?: number) {
-  return `${Math.round(value ?? 0)}/10`
+  return formatSkillPeckerScore(value)
 }
 
 function getStatusLabel(status?: string) {
