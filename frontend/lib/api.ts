@@ -493,6 +493,10 @@ export async function downloadReport(id: string, format: 'pdf' | 'json'): Promis
     })
   }
   const response = await fetch(`${API_BASE}/reports/${id}/download?format=${format}`)
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({ message: `HTTP ${response.status}` }))
+    throw new Error(error.message || `HTTP ${response.status}`)
+  }
   return response.blob()
 }
 

@@ -34,6 +34,8 @@
     --line-soft: rgba(15, 23, 42, 0.08);
     --grid-line: rgba(125, 211, 252, 0.12);
     --layout-max: min(1280px, calc(100vw - 32px));
+    --app-topbar-height: 156px;
+    --app-topbar-offset: calc(var(--app-topbar-height) + 0.75rem);
   }
 
   .dark {
@@ -726,18 +728,19 @@
 
 .safe-home-screen {
   width: 100%;
-  min-height: calc(100svh - 5.25rem);
-  height: calc(100svh - 5.25rem);
-  overflow: hidden;
-  padding: 0 1rem 1.1rem;
+  min-height: calc(100svh - var(--app-topbar-offset));
+  height: auto;
+  overflow: visible;
+  padding: 0 1rem 2rem;
 }
 
 .safe-home-stage {
   position: relative;
   width: min(1240px, calc(100vw - 32px));
   margin: 0 auto;
-  height: 100%;
-  padding: clamp(0.8rem, 2vw, 1.35rem) 0 0.6rem;
+  min-height: calc(100svh - var(--app-topbar-offset));
+  height: auto;
+  padding: clamp(0.8rem, 2vw, 1.35rem) 0 0.9rem;
 }
 
 .safe-home-grid {
@@ -760,13 +763,13 @@
   position: relative;
   z-index: 1;
   display: flex;
-  min-height: 100%;
+  min-height: calc(100svh - var(--app-topbar-offset) - 1rem);
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 0.95rem;
-  padding-top: 2.2rem;
-  padding-bottom: 0.55rem;
+  padding-top: clamp(1.4rem, 3vw, 2.2rem);
+  padding-bottom: 0.75rem;
   text-align: center;
 }
 

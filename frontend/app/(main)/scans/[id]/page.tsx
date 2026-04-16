@@ -319,7 +319,8 @@ export default function ScanDetailPage() {
         toast.success('PDF导出完成。')
       } else {
         // JSON导出
-        const blob = await downloadReport(scanId, format)
+        const reportTargetId = scan.reportId ?? scanId
+        const blob = await downloadReport(reportTargetId, format)
         const url = URL.createObjectURL(blob)
         const a = document.createElement('a')
         a.href = url

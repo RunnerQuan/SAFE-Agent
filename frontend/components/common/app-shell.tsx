@@ -1,5 +1,6 @@
 ﻿'use client'
 
+import type { CSSProperties } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -51,10 +52,12 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const isHome = pathname === '/'
   const isSkillPecker = pathname === '/skillpecker' || pathname.startsWith('/skillpecker/')
   const hideTimerRef = useRef<number | null>(null)
+  const topbarRef = useRef<HTMLElement | null>(null)
   const lastYRef = useRef(0)
 
   const [hidden, setHidden] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [topbarHeight, setTopbarHeight] = useState(156)
 
   useEffect(() => {
     const showTopbar = () => {
@@ -122,16 +125,53 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     }
   }, [isSkillPecker])
 
+  useEffect(() => {
+    const element = topbarRef.current
+    if (!element) {
+      return
+    }
+
+    const updateHeight = () => {
+      const nextHeight = Math.ceil(element.getBoundingClientRect().height)
+      if (nextHeight > 0) {
+        setTopbarHeight(nextHeight)
+      }
+    }
+
+    updateHeight()
+
+    const observer = new ResizeObserver(() => {
+      updateHeight()
+    })
+
+    observer.observe(element)
+    window.addEventListener('resize', updateHeight, { passive: true })
+
+    return () => {
+      observer.disconnect()
+      window.removeEventListener('resize', updateHeight)
+    }
+  }, [])
+
   const topbarClassName = useMemo(
     () => cn('topbar-shell', hidden && 'is-hidden', scrolled && 'is-scrolled'),
     [hidden, scrolled]
   )
 
+  const shellStyle = useMemo(
+    () =>
+      ({
+        '--app-topbar-height': `${topbarHeight}px`,
+        '--app-topbar-offset': `calc(${topbarHeight}px + 0.75rem)`,
+      }) as CSSProperties,
+    [topbarHeight]
+  )
+
   return (
-    <div className="relative min-h-screen overflow-x-hidden">
+    <div className="relative min-h-screen overflow-x-hidden" style={shellStyle}>
       <AnimatedBackground />
 
-      <header className={topbarClassName}>
+      <header ref={topbarRef} className={topbarClassName}>
         <div className="topbar">
           <a
             href="https://sse.sysu.edu.cn/"
@@ -182,7 +222,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       </header>
 
       {isHome ? (
-        <main className="relative z-10 px-0 pb-0 pt-20">
+        <main className="relative z-10 px-0 pb-0" style={{ paddingTop: 'var(--app-topbar-offset)' }}>
           <div className="animate-page-enter">{children}</div>
         </main>
       ) : isSkillPecker ? (
