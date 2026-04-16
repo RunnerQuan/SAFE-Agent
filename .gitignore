@@ -37,3 +37,4 @@ frontend/.next-codex-test*/
 frontend/*.tsbuildinfo
 
 backend/skillpecker/scan-results/
+backend/MTAtlas/data/

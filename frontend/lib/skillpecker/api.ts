@@ -114,12 +114,81 @@ function normalizeDecisionLevel(value: unknown): SkillPeckerDecisionLevel | unde
   return undefined
 }
 
-function humanizeLookupValue(value: string) {
+// 业务分类和主风险类别翻译映射
+const categoryTranslationMap: Record<string, string> = {
+  // 主风险类别
+  'permission overreach': '权限越界',
+  'permission_overreach': '权限越界',
+  'access boundary risk': '访问边界风险',
+  'access_boundary_risk': '访问边界风险',
+  'security risk': '安全风险',
+  'security_risk': '安全风险',
+  'data governance risk': '数据治理风险',
+  'data_governance_risk': '数据治理风险',
+  'data over collection': '数据过度收集',
+  'data_over_collection': '数据过度收集',
+  'data over-collection': '数据过度收集',
+  'execution system risk': '执行/系统风险',
+  'execution_system_risk': '执行/系统风险',
+  'execution / system risk': '执行/系统风险',
+  'explicit malicious behavior': '明确恶意运行行为',
+  'explicit_malicious_behavior': '明确恶意运行行为',
+
+  // 业务分类
+  'business': '业务',
+  'architecture patterns': '架构模式',
+  'architecture_patterns': '架构模式',
+  'backend': '后端',
+  'business apps': '业务应用',
+  'business_apps': '业务应用',
+  'academic': '学术',
+  'cicd': 'CI/CD',
+  'bioinformatics': '生物信息学',
+  'blockchain': '区块链',
+  'automation tools': '自动化工具',
+  'automation_tools': '自动化工具',
+  'ai engineering': 'AI工程',
+  'ai_engineering': 'AI工程',
+  'general purpose': '通用工具',
+  'general_purpose': '通用工具',
+  'office productivity': '办公生产力',
+  'office_productivity': '办公生产力',
+  'data intelligence': '数据智能',
+  'data_intelligence': '数据智能',
+  'devops': '运维',
+  'testing security': '测试安全',
+  'testing_security': '测试安全',
+  'finance investment': '金融投资',
+  'finance_investment': '金融投资',
+  'project management': '项目管理',
+  'project_management': '项目管理',
+  'other': '其他',
+  'others': '其他',
+}
+
+function humanizeLookupValue(value: string): string {
+  const normalized = value
+    .replaceAll('_', ' ')
+    .replaceAll('-', ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .toLowerCase()
+  
+  // 尝试翻译
+  const translated = categoryTranslationMap[normalized]
+  if (translated) {
+    return translated
+  }
+  
+  // 如果没有翻译，返回格式化后的原始值（首字母大写）
   return value
     .replaceAll('_', ' ')
     .replaceAll('-', ' ')
     .replace(/\s+/g, ' ')
     .trim()
+    .split(' ')
+    .map((word, i) => i === 0 ? word.charAt(0).toUpperCase() + word.slice(1) : word)
+    .join(' ')
 }
 
 function extractErrorMessage(payload: unknown, fallbackStatus: number) {
