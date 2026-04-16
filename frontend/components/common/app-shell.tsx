@@ -168,7 +168,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   )
 
   return (
-    <div className="relative min-h-screen overflow-x-hidden" style={shellStyle}>
+    <div className="relative min-h-screen overflow-x-hidden overflow-y-visible" style={shellStyle}>
       <AnimatedBackground />
 
       <header ref={topbarRef} className={topbarClassName}>
