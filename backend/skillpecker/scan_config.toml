@@ -5,24 +5,20 @@ output_dir = "scan-output"
 [llm]
 # 可选 provider:
 # - deepseek
-# - openai
-# - openrouter
-# - groq
 # - moonshot
-# - together
-# - siliconflow
+# - kimi
+# - minimax
 # - dashscope
 # - glm
-# - anthropic
-# - gemini
+# - siliconflow
 # 常见 provider / model 示例:
 # - deepseek / deepseek-chat
-# - openai / gpt-4o-mini
+# - moonshot / moonshot-v1-8k
+# - kimi / kimi-k2.5
+# - minimax / MiniMax-M2.5
+# - dashscope / qwen-plus
 # - glm / glm-4.7
-# - openrouter / anthropic/claude-3.5-sonnet
-# - groq / llama-3.3-70b-versatile
-# - anthropic / claude-3-5-sonnet-20241022
-# - gemini / gemini-2.0-flash
+# - siliconflow / Qwen/Qwen2.5-72B-Instruct
 provider = "deepseek"
 
 # 不要把真实密钥提交到仓库：推荐用环境变量 SKILL_SCAN_API_KEY

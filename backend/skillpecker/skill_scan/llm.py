@@ -31,35 +31,23 @@ PROVIDER_PROFILES: dict[str, ProviderProfile] = {
         default_base_url="https://api.deepseek.com",
         description="DeepSeek OpenAI-compatible Chat Completions API",
     ),
-    "openai": ProviderProfile(
-        name="openai",
-        api_style="openai_compatible",
-        default_base_url="https://api.openai.com/v1",
-        description="OpenAI Chat Completions API",
-    ),
-    "openrouter": ProviderProfile(
-        name="openrouter",
-        api_style="openai_compatible",
-        default_base_url="https://openrouter.ai/api/v1",
-        description="OpenRouter OpenAI-compatible API",
-    ),
-    "groq": ProviderProfile(
-        name="groq",
-        api_style="openai_compatible",
-        default_base_url="https://api.groq.com/openai/v1",
-        description="Groq OpenAI-compatible API",
-    ),
     "moonshot": ProviderProfile(
         name="moonshot",
         api_style="openai_compatible",
         default_base_url="https://api.moonshot.cn/v1",
         description="Moonshot OpenAI-compatible API",
     ),
-    "together": ProviderProfile(
-        name="together",
+    "kimi": ProviderProfile(
+        name="kimi",
         api_style="openai_compatible",
-        default_base_url="https://api.together.xyz/v1",
-        description="Together AI OpenAI-compatible API",
+        default_base_url="https://api.moonshot.cn/v1",
+        description="Kimi OpenAI-compatible API",
+    ),
+    "minimax": ProviderProfile(
+        name="minimax",
+        api_style="openai_compatible",
+        default_base_url="https://api.minimaxi.com/v1",
+        description="MiniMax OpenAI-compatible Chat Completions API",
     ),
     "siliconflow": ProviderProfile(
         name="siliconflow",
@@ -78,18 +66,6 @@ PROVIDER_PROFILES: dict[str, ProviderProfile] = {
         api_style="openai_compatible",
         default_base_url="https://open.bigmodel.cn/api/paas/v4",
         description="Zhipu GLM OpenAI-compatible API",
-    ),
-    "anthropic": ProviderProfile(
-        name="anthropic",
-        api_style="anthropic_messages",
-        default_base_url="https://api.anthropic.com",
-        description="Anthropic Messages API",
-    ),
-    "gemini": ProviderProfile(
-        name="gemini",
-        api_style="gemini_generate_content",
-        default_base_url="https://generativelanguage.googleapis.com",
-        description="Google Gemini GenerateContent API",
     ),
 }
 

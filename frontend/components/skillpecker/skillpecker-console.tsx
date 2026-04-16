@@ -39,6 +39,7 @@ type DirectoryInputProps = InputHTMLAttributes<HTMLInputElement> & {
 type ProviderOption = {
   value: string
   label: string
+  defaultModel: string
   placeholder: string
   example: string
   compatibility: 'openai-compatible' | 'native'
@@ -53,78 +54,57 @@ const providerOptions: ProviderOption[] = [
   {
     value: 'deepseek',
     label: 'DeepSeek',
+    defaultModel: 'deepseek-chat',
     placeholder: 'deepseek-chat',
     example: 'deepseek-chat / deepseek-reasoner',
     compatibility: 'openai-compatible',
   },
   {
-    value: 'openai',
-    label: 'OpenAI',
-    placeholder: 'gpt-4.1-mini',
-    example: 'gpt-4.1-mini / gpt-4.1',
-    compatibility: 'openai-compatible',
-  },
-  {
-    value: 'openrouter',
-    label: 'OpenRouter',
-    placeholder: 'openai/gpt-4.1-mini',
-    example: 'openai/gpt-4.1-mini / anthropic/claude-3.7-sonnet',
-    compatibility: 'openai-compatible',
-  },
-  {
-    value: 'anthropic',
-    label: 'Anthropic',
-    placeholder: 'claude-3-7-sonnet-20250219',
-    example: 'claude-3-7-sonnet-20250219',
-    compatibility: 'native',
-  },
-  {
-    value: 'gemini',
-    label: 'Gemini',
-    placeholder: 'gemini-2.5-pro',
-    example: 'gemini-2.5-pro / gemini-2.5-flash',
-    compatibility: 'native',
-  },
-  {
-    value: 'groq',
-    label: 'Groq',
-    placeholder: 'llama-3.3-70b-versatile',
-    example: 'llama-3.3-70b-versatile',
-    compatibility: 'openai-compatible',
-  },
-  {
     value: 'moonshot',
-    label: 'Moonshot',
+    label: 'Moonshot AI',
+    defaultModel: 'moonshot-v1-8k',
     placeholder: 'moonshot-v1-8k',
     example: 'moonshot-v1-8k / moonshot-v1-128k',
     compatibility: 'openai-compatible',
   },
   {
-    value: 'together',
-    label: 'Together AI',
-    placeholder: 'meta-llama/Llama-3.3-70B-Instruct-Turbo',
-    example: 'meta-llama/Llama-3.3-70B-Instruct-Turbo',
-    compatibility: 'openai-compatible',
-  },
-  {
-    value: 'siliconflow',
-    label: 'SiliconFlow',
-    placeholder: 'Qwen/Qwen2.5-72B-Instruct',
-    example: 'Qwen/Qwen2.5-72B-Instruct',
-    compatibility: 'openai-compatible',
-  },
-  {
     value: 'dashscope',
     label: 'DashScope',
+    defaultModel: 'qwen-plus',
     placeholder: 'qwen-plus',
-    example: 'qwen-plus / qwen-max',
+    example: 'qwen-plus / qwen-max-latest',
     compatibility: 'openai-compatible',
   },
   {
     value: 'glm',
     label: 'GLM',
+    defaultModel: 'glm-4.7',
     placeholder: 'glm-4.7',
     example: 'glm-4.7 / glm-4.5-air / glm-4-plus',
+    compatibility: 'openai-compatible',
+  },
+  {
+    value: 'kimi',
+    label: 'Kimi',
+    defaultModel: 'kimi-k2.5',
+    placeholder: 'kimi-k2.5',
+    example: 'kimi-k2.5 / kimi-k2-0905-preview',
+    compatibility: 'openai-compatible',
+  },
+  {
+    value: 'minimax',
+    label: 'MiniMax',
+    defaultModel: 'MiniMax-M2.5',
+    placeholder: 'MiniMax-M2.5',
+    example: 'MiniMax-M2.5 / MiniMax-M2.5-highspeed',
+    compatibility: 'openai-compatible',
+  },
+  {
+    value: 'siliconflow',
+    label: 'SiliconFlow',
+    defaultModel: 'Qwen/Qwen2.5-72B-Instruct',
+    placeholder: 'Qwen/Qwen2.5-72B-Instruct',
+    example: 'Qwen/Qwen2.5-72B-Instruct / deepseek-ai/DeepSeek-V3',
     compatibility: 'openai-compatible',
   },
 ]
@@ -182,8 +162,8 @@ export function SkillPeckerConsole() {
   const [activeSkillName, setActiveSkillName] = useState<string>()
   const [showApiKey, setShowApiKey] = useState(false)
   const [scanConfig, setScanConfig] = useState<RuntimeScanConfig>({
-    provider: 'deepseek',
-    model: 'deepseek-chat',
+    provider: providerOptions[0].value,
+    model: providerOptions[0].defaultModel,
     apiKey: '',
   })
 
@@ -422,7 +402,14 @@ export function SkillPeckerConsole() {
                   </Label>
                   <Select
                     value={scanConfig.provider}
-                    onValueChange={(value) => setScanConfig((current) => ({ ...current, provider: value }))}
+                    onValueChange={(value) => {
+                      const nextProvider = getProviderMeta(value)
+                      setScanConfig((current) => ({
+                        ...current,
+                        provider: value,
+                        model: nextProvider.defaultModel,
+                      }))
+                    }}
                   >
                     <SelectTrigger id="skillpecker-provider">
                       <SelectValue placeholder="选择服务商" />
