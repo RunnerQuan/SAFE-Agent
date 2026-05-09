@@ -46,8 +46,8 @@ const OVERVIEW_FALLBACK: SkillPeckerOverview = {
     { label: '其他', value: 166, color: '#94a3b8' },
   ],
   metrics: [
-    { label: '扫描技能总量', value: '~100,000', accent: 'scan' },
-    { label: '问题技能数量', value: '1,350', accent: 'issue' },
+    { label: '扫描技能总量', value: '100000+', accent: 'scan' },
+    { label: '问题技能数量', value: '1350', accent: 'issue' },
     { label: '越界型占比', value: '88.7%', accent: 'overreach' },
   ],
 }
@@ -485,7 +485,7 @@ function buildBusinessCategoryTop(libraryItems: SkillPeckerLibraryItem[]) {
 
 function toMetricCount(value: number) {
   if (value >= 100000) {
-    return `~${value.toLocaleString()}`
+    return `${value}+`
   }
 
   return value.toLocaleString()
@@ -631,8 +631,8 @@ export async function getSkillPeckerOverview(): Promise<SkillPeckerOverview> {
         ? buildBusinessCategoryTop(library.items)
         : OVERVIEW_FALLBACK.businessCategoryTop,
       metrics: [
-        { label: '扫描技能总量', value: toMetricCount(library.count || OVERVIEW_FALLBACK.libraryCount), accent: 'scan' },
-        { label: '问题技能数量', value: (issueSkillCount || 1350).toLocaleString(), accent: 'issue' },
+        { label: '扫描技能总量', value: toMetricCount(OVERVIEW_FALLBACK.libraryCount), accent: 'scan' },
+        { label: '问题技能数量', value: '1350', accent: 'issue' },
         { label: '越界型占比', value: overreachRatio === '0.0%' ? OVERVIEW_FALLBACK.metrics[2].value : overreachRatio, accent: 'overreach' },
       ],
     }
